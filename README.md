@@ -8,11 +8,11 @@
 
 [![LaTeX](https://img.shields.io/badge/LaTeX-XeLaTeX-008080?logo=latex&logoColor=white)](https://www.latex-project.org/)
 [![License](https://img.shields.io/badge/License-CC_BY--NC_4.0-EF9421?logo=creativecommons&logoColor=white)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/YOUR_GITHUB_USERNAME/math-review-notes?color=blue)](https://github.com/YOUR_GITHUB_USERNAME/math-review-notes/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/YOUR_GITHUB_USERNAME/math-review-notes/total?color=brightgreen)](https://github.com/YOUR_GITHUB_USERNAME/math-review-notes/releases)
-[![Stars](https://img.shields.io/github/stars/YOUR_GITHUB_USERNAME/math-review-notes?style=flat&color=yellow)](https://github.com/YOUR_GITHUB_USERNAME/math-review-notes/stargazers)
+[![Release](https://img.shields.io/github/v/release/qkl12041016s/math-review-notes?color=blue)](https://github.com/qkl12041016s/math-review-notes/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/qkl12041016s/math-review-notes/total?color=brightgreen)](https://github.com/qkl12041016s/math-review-notes/releases)
+[![Stars](https://img.shields.io/github/stars/qkl12041016s/math-review-notes?style=flat&color=yellow)](https://github.com/qkl12041016s/math-review-notes/stargazers)
 
-[下载最新版 PDF](https://github.com/YOUR_GITHUB_USERNAME/math-review-notes/releases/latest)
+[下载最新版 PDF](https://github.com/qkl12041016s/math-review-notes/releases/latest)
 ·
 [查看源码](#项目结构)
 ·
@@ -144,7 +144,7 @@ math-review-notes/
 
 ## 下载 PDF
 
-推荐从 [GitHub Releases](https://github.com/YOUR_GITHUB_USERNAME/math-review-notes/releases/latest) 下载已经编译完成的版本：
+推荐从 [GitHub Releases](https://github.com/qkl12041016s/math-review-notes/releases/latest) 下载已经编译完成的版本：
 
 - `高等数学考研与竞赛复习册.pdf`
 - `线性代数考研与竞赛复习册.pdf`
@@ -179,7 +179,7 @@ latexmk -c
 
 ## 反馈与贡献
 
-如发现笔误、公式问题、交叉引用错误或排版异常，欢迎提交 [Issue](https://github.com/YOUR_GITHUB_USERNAME/math-review-notes/issues) 或 [Pull Request](https://github.com/YOUR_GITHUB_USERNAME/math-review-notes/pulls)。
+如发现笔误、公式问题、交叉引用错误或排版异常，欢迎提交 [Issue](https://github.com/qkl12041016s/math-review-notes/issues) 或 [Pull Request](https://github.com/qkl12041016s/math-review-notes/pulls)。
 
 提交问题时请尽量注明所属书册、章节与页码，并附上原文、截图或建议修改方式。
 
