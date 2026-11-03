@@ -1,0 +1,11 @@
+\label{der:8-1}
+和矩阵的像包含于$\im A+\im B$，故$\rank(A+B)\le\dim\im A+\dim\im B$。对$A=(A+B)-B$同样使用上界，得$\rank A-\rank B\le\rank(A+B)$；交换$A,B$得到另一侧，合并即绝对值下界。
+
+对乘积，令$X=\im B\subseteq\F^n$，限制映射$A|_X$的核是$X\cap\ker A$，像是$\im AB$。秩--零化度定理给精确等式
+\[\rank AB=\rank B-\dim(X\cap\ker A).\]
+由于交空间维数介于0与$\dim\ker A=n-\rank A$之间，得到$\rank AB\le\rank B$及Sylvester下界；像包含$\im AB\subseteq\im A$再给另一个上界。
+
+对三因子，令$Y=\im BC\subseteq X=\im B$。同一限制映射分别给
+\[\rank AB=\dim X-\dim(X\cap\ker A),\qquad
+\rank ABC=\dim Y-\dim(Y\cap\ker A).\]
+因$Y\cap\ker A\subseteq X\cap\ker A$，后一个交空间维数之差非负。两式相减得$\rank AB-\rank ABC\le\dim X-\dim Y=\rank B-\rank BC$，移项即Frobenius不等式。所有空间尺寸已在$B$的输出空间中统一，不需要方阵假设。

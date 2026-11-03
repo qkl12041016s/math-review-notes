@@ -1,0 +1,264 @@
+\chapter{参数估计}\label{ch:07}
+\chaptermap{矩与似然\\构造估计}{偏差、风险\\信息下界}{充分与完备\\条件降方差}{Bayes更新\\枢轴区间}
+\begin{examtip}
+\textbf{考研核心：}矩估计、极大似然、无偏性、有效性、一致性、正态总体区间。
+\textbf{竞赛拓展：}非正则端点、充分统计量、Cramér--Rao下界与UMVU。
+\textbf{选学关联：}条件期望将估计误差作正交分解；Bayes均值在后验平方损失下最优。
+\end{examtip}
+\section{矩估计与极大似然估计}\label{sec:71}
+\src{李东风, §7.1—7.2；统计笔记, §4}
+\begin{definition}{两种构造原则}
+矩估计用理论矩$\E_\theta X^k$等于样本矩$A_k$解出参数；多参数模型须用足够多且可识别的矩。
+似然为$L(\theta;x)=\prod_i f_\theta(x_i)$，极大似然估计是可行参数空间上的最大化点。
+支持依赖参数时，指标函数是似然的一部分，不能丢掉后只求导。
+\end{definition}
+\begin{method}{似然优化的四步}
+适用：iid参数模型。写完整联合质量或密度与参数范围；取对数去常数；求内点驻点并检查凹性；再检查边界和是否真正达到最大。
+矩估计则先写理论矩，解方程后检查参数是否合法。
+\end{method}
+\worked{正态均值与方差}{考研风格}{\star\star}{7-1}
+{iid $\Normal(\mu,v)$样本，$v>0$未知，求矩估计与MLE。}
+{用一二阶矩与对数似然两法。}
+{方法一：$A_1=\mu,A_2=\mu^2+v$，所以$\hat\mu=\bar X,\hat v=A_2-\bar X^2=n^{-1}\sum(X_i-\bar X)^2$。
+方法二：$\ell=-\frac n2\log(2\pi v)-\frac1{2v}\sum(X_i-\mu)^2$。
+对固定$v$，二次项在$\mu=\bar X$最小；代入后$\partial_v\ell=-\frac{n}{2v}+\frac{Q}{2v^2}$，在$v=\frac{Q}{n}$两侧由正变负，得到同式（$Q>0$）。
+若$Q=0$，似然随$v\downarrow0$无界，$v>0$内无MLE；矩方程给$v=0$，也不属于题设参数空间，故无合法矩估计解。}
+{两种估计数值重合来自正态结构，但方差估计有偏。}
+{MLE方差除$n$，无偏方差除$n-1$；样本退化边界必须单独检查。}
+\worked{指数率参数}{考研风格}{\star\star}{7-2}
+{iid $\Exp(\lambda)$样本，求$\lambda$的MLE及$\Pp(X>t)$（$t\ge0$）的MLE。}
+{对率求导，再利用单调参数变换。}
+{$\ell=n\log\lambda-\lambda\sum X_i$，导数$\frac{n}{\lambda}-\sum X_i$，二阶导数$-\frac{n}{\lambda^2}<0$。
+故$\hat\lambda=\frac{n}{\sum X_i}=\frac{1}{\bar X}$。
+目标$g(\lambda)=e^{-\lambda t}$。$t>0$时它为一一变换，MLE为$e^{-\frac{t}{\bar X}}$；$t=0$时目标恒为1，其MLE也为1。矩估计由$\E X=\frac{1}{\lambda}$得到$\frac{1}{\bar X}$。}
+{一一变换不改变最大化所对应的模型点，产生MLE不变性。}
+{率的倒数估计均值，不要把$\bar X$本身写成率估计。}
+\worked{均匀端点的非正则估计}{竞赛风格}{\star\star}{7-3}
+{iid $U(0,\theta)$，比较矩估计与MLE。}
+{可行参数由最大样本$M$控制。}
+{矩法：$\E X=\frac{\theta}{2}$，故$\hat\theta_{\rm MM}=2\bar X$。
+取密度版本$\theta^{-1}\ind_{\{0\le x\le\theta\}}$，似然为$\theta^{-n}\ind_{\{\theta\ge M\}}$，在可行区间随$\theta$递减，MLE为$M$。
+若端点取开区间版本，最大值可能仅有上确界；通常约定闭支撑版本报告$M$。两个版本定义同一连续模型，但点态似然最大值的边界表达需说明。}
+{先保留支持约束，比盲目令导数为0更关键。}
+{对$\theta^{-n}$求导找不到驻点，不代表估计问题没有边界解。}
+
+\section{评价准则与Cramér--Rao下界}\label{sec:72}
+\src{统计笔记, §4—5；标量正则信息界}
+\begin{definition}{偏差、有效与一致}
+$\Bias_\theta T=\E_\theta T-g(\theta)$，$\MSE_\theta T=\Var_\theta T+\Bias_\theta(T)^2$。
+无偏指对每个$\theta$偏差均为0；一致指对每个固定$\theta$有$T_n\pto g(\theta)$。
+两个有限方差无偏估计$T_1,T_2$之间，若每个$\theta$都有$\Var_\theta T_1\le\Var_\theta T_2$，可称$T_1$比$T_2$有效；在某一无偏类中一致最小或达到信息下界时，应明确指出比较类和条件。
+单观测得分$s_\theta=\partial_\theta\log f_\theta(X)$，信息$I_1(\theta)=\E s_\theta^2$。
+\end{definition}
+\begin{theorem}{Cramér--Rao下界}
+支持不随参数变化，参数为内点，积分与所需一二阶导数可交换，且$0<I_1(\theta)<\infty$时，
+$\E s_\theta=0$、$I_1=-\E\partial_\theta^2\log f_\theta$。
+对$n$个iid观测，若$T$为可微$g(\theta)$的有限方差无偏估计，且允许对其期望求导，则
+\[\Var_\theta T\ge\dfrac{[g'(\theta)]^2}{nI_1(\theta)}.\]
+\end{theorem}
+\begin{proof}
+由$\int f_\theta=1$求导得$\E s_\theta=0$；再次求导得$\E(s_\theta^2+\partial_\theta s_\theta)=0$。
+总得分$U=\sum s_\theta(X_i)$均值0、方差$nI_1$。
+对$\E_\theta T=g(\theta)$求导给$g'=\E(TU)=\Cov(T,U)$。
+Cauchy给$(g')^2\le\Var(T)nI_1$；等号要求$T-g$与$U$几乎必然成比例。
+\end{proof}
+\begin{method}{先定比较类，再算风险}
+适用：两个估计量比较。分别求期望、方差、MSE与概率极限；无偏类内才可只比方差。
+套信息界前检查参数支持，端点模型不能照搬正则下界。
+\end{method}
+\worked{Poisson均值估计的三项评价}{考研风格}{\star\star}{7-4}
+{iid $\Pois(\lambda)$且$\lambda>0$，评价$\bar X$，并比较$X_1$。}
+{用直接矩与信息下界互证有效性。}
+{方法一：$\E\bar X=\lambda$、$\Var\bar X=\frac{\lambda}{n}$，Chebyshev给一致性；$X_1$也无偏，但方差$\lambda$不随$n$减小。
+方法二：得分$\frac{X}{\lambda}-1$，信息$I_1=\frac{\Var X}{\lambda^2}=\frac{1}{\lambda}$，CR下界为$\frac{\lambda}{n}$，$\bar X$达到，故在正则无偏类中有效。
+当$n>1$时，$X_1$在该比较类中方差更大。}
+{无偏、有效、一致是三种独立需要检验的性质。}
+{无偏不保证一致；固定使用首个观测是直接反例。}
+\worked{有偏估计可以有更小MSE}{考研风格}{\star\star}{7-5}
+{正态总体均值已知为0，比较$T=\frac{Q}{n}$与$T_c=\frac{Q}{n+2}$估计$\sigma^2$，其中$Q=\sum X_i^2$。}
+{用卡方矩分别算方差与偏差。}
+{$\frac{Q}{\sigma^2}\sim\chi_n^2$，故$\E Q=n\sigma^2,\Var Q=2n\sigma^4$。
+$T$无偏，MSE为$\frac{2\sigma^4}{n}$。
+$T_c$偏差$-\frac{2\sigma^2}{n+2}$，方差$\frac{2n\sigma^4}{(n+2)^2}$，所以MSE为$\frac{2\sigma^4}{n+2}$，严格较小。
+两者都一致，但优化目标不同。}
+{减小方差可以补偿小偏差，MSE评价不能只看无偏。}
+{这里均值已知，卡方自由度为$n$。}
+\worked{条件降方差的积分解释}{测度论选学}{\star\star}{7-6}
+{设$T$无偏估计$g(\theta)$，$S$充分且$T\in L^2$。说明$T^*=\E(T\given S)$为何仍是可用的无偏改进估计。}
+{充分性使条件分布不依赖未知参数。}
+{$T^*$是$S$的函数，且由充分性可选不依赖$\theta$的表达式，因此仍是统计量。
+塔式性质给$\E T^*=\E T=g(\theta)$。
+全方差给$\Var T=\E\Var(T\given S)+\Var T^*$，故方差不增。
+若没有充分性，条件期望的表达式可能仍含未知参数，就不能自动作为估计量。}
+{条件平均去掉对目标无用的额外随机性，这是Rao--Blackwell思想。}
+{只写“条件期望方差较小”还不够，必须检查新表达式能由数据算出。}
+
+\section{充分性、完备性与UMVU}\label{sec:73}
+\src{因子分解、Rao--Blackwell与Lehmann--Scheffé理论}
+\begin{definition}{充分与完备}
+在本册的实值或有限维Borel样本模型中，统计量$S$充分指给定$S$后样本的条件分布可选为一个对所有$\theta$共同适用且不依赖$\theta$的版本。
+受共同的$\sigma$有限测度支配的模型可用因子分解$f_\theta(x)=g_\theta(S(x))h(x)$判断充分性。
+$S$完备指对所有$\theta$若$\E_\theta a(S)=0$且绝对可积，则$a(S)=0$几乎必然。
+UMVU是对所有$\theta$在全部有限方差无偏估计量中方差最小的估计。
+\end{definition}
+\begin{theorem}{完备充分统计量给UMVU}
+若$S$完备充分，且$\delta(S)$对每个$\theta$均为$g(\theta)$的有限方差无偏估计，则$\delta(S)$是唯一的UMVU（按每个模型的几乎处处相等识别）。
+\end{theorem}
+\begin{proof}
+任取另一个无偏$T$，Rao--Blackwell化$T^*=\E(T\given S)$仍无偏且方差不增。
+因为$\E_\theta[T^*-\delta(S)]=0$对所有$\theta$成立，完备性给$T^*=\delta(S)$几乎必然，故$\Var\delta\le\Var T$。
+任何另一$S$函数无偏估计同样由完备性与$\delta$相等；若某UMVU还含额外条件方差，全方差会严格增大，故唯一性成立。
+因子分解判据的直观证明是给定$S=s$后$g_\theta(s)$在归一化中消去，只剩$h$；一般形式可由条件分布的可测分解严格化。
+\end{proof}
+\begin{method}{先找联合似然中压缩数据的部分}
+适用：指数族与端点族。因子分解找充分统计量；再证明完备或引用有条件的族定理；最后将容易构造的无偏估计条件化。
+“充分”本身只支持降方差，唯一UMVU还需要完备性或其他论证。
+\end{method}
+\worked{Bernoulli参数的条件改进}{考研风格}{\star\star\star}{7-7}
+{iid Bernoulli$(p)$，令$S=\sum X_i$，由$X_1$构造$p$的UMVU。}
+{先因子分解，再利用条件交换性。}
+{似然$p^S(1-p)^{n-S}$说明$S$充分。
+方法一：给定$S=s$时成功位置均匀，$\E(X_1\given S=s)=\frac{s}{n}$，故改进量为$\bar X$。
+方法二：交换性给各$\E(X_i\given S)$相同，相加为$S$，每个必须为$\frac{S}{n}$。
+完备性：若$\sum_{s=0}^na(s)\binom ns p^s(1-p)^{n-s}=0$，除$(1-p)^n$，得到关于$\frac{p}{1-p}>0$的恒零多项式，各系数为0。故$\bar X$为UMVU。}
+{计数条件化与交换性是同一结论的组合与代数两种解释。}
+{完备性要求期望对所有$p\in(0,1)$为0，仅一个$p$不够。}
+\worked{Poisson零概率的UMVU}{考研风格}{\star\star\star}{7-8}
+{iid $\Pois(\lambda)$，求$e^{-\lambda}$的UMVU（$n\ge2$）。}
+{从$\ind_{\{X_1=0\}}$开始条件化。}
+{$S=\sum X_i\sim\Pois(n\lambda)$充分。
+给定$S=s$，$X_1\sim\Bin(s,\frac{1}{n})$，故$\Pp(X_1=0\given S=s)=(1-\frac{1}{n})^s$。
+因此$\delta(S)=(1-\frac{1}{n})^S$无偏。
+若$\E a(S)=0$对所有$\lambda>0$，乘$e^{n\lambda}$得幂级数$\sum_s \frac{a(s)(n\lambda)^s}{s!}=0$，绝对可积保证各正实点绝对收敛，幂级数唯一性使全部系数为0，故完备，$\delta$为UMVU。}
+{先找一个易于验证无偏的初始估计，再条件化，常比直接猜公式容易。}
+{插件估计$e^{-\bar X}$一般不无偏，不能据MLE不变性称其UMVU。}
+\worked{均匀最大值的完备性}{竞赛风格}{\star\star\star}{7-9}
+{在$U(0,\theta)$模型中证明$M$完备，并求$\theta$的UMVU。}
+{将“所有参数下均值为零”写成变上限积分。}
+{$M$密度为$\frac{nm^{n-1}}{\theta^n}$，联合似然通过$M$依赖数据，所以充分。
+若$\E_\theta a(M)=0$，则$\int_0^\theta a(m)m^{n-1}\dd m=0$对所有$\theta>0$成立。
+该积分局部绝对连续，几乎处处求导得$a(\theta)\theta^{n-1}=0$，故$a(m)=0$对Lebesgue几乎处处成立，进而对每个$M$分布几乎必然为0。
+由$\E M=\frac{n\theta}{n+1}$，$\delta=\frac{(n+1)M}{n}$无偏，因此UMVU。}
+{端点模型虽不正则，充分完备方法仍能有效工作。}
+{不能因CR条件失败就否定UMVU存在。}
+
+\section{Bayes估计与共轭更新}\label{sec:74}
+\src{共轭Bayes估计；统计笔记, §10}
+\begin{definition}{后验与Bayes行动}
+先验密度$\pi(\theta)$与似然相乘，在归一化常数满足$0<\int L(u;x)\pi(u)\dd u<\infty$时，得到后验密度
+$\pi(\theta\given x)=\frac{L(\theta;x)\pi(\theta)}{\int L(u;x)\pi(u)\dd u}$。
+后验二阶矩有限时，平方损失下后验均值唯一最优；后验一阶绝对矩有限时，绝对损失下任一后验中位数最优。后验密度的最大化点称MAP，需存在且依所选参数化解释，通常不等于平方损失最优估计。
+\end{definition}
+\begin{proof}
+平方损失的后验风险为$\E[(\theta-a)^2\given x]=\Var(\theta\given x)+(\E(\theta\given x)-a)^2$，由平方分解立即最小于后验均值。
+绝对损失对$a$的左右导数由后验左右概率决定，0介于两单侧导数之间恰等价于中位数条件。
+\end{proof}
+\begin{method}{只识别后验核，最后再归一化}
+适用：Beta--Bernoulli、Gamma--Poisson/指数、正态--正态。保留所有含参数的因子；将指数与幂次合并，识别分布族后读均值。
+率与尺度、形状与成功次数的常数项须明确。
+\end{method}
+\worked{Bernoulli的三种估计}{考研风格}{\star\star}{7-10}
+{10次Bernoulli试验成功7次，先验$p\sim\Beta(2,2)$，比较矩估计、MLE和平方损失Bayes估计。}
+{理论均值、似然峰值与后验平均各对应一种原则。}
+{矩法以$p=\bar x$得$0.7$；MLE由$p^7(1-p)^3$最大化也为$0.7$。
+先验核为$p(1-p)$，相乘后为$p^8(1-p)^4$，所以后验$\Beta(9,5)$，后验均值$\frac{9}{14}$。
+一般形式为$\frac{S+a}{n+a+b}=\frac n{n+a+b}\bar X+\frac{a+b}{n+a+b}\frac a{a+b}$。
+Beta均值由$\frac{B(a+1,b)}{B(a,b)}=\frac{a}{a+b}$得到。}
+{后验均值是样本频率与先验均值的加权平均；样本增大时先验权重减小。}
+{本题MAP为$\frac{8}{12}=\frac{2}{3}$，不等于后验均值。}
+\worked{正态均值的共轭配方}{考研风格}{\star\star}{7-11}
+{已知总体方差$\sigma^2>0$，$X_i\iid\Normal(\mu,\sigma^2)$，先验$\mu\sim\Normal(m_0,\tau^2)$且$\tau^2>0$，推导后验。}
+{对$\mu$的二次式配方。}
+{似然中含$\mu$的指数是$-\frac{n(\mu-\bar x)^2}{2\sigma^2}$，乘先验后精度相加：
+\[v_n=(\dfrac{n}{\sigma^2}+\dfrac{1}{\tau^2})^{-1},\qquad m_n=v_n(\dfrac{n\bar x}{\sigma^2}+\dfrac{m_0}{\tau^2}).\]
+展开两个平方，$\mu^2$系数为$v_n^{-1}$，线性项为$-2m_nv_n^{-1}\mu$，因此后验为$\Normal(m_n,v_n)$。
+平方损失Bayes估计与MAP都等于$m_n$，这是正态对称性的结果。}
+{配方等价于用精度为权重合并两条信息。}
+{先验方差越小，先验精度越大，不能反向理解权重。}
+\worked{指数率的后验与无偏修正}{竞赛风格}{\star\star\star}{7-12}
+{指数率$\lambda$先验$\Ga(a,b)$，样本和$T$，求后验均值，并比较MLE的无偏修正。}
+{率参数同样以Gamma族共轭。}
+{似然核$\lambda^ne^{-T\lambda}$与先验$\lambda^{a-1}e^{-b\lambda}$相乘，后验$\Ga(a+n,b+T)$，均值$\frac{a+n}{b+T}$。
+MLE为$\frac{n}{T}$。由于$T\sim\Ga(n,\lambda)$，$n>1$时
+$\E(\frac{1}{T})=\frac{\lambda\Gamma(n-1)}{\Gamma(n)}=\frac{\lambda}{n-1}$，所以$\frac{n-1}{T}$无偏。
+三个公式分别体现后验风险、似然与有限样本无偏准则。}
+{同一参数可有不同合理估计，比较时必须先明确目标。}
+{当$n=1$时$\frac{1}{T}$期望发散，不能套无偏修正式。}
+
+\section{枢轴量与区间估计}\label{sec:75}
+\src{李东风, §7.4—7.5；统计笔记, §5}
+\begin{definition}{置信区间}
+区间$[L(X),U(X)]$若对所有$\theta$有$\Pp_\theta(L\le\theta\le U)\ge1-\alpha$，称置信系数至少$1-\alpha$。
+频率解释把参数固定、区间随机；后验可信区间则是在给定数据的后验概率下描述参数。
+\end{definition}
+\begin{method}{枢轴选分布，事件反解参数}
+适用：正态均值方差、方差比、指数率。先写不含未知参数的枢轴分布，选两尾概率，再解不等式。
+倒数变换会反转端点；区间长度、单侧和双侧必须与目标一致。
+\end{method}
+\worked{正态均值区间的两条路线}{考研风格}{\star\star}{7-13}
+{正态总体方差未知，$n=16,\bar x=10,s=2$，求95\%均值区间。}
+{用$t$枢轴或反演双侧检验。}
+{方法一：$T=\frac{\sqrt n(\bar X-\mu)}{S}\sim t_{15}$，由$|T|\le t_{15,.975}$反解，得$[10-0.5t_{15,.975},10+0.5t_{15,.975}]$。
+方法二：对每个候选$\mu_0$，保留所有满足$|\frac{4(10-\mu_0)}{2}|\le t_{15,.975}$的不被拒绝值，解同一不等式得到相同区间。
+用$t_{15,.975}\approx2.131450$计算，区间约$[8.9343,11.0657]$。}
+{枢轴法直接；检验反演法揭示置信集合与假设检验的对偶。}
+{区间形成后不能在频率解释下说固定$\mu$有95\%概率落在这一个已实现区间。}
+\worked{方差与方差比区间}{考研风格}{\star\star}{7-14}
+{写正态方差$\sigma^2$以及两独立正态总体方差比$r=\frac{\sigma_X^2}{\sigma_Y^2}$的等尾区间。}
+{两个正枢轴取倒数后端点逆序。}
+{令$\nu=n-1$。从$\chi^2_{\nu,\frac{\alpha}{2}}\le\frac{\nu S^2}{\sigma^2}\le\chi^2_{\nu,1-\frac{\alpha}{2}}$反解得
+\[\left[\dfrac{\nu S^2}{\chi^2_{\nu,1-\frac{\alpha}{2}}},\dfrac{\nu S^2}{\chi^2_{\nu,\frac{\alpha}{2}}}\right].\]
+两样本令$d_1=m-1,d_2=n-1$，方差比枢轴满足
+\[\dfrac{\frac{S_X^2}{S_Y^2}}{r}\sim F_{d_1,d_2}.\]
+故区间为
+\[\left[\dfrac{\frac{S_X^2}{S_Y^2}}{F_{d_1,d_2;1-\frac{\alpha}{2}}},\dfrac{\frac{S_X^2}{S_Y^2}}{F_{d_1,d_2;\frac{\alpha}{2}}}\right].\]}
+{均值未知已各消耗一个自由度，区间一般不对称。}
+{参数是方差比，不是标准差比；若求标准差比再整体开平方。}
+\worked{指数率的精确区间}{考研风格}{\star\star}{7-15}
+{iid $\Exp(\lambda)$，样本和$T$，构造率参数$\lambda$的$1-\alpha$区间。}
+{把Gamma变量缩放成卡方。}
+{方法一：$T\sim\Ga(n,\lambda)$，令$Q=2\lambda T$，换元密度给$Q\sim\Ga(n,\frac{1}{2})=\chi_{2n}^2$。
+方法二：每个$2\lambda X_i\sim\chi_2^2$，独立卡方相加的自由度相加，故$Q=\sum_i2\lambda X_i\sim\chi_{2n}^2$。
+因此$\Pp(\chi^2_{2n,\frac{\alpha}{2}}\le2\lambda T\le\chi^2_{2n,1-\frac{\alpha}{2}})=1-\alpha$，反解得
+$[\frac{\chi^2_{2n,\frac{\alpha}{2}}}{2T},\frac{\chi^2_{2n,1-\frac{\alpha}{2}}}{2T}]$。
+若估计均值$\frac{1}{\lambda}$，倒数后交换端点。}
+{Gamma总和提供非正态总体下的精确有限样本区间。}
+{这里对$\lambda$是线性反解，端点不逆序；对其倒数才逆序。}
+\begin{warning}
+矩与MLE可能有偏、可能不唯一或不在参数空间内；先检查边界。
+UMVU只在无偏类中最优，不保证全体估计量中MSE最小。
+正则信息界不能用于支持依赖参数的均匀端点模型。
+\end{warning}
+
+\section*{图解、理解与巧解复盘}
+\begin{insight}{估计量是规则，估计值是这次数据的输出}
+无偏、方差、MSE和一致性评价同一规则在重复样本中的表现，不能用某一次估计“离真值更近”来证明有效。
+充分性压缩数据而保留参数信息；完备性使充分统计量上的无偏表达式唯一；两者结合才产生UMVU结论。
+\end{insight}
+\begin{clevertrick}{指数率枢轴的第二种推导}
+例\ref{ex:7-15}可作两法核验。方法一是Gamma密度换元。方法二：每个$2\lambda X_i$尾概率为$e^{-\frac{u}{2}}$，所以为$\chi_2^2$；独立卡方相加给$2\lambda\sum_iX_i\sim\chi_{2n}^2$。
+区间反演时$\lambda$与统计量正比，端点不逆序；改估平均寿命$\frac{1}{\lambda}$才取倒数并交换两端。
+\end{clevertrick}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.8\textwidth,height=3.8cm,axis lines=left,xlabel={$p$},ylabel={密度},xmin=0,xmax=1,ymin=0,ytick=\empty,legend style={draw=none,font=\small}]
+\addplot[Gold,thick,domain=0:1,samples=100]{6*x*(1-x)};\addlegendentry{先验Beta$(2,2)$}
+\addplot[Teal,thick,domain=0:1,samples=100]{6435*x^8*(1-x)^4};\addlegendentry{后验Beta$(9,5)$}
+\draw[Ink,dashed](axis cs:.7,0)--(axis cs:.7,3.2);
+\end{axis}\end{tikzpicture}\caption{10次成功7次后的Beta更新；竖线为MLE $0.7$，后验均值为$\frac{9}{14}$}\label{fig:beta-update}\end{figure}
+
+\section*{章末分层习题}
+\exercise{7-a}{基础}{Bernoulli样本$n=20$、成功12次，求$p$矩估计和MLE。}
+\exercise{7-b}{基础}{iid $\Pois(\lambda)$样本，证明$\bar X$无偏一致并计算MSE。}
+\exercise{7-c}{考研风格}{正态样本$n=25,\bar x=5,s=3$，写95\%均值与方差区间。}
+\exercise{7-d}{考研风格}{iid $U(0,\theta)$，求$2\bar X$和$\frac{(n+1)M}{n}$的方差并比较。}
+\exercise{7-e}{竞赛拓展}{Bernoulli样本$n\ge2$，构造$p^2$的UMVU。}
+\exercise{7-f}{竞赛拓展}{指数样本$n>2$，求$\frac{n-1}{T}$的方差并与CR下界比较。}
+\exercise{7-g}{测度论选学}{设$T\in L^2$、$S$充分，证明Rao--Blackwell方差改进取等当且仅当$T$是$S$的可测函数（按几乎必然意义）。}
+\exercise{7-h}{测度论选学}{先验$\Beta(a,b)$、Bernoulli样本成功$S$次，求下一次成功的后验预测概率。}
+\section*{章末方法速查}
+\begin{quicktable}
+矩与MLE&模型可识别&参数方程、联合似然&支持约束与边界漏掉\\
+信息下界&正则无偏类&有效性判断&参数支持随参数变\\
+条件化与UMVU&充分，唯一性另需完备&从简单无偏量改进&只证明充分就称唯一\\
+共轭与枢轴&先验明确或精确抽样分布&后验、区间&可信与置信混淆\\
+\end{quicktable}

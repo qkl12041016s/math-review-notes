@@ -1,0 +1,22 @@
+\section{实数基础、映射与逼近}\label{mat:real_foundations}
+\begin{examtip}完备性、映射与数值逼近构成极限方法的逻辑基础。\end{examtip}
+\subsection{确界、区间套与完备性}\label{mat:real_foundations:complete}
+\begin{method}{确界、区间套与完备性}\textbf{适用条件} 有界非空实数集或收缩闭区间。\par\textbf{实施与依据} 上确界是最小上界；区间套长度趋零时交集恰有一点。两者与实数Cauchy完备性等价。\end{method}
+\begin{example}{专题例题｜确界、区间套与完备性}{难度：$\star\star$}
+\textbf{题目} 用完备性构造$\sqrt2$。\par\textbf{思路与解答} 取$A=\{x\ge0:x^2<2\}$，非空有界，令$s=\sup A$。若$s^2<2$，可取充分小$h>0$使$(s+h)^2<2$，违背上界；若$s^2>2$，可取$h$使$(s-h)^2>2$，违背最小性。因此$s^2=2$。\par\textbf{方法点评与边界} Dedekind分割与Cauchy列等价类均可构造实数，本册采用确界公理组织证明。
+\end{example}
+\subsection{映射、反函数与函数方程}\label{mat:real_foundations:mapping}
+\begin{method}{映射、反函数与函数方程}\textbf{适用条件} 复合、单射和对称条件。\par\textbf{实施与依据} 先核对定义域与值域，再用代入、对称与单射消元。\end{method}
+\begin{example}{专题例题｜映射、反函数与函数方程}{难度：$\star\star$}
+\textbf{题目} 连续函数$f:\R\to\R$满足$f(x+y)=f(x)+f(y)$，证明$f(x)=cx$。\par\textbf{思路与解答} 令$c=f(1)$。代0得$f(0)=0$，归纳得$f(n)=nc$，再由$f(\frac{m}{n})=\frac{mc}{n}$得有理点成立。对任意实数取有理数列趋近，用连续性得到$f(x)=cx$。\par\textbf{方法点评与边界} 若无连续或其他正则性条件，不能把有理点结论直接延伸到实数。
+\end{example}
+\subsection{有理逼近与无理测度}\label{mat:real_foundations:approx}
+\begin{method}{有理逼近与无理测度}\textbf{适用条件} 需要用有理数逼近实数。\par\textbf{实施与依据} 将$0,\alpha,\ldots,N\alpha$的小数部分放入$N$等分区间，使用抽屉原理。\end{method}
+\begin{example}{专题例题｜有理逼近与无理测度}{难度：$\star\star$}
+\textbf{题目} 证明任意实数$\alpha$与整数$N\ge1$，存在$1\le q\le N$和整数$p$，使$|q\alpha-p|\le\frac{1}{N}$。\par\textbf{思路与解答} 两小数部分距离不超过$\frac{1}{N}$，相减得$q\alpha-p$，其中$q$为两指标差。无理数的无理测度可用满足$|\alpha-\frac{p}{q}|<q^{-\mu}$的无穷多逼近指数的上确界描述。\par\textbf{方法点评与边界} 抽屉论证给Dirichlet型逼近；不能由此声称任意无理数的最佳指数都相同。
+\end{example}
+\subsection{一致连续与反例}\label{mat:real_foundations:uniform}
+\begin{method}{一致连续与反例}\textbf{适用条件} 全域统一误差控制。\par\textbf{实施与依据} 紧集连续推出一致连续；非紧集上需另查导数界或显式反例。\end{method}
+\begin{example}{专题例题｜一致连续与反例}{难度：$\star\star$}
+\textbf{题目} 证明$x^2$在$\R$不一致连续。\par\textbf{思路与解答} 取$x_n=n,y_n=n+\frac{1}{n}$，距离趋0但$y_n^2-x_n^2=2+\frac{1}{n^2}\to2$，违背统一连续性。它在每个闭有界区间上一致连续。\par\textbf{方法点评与边界} 连续是逐点条件，一致连续是全域条件。
+\end{example}

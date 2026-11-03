@@ -1,0 +1,211 @@
+\chapter{特征值与相似：寻找合适的基}\label{ch:eigen}
+\chaptermap{特征值与谱}{相似与对角化}{实对称谱定理}{Jordan初步}
+\begin{examtip}
+\textbf{考研核心：}特征多项式、特征向量、迹与行列式、相似不变量、对角化及实对称矩阵的正交对角化。
+\textbf{竞赛视角：}从特征空间维数研究结构，用矩阵多项式处理幂；重根不足以判断对角化，必须核算几何重数。Jordan内容标为选学提高。
+\end{examtip}
+\section{特征多项式与谱的基本关系}
+\subsection{代数重数与几何重数}
+\begin{definition}{特征值、特征空间与重数}
+设$A\in\F^{n\times n}$。若存在$\lambda\in\F$及$\vx\in\F^n\setminus\{0\}$使$A\vx=\lambda\vx$，则$\lambda$称特征值，$\vx$称属于$\lambda$的特征向量。对一个特征值$\lambda$，特征空间$E_\lambda=\ker(A-\lambda I)$由其全部特征向量和零向量组成；零向量本身不是特征向量。$\chi_A(t)=\det(tI-A)$中$\lambda$作为根的重数称代数重数$a_\lambda$，$g_\lambda=\dim E_\lambda=n-\rank(A-\lambda I)$称几何重数。
+\end{definition}
+\begin{theorem}{谱恒等式}
+在复数域按代数重数列全部特征值$\lambda_i$，有
+\begin{equation}\sum_i\lambda_i=\tr A,\quad\prod_i\lambda_i=\det A,\quad
+1\le g_\lambda\le a_\lambda.\label{eq:spectrum}
+\end{equation}
+若$A\vx=\lambda\vx$，则$p(A)\vx=p(\lambda)\vx$；$A$可逆时$A\inv$在该向量上的特征值为$\frac{1}{\lambda}$。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch05_p1}
+\end{proof}
+\begin{method}{特征值先用结构筛选}
+三角矩阵直接读对角元；行和相同可试全1向量；低秩矩阵先找核。算出根后用迹、行列式核验。易错：对每个特征值必须解齐次方程，不能将任意非零向量配给该根。
+\end{method}
+\worked{三角矩阵的特征向量}{基础例题}{\star\star}{5-1}
+{求$A=\begin{pmatrix}2&1\\0&3\end{pmatrix}$的特征值与特征空间。}
+{特征值直接读，特征向量另解方程。}
+{\textbf{方法一：}$\chi_A(t)=\det\begin{pmatrix}t-2&-1\\0&t-3\end{pmatrix}=(t-2)(t-3)$，根为2、3。根2时$(A-2I)(x,y)\T=(y,y)\T=0$，得$y=0,x$任意，所以$E_2=\Span(e_1)$；根3时$(A-3I)(x,y)\T=(-x+y,0)\T=0$，得$y=x$，所以$E_3=\Span((1,1)\T)$。
+\textbf{方法二：}计算$Ae_1=(2,0)\T=2e_1$，$A(1,1)\T=(3,3)\T=3(1,1)\T$。两向量组成矩阵行列式1，独立且已有二维特征基，所以没有遗漏的特征方向或其他根。}
+{观察可省行列式，方程法更系统。}
+{特征空间写成所有倍数，特征向量需排除零倍数。}
+\worked{迹与行列式的核验}{考研风格}{\star}{5-2}
+{三阶矩阵特征值为$1,2,\lambda$且迹为7，求行列式与$\tr(A^2)$。}
+{按代数重数计入全部根。}
+{由迹关系$1+2+\lambda=7$，得$\lambda=4$。按代数重数取乘积，$\det A=1\cdot2\cdot4=8$。上三角化后$A$对角为$1,2,4$，平方的对角逐项平方，因此$\tr(A^2)=1^2+2^2+4^2=1+4+16=21$。这一推导不需要先假设对角化；本题三根互异虽确可对角化，但一般迹幂公式也成立。}
+{迹可检查根的和，但一般不能唯一确定全部根。}
+{$\tr(A^2)$通常不等于$(\tr A)^2$。}
+\worked{多项式的特征值}{考研风格}{\star\star}{5-3}
+{若$A$的特征值为$1,2,3$，求$A^2-3A+2I$的行列式。}
+{把多项式作用于每个特征值。}
+{\textbf{方法一：}令$p(t)=t^2-3t+2=(t-1)(t-2)$。谱映射给$p(A)$的根依次为$p(1)=0,p(2)=0,p(3)=9-9+2=2$，因此$\det p(A)=0\cdot0\cdot2=0$。
+\textbf{方法二：}$p(A)=(A-I)(A-2I)$，因为$I$与$A$可交换。$A$含特征值1和2，分别使$A-I,A-2I$奇异，两个行列式为零；乘积公式给$\det p(A)=\det(A-I)\det(A-2I)=0$。第二法只需识别一个零因子就足够。}
+{只求行列式时无需特征向量。}
+{$p(A)$可能比$A$有更大的特征空间，不能据新谱反推旧结构。}
+\worked{秩一矩阵的谱}{竞赛风格}{\star\star\star}{5-4}
+{非零列向量$\vu,\vv\in\R^n$，研究$K=\vu\vv\T$的特征值及其可对角化条件。}
+{唯一可能非零特征值是$\vv\T\vu=c$。}
+{先有$Kx=u(v\T x)$，所以像包含$\Span(u)$，且$u,v$非零保证$K$秩1。记$c=v\T u$，则$Ku=cu$、$K^2=cK$。
+\textbf{方法一：}若$c\ne0$，$u\notin\ker v\T$；两空间维数为1和$n-1$，交为零，构成直和。在$\Span(u)$上特征值$c$，在$\ker v\T$上为0，拼基得到可对角化。若$c=0$，$K^2=0$且$K\ne0$，任一特征值满足$\lambda^2=0$，全为0；若可对角化就相似于零阵，迫使$K=0$，矛盾。
+\textbf{方法二：}当$c\ne0$，令$P=\frac{K}{c}$，则$P^2=P$，故空间分解成$\im P\oplus\ker P$，其上$K$分别乘$c,0$。等价地，零化多项式$t(t-c)$互异一次因子保证可对角化。$c=0$时最低零化多项式为$t^2$，有重因子，得到同样否定结论。}
+{空间法直接构造特征基；多项式法在第8章获得统一判据。}
+{秩一不保证非零特征值存在，$\vu\perp\vv$就是反例。}
+\section{相似与对角化判定}
+\subsection{根的重数与特征向量数}
+\begin{definition}{相似与相似对角化}
+若$B=P\inv AP$且$P$可逆，称$A,B$相似。若可取$B=\diag(\lambda_i)$，称$A$可对角化。等式$AP=P\Lambda$表示$P$的每列为与$\Lambda$对角元同序的特征向量。
+\end{definition}
+\begin{theorem}{对角化的充要条件}
+在特征多项式可分裂的数域上，$A$可对角化当且仅当有$n$个独立特征向量，当且仅当每个根均有$g_\lambda=a_\lambda$。不同特征值的特征向量线性无关；具有$n$个互异特征值必可对角化。相似保特征多项式、秩、迹、行列式，但这些量全部相同仍未必相似。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch05_p2}
+\end{proof}
+\begin{method}{重根用秩补足判断}
+先求$\chi_A$，逐根算$n-\rank(A-\lambda I)$；每个几何重数等于代数重数才可对角化。构造$P$后检验$AP=P\Lambda$，比求$P\inv$再连乘省算。易错：重根可能可对角化，也可能不可。
+\end{method}
+\worked{构造对角化矩阵}{考研风格}{\star\star}{5-5}
+{对角化例\ref{ex:5-1}中的$A$并求$A^m$，$m\ge0$。}
+{把两个特征向量按根的顺序拼列。}
+{\textbf{方法一：}以对应根2、3的向量拼$P=\begin{pmatrix}1&1\\0&1\end{pmatrix}$，逆为$\begin{pmatrix}1&-1\\0&1\end{pmatrix}$。逐列$AP=P\diag(2,3)$，故
+\[A^m=P\diag(2^m,3^m)P\inv=\begin{pmatrix}2^m&3^m\\0&3^m\end{pmatrix}\begin{pmatrix}1&-1\\0&1\end{pmatrix}=\begin{pmatrix}2^m&3^m-2^m\\0&3^m\end{pmatrix}.\]
+\textbf{方法二：}写$A^m=\begin{pmatrix}2^m&b_m\\0&3^m\end{pmatrix}$，$A^{m+1}=A^mA$给$b_{m+1}=2^m+3b_m,b_0=0$。设$b_m=3^m-2^m$，则$2^m+3(3^m-2^m)=3^{m+1}-2^{m+1}$，且初值成立，故归纳得到同式，包含$m=0$。}
+{对角化同时处理所有幂；递推适合只追踪少量元素。}
+{$P$列交换时$\Lambda$对角元必须同步交换。}
+\worked{二重根的秩判定}{考研风格}{\star\star}{5-6}
+{判断$A=\begin{pmatrix}2&1\\0&2\end{pmatrix}$是否可对角化。}
+{唯一根2的代数重数是2。}
+{\textbf{方法一：}$\chi_A(t)=(t-2)^2$，代数重数2。$A-2I=\begin{pmatrix}0&1\\0&0\end{pmatrix}$秩1，核方程$y=0$只有一个独立方向，几何重数1小于2，不能组成二阶特征基。
+\textbf{方法二：}若存在$P\inv AP=\Lambda$且$\Lambda$对角，其两个对角元只能都是2，即$\Lambda=2I$。于是$A=P(2I)P\inv=2PP\inv=2I$，但题目$(1,2)$元为1，矛盾。因此不可对角化。}
+{单特征值情形，标量矩阵反证尤其快。}
+{有特征值不代表有足够特征向量。}
+\worked{三阶重根判断}{考研风格}{\star\star}{5-7}
+{判断$A=\begin{pmatrix}2&1&0\\0&2&0\\0&0&3\end{pmatrix}$是否可对角化。}
+{只要一个特征值缺少特征向量，整体即失败。}
+{上三角矩阵给$\chi_A(t)=(t-2)^2(t-3)$。根2时
+$A-2I=\begin{pmatrix}0&1&0\\0&0&0\\0&0&1\end{pmatrix}$，其两条非零行独立，秩2，故$g_2=3-2=1<2$。根3时$A-3I=\begin{pmatrix}-1&1&0\\0&-1&0\\0&0&0\end{pmatrix}$秩2，$g_3=1$。全部特征空间直和维数$1+1=2<3$，所以不可对角化；缺少的一个方向不能从根3补齐。}
+{秩判定比试图凑三个向量可靠。}
+{三个对角元素并不自动给出三个独立特征向量。}
+\worked{同谱仍不相似}{考研风格}{\star\star}{5-8}
+{比较$D=\diag(1,1,2)$与$B=\begin{pmatrix}1&1&0\\0&1&0\\0&0&2\end{pmatrix}$是否相似。}
+{寻找比迹和行列式更强的不变量。}
+{\textbf{方法一：}$D-I=\diag(0,0,1)$秩1；$B-I=\begin{pmatrix}0&1&0\\0&0&0\\0&0&1\end{pmatrix}$秩2。若$B=P\inv DP$，则$B-I=P\inv(D-I)P$应同秩，矛盾。
+\textbf{方法二：}$D$本身对角，可对角化；$B$在根1上的代数重数2，但$\ker(B-I)$仅$\Span(e_1)$，几何重数1，因此不可对角化。相似矩阵的特征空间由$P\inv$双射对应，不能出现这种差异。两矩阵虽然同迹4、同行列式2且同特征多项式，仍不相似。}
+{秩族$\rank(A-\lambda I)$可识别部分Jordan结构。}
+{二者特征多项式、迹与行列式全相同，不能据此认定相似。}
+\section{实对称矩阵与正交对角化}
+\subsection{谱定理及其几何意义}
+\begin{theorem}{实对称谱定理}
+实对称矩阵$A=A\T$的特征值全实；不同特征值的特征向量正交；存在实正交$Q$使
+\begin{equation}Q\T AQ=\Lambda,\qquad A=\sum_i\lambda_i\vq_i\vq_i\T.\label{eq:spectral}\end{equation}
+对非零$\vx$，Rayleigh商$R_A(\vx)=\frac{\vx\T A\vx}{\vx\T\vx}$满足$\lambda_{\min}\le R_A(\vx)\le\lambda_{\max}$。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch05_p3}
+\end{proof}
+\begin{method}{重根先在特征空间内正交化}
+不同特征值之间天然正交；同一重根下任选基，作Schmidt后单位化；拼成$Q$。检查$Q\T Q=I$与$AQ=Q\Lambda$。不能对一般非对称矩阵强行要求正交对角化。
+\end{method}
+\worked{二阶正交对角化}{基础例题}{\star\star}{5-9}
+{正交对角化$A=\begin{pmatrix}2&1\\1&2\end{pmatrix}$。}
+{对称的和、差方向容易观察。}
+{\textbf{方法一：}$A(1,1)\T=(3,3)\T$、$A(1,-1)\T=(1,-1)\T$，两向量正交且长度$\sqrt2$。取$q_1=\frac{(1,1)\T}{\sqrt2},q_2=\frac{(1,-1)\T}{\sqrt2}$，拼$Q$后$Q\T Q=I$，由$Aq_1=3q_1,Aq_2=q_2$得$Q\T AQ=\diag(3,1)$。
+\textbf{方法二：}$\chi_A(t)=(t-2)^2-1=t^2-4t+3=(t-3)(t-1)$；根3的核方程$-x+y=0$、根1的核方程$x+y=0$，分别给同一组和差向量，再单位化。两法都提供实际正交矩阵$Q=\frac1{\sqrt2}\begin{pmatrix}1&1\\1&-1\end{pmatrix}$。}
+{观察法适合对称结构，特征方程法更一般。}
+{只用未单位化向量拼列得的是相似矩阵，通常不是正交矩阵。}
+\worked{重根特征空间的正交基}{考研风格}{\star\star}{5-10}
+{正交对角化$A=I_3+\bm1\bm1\T$。}
+{全1方向与分量和零平面分开。}
+{\textbf{方法一：}令$q_1=\frac{\bm1}{\sqrt3}$，因为$\bm1\T\bm1=3$，$Aq_1=4q_1$。取$q_2=\frac{(1,-1,0)\T}{\sqrt2},q_3=\frac{(1,1,-2)\T}{\sqrt6}$，二者分量和零，因此$Aq_2=q_2,Aq_3=q_3$。三个点积均零，长度均1，所以$Q=(q_1,q_2,q_3)$正交，$Q\T AQ=\diag(4,1,1)$。
+\textbf{方法二：}解$(A-I)x=0$得到$x_1+x_2+x_3=0$，选基$u=(1,-1,0),v=(1,0,-1)$。$u\T v=1,\norm u^2=2$，减投影$v-\frac{u}{2}=(\frac{1}{2},\frac{1}{2},-1)$，放大2并单位化即$q_3$；$u$单位化即$q_2$。再补$q_1$，得到同一$Q$，根1的两个方向均已列全。}
+{特征空间内的基不唯一，正交对角化矩阵也不唯一。}
+{根1重数为2，不能只提供一个对应向量。}
+\worked{不同根正交的直接证明}{考研风格}{\star\star}{5-11}
+{设实对称$A$有特征对$(\lambda,\vu),(\mu,\vv)$，$\lambda\ne\mu$，证明正交。}
+{用对称性把$A$移到内积另一边。}
+{从$Au=\lambda u$出发，将内积中的$A$移到另一边：
+\[\lambda u\T v=(Au)\T v=u\T A\T v=u\T Av=\mu u\T v.\]
+中间$A\T=A$是关键。相减得$(\lambda-\mu)u\T v=0$，而$\lambda\ne\mu$，可除以差值，得到$u\T v=0$。若根相同，差值为零，方程不提供正交信息，所以同一特征空间内还须主动选正交基。}
+{对称性是论证的关键，普通相似矩阵不能照搬。}
+{重根时这条等式变成$0=0$，不保证任取两特征向量正交。}
+\worked{Rayleigh商的两法极值}{竞赛风格}{\star\star}{5-12}
+{求$x^2+y^2=1$时$2x^2+2xy+2y^2$的最值。}
+{这是例\ref{ex:5-9}矩阵的二次型。}
+{\textbf{方法一：}矩阵$A=\begin{pmatrix}2&1\\1&2\end{pmatrix}$在单位和差基下变成$\diag(3,1)$。令$(x,y)\T=Q(u,v)\T$，约束变成$u^2+v^2=1$，目标$3u^2+v^2=1+2u^2$，范围$[1,3]$。最大要求$v=0$，对应$x=y=\pm\frac{1}{\sqrt2}$；最小要求$u=0$，对应$x=-y=\pm\frac{1}{\sqrt2}$。
+\textbf{方法二：}目标为$2(x^2+y^2)+2xy=2+2xy$。由$(x-y)^2\ge0,(x+y)^2\ge0$分别得$2xy\le1,2xy\ge-1$，同样给范围和等号条件。极值均实际取得。}
+{谱法推广高维；二元不等式在小题更快。}
+{极值必须同时给出满足约束的等号向量。}
+\input{enrichment/ch05_a}
+
+\section{Jordan结构与谱方法边界}
+\subsection{选学提高：广义特征向量}
+\begin{extension}
+本节为选学提高。考研核心只需熟练判断是否有足够特征向量；Jordan块、广义链与核维数将在第\ref{ch:advanced}章进一步联系最小多项式。
+\end{extension}
+\begin{definition}{Jordan块与广义链}
+$J_k(\lambda)=\lambda I_k+N_k$，$N_k$的第一超对角元为1，其余为0。若$\vv_1\ne0$，$(A-\lambda I)\vv_1=0$，且$(A-\lambda I)\vv_{j+1}=\vv_j$对$j=1,\ldots,k-1$成立，称$\vv_1,\ldots,\vv_k$为长度$k$的广义特征链。一般称满足$(A-\lambda I)^s v=0$的非零向量$v$为广义特征向量，其中$s$为某个正整数。
+
+链向量必无关：若存在非零关系，取最大下标$j$使其系数$c_j\ne0$，对该关系作用$(A-\lambda I)^{j-1}$，前面各项全为零，只剩$c_j\vv_1=0$，与$\vv_1\ne0$矛盾。因此链张成$k$维不变子空间；按链序作基，该限制变换的矩阵才是$J_k(\lambda)$。
+\end{definition}
+\begin{theorem}{Jordan存在与幂公式（标准结论）}
+若特征多项式在数域中分裂，则$A$相似于Jordan块的直和，块大小在重排意义下唯一。对非负整数$m$，
+\begin{equation}J_k(\lambda)^m=\sum_{j=0}^{\min(m,k-1)}\binom mj\lambda^{m-j}N_k^j.\label{eq:jpower}\end{equation}
+当$\lambda=0$时，直接读取为$J_k(0)^m=N_k^m$；特别$m=0$时为$I$，不另计算未约定的标量$0^0$。以下从广义特征空间的分离与幂零链的构造证明存在性和唯一性。
+\end{theorem}
+\begin{proof}
+\input{derivations/jordan_full}
+\end{proof}
+\begin{method}{缺少向量时改求链}
+先求核中的非零$\vv_1$，再解$(A-\lambda I)\vv_2=\vv_1$。不是每个非零核向量都能延成长链，需检查它是否在像中。Jordan存在要求特征多项式在所用数域分裂；如例\ref{ex:5-14}的直角旋转矩阵，在实数域就没有特征向量。一般二维旋转中，转角为$0$或$\pi$时分别为$I$或$-I$，须与该例区别。
+\end{method}
+\worked{二阶Jordan块的幂}{竞赛风格}{\star\star\star}{5-13}
+{求$A=\begin{pmatrix}2&1\\0&2\end{pmatrix}$的$m$次幂，$m\ge1$。}
+{它等于$2I+N$且$N^2=0$。}
+{\textbf{方法一：}写$A=2I+N$，$N=\begin{pmatrix}0&1\\0&0\end{pmatrix}$且$N^2=0$。可交换二项式展开只保留$j=0,1$：$A^m=2^mI+m2^{m-1}N$，故为$\begin{pmatrix}2^m&m2^{m-1}\\0&2^m\end{pmatrix}$。
+\textbf{方法二：}令右上元$b_m$，$A^{m+1}=A^mA$给$b_{m+1}=2^m+2b_m$，$b_1=1$。除以$2^{m+1}$，令$c_m=\frac{b_m}{2^m}$，得到$c_{m+1}=\frac{1}{2}+c_m,c_1=\frac{1}{2}$，故$c_m=\frac{m}{2}$，即$b_m=m2^{m-1}$。此题$m\ge1$，不涉及负幂。}
+{不可对角化仍可高效求幂；额外的$m$来自Jordan链。}
+{不能只把对角元取幂而丢失右上元。}
+\worked{数域决定可对角化性}{考研风格}{\star\star}{5-14}
+{研究$R=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$在实数域和复数域的对角化。}
+{特征方程为$t^2+1=0$。}
+{$\chi_R(t)=\det\begin{pmatrix}t&1\\-1&t\end{pmatrix}=t^2+1$。实数域没有根，因此没有实特征向量，不能实相似对角化，更不能实正交对角化。复数域根$i,-i$互异：$R(1,-i)\T=(i,1)\T=i(1,-i)\T$，$R(1,i)\T=(-i,1)\T=-i(1,i)\T$。取$P=\begin{pmatrix}1&1\\-i&i\end{pmatrix}$，$\det P=2i\ne0$，所以$P\inv RP=\diag(i,-i)$。数域改变了可用的基，而不是改变原矩阵元素。}
+{“正交矩阵”不等于“实对称矩阵”，只有后者保证实正交对角化。}
+{实数域没有特征值，复数域却有完整特征基；先说明数域，再谈对角化。}
+\worked{乘积的谱不能随意相乘}{竞赛风格}{\star\star}{5-15}
+{已知$A$谱为$1,2$，$B$谱为$3,4$，能否唯一确定$AB$的谱？}
+{改变$B$特征方向的配对方式。}
+{固定$A=\diag(1,2)$，选$B_1=\diag(3,4)$与$B_2=\diag(4,3)$。二者谱作为无序多重集均为$\{3,4\}$，但
+\[AB_1=\diag(3,8),\qquad AB_2=\diag(4,6).\]
+乘积的两个谱集合不同，故已知条件不足以唯一确定。两组中矩阵甚至都可交换，仍须知道哪个$B$特征值与哪个$A$特征方向配对。可确定的只是乘积行列式$(1\cdot2)(3\cdot4)=24$；迹分别11与10，确实不同。}
+{共同特征基下才可按相应向量配对相乘；仅知两个无序谱不够。}
+{可确定的是$\det(AB)=\det A\det B=24$，但迹仍可不同。}
+\worked{由核维数读Jordan块}{竞赛风格}{\star\star\star}{5-16}
+{设$N$是四阶幂零矩阵，$\dim\ker N=2,\dim\ker N^2=3,\dim\ker N^3=4$，求Jordan块大小。}
+{核维数每次增量等于长度至少为该次幂的链数。}
+{$d_0=0,d_1=2,d_2=3,d_3=4$，因空间仅四维，$d_4=4$。相邻增长量为$2,1,1,0$，分别是大小至少1、2、3、4的块数。因此大小恰1的块数$2-1=1$，恰2为$1-1=0$，恰3为$1-0=1$。所以$N\sim J_3(0)\oplus J_1(0)$。检查总阶$3+1=4$，核维数依次$1+1=2,2+1=3,3+1=4$，与数据吻合，故结构唯一。}
+{秩或核维数比特征多项式提供更细的结构信息。}
+{仅知$\chi_N=t^4$，可能的Jordan块不唯一。}
+\input{enrichment/ch05_b}
+
+\begin{warning}
+相似要求一套基对定义域和值域同时改变，不是任意左右等价变换。相同谱不是充分相似条件。不同特征值向量必独立，对称条件才给正交。实对称矩阵的秩等于非零特征值按代数重数计数的总数；普通矩阵的秩不能这样数，例如非零幂零矩阵。
+\end{warning}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\exercise{5-1}{基础}{求$\begin{pmatrix}1&2\\0&3\end{pmatrix}$的特征值与特征空间。}
+\exercise{5-2}{基础}{若三阶矩阵特征值为$-1,2,2$，求迹、行列式与$\tr(A^2)$。}
+\exercise{5-3}{基础}{判断$\diag(2,2,3)$是否可对角化。}
+\exercise{5-4}{考研风格}{判断$\begin{pmatrix}1&t\\0&1\end{pmatrix}$何时可对角化。}
+\exercise{5-5}{考研风格}{正交对角化$\begin{pmatrix}3&1\\1&3\end{pmatrix}$。}
+\exercise{5-6}{考研风格}{若$n$阶$A\sim B$，证明对任意$\lambda\in\F$及非负整数$k$，$\rank\bigl((A-\lambda I)^k\bigr)=\rank\bigl((B-\lambda I)^k\bigr)$。}
+\exercise{5-7}{竞赛拓展}{若$A^2=A$，证明可对角化且谱只可能为0、1。}
+\exercise{5-8}{竞赛拓展}{对非负整数$m$，求$J_3(1)^m$的各上三角元素，并指出$m=0,1$时哪些元素为零。}
+\exercise{5-9}{竞赛拓展}{实对称$A$满足所有特征值位于$[2,5]$，证明$2\norm{\vx}^2\le\vx\T A\vx\le5\norm{\vx}^2$。}
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\begin{quicktable}
+特征方程&方阵&未知谱&统一$tI-A$符号\\
+迹与行列式&谱计算核验&已知部分根&按代数重数计\\
+秩判重根&特征多项式分裂&重根出现&算每个几何重数\\
+拼特征基&向量数足够&构造相似矩阵&列与根同序\\
+正交对角化&实对称&重根空间&先正交再单位化\\
+Jordan链&选学，分裂数域&缺少特征向量&检查链可延长性\\
+\end{quicktable}

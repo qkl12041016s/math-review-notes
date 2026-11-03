@@ -1,0 +1,68 @@
+\section{不定积分的选法总图}\label{ic:atlas}
+不定积分是在一个连通区间内寻找导数等于被积函数的函数族。先整理，再看结构，最后决定是否需要特殊函数。下列分类覆盖本册使用的初等、代数、构造与标准特殊函数路线，每类方法均配有公式依据和可检验例题。
+\begin{center}\begin{tikzpicture}[every node/.style={draw=Teal,rounded corners,align=center,font=\small,minimum height=9mm},>=stealth]
+\node (a) at (0,0) {确定定义域\\整理被积式};
+\node (b) at (-4,-1.6) {导数匹配\\换元与凑微分};
+\node (c) at (0,-1.6) {乘积或封闭函数族\\分部与待定原函数};
+\node (d) at (4,-1.6) {代数或对称约束\\有理化、双元与递推};
+\node (e) at (0,-3.2) {约化后剩标准核\\级数、含参或特殊函数};
+\node (f) at (0,-4.7) {回代并求导验算\\检查分支与区间常数};
+\draw[->](a)--(b);\draw[->](a)--(c);\draw[->](a)--(d);
+\draw[->](b)--(e);\draw[->](c)--(e);\draw[->](d)--(e);\draw[->](e)--(f);
+\end{tikzpicture}\end{center}
+\begin{warning}疑难点一：相同外观不代表相同微分，先算$\dd t$再判断是否匹配。疑难点二：换元的极点可能只是坐标奇点。疑难点三：跨原奇点的区间各有积分常数。疑难点四：找不到初等表达不等于没有原函数。\end{warning}
+\subsection{基本原函数的校准表}
+\begin{longtable}{p{49mm}p{67mm}}\toprule 被积式与条件&原函数（另加常数）\\\midrule\endhead
+$x^\alpha,\ \alpha\ne-1$&$\frac{x^{\alpha+1}}{\alpha+1}$，实幂先固定定义区间。\\
+$\frac{1}{x},\ x\ne0$&$\ln|x|$。\\
+$\e^{ax},\ a\ne0$&$\frac{\e^{ax}}{a}$。\\
+$\sin ax,\cos ax,\ a\ne0$&$-\frac{\cos ax}{a},\ \frac{\sin ax}{a}$。\\
+$\frac{1}{a^2+x^2},\ a>0$&$a^{-1}\arctan(\frac{x}{a})$。\\
+$\frac{1}{\sqrt{a^2-x^2}},\ |x|<a$&$\arcsin(\frac{x}{a})$。\\
+$\frac{1}{\sqrt{x^2+a^2}},\ a>0$&$\ln(x+\sqrt{x^2+a^2})$。\\
+$\frac{1}{\sqrt{x^2-a^2}},\ a>0,|x|>a$&$\ln|x+\sqrt{x^2-a^2}|$。\\
+$\sec^2x,\csc^2x$&$\tan x,\ -\cot x$。\\
+$\sec x\tan x,\csc x\cot x$&$\sec x,\ -\csc x$。\\
+$\sec x,\csc x$&$\ln|\sec x+\tan x|,\ \ln|\csc x-\cot x|$。\\
+\bottomrule\end{longtable}
+每式均由对应求导公式反向验证。含常参数的公式须另检参数为零的退化情形。
+\subsection{详细方法导航}
+\begin{longtable}{p{9mm}p{91mm}p{23mm}}\toprule 序号&方法&正文位置\\\midrule\endhead
+1&先整理：除法、配方、拆项与逆链式&\ref{ic:indefinite_classical_complete:normalize}\\
+2&对数、反函数与整体换元&\ref{ic:indefinite_classical_complete:logsub}\\
+3&分部积分：降阶、升阶与反向选择&\ref{ic:indefinite_classical_complete:parts}\\
+4&循环分部与有限维待定原函数&\ref{ic:indefinite_classical_complete:cyclic}\\
+5&部分分式：重根、二次因子与不完全分解&\ref{ic:indefinite_classical_complete:partial}\\
+6&三角有理式的奇偶捷径&\ref{ic:indefinite_classical_complete:trigparity}\\
+7&三角幂：留一个微分、降幂与递推&\ref{ic:indefinite_classical_complete:trigpowers}\\
+8&双曲有理式与幂递推&\ref{ic:indefinite_classical_complete:hyperbolic}\\
+9&Euler三替换的反解公式&\ref{ic:indefinite_classical_complete:eulerthree}\\
+10&二次根式正负幂的递推&\ref{ic:indefinite_classical_complete:powerrec}\\
+11&圆型、双曲型与齐次比值&\ref{ic:indefinite_dual_complete:differentials}\\
+12&恒等式诱导与莫比乌斯变换的构造&\ref{ic:indefinite_dual_complete:mobius}\\
+13&对勾三元与回文多项式&\ref{ic:indefinite_dual_complete:reciprocal}\\
+14&双元化单元与根式和差参数&\ref{ic:indefinite_dual_complete:single}\\
+15&高次双元：统一微分与有理参数&\ref{ic:indefinite_dual_complete:highdual}\\
+16&统一有理积分族与公因数降阶&\ref{ic:indefinite_dual_complete:ufamily}\\
+17&隐函数：参数化与约束微分&\ref{ic:indefinite_dual_complete:implicit}\\
+18&二项微分的三条有理化路线&\ref{ic:indefinite_algebra_complete:binomial}\\
+19&Hermite约化：模多项式算法&\ref{ic:indefinite_algebra_complete:hermitemod}\\
+20&有理积分的留数式系数法&\ref{ic:indefinite_algebra_complete:residue}\\
+21&平方分母的商导数降阶&\ref{ic:indefinite_algebra_complete:quotient}\\
+22&反三角混合锁与有限维闭合&\ref{ic:indefinite_algebra_complete:triglock}\\
+23&指数锁与归一化变量&\ref{ic:indefinite_algebra_complete:explock}\\
+24&等分锁与对数微分配对&\ref{ic:indefinite_algebra_complete:equalparts}\\
+25&代数原函数待定与伪椭圆判别&\ref{ic:indefinite_algebra_complete:exactalg}\\
+26&四次根式的多项式连分式算法&\ref{ic:indefinite_algebra_complete:continuedfraction}\\
+27&微分方程引领积分：Lagrange恒等式&\ref{ic:indefinite_algebra_complete:odeidentity}\\
+28&含参不定积分须固定积分常数&\ref{ic:indefinite_special_complete:parameter}\\
+29&幂级数逐项积分与命名函数&\ref{ic:indefinite_special_complete:series}\\
+30&复指数与实原函数的还原&\ref{ic:indefinite_special_complete:complex}\\
+31&Ei、li、Si、Ci的识别核&\ref{ic:indefinite_special_complete:ei}\\
+32&Gaussian、erf、erfi与Fresnel&\ref{ic:indefinite_special_complete:gauss}\\
+33&多重对数的逐阶降阶&\ref{ic:indefinite_special_complete:polylog}\\
+34&Lambert W：用隐式关系换回单元&\ref{ic:indefinite_special_complete:lambert}\\
+35&不完全Beta与Gamma的统一幂权&\ref{ic:indefinite_special_complete:incomplete}\\
+36&三类椭圆标准化与实参数选择&\ref{ic:indefinite_special_complete:elliptic}\\
+37&初等表达的边界与最终验算&\ref{ic:indefinite_special_complete:boundary}\\
+\bottomrule\end{longtable}

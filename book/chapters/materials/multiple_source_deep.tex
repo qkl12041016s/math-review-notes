@@ -1,0 +1,35 @@
+\section{重积分的换序、变换、应用与含参积分}\label{deep:multiple_source_deep}
+
+\begin{examtip}补充积分定义、换序、Jacobian、几何应用、近似计算与参数极限的完整算例。\end{examtip}
+
+\subsection{区域描述、换序与对称性}\label{deep:multiple_source_deep:region}
+
+\begin{method}{区域描述、换序与对称性}\textbf{适用条件} 先画投影或确定边界交点，再写积分限。\par\textbf{步骤与依据} 内层积分困难时交换次序；被积函数只依赖半径时改极坐标；非矩形区域不能随意拆乘积。\par\textbf{易错点} 换序会改变积分上下限，不能只交换微分符号。\end{method}
+
+\begin{example}{考研风格｜无初等内层积分的换序}{难度：$\star\star\star$}\label{deep:ex:multiple_source_deep:order}\textbf{题目} 求$\int_0^1\int_x^1\e^{y^2}\dd y\dd x$。\par\textbf{思路} 区域$0\le x\le y\le1$，先对$x$积分。\par\textbf{详细解答} 换序为$\int_0^1\int_0^y\e^{y^2}\dd x\dd y=\int_0^1y\e^{y^2}\dd y=\frac{\e-1}{2}$。另一法将原积分写成$F(x)=\int_x^1\e^{y^2}\dd y$的一维分部积分，$\int_0^1F(x)\dd x=[xF(x)]_0^1-\int_0^1xF'(x)\dd x$，同得结果。\par\textbf{方法点评} 换序与分部在三角区域中常是同一“累积长度”机制。\par\textbf{变式与易错点} 不必为$\int\e^{y^2}\dd y$引入特殊函数。\end{example}
+
+\begin{example}{考研风格｜平行四边形的线性换元}{难度：$\star\star\star$}\label{deep:ex:multiple_source_deep:linearjac}\textbf{题目} $D$由$0\le x+y\le2,0\le x-y\le1$围成，求$\iint_D(x+y)^2\dd A$。\par\textbf{思路} $u=x+y,v=x-y$把区域拉直。\par\textbf{详细解答} $x=\frac{u+v}{2},y=\frac{u-v}{2}$，Jacobian绝对值$\frac{1}{2}$。所以积分$=\frac12\int_0^2u^2\dd u\int_0^1\dd v=\frac{4}{3}$。直接法需按顶点分段写上下限，结果一致但较长。变换后的面积为$\frac{2\cdot1\cdot1}{2}=1$，也可作为Jacobian核对。\par\textbf{方法点评} 边界的线性组合是最强的换元提示。\par\textbf{变式与易错点} $\frac{\partial(u,v)}{\partial(x,y)}=-2$，积分中要用逆Jacobian的绝对值$\frac{1}{2}$。\end{example}
+
+\subsection{三重积分、椭球、球坐标与高维推广}\label{deep:multiple_source_deep:coordinates}
+
+\begin{method}{三重积分、椭球、球坐标与高维推广}\textbf{适用条件} 根据区域对称性选择柱面、球面或线性缩放。\par\textbf{步骤与依据} 先写体元；半径、极角和方位角范围分别确定；对奇函数先使用对称性。\par\textbf{易错点} 球体元的$\rho^2\sin\phi$不可漏。\end{method}
+
+\begin{example}{考研风格｜椭球体积与二阶矩}{难度：$\star\star\star$}\label{deep:ex:multiple_source_deep:ellipsoid}\textbf{题目} 椭球$\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}\le1$，求体积及$\iiint x^2\dd V$，$a,b,c>0$。\par\textbf{思路} 缩放到单位球，再球坐标或用对称性。\par\textbf{详细解答} $x=au,y=bv,z=cw$，体元$abc\dd u\dd v\dd w$。体积$\frac{4\pi abc}{3}$。对称性给$\int_Bu^2=\frac13\int_B(u^2+v^2+w^2)=\frac13 4\pi\int_0^1r^4\dd r=\frac{4\pi}{15}$，所以二阶矩$\frac{4\pi a^3bc}{15}$。直接球坐标角积分也给同值。\par\textbf{方法点评} 对称性减少角积分，缩放负责所有长度因子。\par\textbf{变式与易错点} 质量二阶矩与转动惯量不同，绕$x$轴惯量积分的是$y^2+z^2$。\end{example}
+
+\begin{example}{竞赛拓展｜高维球体积与Gaussian}{难度：$\star\star\star$}\label{deep:ex:multiple_source_deep:nball}\textbf{题目} 推导$n$维单位球体积$V_n$。\par\textbf{思路} 分别用直角坐标乘积和径向积分计算$\int_{\R^n}\e^{-|x|^2}\dd x$。\par\textbf{详细解答} 直角坐标给$\pi^{\frac{n}{2}}$。径向层壳给$nV_n\int_0^\infty r^{n-1}\e^{-r^2}\dd r=(\frac{nV_n}{2})\Gamma(\frac{n}{2})$。所以$V_n=\frac{\pi^{\frac{n}{2}}}{\Gamma(\frac{n}{2}+1)}$。也可切片得$V_n=V_{n-1}\int_{-1}^1(1-t^2)^{\frac{n-1}{2}}\dd t$，用Beta函数递推核对。\par\textbf{方法点评} 这是$n$重积分与特殊函数的自然连接。\par\textbf{变式与易错点} 单位球表面积为$nV_n$，两者差一个$n$。\end{example}
+
+\subsection{几何、物理与积分不等式}\label{deep:multiple_source_deep:applications}
+
+\begin{method}{几何、物理与积分不等式}\textbf{适用条件} 先说明积分元代表面积、质量、功还是弧长。\par\textbf{步骤与依据} 从小块累积建立公式，再用对称性确定质心或消去奇矩。\par\textbf{易错点} 密度不是常数时不能以几何面积替代质量。\end{method}
+
+\begin{example}{考研风格｜半圆薄片的质心}{难度：$\star\star\star$}\label{deep:ex:multiple_source_deep:centroid}\textbf{题目} 均匀上半圆盘$x^2+y^2\le R^2,y\ge0$的质心在哪里？\par\textbf{思路} 对称性给$\bar x=0$，极坐标算$y$的一阶矩。\par\textbf{详细解答} 面积$A=\frac{\pi R^2}{2}$。$\iint_Dy\dd A=\int_0^\pi\int_0^R(r\sin\theta)r\dd r\dd\theta=\frac{2R^3}{3}$，所以$\bar y=\frac{4R}{3\pi}$。按水平切片也可算$\int_0^R2y\sqrt{R^2-y^2}\dd y$，同得一阶矩。\par\textbf{方法点评} 两坐标系给相同结果；先对称后计算可减少工作。\par\textbf{变式与易错点} 半圆弧的质心为$\frac{2R}{\pi}$，与半圆薄片不同。\end{example}
+
+\begin{example}{竞赛风格｜积分Cauchy与等号条件}{难度：$\star\star\star$}\label{deep:ex:multiple_source_deep:holder}\textbf{题目} 设$a<b$且$f,g$为区间上实平方可积函数，证明$(\int_a^bf g)^2\le\int_a^bf^2\int_a^bg^2$，并求等号条件。\par\textbf{思路} 非负二次多项式判别式，或最小平方距离。\par\textbf{详细解答} 令$A=\int f^2,B=\int fg,C=\int g^2$。若$C>0$，对所有$t$有$\int(f-tg)^2=A-2Bt+Ct^2\ge0$，其最小值$A-\frac{B^2}{C}\ge0$，即结论。等号当且仅当$f=(\frac{B}{C})g$几乎处处。若$C=0$，则$g=0$几乎处处，结论自动成立。\par\textbf{方法点评} 证明同时给精确等号条件，可用于最值和积分估计。\par\textbf{变式与易错点} “线性相关”是几乎处处意义，连续函数时可提升为处处。\end{example}
+
+\subsection{积分近似与参数收敛}\label{deep:multiple_source_deep:numerics}
+
+\begin{method}{积分近似与参数收敛}\textbf{适用条件} 数值公式需要相应阶导数有界；参数换序需要统一控制。\par\textbf{步骤与依据} 先选择梯形、Simpson或Gauss型求积，再给误差阶；函数列换积分先证一致或控制收敛。\par\textbf{易错点} 仅有点态收敛不能保证积分极限相等。\end{method}
+
+\begin{example}{竞赛拓展｜求积公式的精度检查}{难度：$\star\star\star$}\label{deep:ex:multiple_source_deep:simpson}\textbf{题目} 用单段Simpson公式近似$\int_0^1\e^x\dd x$并给误差界。\par\textbf{思路} 公式对三次以下多项式精确，四阶导数控制余项。\par\textbf{详细解答} $S=\frac{f(0)+4f(\frac{1}{2})+f(1)}{6}=\frac{1+4\sqrt\e+\e}{6}$。标准误差为$\int_0^1f-S=-\frac{f^{(4)}(\xi)}{2880}$，故$|\int_0^1\e^x-S|\le\frac{\e}{2880}$。真实值$\e-1$，可直接比较。作为核对，对$f=x^4$有积分$\frac{1}{5}$、Simpson值$\frac{5}{24}$，差$-\frac{1}{120}=-\frac{24}{2880}$，符号及常数吻合。\par\textbf{方法点评} 误差式属于标准求积结论，四阶余项或Peano核可证明；本例给独立多项式核对。\par\textbf{变式与易错点} 复合Simpson要求等分段数为偶数。\end{example}
+
+\begin{example}{竞赛风格｜积分与极限失效的尖峰}{难度：$\star\star\star$}\label{deep:ex:multiple_source_deep:badlimit}\textbf{题目} 取$f_n(x)=n\mathbf1_{(0,\frac{1}{n})}(x)$，$x\in[0,1]$。比较点态极限与积分极限。\par\textbf{思路} 高度增大、宽度减小但面积不变。\par\textbf{详细解答} 每个固定$x>0$最终在支撑外，且$f_n(0)=0$，所以逐点趋0。但$\int_0^1f_n=1$，不趋0。没有共同可积控制函数：若有$g\ge f_n$，则控制收敛将推出积分趋0，矛盾。若改成$g_n=\mathbf1_{(0,\frac{1}{n})}$，受1控制，积分$\frac{1}{n}\to0$。\par\textbf{方法点评} 用一个模型同时解释一致收敛、控制收敛与质量集中。\par\textbf{变式与易错点} “区间有限”本身不足以交换点态极限与积分。\end{example}

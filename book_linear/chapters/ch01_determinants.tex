@@ -1,0 +1,232 @@
+\chapter{行列式：从展开到结构}\label{ch:det}
+\chaptermap{定义与展开}{消元与递推}{多项式与低秩}{分块与摄动}
+\begin{examtip}
+\textbf{考研核心：}性质、展开、参数行列式、伴随恒等式。常考信号是大量相同元素、零元素或可相减的行列。
+\textbf{竞赛视角：}把阶数变化转成递推，把变量转成多项式，把低秩部分转成加边或分块。先观察结构，再选择计算量最小的方法。
+\end{examtip}
+\section{定义、性质与展开}
+\subsection{排列定义与代数余子式}
+\begin{definition}{行列式与余子式}
+设$A=(a_{ij})\in\F^{n\times n}$。记$S_n$为$n$元排列集合，$\tau(\sigma)$为逆序数，定义
+\begin{equation}\det A=\sum_{\sigma\in S_n}(-1)^{\tau(\sigma)}\prod_{i=1}^n a_{i,\sigma(i)}.\end{equation}
+删去第$i$行、第$j$列所得行列式为$M_{ij}$；$C_{ij}=(-1)^{i+j}M_{ij}$为代数余子式。约定$0\times0$空矩阵的行列式为1，故一阶矩阵$[a]$的代数余子式为1。$A[I,J]$表示按原先后次序选取行指标$I$、列指标$J$的子矩阵；$I^c,J^c$为补集，$\sum I$表示$I$中下标之和。
+\end{definition}
+\begin{theorem}{基本性质与展开}
+行列式对每一行分别线性；交换两行变号；相同行时为零；某行加上另一行的倍数不变。并且
+\begin{equation}\det A\T=\det A,\quad\det(AB)=\det A\det B,\quad
+\sum_{k=1}^n a_{ik}C_{jk}=\delta_{ij}\det A.\label{eq:cofactor}\end{equation}
+按固定$i$行展开即$\det A=\sum_j a_{ij}C_{ij}$。多行展开时，选定行指标$I$，对同样大小的列指标$J$求和，项为$(-1)^{\sum I+\sum J}\det A[I,J]\det A[I^c,J^c]$。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch01_p1}
+\end{proof}
+\begin{method}{先压缩，再展开}
+适用：数字矩阵或零元素集中。步骤：优先倍加制造零；选非零项最少的一行或列；逐个记录$(-1)^{i+j}$。易错：对角线法则仅适用于二、三阶；$\det(kA)=k^n\det A$。
+\end{method}
+\worked{二阶起点}{基础例题}{\star}{1-1}
+{计算$\det\begin{pmatrix}1&3\\2&4\end{pmatrix}$。}
+{从定义辨别正负项。}
+{\textbf{方法一：}二阶只有恒等排列与一次对换，符号分别为正、负。因此
+\[D=1\cdot4-3\cdot2=4-6=-2.\]
+\textbf{方法二：}作$r_2\leftarrow r_2-2r_1$，得到$\begin{pmatrix}1&3\\0&-2\end{pmatrix}$。倍加不改变行列式，三角矩阵对角元乘积为$1\cdot(-2)=-2$，与定义法一致。}
+{定义法显示符号；消元法为高阶情形做准备。}
+{交换两行后答案为$2$；同时交换一行和一列则保持$-2$。}
+\worked{反对角矩阵}{考研风格}{\star\star}{1-2}
+{求$n$阶反对角矩阵$A$的行列式，其反对角元依次为$b_1,\ldots,b_n$。}
+{唯一非零排列是完全逆序排列。}
+{\textbf{方法一：}第$i$行唯一可能的非零选择在第$n+1-i$列，因此唯一非零排列是$(n,n-1,\ldots,1)$。任意$i<j$均形成逆序，共有$\binom n2=\frac{n(n-1)}{2}$对，所以
+\[D=(-1)^{\frac{n(n-1)}{2}}b_1b_2\cdots b_n.\]
+\textbf{方法二：}将列次序从$(1,2,\ldots,n)$改为$(n,n-1,\ldots,1)$，以相邻换列实现，交换次数为$(n-1)+(n-2)+\cdots+1=\frac{n(n-1)}{2}$。变换后为$\diag(b_1,\ldots,b_n)$，每次换列变号，恢复原式得到相同结果。若某$b_i=0$，两法都给零，无须另除任何参数。}
+{定义法最短，换列法直观验证符号。}
+{零反对角元使结果为零；不能只凭阶数奇偶判断符号。}
+\worked{异行余子式和}{考研风格}{\star\star}{1-3}
+{已知$3$阶$A$，求$\sum_j(a_{1j}+2a_{2j})C_{1j}$。}
+{拆成同行展开与异行展开。}
+{先按加法分开：
+\[\sum_j(a_{1j}+2a_{2j})C_{1j}=\sum_ja_{1j}C_{1j}+2\sum_ja_{2j}C_{1j}.\]
+第一和沿原矩阵第一行展开，等于$\det A$。第二和对应将第一行替换成第二行后的行列式：删去第一行所形成的余子式不变，元素改成$a_{2j}$，于是展开恰为该和。替换后第一、二行相同，行列式为零。因此结果$\det A+2\cdot0=\det A$。}
+{识别“元素行号”和“余子式行号”可避免逐项计算。}
+{若用的是余子式$M_{1j}$，必须先补符号。}
+\worked{整体倍乘与乘积}{基础例题}{\star}{1-4}
+{设$A,B$为$3$阶矩阵，$\det A=2,\det B=-1$，求$\det(2A\T B)$。}
+{分清整体倍乘的次数。}
+{\textbf{方法一：}矩阵为三阶，标量2同时乘到三行，每行提出一个2；再使用乘积与转置性质：
+\[\det(2A\T B)=2^3\det(A\T B)=8\det A\T\det B=8\cdot2\cdot(-1)=-16.\]
+\textbf{方法二：}令$C=A\T B$。先算$\det C=\det A\det B=-2$，再将$2C$的第一、二、三行依次提出2，得到$2\cdot2\cdot2\cdot(-2)=-16$。这说明一次整体倍乘对应三次单行倍乘。}
+{乘积性质负责拆矩阵，行线性负责处理标量。}
+{不能写成$2\det A\det B$；长方阵没有这里的行列式。}
+\input{enrichment/ch01_a}
+
+\section{三角化、稀疏结构与递推}
+\subsection{递推必须带初值}
+\begin{theorem}{三角行列式与三对角递推}
+三角矩阵的行列式为对角元乘积。设$T_n$主对角元为$a$、上副对角元为$b$、下副对角元为$c$，其余为零。取$D_0=1,D_1=a$，则
+\begin{equation}D_n=aD_{n-1}-bcD_{n-2}\quad(n\ge2).\label{eq:trirecur}\end{equation}
+\end{theorem}
+\begin{proof}
+\input{derivations/ch01_p2}
+\end{proof}
+\begin{method}{消元与递推的选择}
+固定小阶数优先消元；任意$n$且相邻耦合优先递推。消元时记录换行数$s$和行倍乘因子$k_i$：若得到$U$，则$\det A=\frac{(-1)^s\det U}{\prod k_i}$。递推先验算$n=1,2$，重根时不能照抄不同根公式。
+\end{method}
+\worked{消元与展开互证}{考研风格}{\star\star}{1-5}
+{求$D=\det\begin{pmatrix}1&2&3\\2&5&8\\1&0&2\end{pmatrix}$。}
+{首列有$1$，可无分数消元。}
+{\textbf{方法一：}作$r_2\leftarrow r_2-2r_1,r_3\leftarrow r_3-r_1$，原矩阵变为
+\[\begin{pmatrix}1&2&3\\0&1&2\\0&-2&-1\end{pmatrix}.
+\]
+再作$r_3\leftarrow r_3+2r_2$，得到对角元$1,1,3$的上三角矩阵。全过程只有倍加，所以$D=1\cdot1\cdot3=3$。
+\textbf{方法二：}沿第一行展开，三个代数余子式的符号为$+,-,+$：
+\[\begin{aligned}D&=1(5\cdot2-8\cdot0)-2(2\cdot2-8\cdot1)+3(2\cdot0-5\cdot1)\\&=10-2(-4)+3(-5)=10+8-15=3.\end{aligned}\]}
+{消元只算一个小行列式；展开适合检验。}
+{行倍加不变，行倍乘才改变行列式。}
+\worked{离散二阶结构}{竞赛风格}{\star\star\star}{1-6}
+{设$T_n$的主对角元均为$2$，上下副对角元均为$-1$，其余元素为$0$，求$\det T_n$。}
+{结构随阶数稳定，适用递推。}
+{\textbf{方法一：}按三对角递推，$D_n=2D_{n-1}-D_{n-2}$，$D_0=1,D_1=2$。移项得$D_n-D_{n-1}=D_{n-1}-D_{n-2}$，所以全部相邻差等于$D_1-D_0=1$。累加$n$次：$D_n=D_0+n= n+1$。
+\textbf{方法二：}无换行消元的主元满足$d_1=2$、$d_k=2-\frac{1}{d_{k-1}}$。若$d_{k-1}=\frac{k}{k-1}>0$，则$d_k=2-\frac{k-1}{k}=\frac{k+1}{k}>0$；从$d_1=\frac{2}{1}$归纳得所有主元非零，除法合法。因此
+\[D_n=\prod_{k=1}^n\dfrac{k+1}{k}=\dfrac21\dfrac32\cdots\dfrac{n+1}{n}=n+1.\]
+\textbf{方法三：}先核验$D_0=1,D_1=2$。假定$D_{n-1}=n,D_{n-2}=n-1$，代入递推得$D_n=2n-(n-1)=n+1$，归纳完成。}
+{递推显式计算最稳；主元法兼顾正定性；归纳法适合验证猜想。}
+{必须说明为何主元非零，不能先除一个尚未证明非零的参数。}
+\worked{循环移位结构}{竞赛风格}{\star\star\star}{1-7}
+{令$n\ge2$，$A=xI+yP$，其中$P$为一次循环移位矩阵。求$\det A$。}
+{每行只有对角和循环副对角两个选择。}
+{可约定$P$在第$i$行的非零元位于循环下一列$i+1$，末行位于第一列；反向循环的行列式相同。排列项若在某行$i$选择循环列$i+1$，则下一行不能再选择已占用的对角列$i+1$，只能选择其循环列；如此绕一圈，迫使全部行都选择循环列。若没有任何行作循环选择，则全部选择对角元。
+因此仅有两个非零类型：恒等排列贡献$x^n$；长度$n$的循环可拆成$n-1$次对换，贡献$(-1)^{n-1}y^n$。故
+\[\det(xI+yP)=x^n+(-1)^{n-1}y^n.\]
+$n=2$时给$x^2-y^2$，可由二阶定义独立核验；$x=0$或$y=0$也直接包含在排列推导中。}
+{稀疏排列比机械消元简洁；也能由$P$的$n$次单位根特征值验证。}
+{本公式不把两个选择重合的$n=1$情形用于同一稀疏证明。}
+\worked{含参数主元}{考研风格}{\star\star}{1-8}
+{求$A_t=\begin{pmatrix}t&1&0\\1&t&1\\0&1&t\end{pmatrix}$的行列式及零点。}
+{保留多项式形式，避免除$t$丢分支。}
+{\textbf{方法一：}沿第一行展开，第二项代数余子式符号为负，得
+\[D_3=t\det\begin{pmatrix}t&1\\1&t\end{pmatrix}-\det\begin{pmatrix}1&1\\0&t\end{pmatrix}=t(t^2-1)-t=t^3-2t.\]
+\textbf{方法二：}$a=t,b=c=1$，由$D_1=t,D_2=t^2-1$代入递推：$D_3=tD_2-D_1=t(t^2-1)-t$。因式分解$D_3=t(t-\sqrt2)(t+\sqrt2)$，所以零点是$0,\pm\sqrt2$。没有除以$t$，三个分支都保留下来。}
+{递推在参数为零时仍然成立；除法消元需另查$t=0$。}
+{行列式为零只说明不可逆，秩仍需子式或消元判断。}
+\section{范德蒙德、拆项与加边}
+\subsection{把变量结构转成多项式}
+\begin{theorem}{范德蒙德与秩一更新}
+\begin{equation}
+\det(x_j^{i-1})_{i,j=1}^n=\prod_{1\le i<j\le n}(x_j-x_i).\label{eq:vander}
+\end{equation}
+对任意同长度列向量$\vu,\vv$，$\det(I+\vu\vv\T)=1+\vv\T\vu$。若$D=\diag(d_i)$可逆，则
+\begin{equation}\det(D+\vu\vv\T)=\Bigl(\prod_i d_i\Bigr)\Bigl(1+\sum_i \dfrac{u_iv_i}{d_i}\Bigr).\label{eq:rankone}\end{equation}
+无除法形式为$\prod_i d_i+\sum_i u_iv_i\prod_{j\ne i}d_j$，允许$d_i=0$。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch01_p3}
+\end{proof}
+\begin{method}{共同背景只留一次}
+适用：各列等于“简单列+同方向列”。步骤：拆项并消去含两次同方向的项；或加一行一列将共同部分消去。易错：最终含分母的表达式有适用条件，先化成多项式再讨论零参数。
+\end{method}
+\worked{三点范德蒙德}{基础例题}{\star\star}{1-9}
+{计算$\det\begin{pmatrix}1&1&1\\1&2&4\\1&4&16\end{pmatrix}$。}
+{三列对应节点$1,2,4$。}
+{\textbf{方法一：}三列依次为节点$1,2,4$的$(1,x,x^2)\T$，所以Vandermonde公式给
+$D=(2-1)(4-1)(4-2)=1\cdot3\cdot2=6$。
+\textbf{方法二：}分别作$c_2\leftarrow c_2-c_1,c_3\leftarrow c_3-c_1$，得$\begin{pmatrix}1&0&0\\1&1&3\\1&3&15\end{pmatrix}$。沿首行展开，$D=1(1\cdot15-3\cdot3)=15-9=6$。}
+{公式法要求幂次连续；列变换可直接验证。}
+{节点的次序决定差的方向。}
+\worked{多项式基的行列式}{考研风格}{\star\star}{1-10}
+{第$j$列为$(1,x_j+1,x_j^2+x_j,x_j^3+x_j^2)\T$，求四阶行列式。}
+{每行是单项式行的下三角线性组合。}
+{\textbf{方法一：}按顺序使用更新后的行。先$r_2\leftarrow r_2-r_1$，第二行各元变成$x_j$；再$r_3\leftarrow r_3-r_2$，第三行变成$x_j^2+x_j-x_j=x_j^2$；最后$r_4\leftarrow r_4-r_3$，第四行变成$x_j^3$。只作倍加，行列式不变，因此为$\prod_{i<j}(x_j-x_i)$。
+\textbf{方法二：}设$V$的各行是$1,x_j,x_j^2,x_j^3$，原矩阵为$LV$，其中
+\[L=\begin{pmatrix}1&0&0&0\\1&1&0&0\\0&1&1&0\\0&0&1&1\end{pmatrix}.\]
+逐行乘开即恢复题目四个多项式。$L$为下三角且对角全1，所以$\det L=1$，乘积公式给同一结果。两法均允许节点重合，此时相应差为零。}
+{连续更新的顺序是本题关键；系数矩阵法概括了任意多项式基。}
+{若各行多项式首项系数为$c_0,c_1,c_2,c_3$，结果还需乘$\prod c_i$。}
+\worked{同对角与同非对角}{考研风格}{\star\star}{1-11}
+{对角元$x$、非对角元$a$的$n$阶矩阵求行列式。}
+{写成$(x-a)I+a\bm1\bm1\T$。}
+{\textbf{方法一：}原矩阵$M=(x-a)I+a\bm1\bm1\T$。若$x\ne a$，秩一更新给
+\[\det M=(x-a)^n\left(1+\dfrac{na}{x-a}\right)=(x-a)^{n-1}[x+(n-1)a].\]
+两边均是$x$的多项式，在无限多个$x\ne a$处相等，故在$x=a$也相等。
+\textbf{方法二：}以全部行之和替换第一行，可由连续倍加实现；第一行变成全为$s=x+(n-1)a$。提出因子$s$后，第一行全1。对$j=2,\ldots,n$作$c_j\leftarrow c_j-c_1$，第一行除首元外全零，余下$(n-1)$阶块为$(x-a)I$。沿首行展开得$s(x-a)^{n-1}$。这是提取公共因子而非相除，所以$s=0$时同样成立。}
+{本题亦可用特征值：全1方向与其和零补空间分开。}
+{第二法只提出因子，不需要除$x-a$，零参数自然保留。}
+\worked{加边与拆项同题}{竞赛风格}{\star\star\star}{1-12}
+{令$D=\diag(d_1,\ldots,d_n)$，求$\det(D+\bm1\va\T)$。}
+{每一列的共同部分都平行于$\bm1$。}
+{\textbf{方法一：}第$j$列为$d_je_j+a_j\bm1$。全部选择对角列得$\prod_jd_j$；选两条或更多$\bm1$方向的列会重复方向而为零。只在第$i$列选择$a_i\bm1$时，其余列$e_j$固定了对应行，唯有$\bm1$的第$i$分量贡献1，所以该项为$a_i\prod_{j\ne i}d_j$。求和得
+\[\det(D+\bm1\va\T)=\prod_jd_j+\sum_i a_i\prod_{j\ne i}d_j.\]
+\textbf{方法二：}构造$K=\begin{pmatrix}1&\va\T\\-\bm1&D\end{pmatrix}$，对下方各行加首行，得块上三角$\begin{pmatrix}1&\va\T\\0&D+\bm1\va\T\end{pmatrix}$，故$\det K$就是所求。若$d_j\ne0$，作$r_1\leftarrow r_1-\sum_j(\frac{a_j}{d_j})r_{j+1}$，首行变为$(1+\sum_j \frac{a_j}{d_j},0,\ldots,0)$，因此$\det K=(\prod_jd_j)(1+\sum_j \frac{a_j}{d_j})$。展开乘积即回到无分母形式；零参数情形已由方法一证明。}
+{拆项法零参数无障碍；加边法更便于推广低秩更新。}
+{加边必须说明新行列式为何等于原式，不能任意增行增列。}
+\input{enrichment/ch01_b}
+
+\section{分块、特征值与摄动}
+\subsection{结构方法的适用边界}
+\begin{theorem}{Schur补与行列式一阶变化}
+设$A\in\F^{p\times p},B\in\F^{p\times q},C\in\F^{q\times p},D\in\F^{q\times q}$。若$A$可逆，则
+\begin{equation}\det\begin{pmatrix}A&B\\C&D\end{pmatrix}=\det A\det(D-CA\inv B).\label{eq:schurdet}\end{equation}
+若$A,H\in\F^{n\times n}$，以实参数$t$求导，则有
+\begin{equation}\left.\dfrac{\mathrm d}{\mathrm dt}\det(A+tH)\right|_{t=0}=\tr(\adj(A)H).\label{eq:detderiv}\end{equation}
+$A$可逆时右边为$\det A\tr(A\inv H)$。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch01_p4}
+\end{proof}
+\begin{method}{避免无条件的块公式}
+块上三角可直接乘对角块行列式。一般分块先选可逆主块再消元；不能把块当作可交换数。对$A+tH$先求常数项和一次项；判断是否只需一阶信息。谱法须知道全部特征值及代数重数。
+\end{method}
+\worked{分块消元}{考研风格}{\star\star}{1-13}
+{计算$M=\begin{pmatrix}I_2&I_2\\I_2&2I_2\end{pmatrix}$的行列式。}
+{首块为单位矩阵。}
+{\textbf{方法一：}取$A=I_2,B=C=I_2,D=2I_2$，Schur补为$S=2I_2-I_2I_2I_2=I_2$，所以$\det M=\det I_2\det I_2=1$。
+\textbf{方法二：}将第三行减第一行、第四行减第二行，得到$\begin{pmatrix}I_2&I_2\\0&I_2\end{pmatrix}$。这些都是倍加，行列式不变；最终为四阶上三角，对角元全1，故结果1。两种计算恰对应同一个块消元操作。}
+{Schur补是普通消元的记号压缩。}
+{一般情形$\det\begin{pmatrix}A&B\\C&D\end{pmatrix}$不能无条件写成$\det(AD-BC)$。}
+\worked{谱法与更新法}{竞赛风格}{\star\star\star}{1-14}
+{求$\det(I_n+3\bm1\bm1\T)$。}
+{全1方向之外，更新矩阵作用为零。}
+{\textbf{方法一：}写成$I+uv\T$，取$u=3\bm1,v=\bm1$，则$v\T u=3n$。秩一更新公式给$1+3n$。
+\textbf{方法二：}令$L=\Span(\bm1),H=\{x:\bm1\T x=0\}$。任意$x$都唯一分解为$\frac{\bm1\T x}{n}\bm1+(x-\frac{\bm1\T x}{n}\bm1)$，所以$\R^n=L\oplus H$。在$L$上，矩阵将$\bm1$变成$(1+3n)\bm1$；在$H$上，更新项为零，矩阵为恒等。取两个空间的基拼接，得到对角元$1+3n,1,\ldots,1$，行列式乘积为$1+3n$。}
+{更新法计算短；谱法揭示两个不变子空间。}
+{一般矩阵不能仅凭迹求行列式；秩一更新才有这种简化。}
+\worked{摄动的线性项}{竞赛风格}{\star\star\star}{1-15}
+{设$H=\begin{pmatrix}1&2\\3&4\end{pmatrix}$，求$\det(I+tH)$及$t=0$的导数。}
+{线性项应为$\tr H$。}
+{\textbf{方法一：}写出全部元素后按二阶定义：
+\[\det\begin{pmatrix}1+t&2t\\3t&1+4t\end{pmatrix}=(1+t)(1+4t)-6t^2=1+5t-2t^2.\]
+求导得$5-4t$，在0处为5。
+\textbf{方法二：}一般二阶$H=(h_{ij})$满足
+\[\det(I+tH)=1+t(h_{11}+h_{22})+t^2(h_{11}h_{22}-h_{12}h_{21})=1+t\tr H+t^2\det H.\]
+本题$\tr H=5,\det H=4-6=-2$，得到同一多项式。一般摄动导数式在$I$处也给$\tr H=5$。}
+{摄动适合只求导数；完整多项式还需高次项。}
+{对$n>2$，$1+t\tr H+t^2\det H$通常不是完整公式。}
+\worked{奇数阶反对称}{竞赛风格}{\star\star}{1-16}
+{实矩阵$A\T=-A$且阶数为奇数，证明$\det A=0$。}
+{转置不变与整体负号联合使用。}
+{\textbf{方法一：}依次使用转置不变、反对称与整体倍乘：
+\[D=\det A\T=\det(-A)=(-1)^nD=-D.\]
+实数域中$2D=0$推出$D=0$。
+\textbf{方法二：}令$\chi(t)=\det(tI-A)$。转置给$\det(tI-A)=\det(tI+A)$，所以$\chi(-t)=\det(-tI-A)=(-1)^n\det(tI+A)=(-1)^n\chi(t)$。奇数$n$时取$t=0$得$\chi(0)=-\chi(0)$，故$\chi(0)=0$。而$\chi(0)=(-1)^n\det A$，仍得零。这也说明非零谱值成相反数配对。}
+{第一法最短且不依赖谱知识；第二法说明零根原因。}
+{偶数阶结论不成立，如$\begin{pmatrix}0&1\\-1&0\end{pmatrix}$行列式为$1$。}
+\begin{warning}
+行列式不是线性映射：$\det(A+B)$通常不等于$\det A+\det B$。参数消元中的每一次除法都需检查零点。范德蒙德的差要与列顺序一致。所谓“摄动”也可只是多项式恒等性：先在可逆参数成立，再延拓到有限个奇异参数，不必作数值近似。
+\end{warning}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\exercise{1-1}{基础}{求$\det\begin{pmatrix}2&1\\5&3\end{pmatrix}$及其经典伴随矩阵。}
+\exercise{1-2}{基础}{求三阶反对角元$2,-1,3$对应的行列式。}
+\exercise{1-3}{基础}{若$A$为四阶且$\det A=3$，求$\det(-2A\T)$。}
+\exercise{1-4}{考研风格}{求对角元$t$、非对角元$1$的四阶行列式及其零点。}
+\exercise{1-5}{考研风格}{求主对角元$3$、上下副对角元分别$1,2$的三对角行列式$D_n$。}
+\exercise{1-6}{考研风格}{求节点$0,1,2,3$的四阶范德蒙德行列式。}
+\exercise{1-7}{竞赛拓展}{证明任意方阵$A$与列向量$\vu,\vv$满足$\det(A+\vu\vv\T)=\det A+\vv\T\adj(A)\vu$，不预设可逆。}
+\exercise{1-8}{竞赛拓展}{求$\det(I+t\vu\vv\T)$及其在$t=0$的导数。}
+\exercise{1-9}{竞赛拓展}{设$A^2=A$且$\rank A=r$，求$\det(I+A)$；说明$1+\tr A$何时相等。}
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\begin{quicktable}
+展开法&零元素集中&稀疏行列&代数余子式符号\\
+三角化&小型数字题&首列易消元&记录换行与倍乘\\
+递推&相邻结构稳定&三对角、带状&初值与重根\\
+范德蒙德&各行多项式次数递增&节点列、幂次&差的方向\\
+拆项与加边&共同秩一背景&相同列方向&零参数与增阶等式\\
+Schur补&某对角块可逆&自然分块&块次序不可交换\\
+谱法与摄动&谱已知或仅求线性项&低秩更新、参数&重数与适用阶数\\
+\end{quicktable}

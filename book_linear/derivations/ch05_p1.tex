@@ -1,0 +1,10 @@
+\label{der:5-1}
+在$\det(tI-A)$中，要得到$t^{n-1}$项，必须有$n-1$个对角位置选择$t$，剩下的对角位置选择$-a_{ii}$；任何非恒等排列至少移动两个位置，不能给出此次数。因此该系数为$-\sum_i a_{ii}=-\tr A$。常数项为$\det(-A)=(-1)^n\det A$。与
+\[\chi_A(t)=\prod_i(t-\lambda_i)=t^n-\left(\sum_i\lambda_i\right)t^{n-1}+\cdots+(-1)^n\prod_i\lambda_i\]
+比较，得到迹与行列式关系。
+
+特征值意味着$\ker(A-\lambda I)$含非零向量，故$g_\lambda\ge1$。取其$g_\lambda$个基向量扩充为全空间基，在这组基下$A$形如$\begin{pmatrix}\lambda I_g&B\\0&C\end{pmatrix}$，于是$\chi_A(t)=(t-\lambda)^g\det(tI-C)$，故代数重数至少$g$。
+
+对特征向量，归纳有$A^k\vx=\lambda^k\vx$：$k=0$为恒等；若$k$成立，左乘$A$就得到$k+1$。线性组合即$p(A)\vx=p(\lambda)\vx$。若$A$可逆，$\lambda\ne0$，对$A\vx=\lambda\vx$左乘逆再除以$\lambda$，得$A\inv\vx=\lambda^{-1}\vx$。
+
+为确认谱映射给出\emph{全部}特征值，可在复数域归纳上三角化：先取一个特征向量作首基向量，得到上述$g=1$的块形式；再在右下块递归，最终$P\inv AP=T$为上三角阵，对角元是全部特征值。$p(T)$仍上三角且对角元为$p(\lambda_i)$，因为三角矩阵乘积的对角元逐项相乘。又$p(A)=Pp(T)P\inv$，所以$p(A)$的全部谱值正是这些$p(\lambda_i)$，含重数。这同时证明$\tr(A^k)=\sum_i\lambda_i^k$，不要求可对角化。

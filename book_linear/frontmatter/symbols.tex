@@ -1,0 +1,27 @@
+\chapter*{符号表}\addcontentsline{toc}{chapter}{符号表}
+\begin{longtable}{@{}p{.24\textwidth}p{.68\textwidth}@{}}
+\toprule 符号&约定\\\midrule\endhead
+$\F,\R,\C$&本册$\F$取$\R$或$\C$；无特别说明时核心计算在实数域讨论。\\
+$A,B,I_n,O$&矩阵、$n$阶单位矩阵、零矩阵；矩阵行列数默认是正整数，省略下标时由维数确定。\\
+$e_i,E_{ij},\delta_{ij}$&标准单位列；仅$(i,j)$元为1、其余为0的矩阵；$i=j$时为1、否则为0。\\
+$\bm1,\mathcal P_d$&全1列向量；次数不超过$d$的实多项式全体，包含零多项式，维数为$d+1$。\\
+$A^m,N^k=0$&普通矩阵幂的$m$默认是非负整数，$A^0=I$；幂零关系中的$k$为正整数。负整数幂须先有逆。\\
+$\vx,\va,\vb,\zero$&列向量与零向量；行向量用转置明确表示。\\
+$A\T,A\inv,\adj A$&转置、逆矩阵、经典伴随矩阵；伴随不表示共轭转置。\\
+$A^*$&仅在复数内积的拓展中表示共轭转置，避免与伴随混用。\\
+$\det A,\abs{A}$&方阵行列式；数的绝对值依上下文区分。\\
+$M_{ij},C_{ij}$&余子式与代数余子式，$C_{ij}=(-1)^{i+j}M_{ij}$。\\
+$\rank A,\tr A$&矩阵秩与迹；迹只用于方阵。\\
+$\ker A,\im A$&零空间与列空间；对线性变换采用同样记号。\\
+$\Span(\va_1,\ldots,\va_s)$&所列向量的全体线性组合。\\
+$[\vx]_{\mathcal B}$&向量相对于有序基$\mathcal B$的坐标列。\\
+$\chi_A(t),m_A(t)$&$\det(tI-A)$与首一最小多项式。\\
+$E_\lambda,\Lambda,J$&特征子空间、对角矩阵、Jordan 矩阵。\\
+$A\sim B$&存在可逆$P$使$B=P\inv AP$，称相似。\\
+$A\cong B$&存在可逆$P$使$B=P\T AP$，称合同。\\
+$p,q,r$&二次型正惯性指数、负惯性指数与秩，$r=p+q$。\\
+$A\succ0,A\succeq0$&实对称正定、半正定；默认已要求对称。\\
+$\langle\vx,\vy\rangle,\norm{\vx}_2$&标准实内积$\vx\T\vy$及欧氏范数。\\
+$\norm{A}_2,\rho(A),\kappa_2(A)$&诱导2范数、谱半径、2范数条件数。\\
+\bottomrule
+\end{longtable}

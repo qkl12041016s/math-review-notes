@@ -1,0 +1,29 @@
+\begin{insight}{方程组是在寻找约束的交集}
+二元一次方程对应直线。两条直线相交于一点给唯一解；平行且不重合给无解；重合给一条解直线。消元是在保持同一交集的前提下改写约束。秩比较准确地把这种图形分类推广到任意维数。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1]
+\begin{scope}
+\draw[laaxis](-.2,0)--(2.7,0);\draw[laaxis](0,-.2)--(0,2.7);
+\draw[Teal,thick](0,0)--(2.3,2.3);\draw[Gold,thick](0,2)--(2.3,-.3);
+\node[lapt]at(1,1){};\node[lanote]at(1.2,-.8){唯一交点\\$r(A)=r(A,\vb)=2$};
+\end{scope}
+\begin{scope}[xshift=4.2cm]
+\draw[laaxis](-.2,0)--(2.7,0);\draw[laaxis](0,-.2)--(0,2.7);
+\draw[Teal,thick](0,0)--(2.3,2.3);\draw[Gold,thick](0,.8)--(1.8,2.6);
+\node[lanote]at(1.2,-.8){没有交点\\$r(A)<r(A,\vb)$};
+\end{scope}
+\begin{scope}[xshift=8.4cm]
+\draw[laaxis](-.2,0)--(2.7,0);\draw[laaxis](0,-.2)--(0,2.7);
+\draw[Teal,line width=2pt](0,0)--(2.3,2.3);\draw[Gold,dashed,thick](0,0)--(2.3,2.3);
+\node[lanote]at(1.2,-.8){整条直线\\$r(A)=r(A,\vb)=1$};
+\end{scope}
+\end{tikzpicture}
+\caption{图中$r$表示秩；增广矩阵多出的主元意味着右端与原约束不相容。}\label{fig:system-lines}
+\end{figure}
+\begin{clevertrick}{参数退化时先想图形，避免盲目除法}
+方程$x+y=1,\ tx+y=2$在$t=1$时左边相同、右边不同，对应两条平行线，无法有共同点，所以无解。$t\ne1$时相减得$(t-1)x=1$，此时才可除以$t-1$，得到
+\[x=\dfrac1{t-1},\qquad y=1-x=\dfrac{t-2}{t-1}.\]
+代回第二式，$tx+y=\frac{t+(t-2)}{t-1}=2$；系数行列式$1-t\ne0$保证交点唯一。图形先指出退化值，代数再给精确坐标。
+若把第二个右端改成1，相减改为$(t-1)x=0$。$t=1$时两式重合，全部解为$(1-s,s)$；$t\ne1$时$x=0,y=1$，唯一交点仍存在。相同的系数退化可因右端不同而分别产生无解或无穷多解。
+\end{clevertrick}

@@ -1,0 +1,195 @@
+\chapter{常微分方程}\label{ch:4}
+\begin{tcolorbox}[title=章首知识地图,colframe=Ink]
+识别阶与线性 $\to$ 一阶方程分类 $\to$ 降阶 $\to$ 线性解空间 $\to$ 非齐次特解 $\to$ Euler、级数与积分方程。
+\end{tcolorbox}
+\begin{examtip}考研主线：一阶常见类型、可降阶方程和二阶常系数线性方程。常见题型：初值问题、共振特解、由积分关系建立方程。竞赛拓展：全微分、积分因子、Euler与级数解；重视存在唯一性及漏解。上述为学习任务分层，具体范围以所报考科目的当年大纲为准。\end{examtip}
+\section{基本概念、分离变量与齐次方程}\label{sec:4:1}
+\subsection{概念、定理与推导}
+
+\begin{definition}{方程与解}含未知函数及其导数的关系为微分方程，出现的最高导数阶数称阶。在线性方程中未知函数及各阶导数只以一次线性组合出现，系数可依赖自变量。在一个非退化区间上，函数具有方程所需阶数的导数且逐点代入满足等式，才称为该区间上的经典解。初值问题还指定某点的函数值或若干阶导数值；满足存在唯一性条件时，这些数据确定局部唯一解。不同解区间以及仅在局部有效的隐式支路须区分。\end{definition}
+\begin{theorem}{存在唯一性的常用充分条件，标准结论}若$y\prime=f(x,y)$中$f$在初值点附近连续且对$y$局部Lipschitz，则该初值问题局部存在唯一解。$f_y$连续是常用充分条件。\end{theorem}
+\begin{proof}积分形式$y=y_0+\int_{x_0}^xf(t,y(t))\dd t$在充分短区间上定义压缩映射；迭代一致收敛给解，Lipschitz估计给唯一性。\end{proof}
+分离方程$y\prime=p(x)q(y)$在$q(y)\ne0$区域积分$\int\frac{\dd y}{q(y)}=\int p(x)\dd x+C$；需另查$q(y)=0$的平衡解。齐次方程$y\prime=F(\frac{y}{x})$令$y=xv$，得到$xv\prime=F(v)-v$。
+
+\begin{method}{基本概念、分离变量与齐次方程}条件：先查除去的因子是否为零。步骤：识别分离或比值齐次，积分后代初值并说明区间。易错点：一阶齐次型不等于齐次线性方程。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜分离与线性}{难度：$\star$}
+\label{ex:4:1}\textbf{题目} 解$y\prime=2xy,y(0)=3$。\par
+\textbf{思路} 既可分离也可用线性积分因子。\par
+\textbf{解答} 方法一：$\frac{\dd y}{y}=2x\dd x$，$y=C\e^{x^2}$，初值给$C=3$。方法二：$(\e^{-x^2}y)\prime=0$，故同解。零解不满足该初值，但应在通解族中保留。\par
+\textbf{方法点评} 两种结构重叠，积分因子避免除以$y$。\par
+\textbf{易错点或变式} 不能从分离过程直接断言零解不存在。
+\end{example}
+\begin{example}{考研风格例题｜齐次型}{难度：$\star\star$}
+\label{ex:4:2}\textbf{题目} 解$y\prime=1+\frac{y}{x}$，$x>0$。\par
+\textbf{思路} 比值代换或一阶线性。\par
+\textbf{解答} 方法一：$y=xv$，$v+xv\prime=1+v$，$v=\ln x+C$，$y=x(\ln x+C)$。方法二：$y\prime-\frac{y}{x}=1$乘$\frac{1}{x}$得$(\frac{y}{x})\prime=\frac{1}{x}$。\par
+\textbf{方法点评} 齐次代换解释比例结构，积分因子给最短计算。\par
+\textbf{易错点或变式} 跨越$x=0$需要重新讨论方程定义。
+\end{example}
+\begin{example}{考研风格例题｜非唯一性}{难度：$\star\star$}
+\label{ex:4:3}\textbf{题目} 初值问题$y\prime=2\sqrt{|y|},y(0)=0$是否唯一？\par
+\textbf{思路} 在$y=0$处不满足局部Lipschitz。\par
+\textbf{解答} 零函数为解。对任意$c\ge0$，令$y=0$（$x\le c$），$y=(x-c)^2$（$x\ge c$），连接处一阶导数为0，处处满足方程并满足初值。因此不唯一。\par
+\textbf{方法点评} 缺少充分条件本身不是反证，显式构造不同解才完成判断。\par
+\textbf{易错点或变式} 方程右端连续只保证局部存在，不保证唯一。
+\end{example}
+\section{一阶线性、伯努利与全微分}\label{sec:4:2}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{一阶线性公式}设$p,q$在区间$I$上连续。对于$y\prime+p(x)y=q(x)$，令$\mu=\e^{\int p\dd x}$，则
+\begin{equation}y=\mu^{-1}\left(C+\int\mu q\dd x\right).\end{equation}
+\end{theorem}
+\begin{proof}乘以$\mu$后左边为$(\mu y)\prime$，直接积分。伯努利方程$y\prime+py=qy^\alpha$（$\alpha\ne1$）在$y\ne0$的实值区间令$z=y^{1-\alpha}$，得到$z\prime+(1-\alpha)pz=(1-\alpha)q$。\end{proof}
+\begin{theorem}{全微分与积分因子}若$M,N\in C^1$，单连通区域内$M_y=N_x$，则$M\dd x+N\dd y=\dd F$。在$N\ne0$的区域，若$\frac{M_y-N_x}{N}$为仅依赖$x$的连续函数，则$\mu(x)=\exp\int\frac{M_y-N_x}{N}\dd x$是积分因子；在$M\ne0$的区域，若$\frac{N_x-M_y}{M}$为仅依赖$y$的连续函数，同理求$\mu(y)$。\end{theorem}
+局部矩形中可取$F=\int M\dd x+h(y)$，再由$F_y=N$确定$h$。积分因子公式均在分母非零的区域应用。
+
+\begin{method}{一阶线性、伯努利与全微分}条件：先整理成规范形式。步骤：线性乘因子，伯努利降幂，全微分比交叉偏导。易错点：伯努利代换后需补查零解和实数幂定义域。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜伯努利}{难度：$\star\star$}
+\label{ex:4:4}\textbf{题目} 解$y\prime+y=y^2$。\par
+\textbf{思路} 既能分离也能令$z=\frac{1}{y}$。\par
+\textbf{解答} 方法一：$z\prime-z=-1$，得$z=1+C\e^x$，$y=\frac{1}{1+C\e^x}$，另有$y=0$。方法二：$\frac{\dd y}{y(y-1)}=\dd x$，部分分式积分得$\ln|\frac{y-1}{y}|=x+C_0$，化为同一非零解族，并补查$y=1,0$。\par
+\textbf{方法点评} 伯努利更短，分离更容易看到两个平衡点。\par
+\textbf{易错点或变式} 分母零点分隔最大存在区间。
+\end{example}
+\begin{example}{考研风格例题｜全微分}{难度：$\star\star$}
+\label{ex:4:5}\textbf{题目} 解$(2xy+1)\dd x+(x^2+2y)\dd y=0$。\par
+\textbf{思路} 交叉偏导相等。\par
+\textbf{解答} 方法一：对$x$积分得$F=x^2y+x+h(y)$，由$F_y=x^2+h\prime(y)=x^2+2y$得$h=y^2$，故$x^2y+x+y^2=C$。方法二：直接识别$\dd(x^2y)+\dd x+\dd(y^2)=0$。\par
+\textbf{方法点评} 势函数法系统，微分配组法适合低次多项式。\par
+\textbf{易错点或变式} 积分时$h$是另一变量的函数。
+\end{example}
+\begin{example}{考研风格例题｜积分因子}{难度：$\star\star$}
+\label{ex:4:6}\textbf{题目} 解$y\dd x+2x\dd y=0$，$x>0$。\par
+\textbf{思路} 除以$2x$后线性，或给微分形式乘因子。\par
+\textbf{解答} $y\prime+\frac{y}{2x}=0$，积分因子$\sqrt x$，得$y\sqrt x=C$。对原微分形式，$\frac{M_y-N_x}{N}=-\frac{1}{2x}$，积分因子$x^{-\frac{1}{2}}$；此时原式等于$2\dd(y\sqrt x)$。\par
+\textbf{方法点评} 规范线性式与原微分形式的积分因子可以不同。\par
+\textbf{易错点或变式} 不能忽略方程整体乘除造成的因子变化。
+\end{example}
+\section{降阶与常系数齐次方程}\label{sec:4:3}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{线性叠加与常系数结构}线性齐次方程解空间可线性叠加。设$a,b\in\R$，$C_1,C_2\in\R$。对$y\prime\prime+ay\prime+by=0$，若特征根$r_1\ne r_2$均为实数，则$y=C_1\e^{r_1x}+C_2\e^{r_2x}$；若有实重根$r$，则$y=(C_1+C_2x)\e^{rx}$；若有非实共轭根$\alpha\pm i\beta$（$\beta>0$），则$y=\e^{\alpha x}(C_1\cos\beta x+C_2\sin\beta x)$。\end{theorem}
+\begin{proof}代$y=\e^{rx}$得特征多项式。重根情形代$y=u\e^{rx}$化为$u\prime\prime=0$；复根取复指数解的实部和虚部。两基解Wronskian非零，故覆盖二阶解空间。\end{proof}
+缺$y$方程令$p=y\prime(x)$；缺$x$方程在可将$p$视为$y$的函数的区间用$y\prime\prime=\frac{p\dd p}{\dd y}$。后一变换在转折点附近需另行检查。
+
+\begin{method}{降阶与常系数齐次方程}条件：判断缺哪一个变量。步骤：缺$y$降为关于$p(x)$，缺$x$用$p(y)$；常系数写特征多项式。易错点：重根少乘$x$会使基解线性相关。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜常系数}{难度：$\star$}
+\label{ex:4:7}\textbf{题目} 解$y\prime\prime-3y\prime+2y=0$。\par
+\textbf{思路} 特征多项式可分解。\par
+\textbf{解答} $r^2-3r+2=(r-1)(r-2)$，故$y=C_1\e^x+C_2\e^{2x}$。另令$z=y\prime-y$，得$z\prime-2z=0$，再解一阶方程也得同式。\par
+\textbf{方法点评} 特征根快，逐级因式分解解释算子结构。\par
+\textbf{易错点或变式} 两个独立常数不可合并。
+\end{example}
+\begin{example}{考研风格例题｜缺因变量}{难度：$\star\star$}
+\label{ex:4:8}\textbf{题目} 解$y\prime\prime=2xy\prime$。\par
+\textbf{思路} 设$p=y\prime$。\par
+\textbf{解答} $p\prime=2xp$给$p=C_1\e^{x^2}$，积分$y=C_2+C_1\int_0^x\e^{t^2}\dd t$。无需强求初等原函数。\par
+\textbf{方法点评} 定积分表达本身就是完整解。\par
+\textbf{易错点或变式} 积分下限改变只会改变常数$C_2$。
+\end{example}
+\begin{example}{考研风格例题｜能量降阶}{难度：$\star\star$}
+\label{ex:4:9}\textbf{题目} 解$y\prime\prime=-y$并给出能量守恒。\par
+\textbf{思路} 线性法给通解，乘$y\prime$给不变量。\par
+\textbf{解答} 特征根$\pm i$给$y=A\cos x+B\sin x$。乘$y\prime$后$\frac\dd{\dd x}[(y\prime)^2+y^2]=0$，故能量$(y\prime)^2+y^2=A^2+B^2$守恒。\par
+\textbf{方法点评} 能量关系描述相轨道，线性解给时间参数。\par
+\textbf{易错点或变式} 从平方关系开根时不能全程固定一个速度符号。
+\end{example}
+\section{非齐次、常数变易与算子}\label{sec:4:4}
+
+\begin{method}{待定系数试解表}
+对常系数方程$P(D)y=\e^{\alpha x}P_m(x)$，取$y_p=x^s\e^{\alpha x}Q_m(x)$，$s$为$\alpha$的特征根重数。对右端$\e^{\alpha x}[P_m(x)\cos\beta x+Q_n(x)\sin\beta x]$（$\beta\ne0$），取
+\[y_p=x^s\e^{\alpha x}[U_k(x)\cos\beta x+V_k(x)\sin\beta x],\quad k=\max(m,n),\]
+其中$U_k,V_k$均先取完整的$k$次多项式，$s$为$\alpha+i\beta$的根重数。即使右端只有正弦，也常须同时保留余弦试项。多个右端分项求特解再相加，代回能检验每个系数。
+\end{method}
+
+\subsection{概念、定理与推导}
+
+\begin{theorem}{非齐次结构与常数变易}设$p,q,r$在区间$I$上连续，$y_1,y_2$是$y\prime\prime+py\prime+qy=0$在$I$上的一组基本解，且$W=y_1y_2\prime-y_1\prime y_2\ne0$。非齐次方程的通解为齐次通解加一个特解，其中可取
+\begin{equation}y_p=-y_1\int\dfrac{y_2r}{W}\dd x+y_2\int\dfrac{y_1r}{W}\dd x.\end{equation}
+\end{theorem}
+\begin{proof}设$y_p=u_1y_1+u_2y_2$，附加$u_1\prime y_1+u_2\prime y_2=0$，代回得$u_1\prime y_1\prime+u_2\prime y_2\prime=r$。解二元方程并积分。\end{proof}
+待定系数法适用于多项式、指数、正余弦及其有限乘积。若激励指数为特征根且重数$s$，试解须乘$x^s$。算子移位$P(D)(\e^{\lambda x}v)=\e^{\lambda x}P(D+\lambda)v$由乘积法则得出，形式逆算子最后必须代回核验。
+
+\begin{method}{非齐次、常数变易与算子}条件：待定系数法要求右端属于导数封闭的有限函数族。步骤：先齐次再特解，查共振，代入配系数；一般右端用常数变易。易错点：未把最高阶系数化为1就套变易公式。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜共振}{难度：$\star\star$}
+\label{ex:4:10}\textbf{题目} 解$y\prime\prime-y=\e^x$。\par
+\textbf{思路} 激励指数1是简单特征根。\par
+\textbf{解答} 方法一：试$y_p=Ax\e^x$，代回为$2A\e^x$，得$A=\frac{1}{2}$。方法二：设$y=\e^xv$，方程变为$v\prime\prime+2v\prime=1$，取$v=\frac{x}{2}$。通解$C_1\e^x+C_2\e^{-x}+\frac{x\e^x}{2}$。\par
+\textbf{方法点评} 待定系数最快，移位法说明乘$x$的原因。\par
+\textbf{易错点或变式} 试$A\e^x$只会代出零。
+\end{example}
+\begin{example}{考研风格例题｜三角共振}{难度：$\star\star$}
+\label{ex:4:11}\textbf{题目} 解$y\prime\prime+y=\sin x$。\par
+\textbf{思路} 试解需乘$x$。\par
+\textbf{解答} 取$y_p=Ax\cos x$，左端$=-2A\sin x$，故$A=-\frac{1}{2}$。通解$C_1\cos x+C_2\sin x-\frac{x\cos x}{2}$。常数变易中$W=1$，代入两积分后也得到该特解加齐次项。\par
+\textbf{方法点评} 特解相差齐次解不影响通解。\par
+\textbf{易错点或变式} 共振特解可出现线性增长。
+\end{example}
+\begin{example}{考研风格例题｜一般右端}{难度：$\star\star$}
+\label{ex:4:12}\textbf{题目} 解$y\prime\prime+y=\sec x$，$|x|<\frac{\pi}{2}$。\par
+\textbf{思路} 右端不适合有限待定系数，使用变易。\par
+\textbf{解答} 取$y_1=\cos x,y_2=\sin x,W=1$。$u_1\prime=-\tan x$给$u_1=\ln\cos x$，$u_2\prime=1$给$u_2=x$。故$y=C_1\cos x+C_2\sin x+\cos x\ln\cos x+x\sin x$。\par
+\textbf{方法点评} 常数变易能处理一般连续激励。\par
+\textbf{易错点或变式} 所选区间保证$\cos x>0$及右端有定义。
+\end{example}
+\section{Euler、幂级数与积分方程}\label{sec:4:5}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{Euler方程}对$x^2y\prime\prime+axy\prime+by=f(x)$，在$x>0$令$t=\ln x,Y(t)=y(\e^t)$，则$xy\prime=Y\prime$、$x^2y\prime\prime=Y\prime\prime-Y\prime$，方程化为常系数型。\end{theorem}
+\begin{proof}两次链式求导得到$Y\prime=xy\prime$与$Y\prime\prime=xy\prime+x^2y\prime\prime$。\end{proof}
+\begin{extension}幂级数解在普通点把$y=\sum a_nx^n$代回，通过同次幂系数得递推。存在解析解需要系数解析且最高阶系数非零等条件。积分方程可通过求导化为微分方程，但初值与原式一致性必须回代验证。\end{extension}
+
+\begin{method}{Euler、幂级数与积分方程}条件：Euler代换限定符号区间；级数展开须在普通点。步骤：化标准型、求系数递推或初值，再代回原式。易错点：求导会丢失常数约束。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{竞赛风格例题｜Euler重根}{难度：$\star\star\star$}
+\label{ex:4:13}\textbf{题目} 解$x^2y\prime\prime-xy\prime+y=0$，$x>0$。\par
+\textbf{思路} 幂函数试解或对数换元。\par
+\textbf{解答} 方法一：$y=x^m$给$(m-1)^2=0$，重根解$y=x(C_1+C_2\ln x)$。方法二：$t=\ln x$后$Y\prime\prime-2Y\prime+Y=0$，故$Y=(C_1+C_2t)\e^t$。\par
+\textbf{方法点评} 幂试解简洁，对数换元解释重根中的$\ln x$。\par
+\textbf{易错点或变式} 在负半轴应使用$\ln|x|$并单独建立解区间。
+\end{example}
+\begin{example}{竞赛风格例题｜幂级数}{难度：$\star\star\star$}
+\label{ex:4:14}\textbf{题目} 用幂级数解$y\prime=y,y(0)=1$。\par
+\textbf{思路} 比较相邻次数的系数。\par
+\textbf{解答} 设$y=\sum_{n=0}^{\infty}a_nx^n$，有$(n+1)a_{n+1}=a_n,a_0=1$，故$a_n=\frac{1}{n!}$。所得级数对所有$x$绝对收敛且可逐项求导，解为$\e^x$。\par
+\textbf{方法点评} 递推确定系数，收敛检查把形式级数变成实际解。\par
+\textbf{易错点或变式} 仅求出递推并不自动证明级数收敛。
+\end{example}
+\begin{example}{竞赛风格例题｜积分方程}{难度：$\star\star\star$}
+\label{ex:4:15}\textbf{题目} 解连续函数方程$y(x)=1+\int_0^x(x-t)y(t)\dd t$。\par
+\textbf{思路} 连续核使右端可微两次。\par
+\textbf{解答} 求导得$y\prime=\int_0^xy(t)\dd t$，再求导$y\prime\prime=y$。原式给$y(0)=1,y\prime(0)=0$，故$y=\cosh x$。回代积分为$\cosh x-1$，原式成立。\par
+\textbf{方法点评} 微分方程与两条初始约束共同恢复原积分关系。\par
+\textbf{易错点或变式} 只写$y\prime\prime=y$会多出不合法的解。
+\end{example}
+\begin{warning}求解过程中除以$y$、$y\prime$或$x$都可能丢解或缩小区间；特解不要求唯一；方程通解必须有相应数量的独立常数并经过代回检验。\end{warning}
+
+
+\input{chapters/materials/ode_theory}
+\input{chapters/materials/ode_systems}
+\input{chapters/materials/difference_pde}
+
+
+
+\input{chapters/materials/ode_source_deep}
+\input{chapters/materials/ode_qualitative_deep}
+\input{chapters/materials/delta_ode}
+\input{chapters/illustrations/ch04}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\refstepcounter{exercise}\label{q:4:1}\par\noindent\textbf{习题\theexercise\quad 基础题} 解$y\prime=3y,y(0)=2$。\quad\hyperref[a:4:1]{[答案]}\par
+\refstepcounter{exercise}\label{q:4:2}\par\noindent\textbf{习题\theexercise\quad 基础题} 解$y\prime+x=0$。\quad\hyperref[a:4:2]{[答案]}\par
+\refstepcounter{exercise}\label{q:4:3}\par\noindent\textbf{习题\theexercise\quad 基础题} 解$y\prime+y=1$。\quad\hyperref[a:4:3]{[答案]}\par
+\refstepcounter{exercise}\label{q:4:4}\par\noindent\textbf{习题\theexercise\quad 考研风格} 解$y\prime\prime+4y=0$。\quad\hyperref[a:4:4]{[答案]}\par
+\refstepcounter{exercise}\label{q:4:5}\par\noindent\textbf{习题\theexercise\quad 考研风格} 解$y\prime\prime-2y\prime+y=0$。\quad\hyperref[a:4:5]{[答案]}\par
+\refstepcounter{exercise}\label{q:4:6}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$y\prime\prime+y=x$的通解。\quad\hyperref[a:4:6]{[答案]}\par
+\refstepcounter{exercise}\label{q:4:7}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 解$x^2y\prime\prime+xy\prime-y=0$，$x>0$。\quad\hyperref[a:4:7]{[答案]}\par
+\refstepcounter{exercise}\label{q:4:8}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 解$y(x)=2+\int_0^xy(t)\dd t$。\quad\hyperref[a:4:8]{[答案]}\par
+\refstepcounter{exercise}\label{q:4:9}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 求$y\prime\prime+y=0$且$y(0)=0,y\prime(0)=1$的幂级数。\quad\hyperref[a:4:9]{[答案]}\par
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\par\noindent\begin{tabularx}{\textwidth}{p{23mm}XXX}\toprule 方法&适用条件&典型信号&易错点\\\midrule
+分离变量&可分积&$p(x)q(y)$&漏平衡解\\积分因子&一阶线性&$y\prime+py$&未化标准型\\待定系数&导数封闭族&指数多项式&漏共振因子\\常数变易&基解独立&一般激励&Wronskian符号\\
+\bottomrule\end{tabularx}

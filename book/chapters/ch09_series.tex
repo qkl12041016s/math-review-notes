@@ -1,0 +1,209 @@
+\chapter{无穷级数与函数展开}\label{ch:9}
+\begin{tcolorbox}[title=章首知识地图,colframe=Ink]
+部分和 $\to$ 正项与任意项判敛 $\to$ 幂级数半径、端点与求和 $\to$ 一致收敛 $\to$ Fourier展开与点收敛。
+\end{tcolorbox}
+\begin{examtip}考研主线：数项判敛、绝对与条件收敛、幂级数收敛域与求和、Fourier系数。常见题型：反例判断、端点检查、逐项运算。竞赛拓展：一致收敛、Dirichlet、积分表示与Fourier选点求和。上述为学习任务分层，具体范围以所报考科目的当年大纲为准。\end{examtip}
+\section{级数概念与正项判别}\label{sec:9:1}
+\subsection{概念、定理与推导}
+
+\begin{definition}{级数收敛}级数$\sum_{n=1}^\infty a_n$收敛指部分和$S_N=\sum_{n=1}^Na_n$有有限极限。必要条件$a_n\to0$，但不充分。正项级数收敛等价于部分和有界。\end{definition}
+\begin{theorem}{比较、比值、根值与积分判别}非负项满足$0\le a_n\le b_n$时，大级数收敛推出小级数收敛。若$a_n\ge0,b_n>0$最终成立，且$\frac{a_n}{b_n}\to c\in(0,\infty)$，则同敛散。比值判别要求$a_n>0$最终成立；比值极限$L=\lim \frac{a_{n+1}}{a_n}$小于1则收敛，大于1则发散；等于1不定。根值上极限$L=\limsup\sqrt[n]{a_n}$同理。若$f$正、递减且连续，则$\sum f(n)$与$\int_1^\infty f(x)\dd x$同敛散。\end{theorem}
+\begin{proof}比较来自部分和保序；比值或根值小于1时最终受几何级数控制；比值极限大于1时，项最终以大于1的比例增长；根值上极限大于1时，存在$q>1$及无穷多个$n$使$a_n\ge q^n$。两种情形一般项均不趋零。积分判别用左右矩形夹住积分。\end{proof}
+$p$级数$\sum n^{-p}$当且仅当$p>1$收敛。正递减$a_n$的凝聚判别将$\sum a_n$与$\sum2^ka_{2^k}$比较，适合对数因子。
+
+\begin{method}{级数概念与正项判别}条件：先判项是否趋零、是否非负。步骤：指数阶乘用比值，$n$次幂用根值，幂与对数用比较或积分。易错点：比值等于1时不能下结论。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜调和发散}{难度：$\star$}
+\label{ex:9:1}\textbf{题目} 证明$\sum_{n=1}^{\infty}\frac{1}{n}$发散。\par
+\textbf{思路} 分组、积分或Cauchy准则。\par
+\textbf{解答} 方法一：每组$n=2^{k-1}+1$到$2^k$的和至少$\frac{1}{2}$，部分和无界。方法二：$S_N\ge\int_1^{N+1}\frac{\dd x}{x}=\ln(N+1)\to\infty$。方法三：尾和$\sum_{k=n+1}^{2n}\frac{1}{k}\ge\frac{1}{2}$不满足Cauchy准则。\par
+\textbf{方法点评} 分组体现尺度结构，积分给增长下界，Cauchy直接否定收敛。\par
+\textbf{易错点或变式} 一般项趋零不能判收敛。
+\end{example}
+\begin{example}{考研风格例题｜阶乘比值}{难度：$\star\star$}
+\label{ex:9:2}\textbf{题目} 判断$\sum \frac{n!}{n^n}$。\par
+\textbf{思路} 阶乘使用相邻比。\par
+\textbf{解答} $\frac{a_{n+1}}{a_n}=(\frac{n}{n+1})^n\to\e^{-1}<1$，故收敛。另一法：将$\frac{n!}{n^n}=\prod_{k=1}^n(\frac{k}{n})$，前$\lfloor \frac{n}{2}\rfloor$项不超过$\frac{1}{2}$，其余不超过1，故$a_n\le2^{-\lfloor \frac{n}{2}\rfloor}$，比较几何级数收敛。\par
+\textbf{方法点评} 直接乘积估计不依赖Stirling公式。\par
+\textbf{易错点或变式} 比值中的$n+1$因子会与阶乘变化抵消。
+\end{example}
+\begin{example}{考研风格例题｜对数临界}{难度：$\star\star$}
+\label{ex:9:3}\textbf{题目} 判断$\sum_{n=2}^{\infty}\frac{1}{n(\ln n)^p}$。\par
+\textbf{思路} 比值趋1，改用积分。\par
+\textbf{解答} 积分令$u=\ln x$，化为$\int_{\ln2}^{\infty}u^{-p}\dd u$，当且仅当$p>1$收敛。也可凝聚得到常数倍$\sum k^{-p}$。\par
+\textbf{方法点评} 积分与凝聚都降低一层对数。\par
+\textbf{易错点或变式} $p\le0$时项函数最终仍递减；从足够大处开始比较即可。
+\end{example}
+\section{交错、绝对与条件收敛}\label{sec:9:2}
+
+\begin{method}{命题判断中的四个检验序列}
+几何项$2^{-n}$提供快速绝对收敛；$\frac{1}{n}$提供项趋零仍发散；$\frac{(-1)^{n-1}}{n}$提供条件收敛；$(-1)^n$提供分组后为零而原级数发散。有限项增删不影响敛散；两个收敛级数可逐项相加，两个发散级数相加没有统一结论。对任意项级数要避免把正项级数的保序结论直接搬用。
+\end{method}
+
+\subsection{概念、定理与推导}
+
+\begin{definition}{绝对与条件收敛}$\sum|a_n|$收敛称绝对收敛；$\sum a_n$收敛而$\sum|a_n|$发散称条件收敛。\end{definition}
+\begin{theorem}{Leibniz与Dirichlet}若$b_n\downarrow0$，则$\sum(-1)^{n-1}b_n$收敛，余项绝对值不超过首个被省项$b_{N+1}$。若$\sum_{k=1}^na_k$一致有界且$b_n$单调趋零，则$\sum a_nb_n$收敛。绝对收敛蕴含收敛。\end{theorem}
+\begin{proof}交错级数的偶部分和递增、奇部分和递减且相差趋零。Dirichlet用分部求和，把尾和界为常数乘$b_m+\sum_{k\ge m}|b_k-b_{k+1}|$，趋零。绝对收敛由尾和三角不等式与Cauchy准则得到。\end{proof}
+Abel判别：若$\sum a_n$收敛、$b_n$单调有界，则$\sum a_nb_n$收敛。条件收敛级数不能任意重排；分组后的收敛也不自动推出原级数收敛。
+
+\begin{method}{交错、绝对与条件收敛}条件：交错判别需要幅度最终单调且趋零。步骤：先查绝对值级数，再用符号抵消；误差由交错余项控制。易错点：仅正负交替并不足够。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜交错调和}{难度：$\star$}
+\label{ex:9:4}\textbf{题目} 判断$\sum\frac{(-1)^{n-1}}{n}$并求和。\par
+\textbf{思路} Leibniz判敛，积分或幂级数求值。\par
+\textbf{解答} 幅度$\frac{1}{n}\downarrow0$，级数收敛；绝对值调和级数发散，故条件收敛。对有限几何和积分：$\sum_{n=1}^N\frac{(-1)^{n-1}}{n}=\int_0^1\frac{1-(-x)^N}{1+x}\dd x$，误差不超过$\frac{1}{N+1}$，极限为$\ln2$。\par
+\textbf{方法点评} 有限和积分避免未经证明的端点逐项操作。\par
+\textbf{易错点或变式} 不能用半径内逐项运算直接代端点而不给依据。
+\end{example}
+\begin{example}{考研风格例题｜反例构造}{难度：$\star\star$}
+\label{ex:9:5}\textbf{题目} 若$\sum a_n$收敛，是否必有$\sum a_n^2$收敛？\par
+\textbf{思路} 用条件收敛而幅度慢衰减的序列。\par
+\textbf{解答} 取$a_n=\frac{(-1)^{n-1}}{\sqrt n}$，原级数由Leibniz收敛，但$\sum a_n^2=\sum\frac{1}{n}$发散。若增加绝对收敛条件，则最终$|a_n|\le1$，有$a_n^2\le|a_n|$而成立。\par
+\textbf{方法点评} 反例与修正命题一起记忆，明确缺失的假设。\par
+\textbf{易错点或变式} 收敛级数的项可正可负，不能套正项比较。
+\end{example}
+\begin{example}{考研风格例题｜Dirichlet}{难度：$\star\star$}
+\label{ex:9:6}\textbf{题目} 证明当$\theta\notin2\pi\mathbb Z$时$\sum\frac{\sin(n\theta)}{n}$收敛。\par
+\textbf{思路} 三角部分和有界。\par
+\textbf{解答} 由有限几何和，$|\sum_{k=1}^N\e^{ik\theta}|\le\frac{2}{|1-\e^{i\theta}|}$，其虚部部分和有界；$\frac{1}{n}$单调趋零，Dirichlet成立。\par
+\textbf{方法点评} 周期振荡也可产生抵消，不必逐项交错。\par
+\textbf{易错点或变式} 这里给的是固定$\theta$的收敛，界在$\theta\to0$时失去统一性。
+\end{example}
+\section{幂级数、收敛域与求和}\label{sec:9:3}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{半径与逐项运算}幂级数$\sum a_n(x-x_0)^n$的半径$R=\frac{1}{\limsup\sqrt[n]{|a_n|}}$，约定$\frac{1}{0}=\infty,\frac{1}{\infty}=0$。在$|x-x_0|<R$绝对收敛，外部发散，端点逐一判定；内部可逐项求导积分，半径保持不变。\end{theorem}
+\begin{proof}半径结论来自根值判别。任意闭子区间$|x-x_0|\le r<R$上，可选择$r<\rho<R$建立几何级数控制，从而一致收敛；导数级数同样受带$n$的几何项控制。\end{proof}
+基础展开：$\e^x=\sum \frac{x^n}{n!}$；$\sin x=\sum\frac{(-1)^nx^{2n+1}}{(2n+1)!}$；$\cos x=\sum\frac{(-1)^nx^{2n}}{(2n)!}$均全实数成立。$\ln(1+x)=\sum_{n\ge1}\frac{(-1)^{n-1}x^n}{n}$在$-1<x\le1$成立；$(1+x)^\alpha=\sum\binom\alpha n x^n$在$|x|<1$成立。非负整数$\alpha$时后者有限终止。
+
+\begin{method}{幂级数、收敛域与求和}条件：运算先限制在半径内。步骤：先求收敛域，再把$n$与$\frac{1}{n}$对应求导或积分；最后单独处理端点。易错点：求导积分可改变端点收敛。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜半径端点}{难度：$\star\star$}
+\label{ex:9:7}\textbf{题目} 求$\sum_{n=1}^{\infty}\frac{x^n}{n}$的收敛域与和。\par
+\textbf{思路} 比值判半径，再查$\pm1$。\par
+\textbf{解答} $R=1$。$x=1$调和发散，$x=-1$交错收敛，故域$[-1,1)$。内部对几何级数积分得$S(x)=\int_0^x\frac{\dd t}{1-t}=-\ln(1-x)$；端点$x=-1$由有限和积分或Abel端点定理得$-\ln2$。\par
+\textbf{方法点评} 收敛域、和函数与端点必须一起给。\par
+\textbf{易错点或变式} 不要把$R=1$写成收敛区间$[-1,1]$。
+\end{example}
+\begin{example}{考研风格例题｜加权几何和}{难度：$\star\star$}
+\label{ex:9:8}\textbf{题目} 求$S(x)=\sum_{n=1}^{\infty}nx^n$，$|x|<1$。\par
+\textbf{思路} 求导、错位相减或微分方程。\par
+\textbf{解答} 方法一：对$\sum_{n\ge0}x^n=\frac{1}{1-x}$求导再乘$x$，$S=\frac{x}{(1-x)^2}$。方法二：绝对收敛允许错位相减，$(1-x)S=\sum_{n\ge1}x^n=\frac{x}{1-x}$。方法三：设$T=\frac{S}{x}$，系数递推给$(1-x)T\prime=2T,T(0)=1$，解得$T=(1-x)^{-2}$。\par
+\textbf{方法点评} 求导最短，错位法纯代数，ODE法可推广递推系数。\par
+\textbf{易错点或变式} $x=0$时第三法用连续延拓$T(0)=1$。
+\end{example}
+\begin{example}{考研风格例题｜二阶加权}{难度：$\star\star$}
+\label{ex:9:9}\textbf{题目} 求$\sum_{n=1}^{\infty}\frac{n^2}{2^n}$。\par
+\textbf{思路} 再次对加权几何和求导。\par
+\textbf{解答} $\sum n^2x^n=x\frac\dd{\dd x}\frac{x}{(1-x)^2}=\frac{x(1+x)}{(1-x)^3}$，代$x=\frac{1}{2}$得6。另一法：$n^2=2\binom n2+n$，利用$\sum\binom n2x^n=\frac{x^2}{(1-x)^3}$，加上$\sum nx^n$同得6。\par
+\textbf{方法点评} 普通幂权与组合权可相互转换。\par
+\textbf{易错点或变式} 求导后必须再乘$x$恢复幂次。
+\end{example}
+\section{一致收敛与交换运算}\label{sec:9:4}
+
+\begin{center}\begin{tikzpicture}
+\begin{axis}[width=.65\textwidth,height=4.3cm,xmin=0,xmax=1,ymin=0,ymax=1,xlabel={$x$},ylabel={$x^n$},legend style={font=\small,at={(.02,.98)},anchor=north west},grid=major,grid style={gray!15}]
+\addplot[Ink,domain=0:1,samples=60]{x};\addlegendentry{$n=1$}
+\addplot[Teal,domain=0:1,samples=60]{x^5};\addlegendentry{$n=5$}
+\addplot[Gold,domain=0:1,samples=100]{x^20};\addlegendentry{$n=20$}
+\end{axis}\end{tikzpicture}\par\small 端点附近的误差区不断缩窄，但最大误差没有趋零。
+\end{center}
+
+\subsection{概念、定理与推导}
+
+\begin{definition}{一致收敛}函数列$f_n$在$E$上一致收敛到$f$指$\sup_{x\in E}|f_n(x)-f(x)|\to0$；等价于误差门槛中的$N$不依赖$x$。函数项级数的一致收敛指其部分和一致收敛。\end{definition}
+\begin{theorem}{M判别与交换定理}若$|u_n(x)|\le M_n$且$\sum M_n<\infty$，则$\sum u_n$一致且绝对收敛。连续函数列一致极限连续；闭区间上可积函数列一致收敛则积分与极限可交换。若$f_n\in C^1[a,b]$，$f_n(x_0)$收敛且$f_n\prime$一致收敛到$g$，则$f_n$一致收敛至$f$且$f\prime=g$。\end{theorem}
+\begin{proof}M判别由尾和控制。积分误差不超过区间长度乘上确界误差。导数交换利用$f_n(x)=f_n(x_0)+\int_{x_0}^xf_n\prime$，先交换积分与极限，再用基本定理。\end{proof}
+一致收敛保证积分交换，却单独不足以保证求导交换；导数级数需要额外控制。
+
+\begin{method}{一致收敛与交换运算}条件：区别逐点与统一误差。步骤：先求点态极限，再算上确界或找依赖$n$的坏点；正向用M判别。易错点：用固定$x$的估计代替全域一致估计。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜逐点非一致}{难度：$\star\star$}
+\label{ex:9:10}\textbf{题目} 研究$x^n$在$[0,1]$与$[0,q]$（$0<q<1$）上的一致收敛。\par
+\textbf{思路} 端点产生边界层。\par
+\textbf{解答} 在$[0,1]$上，点态极限在$x<1$为0、在1为1，不连续，而各项连续，所以不一致。也可取$x_n=1-\frac{1}{n}$，误差趋$\e^{-1}$。在$[0,q]$上$\sup x^n=q^n\to0$，故一致趋0。\par
+\textbf{方法点评} 连续极限判据给快速否定，上确界给定量证明。\par
+\textbf{易错点或变式} 开区间$[0,1)$上的上确界仍为1，也不一致。
+\end{example}
+\begin{example}{考研风格例题｜M判别}{难度：$\star\star$}
+\label{ex:9:11}\textbf{题目} 证明$\sum_{n=1}^{\infty}\frac{\sin(nx)}{n^2}$在$\R$上一致收敛。\par
+\textbf{思路} 正弦被1统一控制。\par
+\textbf{解答} $|\frac{\sin(nx)}{n^2}|\le\frac{1}{n^2}$，控制级数收敛，M判别成立。每项连续，所以和函数连续。导数形式$\sum\frac{\cos(nx)}{n}$不满足同一控制，不能据此宣称可逐项求导。\par
+\textbf{方法点评} 判别条件与可得结论要分别列明。\par
+\textbf{易错点或变式} 一致收敛不是任意交换导数的许可。
+\end{example}
+\begin{example}{考研风格例题｜移动尖峰}{难度：$\star\star$}
+\label{ex:9:12}\textbf{题目} $f_n(x)=nx(1-x)^n$，$0\le x\le1$，是否一致趋0？\par
+\textbf{思路} 极大值位置随$n$移动。\par
+\textbf{解答} 每个固定$x$都趋0。求导得$f_n\prime=n(1-x)^{n-1}[1-(n+1)x]$，最大值在$x=\frac{1}{n+1}$，值$\frac n{n+1}(\frac n{n+1})^n\to\e^{-1}$，故不一致。\par
+\textbf{方法点评} 坏点依赖$n$是逐点与一致的核心差别。\par
+\textbf{易错点或变式} 只有逐点趋零不能控制最大误差。
+\end{example}
+\section{Fourier级数与综合求和}\label{sec:9:5}
+
+\begin{method}{半区间展开与周期缩放}
+在$(0,L)$作奇延拓得到正弦级数，$b_n=(\frac{2}{L})\int_0^Lf(x)\sin(\frac{n\pi x}{L})\dd x$；作偶延拓得到余弦级数，$a_n=(\frac{2}{L})\int_0^Lf(x)\cos(\frac{n\pi x}{L})\dd x$，常数项仍为$\frac{a_0}{2}$。端点收敛值由延拓后的左右极限平均决定。取点求数项和前先确认该点满足收敛定理；想求平方系数和时可考虑Parseval等式。
+\end{method}
+
+\subsection{概念、定理与推导}
+
+\begin{definition}{Fourier系数}对$2\pi$周期可积函数，$a_n=\pi^{-1}\int_{-\pi}^{\pi}f(x)\cos nx\dd x$，$b_n=\pi^{-1}\int_{-\pi}^{\pi}f(x)\sin nx\dd x$，级数为$\frac{a_0}{2}+\sum_{n\ge1}(a_n\cos nx+b_n\sin nx)$。\end{definition}
+\begin{theorem}{常用点收敛定理，标准结论}若周期函数分段$C^1$且分段数有限，则Fourier级数在每点收敛到$\frac{f(x^-)+f(x^+)}{2}$，端点按周期延拓取左右极限。仅连续不足以保证处处收敛。\end{theorem}
+\begin{proof}三角正交性给系数公式。将部分和写成Dirichlet核与$f$的卷积，减去左右极限平均后，分段光滑性使差商可积；振荡积分趋零，得到结论。此证明思路中的振荡积分引理可用分段常函数逼近证明。\end{proof}
+半区间$(0,L)$的正弦展开采用奇延拓，余弦展开采用偶延拓，频率为$\frac{n\pi}{L}$。高级几乎处处收敛理论属于进阶内容，不列作考研必备定理。
+\begin{extension}在平方可积框架下，Parseval等式为$\pi^{-1}\int_{-\pi}^{\pi}|f|^2=\frac{a_0^2}{2}+\sum_{n\ge1}(a_n^2+b_n^2)$；它依赖三角系统完备性，是进一步学习的标准结论。\end{extension}
+
+\begin{method}{Fourier级数与综合求和}条件：先定周期与奇偶延拓。步骤：算系数，写收敛值，再选合法点求和；不连续点用左右平均。易错点：端点函数值不一定等于级数和。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{竞赛风格例题｜锯齿展开}{难度：$\star\star\star$}
+\label{ex:9:13}\textbf{题目} 求$f(x)=x$在$(-\pi,\pi)$的周期Fourier展开。\par
+\textbf{思路} 奇函数仅有正弦项。\par
+\textbf{解答} $a_n=0$，分部积分得\[b_n=\dfrac2\pi\int_0^\pi x\sin nx\dd x=\dfrac{2(-1)^{n+1}}n.\]因此$x=2\sum_{n\ge1}\frac{(-1)^{n+1}\sin nx}{n}$（$|x|<\pi$）。在$\pm\pi$处周期左右极限为$\pi,-\pi$，级数和为0。\par
+\textbf{方法点评} 系数随$\frac{1}{n}$衰减，与周期延拓的跳跃相一致。\par
+\textbf{易错点或变式} 不能在$x=\pi$处把左端仍写成$\pi$。
+\end{example}
+\begin{example}{竞赛风格例题｜平方展开求和}{难度：$\star\star\star$}
+\label{ex:9:14}\textbf{题目} 由$f(x)=x^2$的展开求$\sum_{n=1}^{\infty}\frac{1}{n^2}$。\par
+\textbf{思路} 偶函数两次分部，再取端点。\par
+\textbf{解答} $a_0=\frac{2\pi^2}{3}$；两次分部得$a_n=\frac{4(-1)^n}{n^2},b_n=0$。故$x^2=\frac{\pi^2}{3}+4\sum\frac{(-1)^n\cos nx}{n^2}$。周期延拓在$\pi$连续，代入得$\pi^2=\frac{\pi^2}{3}+4\sum\frac{1}{n^2}$，所以和为$\frac{\pi^2}{6}$。\par
+\textbf{方法点评} 函数展开将数项求和转为选点。\par
+\textbf{易错点或变式} 先知道级数绝对收敛，有助于验证端点代入稳定。
+\end{example}
+\begin{example}{竞赛风格例题｜裂项与积分}{难度：$\star\star\star$}
+\label{ex:9:15}\textbf{题目} 求$\sum_{n=1}^{\infty}\frac{1}{n(n+1)}$。\par
+\textbf{思路} 有限部分和裂项，或用非负积分。\par
+\textbf{解答} 方法一：$\frac{1}{n(n+1)}=\frac{1}{n}-\frac{1}{n+1}$，$S_N=1-\frac{1}{N+1}\to1$。方法二：$\frac{1}{n(n+1)}=\int_0^1x^{n-1}(1-x)\dd x$，非负项交换后得$\int_0^1\frac{1-x}{1-x}\dd x=1$。\par
+\textbf{方法点评} 裂项最短，积分表示可推广复杂分母。\par
+\textbf{易错点或变式} 交换无穷和与积分需说明非负性或一致收敛等依据。
+\end{example}
+\begin{warning}项趋零不是级数收敛的充分条件；条件收敛不允许任意重排；幂级数半径不决定端点；连续函数的Fourier级数不保证处处收敛，不能把点收敛、一致收敛与几乎处处收敛混用。\end{warning}
+
+
+\input{chapters/materials/series_methods}
+\input{chapters/materials/series_sum8}
+\input{chapters/materials/fourier_advanced}
+\input{chapters/materials/endpoint_spaces}
+\input{chapters/materials/fourier_transform}
+
+
+
+\input{chapters/materials/series_source_deep}
+\input{chapters/materials/fourier_source_deep}
+\input{chapters/materials/delta_series}
+\input{chapters/illustrations/ch09}
+\input{chapters/materials/course_series}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\refstepcounter{exercise}\label{q:9:1}\par\noindent\textbf{习题\theexercise\quad 基础题} 判断$\sum\frac{1}{n^2}$。\quad\hyperref[a:9:1]{[答案]}\par
+\refstepcounter{exercise}\label{q:9:2}\par\noindent\textbf{习题\theexercise\quad 基础题} 判断$\sum \frac{n}{n+1}$。\quad\hyperref[a:9:2]{[答案]}\par
+\refstepcounter{exercise}\label{q:9:3}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$\sum_{n=0}^{\infty}(\frac{1}{3})^n$。\quad\hyperref[a:9:3]{[答案]}\par
+\refstepcounter{exercise}\label{q:9:4}\par\noindent\textbf{习题\theexercise\quad 考研风格} 判断$\sum\frac{(-1)^{n-1}}{n^2}$是绝对还是条件收敛。\quad\hyperref[a:9:4]{[答案]}\par
+\refstepcounter{exercise}\label{q:9:5}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$\sum_{n\ge1}\frac{x^n}{n^2}$的收敛域。\quad\hyperref[a:9:5]{[答案]}\par
+\refstepcounter{exercise}\label{q:9:6}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$\sum_{n\ge1}\frac{n}{3^n}$。\quad\hyperref[a:9:6]{[答案]}\par
+\refstepcounter{exercise}\label{q:9:7}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 证明$\sum \frac{x^n}{n^2}$在$[-1,1]$上一致收敛。\quad\hyperref[a:9:7]{[答案]}\par
+\refstepcounter{exercise}\label{q:9:8}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 求$\sum_{n\ge1}\frac{1}{(2n-1)^2}$。\quad\hyperref[a:9:8]{[答案]}\par
+\refstepcounter{exercise}\label{q:9:9}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 求$\sum_{n\ge1}\frac{1}{n(n+2)}$。\quad\hyperref[a:9:9]{[答案]}\par
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\par\noindent\begin{tabularx}{\textwidth}{p{23mm}XXX}\toprule 方法&适用条件&典型信号&易错点\\\midrule
+比较积分&正项&幂与对数&方向用反\\Leibniz&幅度单调趋零&交错符号&只看交错\\幂级数运算&半径内部&系数$n,\frac{1}{n}$&端点未查\\Fourier&周期与收敛条件&三角基与选点&跳点未取平均\\
+\bottomrule\end{tabularx}

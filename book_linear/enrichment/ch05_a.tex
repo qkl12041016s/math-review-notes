@@ -1,0 +1,24 @@
+\begin{insight}{特征向量是变换后仍留在原直线上的方向}
+特征向量的长度可变、箭头可反向，但它张成的直线保持不变。一般向量则会混合多个特征方向，方向随之改变。对$A=\begin{pmatrix}2&1\\1&2\end{pmatrix}$，和方向被放大3倍，差方向不变，而$e_1$被送到$(2,1)\T$，并不是它的倍数。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.1]
+\draw[laaxis](-1.3,0)--(3.7,0)node[right]{$x$};\draw[laaxis](0,-1.6)--(0,3.6)node[above]{$y$};
+\draw[dashed,Teal!50](-1,-1)--(3.1,3.1);\draw[dashed,Gold!70](-1.2,1.2)--(1.2,-1.2);
+\draw[lavec,Teal!40,line width=2.3pt](0,0)--(3,3)node[above]{$A\vu=3\vu$};
+\draw[lavec,Teal](0,0)--(1,1)node[above left]{$\vu$};
+\draw[lavec,Gold](0,0)--(1,-1)node[below right]{$A\vv=\vv$};
+\draw[lavec,Ink](0,0)--(1,0)node[below]{$e_1$};
+\draw[lavec,Rust](0,0)--(2,1)node[right]{$Ae_1$};
+\node[lanote,anchor=west]at(4,.7){沿特征方向：只缩放\\[3pt]一般方向：发生混合};
+\end{tikzpicture}
+\caption{和差方向是不变直线；并非每个向量都是特征向量。}\label{fig:eigen-directions}
+\end{figure}
+\begin{clevertrick}{用两个投影直接求所有幂}
+令$E_+=\frac12\begin{pmatrix}1&1\\1&1\end{pmatrix}$、$E_-=I-E_+=\frac12\begin{pmatrix}1&-1\\-1&1\end{pmatrix}$。对$x=(s,t)\T$，两投影分别给$E_+x=\frac{(s+t)(1,1)\T}{2}$、$E_-x=\frac{(s-t)(1,-1)\T}{2}$，确实是和、差分量。直接乘法给$E_+^2=E_+$；由$E_-=I-E_+$得
+\[E_-^2=I-2E_++E_+^2=E_-,\qquad E_+E_-=E_-E_+=E_+-E_+^2=0.\]
+又$3E_++E_-=I+2E_+=\begin{pmatrix}2&1\\1&2\end{pmatrix}=A$。对$m\ge1$，乘方展开中凡同时含两种投影的项都为零，纯投影项由幂等性化简，因此
+\[A^m=3^mE_++E_-=\dfrac12\begin{pmatrix}3^m+1&3^m-1\\3^m-1&3^m+1\end{pmatrix}.\]
+$m=0$时右端为$E_++E_-=I$，仍成立；负整数也可先核验$A\inv=\frac{E_+}{3}+E_-$再同样推导。这把向量分成两个互不干扰的分量，分别缩放后相加，省去显式求$P\inv$。
+\textbf{易错提示：}负特征值会反向；零特征值把整条特征方向压到零，并不意味着非零向量失去作为特征向量的资格。
+\end{clevertrick}

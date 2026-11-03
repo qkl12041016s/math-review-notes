@@ -1,0 +1,32 @@
+\begin{insight}{惯性决定等值线的基本类型}
+二维正定型的正等值线是椭圆；一个正方向和一个负方向给双曲线；一个正方向加一个零方向，则图形沿零方向无限延伸。合同可以改变长度尺度，却不能把正方向变成负方向，也不能凭可逆代换消除零方向。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.1]
+\begin{scope}
+\draw[laaxis](-1.4,0)--(1.5,0);\draw[laaxis](0,-1.3)--(0,1.4);
+\draw[Teal,thick](0,0)ellipse(1 and {1/sqrt(2)});\node[lanote]at(0,-1.85){椭圆：$p=2,q=0$\\$x^2+2y^2=1$};
+\end{scope}
+\begin{scope}[xshift=4.3cm]
+\draw[laaxis](-1.4,0)--(1.5,0);\draw[laaxis](0,-1.3)--(0,1.4);
+\draw[Teal,thick,domain=-.9:.9,samples=60,variable=\t]plot({sqrt(1+\t*\t)},{\t});
+\draw[Teal,thick,domain=-.9:.9,samples=60,variable=\t]plot({-sqrt(1+\t*\t)},{\t});
+\node[lanote]at(0,-1.85){双曲线：$p=q=1$\\$x^2-y^2=1$};
+\end{scope}
+\begin{scope}[xshift=8.6cm]
+\draw[laaxis](-1.4,0)--(1.5,0);\draw[laaxis](0,-1.3)--(0,1.4);
+\draw[Teal,thick](-1,-1.1)--(-1,1.1);\draw[Teal,thick](1,-1.1)--(1,1.1);
+\node[lanote]at(0,-1.85){平行线：$p=1,q=0$\\$x^2=1$，一个零方向};
+\end{scope}
+\end{tikzpicture}
+\caption{正、负、零方向决定类型；惯性与图形开闭特征一致。}\label{fig:inertia-contours}
+\end{figure}
+\begin{clevertrick}{正定型的线性约束可用加权Cauchy}
+对实对称$A\succ0$，取其对称正定平方根$S=A^{\frac{1}{2}}$。令$\vy=S\vx,w=S\inv\vc$，则目标$\vx\T A\vx=\norm\vy^2$，约束$\vc\T\vx=w\T\vy=b$，且$\norm w^2=\vc\T A\inv\vc>0$。Cauchy给
+\[b^2=(w\T\vy)^2\le\norm w^2\norm\vy^2=(\vc\T A\inv\vc)(\vx\T A\vx),\]
+除以正分母便得目标下界。等号要求$\vy=\alpha w$，代入约束得$\alpha\norm w^2=b$，所以唯一等号向量为
+\[\vx_{\min}=S\inv\vy=\dfrac{b}{\vc\T A\inv\vc}A\inv\vc,\qquad
+\min\vx\T A\vx=\dfrac{b^2}{\vc\T A\inv\vc}.\]
+这里$\vc\ne0$，使$w\ne0$并保证分母严格正；$b=0$时最优向量为零，同样包含。对$2x^2+y^2$与$x+y=1$，$A=\diag(2,1),\vc=(1,1)\T$，故$A\inv\vc=(\frac{1}{2},1)\T$、$\vc\T A\inv\vc=\frac{3}{2}$。最优列向量为$\vx_* =\frac{2}{3}(\frac{1}{2},1)\T=(\frac{1}{3},\frac{2}{3})\T$，最小值$\frac{1}{\frac{3}{2}}=\frac{2}{3}$；代回$\frac{2}{9}+\frac{4}{9}=\frac{2}{3}$，核验成立。
+\textbf{易错提示：}正定保证椭圆闭合与分母严格正；不定型不能无条件套用这一最小值公式。
+\end{clevertrick}

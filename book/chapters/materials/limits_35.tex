@@ -1,0 +1,177 @@
+\section{35种极限求法：完整方法链}\label{mat:limits_35}
+\begin{examtip}以下按35类方法组织，每类给出适用条件、执行步骤和独立算例；相似方法仍保留不同入口。\end{examtip}
+\subsection{第1法：定义证明}\label{mat:limits_35:k01}
+\begin{method}{第1法：定义证明}\textbf{适用条件} 需要验证收敛或给出误差阈值。\par\textbf{实施与依据} 由$|a_n-A|<\varepsilon$反解$N$；函数极限反解$\delta$。\end{method}
+\begin{example}{专题例题｜第1法：定义证明}{难度：$\star\star$}
+\textbf{题目} 证明$\frac{2n+1}{n+3}\to2$。\par\textbf{思路与解答} 误差为$\frac{5}{n+3}$。取$N>\frac{5}{\varepsilon}$即可。定义证明还直接给误差上界。\par\textbf{方法点评与边界} 阈值不能依赖被考察的$n$。
+\end{example}
+\subsection{第2法：直接代入}\label{mat:limits_35:k02}
+\begin{method}{第2法：直接代入}\textbf{适用条件} 函数在趋近点连续，表达式有意义。\par\textbf{实施与依据} 先验分母与对数根式条件，再用连续函数复合。\end{method}
+\begin{example}{专题例题｜第2法：直接代入}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{x\to1}\frac{\ln(1+x^2)}{1+x}$。\par\textbf{思路与解答} 分母在1处为2，真数为2，连续复合给$\frac{\ln2}{2}$。\par\textbf{方法点评与边界} 出现$\frac{0}{0}$时已不满足直接代入的条件。
+\end{example}
+\subsection{第3法：单侧极限与分段函数}\label{mat:limits_35:k03}
+\begin{method}{第3法：单侧极限与分段函数}\textbf{适用条件} 分段界点、绝对值或不同分支。\par\textbf{实施与依据} 分别求左右极限，并比较二者是否相等。\end{method}
+\begin{example}{专题例题｜第3法：单侧极限与分段函数}{难度：$\star\star$}
+\textbf{题目} 求使$f(x)=ax+1\ (x<0),\ \e^x+b\ (x\ge0)$在0连续的条件。\par\textbf{思路与解答} 左极限1，右极限及点值$1+b$，故$b=0$，$a$任意。连续性不要求左右斜率相等；可导还需$a=1$。\par\textbf{方法点评与边界} 点值只影响连续性，不改变去心极限。
+\end{example}
+\subsection{第4法：概念判断与增长阶}\label{mat:limits_35:k04}
+\begin{method}{第4法：概念判断与增长阶}\textbf{适用条件} 有界乘无穷小或可直接比较增长。\par\textbf{实施与依据} 先将表达式分成有界因子与趋零因子，或取对数比较增长。\end{method}
+\begin{example}{专题例题｜第4法：概念判断与增长阶}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{x\to\infty}x^3\e^{-x}$。\par\textbf{思路与解答} 对数$3\ln x-x\to-\infty$，故极限0；也可连续三次洛必达。\par\textbf{方法点评与边界} 指数压过固定幂，不能推广到指数参数也变化而未经比较的情形。
+\end{example}
+\subsection{第5法：子列判别}\label{mat:limits_35:k05}
+\begin{method}{第5法：子列判别}\textbf{适用条件} 振荡数列或奇偶递推。\par\textbf{实施与依据} 两子列不同则发散；若奇偶两子列同趋$L$则全列趋$L$。\end{method}
+\begin{example}{专题例题｜第5法：子列判别}{难度：$\star\star$}
+\textbf{题目} 判断$a_n=(-1)^n+\frac{1}{n}$。\par\textbf{思路与解答} 偶子列趋1，奇子列趋$-1$，因此发散。作为变式，$\frac{(-1)^n}{n}\to0$。\par\textbf{方法点评与边界} 一个收敛子列不能说明全列收敛。
+\end{example}
+\subsection{第6法：Heine序列化}\label{mat:limits_35:k06}
+\begin{method}{第6法：Heine序列化}\textbf{适用条件} 把函数极限转成任意趋近序列。\par\textbf{实施与依据} 证明时处理任意序列；反证时选特定坏序列。\end{method}
+\begin{example}{专题例题｜第6法：Heine序列化}{难度：$\star\star$}
+\textbf{题目} 证明$\lim_{x\to0}x\sin(\frac{1}{x})=0$。\par\textbf{思路与解答} 任取$x_n\ne0,x_n\to0$，有$|x_n\sin(\frac{1}{x_n})|\le|x_n|\to0$；Heine定理给函数极限。\par\textbf{方法点评与边界} 验证两条路径只足以否定，不足以肯定极限。
+\end{example}
+\subsection{第7法：因式分解}\label{mat:limits_35:k07}
+\begin{method}{第7法：因式分解}\textbf{适用条件} 多项式商出现公共零因子。\par\textbf{实施与依据} 分解、在去心邻域约去公共因子，再代入。\end{method}
+\begin{example}{专题例题｜第7法：因式分解}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{x\to1}\frac{x^3-1}{x^2-1}$。\par\textbf{思路与解答} 约去$x-1$得$\frac{x^2+x+1}{x+1}\to\frac{3}{2}$。洛必达也给$\frac{3x^2}{2x}\to\frac{3}{2}$。\par\textbf{方法点评与边界} 约去的因子只需在去心邻域非零。
+\end{example}
+\subsection{第8法：无穷大转无穷小}\label{mat:limits_35:k08}
+\begin{method}{第8法：无穷大转无穷小}\textbf{适用条件} 自变量趋于无穷，适合倒数代换。\par\textbf{实施与依据} 令$t=\frac{1}{x}$，把过程转至$0^+$或$0$。\end{method}
+\begin{example}{专题例题｜第8法：无穷大转无穷小}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{x\to\infty}x\ln(1+\frac{1}{x})$。\par\textbf{思路与解答} 令$t=\frac{1}{x}\to0^+$，变为$\frac{\ln(1+t)}{t}\to1$。\par\textbf{方法点评与边界} 代换后方向也要改变。
+\end{example}
+\subsection{第9法：有理化}\label{mat:limits_35:k09}
+\begin{method}{第9法：有理化}\textbf{适用条件} 根式相减造成消去。\par\textbf{实施与依据} 乘共轭，必要时连续有理化两次。\end{method}
+\begin{example}{专题例题｜第9法：有理化}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{n\to\infty}(\sqrt{n^2+n}-n)$。\par\textbf{思路与解答} 共轭后为$\frac{n}{\sqrt{n^2+n}+n}=\frac{1}{\sqrt{1+\frac{1}{n}}+1}\to\frac{1}{2}$。\par\textbf{方法点评与边界} 不是每个根式差都应展开；先试精确恒等变形。
+\end{example}
+\subsection{第10法：先求和、求积或恒等改写}\label{mat:limits_35:k10}
+\begin{method}{第10法：先求和、求积或恒等改写}\textbf{适用条件} 有限和、积可裂项或望远镜。\par\textbf{实施与依据} 先获得精确部分和，再取极限。\end{method}
+\begin{example}{专题例题｜第10法：先求和、求积或恒等改写}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{n\to\infty}\sum_{k=1}^n\frac{1}{k(k+1)}$。\par\textbf{思路与解答} 裂成$\frac{1}{k}-\frac{1}{k+1}$，和为$1-\frac{1}{n+1}$，极限1。\par\textbf{方法点评与边界} 不能把$n$项的单项极限相加代替整体极限。
+\end{example}
+\subsection{第11法：对数恒等式}\label{mat:limits_35:k11}
+\begin{method}{第11法：对数恒等式}\textbf{适用条件} 变化指数、乘积或$1^\infty$。\par\textbf{实施与依据} 正底数下先研究对数；取指数前确认对数极限。\end{method}
+\begin{example}{专题例题｜第11法：对数恒等式}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{x\to0}(\cos x)^{\frac{1}{x^2}}$。\par\textbf{思路与解答} 对数$\frac{\ln\cos x}{x^2}\to-\frac{1}{2}$，故结果$\e^{-\frac{1}{2}}$。其中$\ln\cos x\sim\cos x-1\sim-\frac{x^2}{2}$。\par\textbf{方法点评与边界} 零点附近$\cos x>0$，保证实数幂有定义。
+\end{example}
+\subsection{第12法：三角恒等变换}\label{mat:limits_35:k12}
+\begin{method}{第12法：三角恒等变换}\textbf{适用条件} 和差、倍角或乘积可消去。\par\textbf{实施与依据} 优先和差化积与半角式，后用重要极限。\end{method}
+\begin{example}{专题例题｜第12法：三角恒等变换}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{x\to0}\frac{1-\cos2x}{x\sin3x}$。\par\textbf{思路与解答} $1-\cos2x=2\sin^2x$，故极限为$\frac{2}{3}$。Taylor给同一主项比。\par\textbf{方法点评与边界} 三角函数角度须用弧度。
+\end{example}
+\subsection{第13法：两个重要极限}\label{mat:limits_35:k13}
+\begin{method}{第13法：两个重要极限}\textbf{适用条件} 能化成$\frac{\sin t}{t}$或$(1+t)^{\frac{1}{t}}$。\par\textbf{实施与依据} 完整保留内层尺度和外部系数。\end{method}
+\begin{example}{专题例题｜第13法：两个重要极限}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{n\to\infty}(1+\frac{3}{n})^{2n}$。\par\textbf{思路与解答} 令$t=\frac{3}{n}$，原式$[(1+t)^{\frac{1}{t}}]^6\to\e^6$。\par\textbf{方法点评与边界} 不能遗漏尺度3与指数2的乘积。
+\end{example}
+\subsection{第14法：一般变量替换}\label{mat:limits_35:k14}
+\begin{method}{第14法：一般变量替换}\textbf{适用条件} 同一内层反复出现或趋近点不在0。\par\textbf{实施与依据} 用内层量为新变量，并确认可达方向。\end{method}
+\begin{example}{专题例题｜第14法：一般变量替换}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{x\to\frac{\pi}{2}}\frac{1-\sin x}{(x-\frac{\pi}{2})^2}$。\par\textbf{思路与解答} 设$t=x-\frac{\pi}{2}$，$\sin x=\cos t$，结果$\frac{1}{2}$。\par\textbf{方法点评与边界} 函数替换只需对应趋近过程合法，不必全局一一。
+\end{example}
+\subsection{第15法：等价无穷小}\label{mat:limits_35:k15}
+\begin{method}{第15法：等价无穷小}\textbf{适用条件} 乘除结构且总误差不被相消放大。\par\textbf{实施与依据} 逐个因子化成已知主项；差式先合并或展开。\end{method}
+\begin{example}{专题例题｜第15法：等价无穷小}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{x\to0}\frac{\tan2x\,\ln(1+3x)}{x^2}$。\par\textbf{思路与解答} 两因子分别$\sim2x,3x$，极限6。\par\textbf{方法点评与边界} 不能把$\tan x-\sin x$逐项换成$x-x$。
+\end{example}
+\subsection{第16法：洛必达与Stolz差分}\label{mat:limits_35:k16}
+\begin{method}{第16法：洛必达与Stolz差分}\textbf{适用条件} 导数法针对函数商，差分法针对递增无界分母的数列商。\par\textbf{实施与依据} 未定式先规范化，每次检查所用法则条件。\end{method}
+\begin{example}{专题例题｜第16法：洛必达与Stolz差分}{难度：$\star\star$}
+\textbf{题目} 求$\lim\frac{\ln n}{n}$与$\lim_{n\to\infty}\sum_{k=1}^n\frac{k}{n^2}$。\par\textbf{思路与解答} 第一式用函数洛必达得$\frac{1}{x}\to0$。第二式差分比$\frac{n+1}{2n+1}\to\frac{1}{2}$，由Stolz得到极限。\par\textbf{方法点评与边界} 不能对一般数列直接写导数；须先找到合法函数模型。
+\end{example}
+\subsection{第17法：夹逼准则}\label{mat:limits_35:k17}
+\begin{method}{第17法：夹逼准则}\textbf{适用条件} 精确计算困难，但可建立同极限上下界。\par\textbf{实施与依据} 找统一界，控制整体误差。\end{method}
+\begin{example}{专题例题｜第17法：夹逼准则}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{n\to\infty}(n^2+2^n)^{\frac{1}{n}}$。\par\textbf{思路与解答} 最终$n^2\le2^n$，所以$2\le(n^2+2^n)^{\frac{1}{n}}\le2\cdot2^{\frac{1}{n}}$，极限2。\par\textbf{方法点评与边界} 比较指数速度时应说明不等式从充分大$n$起成立。
+\end{example}
+\subsection{第18法：单调有界与压缩映射}\label{mat:limits_35:k18}
+\begin{method}{第18法：单调有界与压缩映射}\textbf{适用条件} 递推迭代或不动点。\par\textbf{实施与依据} 找不变区间，证明单调或$|T(u)-T(v)|\le q|u-v|$，$q<1$。\end{method}
+\begin{example}{专题例题｜第18法：单调有界与压缩映射}{难度：$\star\star$}
+\textbf{题目} $a_1=0,a_{n+1}=\cos a_n$，证明收敛。\par\textbf{思路与解答} 从第二步起$a_n\in[0,1]$。该区间$|T\prime|\le\sin1<1$，故相邻差受几何级数控制，数列为Cauchy，趋于唯一方程$L=\cos L$的解。\par\textbf{方法点评与边界} 该列不必单调，压缩法比单调法更适合。
+\end{example}
+\subsection{第19法：微分、积分中值定理}\label{mat:limits_35:k19}
+\begin{method}{第19法：微分、积分中值定理}\textbf{适用条件} 小区间函数差或平均值。\par\textbf{实施与依据} 把函数差写成导数乘长度；把积分写成函数中间值乘区间长。\end{method}
+\begin{example}{专题例题｜第19法：微分、积分中值定理}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{x\to0}\frac1x\int_x^{2x}\e^{t^2}\dd t$。\par\textbf{思路与解答} 积分中值为$\e^{\xi_x^2}x$，$\xi_x$在$x,2x$之间，所以极限1。\par\textbf{方法点评与边界} $x<0$时带方向积分仍与区间长度符号一致。
+\end{example}
+\subsection{第20法：Taylor主项}\label{mat:limits_35:k20}
+\begin{method}{第20法：Taylor主项}\textbf{适用条件} 多项低阶抵消。\par\textbf{实施与依据} 展开到首个非零项，余项除以分母后仍须趋零。\end{method}
+\begin{example}{专题例题｜第20法：Taylor主项}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{x\to0}\frac{\ln(1+x)-x+\frac{x^2}{2}}{x^3}$。\par\textbf{思路与解答} 分子$\frac{x^3}{3}+O(x^4)$，极限$\frac{1}{3}$；三次洛必达可核对。\par\textbf{方法点评与边界} 展开多一阶可用于判断误差符号和收敛速度。
+\end{example}
+\subsection{第21法：导数定义}\label{mat:limits_35:k21}
+\begin{method}{第21法：导数定义}\textbf{适用条件} 差商或可整理为差商。\par\textbf{实施与依据} 辨认中心点与增量，不必机械展开。\end{method}
+\begin{example}{专题例题｜第21法：导数定义}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{h\to0}\frac{(1+h)^\alpha-1}{h}$。\par\textbf{思路与解答} 这是$t^\alpha$在1处导数，结果$\alpha$。对数展开也给$(1+h)^\alpha=1+\alpha h+o(h)$。\par\textbf{方法点评与边界} $\alpha$固定；若同时依赖$h$，需另作分析。
+\end{example}
+\subsection{第22法：定积分与重积分定义}\label{mat:limits_35:k22}
+\begin{method}{第22法：定积分与重积分定义}\textbf{适用条件} 求和具有步长和采样点。\par\textbf{实施与依据} 一维抽出$\frac{1}{n}$，二维抽出$\frac{1}{n^2}$。\end{method}
+\begin{example}{专题例题｜第22法：定积分与重积分定义}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{n\to\infty}n^{-2}\sum_{i,j=1}^n(\frac{i}{n}+\frac{j}{n})^2$。\par\textbf{思路与解答} 为$\int_0^1\int_0^1(x+y)^2\dd x\dd y=\frac{1}{3}+\frac{1}{2}+\frac{1}{3}=\frac{7}{6}$。\par\textbf{方法点评与边界} 有奇点时需另加端点估计，不能照搬连续函数版本。
+\end{example}
+\subsection{第23法：变上限积分极限}\label{mat:limits_35:k23}
+\begin{method}{第23法：变上限积分极限}\textbf{适用条件} 分子为积分，端点随参数趋近。\par\textbf{实施与依据} 用基本定理求导，或局部缩放$t=xu$。\end{method}
+\begin{example}{专题例题｜第23法：变上限积分极限}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{x\to0}x^{-3}\int_0^x\sin(t^2)\dd t$。\par\textbf{思路与解答} 洛必达得$\frac{\sin(x^2)}{3x^2}\to\frac{1}{3}$。缩放后为$\int_0^1[\frac{\sin(x^2u^2)}{x^2}]\dd u\to\int_0^1u^2\dd u$。\par\textbf{方法点评与边界} 第二法需统一界$|\frac{\sin(x^2u^2)}{x^2}|\le u^2$。
+\end{example}
+\subsection{第24法：收敛级数必要条件}\label{mat:limits_35:k24}
+\begin{method}{第24法：收敛级数必要条件}\textbf{适用条件} 已知级数收敛，可利用项或尾和趋零。\par\textbf{实施与依据} 先确立收敛，再用Cauchy尾和估计。\end{method}
+\begin{example}{专题例题｜第24法：收敛级数必要条件}{难度：$\star\star$}
+\textbf{题目} $a_n\ge0$且$\sum a_n<\infty$，求$\lim\sum_{k=n}^{2n}a_k$。\par\textbf{思路与解答} 该和是收敛正项级数的尾和的一部分，夹在0与$\sum_{k=n}^\infty a_k\to0$之间，极限0。\par\textbf{方法点评与边界} 一般正项收敛不必有$na_n\to0$，除非再加单调等条件。
+\end{example}
+\subsection{第25法：级数求和求极限}\label{mat:limits_35:k25}
+\begin{method}{第25法：级数求和求极限}\textbf{适用条件} 有限和是收敛级数的部分和，或有幂级数生成函数。\par\textbf{实施与依据} 求完整级数和，再判尾项消失。\end{method}
+\begin{example}{专题例题｜第25法：级数求和求极限}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{N\to\infty}\sum_{n=1}^N\frac{n}{2^n}$。\par\textbf{思路与解答} 幂级数$\sum nx^n=\frac{x}{(1-x)^2}$，在$x=\frac{1}{2}$得到2；尾项由几何衰减控制。\par\textbf{方法点评与边界} Fourier选点求和必须先核对该点的收敛值。
+\end{example}
+\subsection{第26法：常见不等式}\label{mat:limits_35:k26}
+\begin{method}{第26法：常见不等式}\textbf{适用条件} 平均、乘积、根式或指数需估计。\par\textbf{实施与依据} 选择AM--GM、Cauchy、Bernoulli或对数界。\end{method}
+\begin{example}{专题例题｜第26法：常见不等式}{难度：$\star\star$}
+\textbf{题目} 证明$(1+\frac{x}{n})^n\to\e^x$，$x>0$。\par\textbf{思路与解答} $\frac{u}{1+u}\le\ln(1+u)\le u$给$\frac{x}{1+\frac{x}{n}}\le n\ln(1+\frac{x}{n})\le x$，夹逼后取指数。\par\textbf{方法点评与边界} 不等式方向依赖参数范围。
+\end{example}
+\subsection{第27法：等价无穷大量}\label{mat:limits_35:k27}
+\begin{method}{第27法：等价无穷大量}\textbf{适用条件} 增长量的比有非零有限极限。\par\textbf{实施与依据} 提取最大阶，或用积分估计先得到等价式。\end{method}
+\begin{example}{专题例题｜第27法：等价无穷大量}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{n\to\infty}\frac{\ln(n!)}{n\ln n}$。\par\textbf{思路与解答} 由$\int_1^n\ln t\dd t\le\ln(n!)\le n\ln n$，下界为$n\ln n-n+1$，除以$n\ln n$夹逼得1。\par\textbf{方法点评与边界} 无穷大量的差也不能不经误差分析直接替换。
+\end{example}
+\subsection{第28法：Cauchy收敛准则}\label{mat:limits_35:k28}
+\begin{method}{第28法：Cauchy收敛准则}\textbf{适用条件} 难以先猜出极限，但尾项差易估计。\par\textbf{实施与依据} 对所有$m>n$建立统一小界。\end{method}
+\begin{example}{专题例题｜第28法：Cauchy收敛准则}{难度：$\star\star$}
+\textbf{题目} 证明$S_n=\sum_{k=1}^n\frac{1}{k^2}$收敛。\par\textbf{思路与解答} 当$m>n\ge1$，$0\le S_m-S_n\le\int_n^\infty t^{-2}\dd t=\frac{1}{n}$。因此是Cauchy列，实数完备性给收敛。\par\textbf{方法点评与边界} 只估计$S_{n+1}-S_n\to0$不够。
+\end{example}
+\subsection{第29法：比值极限与根值极限}\label{mat:limits_35:k29}
+\begin{method}{第29法：比值极限与根值极限}\textbf{适用条件} $a_n>0$且$\frac{a_{n+1}}{a_n}\to L$。\par\textbf{实施与依据} 把连续相邻比相乘，使用几何均值或对数Cesaro平均。\end{method}
+\begin{example}{专题例题｜第29法：比值极限与根值极限}{难度：$\star\star$}
+\textbf{题目} 若$\frac{a_{n+1}}{a_n}\to3$，求$\lim\sqrt[n]{a_n}$。\par\textbf{思路与解答} 任取$\varepsilon\in(0,3)$，最终比值夹在$3\pm\varepsilon$，连乘后取$n$次根得到同界，故极限3。\par\textbf{方法点评与边界} 逆命题不成立；根值趋3不强迫相邻比收敛。
+\end{example}
+\subsection{第30法：上下极限}\label{mat:limits_35:k30}
+\begin{method}{第30法：上下极限}\textbf{适用条件} 有界振荡列或需判收敛。\par\textbf{实施与依据} 计算尾部上确界、下确界的极限；两者相等才收敛。\end{method}
+\begin{example}{专题例题｜第30法：上下极限}{难度：$\star\star$}
+\textbf{题目} $a_n=(-1)^n+\frac{1}{n}$的上下极限。\par\textbf{思路与解答} 偶数项趋1，奇数项趋$-1$，且整体最终落在两端任意小邻域内，故$\limsup a_n=1,\liminf a_n=-1$。\par\textbf{方法点评与边界} 上下极限可以存在而普通极限不存在。
+\end{example}
+\subsection{第31法：数学常数识别}\label{mat:limits_35:k31}
+\begin{method}{第31法：数学常数识别}\textbf{适用条件} 表达式与某常数的定义相符。\par\textbf{实施与依据} 必须先写常数的定义或已经证明的表征。\end{method}
+\begin{example}{专题例题｜第31法：数学常数识别}{难度：$\star\star$}
+\textbf{题目} 证明$H_n-\ln n$收敛并记其极限。\par\textbf{思路与解答} $b_{n+1}-b_n=\frac{1}{n+1}-\ln(1+\frac{1}{n})<0$；且$H_n\ge\int_1^{n+1}\frac{\dd t}{t}$给$b_n>0$。故收敛，其极限定义为Euler常数$\gamma$。\par\textbf{方法点评与边界} 识别名称不是证明存在性；Catalan常数可定义为$\sum\frac{(-1)^n}{(2n+1)^2}$。
+\end{example}
+\subsection{第32法：Wallis公式}\label{mat:limits_35:k32}
+\begin{method}{第32法：Wallis公式}\textbf{适用条件} 三角幂积分、双阶乘、中心二项式。\par\textbf{实施与依据} 由$I_n$递推建立相邻奇偶项夹逼，再转成乘积。\end{method}
+\begin{example}{专题例题｜第32法：Wallis公式}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{n\to\infty}\frac{\sqrt{\pi n}\binom{2n}{n}}{4^n}$。\par\textbf{思路与解答} Wallis乘积或由$I_{2n+1}\le I_{2n}\le I_{2n-1}$与递推得到$\binom{2n}{n}\sim\frac{4^n}{\sqrt{\pi n}}$，极限1。\par\textbf{方法点评与边界} 此处已使用由积分夹逼推导的Wallis渐近结论，不能把待证渐近式当作定义。
+\end{example}
+\subsection{第33法：Stirling公式}\label{mat:limits_35:k33}
+\begin{method}{第33法：Stirling公式}\textbf{适用条件} 大阶乘、组合数。\par\textbf{实施与依据} 用$n!\sim\sqrt{2\pi n}(\frac{n}{\e})^n$，精确跟踪幂次和常数。\end{method}
+\begin{example}{专题例题｜第33法：Stirling公式}{难度：$\star\star$}
+\textbf{题目} 求$\lim_{n\to\infty}\frac{n!\e^n}{n^n\sqrt n}$。\par\textbf{思路与解答} 代入Stirling公式立即得到$\sqrt{2\pi}$。公式可由$\ln(n!)$的积分主项、Euler--Maclaurin余项及Wallis确定常数推导。\par\textbf{方法点评与边界} 只用$\ln(n!)\sim n\ln n$无法恢复常数$\sqrt{2\pi}$。
+\end{example}
+\subsection{第34法：线性代数方法}\label{mat:limits_35:k34}
+\begin{method}{第34法：线性代数方法}\textbf{适用条件} 常系数向量递推或矩阵幂。\par\textbf{实施与依据} 找特征值与不变子空间，主特征值决定增长。\end{method}
+\begin{example}{专题例题｜第34法：线性代数方法}{难度：$\star\star$}
+\textbf{题目} $v_{n+1}=Av_n$，$A=\begin{pmatrix}2&1\\1&2\end{pmatrix},v_0=(1,0)^T$，求$3^{-n}v_n$极限。\par\textbf{思路与解答} 基向量$(1,1),(1,-1)$的特征值分别3、1，$v_n=\frac12[3^n(1,1)+(1,-1)]$，归一化极限$(\frac{1}{2},\frac{1}{2})$。\par\textbf{方法点评与边界} Jordan块含额外多项式因子，不能只看特征值而忽略重根结构。
+\end{example}
+\subsection{第35法：概率方法与Bernstein逼近}\label{mat:limits_35:k35}
+\begin{method}{第35法：概率方法与Bernstein逼近}\textbf{适用条件} 二项式权重非负且和为1，可解释成期望。\par\textbf{实施与依据} 用均值方差控制远离中心的权重，再利用连续性。\end{method}
+\begin{example}{专题例题｜第35法：概率方法与Bernstein逼近}{难度：$\star\star$}
+\textbf{题目} 对$f\in C[0,1]$证明$B_nf(x)=\sum_{k=0}^nf(\frac{k}{n})\binom nkx^k(1-x)^{n-k}\to f(x)$一致。\par\textbf{思路与解答} 令$X\sim\operatorname{Bin}(n,x)$，$B_nf=\mathbb E f(\frac{X}{n})$。对$\delta>0$，误差$\le\omega_f(\delta)+2\|f\|_\infty\mathbb P(|\frac{X}{n}-x|>\delta)$。方差$\le\frac{1}{4n}$，Chebyshev给误差$\le\omega_f(\delta)+\frac{\|f\|_\infty}{2n\delta^2}$。先选$\delta$再取$n$，得一致收敛。\par\textbf{方法点评与边界} 此法同时证明连续函数可被多项式一致逼近；概率只是非负权重估计的组织语言。
+\end{example}

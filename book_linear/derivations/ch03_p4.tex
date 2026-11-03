@@ -1,0 +1,15 @@
+\label{der:3-4}
+假设已经得到非零且两两正交的$\vu_1,\ldots,\vu_{k-1}$。令$\vu_k=\va_k-\sum_{j<k}c_j\vu_j$，要求对每个$i<k$有$\langle\vu_k,\vu_i\rangle=0$，则
+\[0=\langle\va_k,\vu_i\rangle-c_i\norm{\vu_i}^2,
+\quad c_i=\dfrac{\langle\va_k,\vu_i\rangle}{\norm{\vu_i}^2}.\]
+这推导出Schmidt公式。若$\vu_k=0$，则$\va_k$由先前$\vu_j$表示，而这些$\vu_j$由$\va_1,\ldots,\va_{k-1}$表示，违背原组无关，所以分母与单位化步骤均合法。公式正反解都为三角组合，故每一步新旧组生成空间相同。除以长度后，$\vq_i\T\vq_j=\delta_{ij}$。
+
+非零正交组若有关系$\sum_i c_i\vu_i=0$，与$\vu_j$取内积得到$c_j\norm{\vu_j}^2=0$，故全部$c_j=0$，证明无关。
+
+对Cauchy不等式，若$\vy=0$，两边均零。若$\vy\ne0$，将$\vx$减去沿$\vy$的投影：
+\[\begin{aligned}
+0&\le\left\|\vx-\dfrac{\vx\T\vy}{\vy\T\vy}\vy\right\|^2\\
+&=\vx\T\vx-2\dfrac{(\vx\T\vy)^2}{\vy\T\vy}+\dfrac{(\vx\T\vy)^2}{\vy\T\vy}
+=\norm\vx^2-\dfrac{(\vx\T\vy)^2}{\norm\vy^2}.
+\end{aligned}\]
+移项并乘正数$\norm\vy^2$、开非负平方根即得结论。等号当且仅当上述余量为零，即$\vx$为$\vy$的倍数；结合$\vy=0$情形，等号条件恰为两向量相关。

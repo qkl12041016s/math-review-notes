@@ -1,0 +1,23 @@
+\label{der:8-5}
+\textbf{LU的构造。}对非奇异$n$阶矩阵，首列必有非零元，行置换后写$P_1A=\begin{pmatrix}a&b\T\\c&D\end{pmatrix}$，$a\ne0$。消元给$S=D-\frac{cb\T}{a}$，且$\det(P_1A)=a\det S\ne0$，所以$S$非奇异。以维数归纳，存在$P_2S=L_2U_2$。于是
+\[\begin{pmatrix}1&0\\0&P_2\end{pmatrix}P_1A=
+\begin{pmatrix}1&0\\\dfrac{P_2c}{a}&L_2\end{pmatrix}
+\begin{pmatrix}a&b\T\\0&U_2\end{pmatrix}.\]
+相乘右下块为$\frac{P_2cb\T}{a}+L_2U_2=P_2D$，其余块也吻合；左因子单位下三角，右因子上三角，完成归纳，$n=1$为起点。
+
+若全部顺序主子式$\Delta_k\ne0$，首元$a=\Delta_1$无需换行便非零。Schur补$S$的前$k$阶顺序主子式为$\frac{\Delta_{k+1}}{a}\ne0$，因为对原矩阵前$k+1$阶主块作同一次首列消元，行列式等于$a$乘该Schur子块的行列式。故对$S$归纳时也无需换行，从而整个分解无需置换。又$A$的前$k$阶主块等于相应三角主块之积，单位下三角因子行列式为1，所以$\Delta_k=\prod_{j=1}^k u_{jj}$，得到每步主元$u_{kk}=\frac{\Delta_k}{\Delta_{k-1}}\ne0$，其中$\Delta_0=1$。
+
+无置换且单位下三角约定下，若$LU=\widetilde L\widetilde U$，则$\widetilde L\inv L=\widetilde U U\inv$同时是单位下三角与上三角，只能为$I$，故分解唯一。
+
+\textbf{薄QR的构造。}对满列秩$A=(a_1,\ldots,a_n)$，用Schmidt定义
+\[r_{ij}=q_i\T a_j\ (i<j),\quad u_j=a_j-\sum_{i<j}r_{ij}q_i,\quad r_{jj}=\norm{u_j}>0,\quad q_j=\dfrac{u_j}{r_{jj}}.\]
+于是逐列$a_j=\sum_{i\le j}r_{ij}q_i$，正是$A=QR$；$Q\T Q=I$，$R$上三角且对角全正，所以可逆。每步余量非零由原列无关保证。
+
+\textbf{Cholesky的构造与唯一。}正定$A=\begin{pmatrix}a&b\T\\b&D\end{pmatrix}$有$a>0$，配方证明$S=D-\frac{bb\T}{a}$正定：对非零$z$，取$x_1=-\frac{b\T z}{a}$，原正定二次式等于$z\T Sz>0$。归纳设$S=GG\T$且$G$对角元正，定义
+\[L=\begin{pmatrix}\sqrt a&0\\\dfrac{b}{\sqrt a}&G\end{pmatrix},\qquad
+LL\T=\begin{pmatrix}a&b\T\\b&\dfrac{bb\T}{a}+GG\T\end{pmatrix}=A.\]
+任何正对角下三角因子的首对角元都必须是$\sqrt a$，首列其余元必须为$\frac{b}{\sqrt a}$；剔除首列后又是$S$的同类分解，归纳得到唯一。
+
+\textbf{SVD的构造。}$A\T A$实对称半正定，取单位正交特征基$v_i$，特征值按$\lambda_1\ge\cdots\ge\lambda_r>0$与其余0排列。令$\sigma_i=\sqrt{\lambda_i}$、$u_i=\frac{Av_i}{\sigma_i}$，则
+\[u_i\T u_j=\dfrac{v_i\T A\T Av_j}{\sigma_i\sigma_j}=\dfrac{\lambda_j\delta_{ij}}{\sigma_i\sigma_j}=\delta_{ij}.\]
+补足为$\R^m$的单位正交基$U$。若$\lambda_j=0$，$\norm{Av_j}^2=v_j\T A\T Av_j=0$，所以$Av_j=0$。因此$AV$的前$r$列为$\sigma_i u_i$，其余全零，即$AV=U\Sigma$。右乘$V\T$得到$A=U\Sigma V\T$，且非零奇异值数等于$\rank A=r$。

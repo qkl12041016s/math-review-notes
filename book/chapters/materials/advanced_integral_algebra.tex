@@ -1,0 +1,37 @@
+\section{代数约化、椭圆积分与特殊函数递推}\label{mat:advanced_integral_algebra}
+\begin{examtip}补充有理和代数积分的算法视角，以及特殊函数公式的生成机制。\end{examtip}
+\subsection{Hermite约化与代数恰当项}\label{mat:advanced_integral_algebra:hermite}
+\begin{method}{Hermite约化与代数恰当项}\textbf{适用条件} 有理函数，或带代数根式的候选精确导数。\par\textbf{实施与依据} 先消高次极点，或设$\frac{P(x)}{\sqrt{Q(x)}}$、$P(x)\sqrt{Q(x)}$的导数匹配被积式，解多项式系数。\end{method}
+\begin{example}{专题例题｜Hermite约化与代数恰当项}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{2x^2+1}{\sqrt{x^2+1}}\dd x$。\par\textbf{思路与解答} 设$F=P\sqrt{x^2+1}$，则$F\prime=\frac{P\prime(x)(x^2+1)+xP(x)}{\sqrt{x^2+1}}$。取$P=x$恰好匹配，答案$x\sqrt{x^2+1}+C$。\par\textbf{方法点评与边界} 一般代数积分可能余下非初等部分；连分式与伪椭圆构造须按多项式恒等式核验，不能凭外观分类。
+\end{example}
+\subsection{第二、第三类椭圆积分}\label{mat:advanced_integral_algebra:elliptic23}
+\begin{method}{第二、第三类椭圆积分}\textbf{适用条件} $0<k<1$且积分路径避开分母零点。\par\textbf{实施与依据} $E(\phi,k)=\int_0^\phi\sqrt{1-k^2\sin^2t}\dd t$；$\Pi(n;\phi,k)=\int_0^\phi\frac{\dd t}{(1-n\sin^2t)\sqrt{1-k^2\sin^2t}}$。\end{method}
+\begin{example}{专题例题｜第二、第三类椭圆积分}{难度：$\star\star$}
+\textbf{题目} 表达$\int\frac{\sqrt{1-k^2x^2}}{\sqrt{1-x^2}}\dd x$，$|x|<1$。\par\textbf{思路与解答} 令$x=\sin t$，积分变成$\int\sqrt{1-k^2\sin^2t}\dd t$，答案$E(\arcsin x,k)+C$。若再乘$\frac{1}{1-nx^2}$，不能直接写成$\Pi$。令$\phi=\arcsin x$，则对$n\ne0$，
+\[
+\begin{aligned}
+&\int\dfrac{\sqrt{1-k^2x^2}}{(1-nx^2)\sqrt{1-x^2}}\dd x\\
+&=\dfrac{k^2}{n}F(\phi,k)
++\left(1-\dfrac{k^2}{n}\right)\Pi(n;\phi,k)+C.
+\end{aligned}
+\]
+依据是$\frac{1-k^2s^2}{1-ns^2}=\frac{k^2}{n}+\frac{1-\frac{k^2}{n}}{1-ns^2}$；$n=0$时仍为$E(\phi,k)+C$。第三类的纯标准核是第一类核另乘$(1-nx^2)^{-1}$。\par\textbf{方法点评与边界} 椭圆积分以振幅及模数为变量，不等同于椭圆函数的逆关系。
+\end{example}
+\subsection{第二类与修正Bessel积分}\label{mat:advanced_integral_algebra:modbessel}
+\begin{method}{第二类与修正Bessel积分}\textbf{适用条件} 对应Bessel或修正Bessel方程的解。\par\textbf{实施与依据} 对$x>0$，$I_\nu$由$J_\nu$级数去掉$(-1)^k$而定义（本节用$\nu=0,1$）。第二类Bessel函数与修正第二类函数的标准归一化可写为
+\[
+Y_\nu=\dfrac{\cos(\pi\nu)J_\nu-J_{-\nu}}{\sin(\pi\nu)},
+\qquad
+K_\nu=\dfrac{\pi(I_{-\nu}-I_\nu)}{2\sin(\pi\nu)}
+\quad(\nu\notin\mathbb Z).
+\]
+这里非整数负阶的$J_{-\nu},I_{-\nu}$仍用相应级数，Gamma函数按递推延拓；整数阶按$\nu$的可去极限定义。由此得到$[xY_1(x)]\prime=xY_0(x)$；$[xI_1(x)]\prime=xI_0(x)$；$[xK_1(x)]\prime=-xK_0(x)$。\end{method}
+\begin{example}{专题例题｜第二类与修正Bessel积分}{难度：$\star\star$}
+\textbf{题目} 求$\int xK_0(x)\dd x$，$x>0$。\par\textbf{思路与解答} 由修正Bessel递推，答案$-xK_1(x)+C$。这些公式可从定义ODE与相邻阶递推联立得到，负号是$K$与$I$的关键区别。\par\textbf{方法点评与边界} 在0附近第二类和$K$常有奇性，定积分还需检查端点。
+\end{example}
+\subsection{Mathieu积分与ODE还原}\label{mat:advanced_integral_algebra:mathieu}
+\begin{method}{Mathieu积分与ODE还原}\textbf{适用条件} 周期系数方程$y\prime\prime+(a-2q\cos2x)y=0$。\par\textbf{实施与依据} 用微分方程把某些加权积分转为导数；$q=0$是常系数退化情形。\end{method}
+\begin{example}{专题例题｜Mathieu积分与ODE还原}{难度：$\star\star$}
+\textbf{题目} 若$y$为任一Mathieu解，求$\int(a-2q\cos2x)y(x)\dd x$。\par\textbf{思路与解答} 方程直接给被积式$=-y\prime\prime$，所以原函数$-y\prime+C$。$q=0,a=1,y=\cos x$时退化为$\int\cos x\dd x=\sin x+C$。\par\textbf{方法点评与边界} 特殊函数积分应写清采用的解与参数，不随意把不同归一化函数混同。
+\end{example}

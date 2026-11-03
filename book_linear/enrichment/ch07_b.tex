@@ -1,0 +1,33 @@
+\begin{insight}{拟合直线不必穿过每个点}
+最小二乘选择的是所有垂直残差的平方和最小，而不是把正负残差简单相加。截距列全为1，使正规方程包含“残差和为零”；时间列再要求残差与时间向量正交。图中有的点高于直线，有的低于直线，两个正交条件共同确定最佳直线。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.76\textwidth,height=5.4cm,xmin=-.25,xmax=2.4,ymin=.6,ymax=2.8,axis lines=left,xlabel={$t$},ylabel={$y$},xtick={0,1,2},ytick={1,2},grid=major,grid style={Teal!10}]
+\addplot[Teal,thick,domain=-.1:2.2]{7/6+x/2};
+\addplot[only marks,mark=*,Ink,mark size=2pt]coordinates{(0,1)(1,2)(2,2)};
+\draw[-{Stealth},Gold,thick](axis cs:0,1.1666667)--(axis cs:0,1);
+\draw[-{Stealth},Gold,thick](axis cs:1,1.6666667)--(axis cs:1,2);
+\draw[-{Stealth},Gold,thick](axis cs:2,2.1666667)--(axis cs:2,2);
+\node[font=\small,anchor=west]at(axis cs:.1,2.55){$\widehat y=\frac{7}{6}+\frac{t}{2}$};
+\node[font=\small,anchor=west]at(axis cs:1.1,1.5){残差沿竖直方向计算};
+\end{axis}
+\end{tikzpicture}
+\caption{例\ref{ex:7-14}的拟合与有符号残差；这里优化的是竖直误差平方和。}\label{fig:least-squares-fit}
+\end{figure}
+\begin{clevertrick}{先中心化，二元正规方程变一元}
+拟合$y=a+bt$，令样本数为$n$，$\bar t=\sum_i \frac{t_i}{n},\bar y=\sum_i \frac{y_i}{n}$。设计矩阵的两列为$\bm1$和$t=(t_i)$，因此正规方程逐项为
+\[na+b\sum_i t_i=\sum_i y_i,\qquad a\sum_i t_i+b\sum_i t_i^2=\sum_i t_i y_i.\]
+第一式除以$n>0$得$a=\bar y-b\bar t$，说明拟合直线经过均值点。将它代入第二式，再用$\sum_i t_i=n\bar t$，得
+\[b\left(\sum_i t_i^2-n\bar t^2\right)=\sum_i t_i y_i-n\bar t\bar y.\]
+展开平方和与乘积和，分别有
+\[\begin{aligned}
+\sum_i(t_i-\bar t)^2&=\sum_i t_i^2-2\bar t\sum_i t_i+n\bar t^2=\sum_i t_i^2-n\bar t^2,\\
+\sum_i(t_i-\bar t)(y_i-\bar y)&=\sum_i t_i y_i-\bar t\sum_i y_i-\bar y\sum_i t_i+n\bar t\bar y\\
+&=\sum_i t_i y_i-n\bar t\bar y.
+\end{aligned}\]
+若时间并非全同，则分母为正，得到
+\[b=\dfrac{\sum_i(t_i-\bar t)(y_i-\bar y)}{\sum_i(t_i-\bar t)^2},\qquad a=\bar y-b\bar t.\]
+本例$t=(0,1,2)$、$y=(1,2,2)$，均值$\bar t=1,\bar y=\frac{5}{3}$。中心化后为$(-1,0,1)$与$(-\frac{2}{3},\frac{1}{3},\frac{1}{3})$，故分子$(-1)(-\frac{2}{3})+0(\frac{1}{3})+1(\frac{1}{3})=1$，分母$(-1)^2+0^2+1^2=2$。于是$b=\frac{1}{2},a=\frac{5}{3}-\frac{1}{2}=\frac{7}{6}$。中心化使$\bm1\T(t-\bar t\bm1)=0$，两列正交，从而把联立求解化为一个斜率方程。
+\textbf{易错提示：}时间全部相同时分母为零，斜率不能由这些数据唯一确定；竖直最小二乘与最短垂距拟合也属于不同优化目标。
+\end{clevertrick}

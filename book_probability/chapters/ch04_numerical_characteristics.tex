@@ -1,0 +1,286 @@
+\chapter{随机变量的数字特征}\label{ch:04}
+\chaptermap{期望与尾和\\线性、对称}{方差与矩\\平方展开}{协方差与相关\\二次型非负}{条件平均\\分层与投影}
+\begin{examtip}
+\textbf{考研核心：}期望、方差、协方差、相关系数与函数期望。
+\textbf{竞赛视角：}指示变量、尾和、条件分解及矩不等式。
+\textbf{测度关联：}期望是积分，交换求和与积分需要非负或可积条件。
+\end{examtip}
+\section{期望、线性与指示变量}\label{sec:41}
+\src{茆诗松, §2.2；李东风, §4.1—4.2}
+\begin{definition}{期望与函数期望}
+若$\E|X|<\infty$，离散型$\E X=\sum_xxp_X(x)$，连续型$\E X=\int xf_X(x)\dd x$。
+对可积函数$g(X)$，$\E g(X)=\sum_xg(x)p_X(x)$或$\int g(x)f_X(x)\dd x$。
+线性性$\E(aX+bY)=a\E X+b\E Y$不要求独立。
+\end{definition}
+\begin{theorem}{尾积分与尾和}
+对非负$X$，允许两边为$+\infty$，有$\E X=\int_0^\infty\Pp(X>t)\dd t$。
+对非负整数$N$，$\E N=\sum_{k\ge1}\Pp(N\ge k)$。
+\end{theorem}
+\begin{proof}
+逐点$X=\int_0^\infty\ind_{\{X>t\}}\dd t$，非负性允许交换积分次序；整数情形写$N=\sum_{k\ge1}\ind_{\{N\ge k\}}$，再取期望。
+函数期望公式先对指示函数成立，再用线性、非负逼近及正负部分推广。
+\end{proof}
+\begin{method}{先拆成容易平均的部件}
+适用：计数、配对、首次出现。写$N=\sum_i\ind_{A_i}$，立刻有$\E N=\sum_i\Pp(A_i)$，无需先求$N$分布。
+最大最小与等待时间若尾概率简单，可直接用尾积分或尾和。
+\end{method}
+\worked{超几何均值的两种求法}{基础例题}{\star\star}{4-1}
+{从$N$件中不放回抽$n$件，其中$M$件为红，求红球数$K$的均值。}
+{按抽取位置或按红球身份拆指示变量。}
+{方法一：第$j$次为红的指示为$I_j$，$\E I_j=\frac{M}{N}$，故$\E K=\frac{nM}{N}$。
+方法二：对每个红球$i$设被选中指示$J_i$，$\Pp(J_i=1)=\frac{n}{N}$，故$\E K=M(\frac{n}{N})$。
+两法都只用边缘概率，没有假定不放回抽次独立。}
+{选择指示变量的索引可以按位置，也可以按对象，取更易算的边缘。}
+{线性期望不要求独立；方差相加才需处理协方差。}
+\worked{随机排列的固定点均值}{考研风格}{\star\star}{4-2}
+{$n$件信随机装入$n$个信封，求装对封数$K$的期望。}
+{固定点计数用位置指示，避开错排分布。}
+{$K=\sum_{i=1}^nI_i$，每封装对概率$\frac{1}{n}$，因此$\E K=1$。
+这对每个$n\ge1$都精确成立，与至少一封装对的概率不同。
+若试图先求$\Pp(K=k)$，将需要错排计数，而对期望完全没有必要。}
+{全分布可能复杂，但均值只需要一阶边缘。}
+{期望为1不代表每次恰有一封装对。}
+\worked{集齐优惠券}{竞赛风格}{\star\star\star}{4-3}
+{每次独立等概率获得$n$类之一，求集齐所有类别的期望次数。}
+{按已集齐的类别数拆等待阶段。}
+{已有$k$类时，新类别成功率$\frac{n-k}{n}$，等待$W_k$为从1计数的几何变量，均值$\frac{n}{n-k}$。
+总时间$T=\sum_{k=0}^{n-1}W_k$，所以$\E T=n\sum_{j=1}^n\frac{1}{j}$。
+每个阶段均值可由尾和$\sum_{r\ge0}(\frac{k}{n})^r$得到，因此不需额外引用几何均值公式。}
+{把复杂停止时刻分成状态等待，期望线性可直接相加。}
+{最后一类的等待最慢，不能以$n$次为合理的固定集齐时间。}
+
+\section{方差、矩与均方误差}\label{sec:42}
+\src{茆诗松, §2.3、§2.7；李东风, §4.3}
+\begin{definition}{矩与方差}
+对正整数$k$，若$\E|X|^k<\infty$，原点矩为$\E X^k$；均值存在且相应绝对中心矩有限时，中心矩为$\E(X-\E X)^k$。
+本章有限矩公式默认满足所需可积性。$X\in L^2$即$\E X^2<\infty$时，定义方差$\Var X=\E(X-\E X)^2$，并有$\Var X=\E X^2-(\E X)^2$；标准差为其平方根。
+对常数$a\in\R$，$\E(X-a)^2=\Var X+(\E X-a)^2$。
+均值有限而二阶矩无限时，可称扩展方差为$+\infty$，但不具有限方差，不能代入要求有限二阶矩的结论。
+\end{definition}
+\begin{proof}
+写$X-a=(X-\E X)+(\E X-a)$后平方取期望，交叉项为0，得到均方分解；取$a=0$可反解方差公式。
+同理$\Var(aX+b)=a^2\Var X$。
+\end{proof}
+\begin{method}{先求二阶原点矩，再减均值平方}
+适用：多项式密度、变换后方差。用$\E g(X)$直接积分，无需先求$g(X)$分布。
+当对称性明确时先确定均值，减少积分。计算结果的方差必须非负。
+\end{method}
+\worked{均匀分布的完整矩计算}{基础例题}{\star}{4-4}
+{$X\sim U(a,b)$，推导均值与方差。}
+{比较直接积分与平移缩放。}
+{方法一：$\E X=\frac{a+b}{2}$，$\E X^2=\frac{a^2+ab+b^2}{3}$，相减得$\Var X=\frac{(b-a)^2}{12}$。
+方法二：令$U=\frac{X-a}{b-a}\sim U(0,1)$，$\E U=\int_0^1u\dd u=\frac{1}{2}$、$\E U^2=\frac{1}{3}$，故$\Var U=\frac{1}{12}$；由$X=a+(b-a)U$立得结果。}
+{平移缩放法显示方差只依赖区间长度。}
+{二阶矩$\frac{1}{3}$不是$U(0,1)$的方差。}
+\worked{平方变量的方差}{考研风格}{\star\star}{4-5}
+{$X\sim U(-1,1)$，求$\E X^2$与$\Var(X^2)$。}
+{用原变量直接算二、四阶矩。}
+{$\E X^2=\frac12\int_{-1}^1x^2\dd x=\frac{1}{3}$，$\E X^4=\frac{1}{5}$，所以
+$\Var(X^2)=\frac{1}{5}-(\frac{1}{3})^2=\frac{4}{45}$。
+若改用$Y=X^2$的密度$\frac{1}{2\sqrt y}$，分别积分$y,y^2$也得到相同矩。}
+{函数期望可省略分布变换这一中间步骤。}
+{$\Var(X^2)$不等于$(\Var X)^2$，需要四阶矩。}
+\worked{有期望但没有方差}{考研风格}{\star\star}{4-6}
+{密度$f(x)=2x^{-3}$（$x\ge1$），判断均值和方差是否存在。}
+{逐个检查积分尾部的幂次。}
+{归一化为$\int_1^\infty2x^{-3}\dd x=1$。
+$\E X=\int_1^\infty2x^{-2}\dd x=2$，而$\E X^2=\int_1^\infty2x^{-1}\dd x=+\infty$，所以方差无限。
+该变量可使用有限均值大数定律，但不能直接套有限方差iid CLT。}
+{矩条件是各定理的入口，不能只检查是否有密度。}
+{均值有限不推出二阶矩有限。}
+
+\section{协方差、相关与和的方差}\label{sec:43}
+\src{茆诗松, §3.4；李东风, §4.4}
+\begin{definition}{协方差与相关系数}
+设$X,Y\in L^2$，定义
+\[\Cov(X,Y)=\E[(X-\E X)(Y-\E Y)]=\E XY-\E X\E Y.\]
+方差均正有限时，$\rho_{XY}=\frac{\Cov(X,Y)}{\sqrt{\Var X\Var Y}}$。
+\end{definition}
+\begin{theorem}{方差展开与相关取等}
+\[\Var\!\left(\sum_i a_iX_i\right)=\sum_i a_i^2\Var X_i+2\sum_{i<j}a_ia_j\Cov(X_i,X_j).\]
+$|\rho|\le1$；等号当且仅当中心化变量几乎必然线性相关，即$Y=aX+b$几乎必然且$a\ne0$。
+\end{theorem}
+\begin{proof}
+将中心化线性和平方逐项展开即得第一式。
+令$U=X-\E X,V=Y-\E Y$；$\E(V-tU)^2\ge0$对任意$t$成立，其二次多项式判别式非正，得到$\Cov^2\le\Var X\Var Y$。
+等号时取$t=\frac{\Cov}{\Var X}$可使非负平方期望为0，故$V=tU$几乎必然；逆向直接代入。
+\end{proof}
+\begin{method}{相关先算混合矩}
+适用：联合密度、线性组合、计数方差。先求一二阶边缘矩和$\E XY$，再相减。
+若用指示变量，写出每个方差和每对协方差，切勿把依赖项丢掉。
+\end{method}
+\worked{不放回计数方差}{考研风格}{\star\star\star}{4-7}
+{记$p=\frac{M}{N}$，推导超几何计数$K$的方差（$N>1$）。}
+{按位置指示或按对象指示展开。}
+{方法一：$I_j$方差$p(1-p)$；$i\ne j$时$\E I_iI_j=\frac{M(M-1)}{N(N-1)}$，故协方差$-\frac{p(1-p)}{N-1}$。
+因此$\Var K=\frac{np(1-p)(N-n)}{N-1}$。
+方法二：按红球被选中的$J_i$，有$\E J_i=\frac{n}{N}$、$\E J_iJ_j=\frac{n(n-1)}{N(N-1)}$，所以
+\begin{align*}
+\Var K&=M\dfrac nN\left(1-\dfrac nN\right)
++M(M-1)\left[\dfrac{n(n-1)}{N(N-1)}-\dfrac{n^2}{N^2}\right]\\
+&=\dfrac{Mn(N-n)}{N^2}-\dfrac{M(M-1)n(N-n)}{N^2(N-1)}\\
+&=\dfrac{Mn(N-n)(N-M)}{N^2(N-1)}
+=np(1-p)\dfrac{N-n}{N-1}.
+\end{align*}}
+{负协方差产生有限总体修正因子，解释不放回波动较小。}
+{$n=N$时方差必须为0，可作端点检查。}
+\worked{不相关但函数依赖}{考研风格}{\star\star}{4-8}
+{$X\sim U(-1,1)$，$Y=X^2$，求相关系数并判断独立。}
+{奇函数积分为零。}
+{$\E X=0$，$\E XY=\E X^3=0$，因此协方差为0。
+$\Var X=\frac{1}{3}$、$\Var Y=\frac{4}{45}$均正，相关系数为0。
+但事件$|X|<\frac{1}{2}$等价于$Y<\frac{1}{4}$，两者概率为$\frac{1}{2}$，交概率$\frac{1}{2}\ne\frac{1}{4}$，故不独立。}
+{零相关只消除了线性共同变化，未消除非线性依赖。}
+{只有在联合正态等额外结构下，才可由零相关推出独立。}
+\worked{固定点方差}{竞赛风格}{\star\star\star}{4-9}
+{随机排列$n\ge2$个对象，证明固定点数$K$方差为1。}
+{二阶阶乘矩比直接算$K^2$简洁。}
+{写$K=\sum I_i$，$\E K=1$。
+对$i\ne j$，$\Pp(I_i=I_j=1)=\frac{(n-2)!}{n!}=\frac{1}{n(n-1)}$，所以
+$\E K(K-1)=\sum_{i\ne j}\E I_iI_j=1$。
+于是$\E K^2=2$，$\Var K=2-1=1$。}
+{阶乘矩自动排除相同下标，适合计数变量。}
+{$n=1$是例外，固定点数恒为1，方差为0。}
+
+\section{条件期望与全方差}\label{sec:44}
+\src{茆诗松, §3.5；吴昊, §5.1；统计笔记, §3}
+\begin{definition}{条件平均}
+设$X\in L^1$，即$\E|X|<\infty$。离散时在$\Pp(Y=y)>0$处定义$\E(X\given Y=y)=\sum_xx\Pp(X=x\given Y=y)$；有条件密度时对$x$积分$x f_{X\mid Y}(x\mid y)$。
+这些公式在$Y$的分布几乎处处意义下成立，组成随机变量$\E(X\given Y)$。
+全期望公式为$\E[\E(X\given Y)]=\E X$。
+若$X\in L^2$，全方差公式为
+\begin{equation}\Var X=\E[\Var(X\given Y)]+\Var[\E(X\given Y)].\label{eq:totalvar}\end{equation}
+\end{definition}
+\begin{proof}
+全期望先将条件密度与边缘密度相乘还原联合密度，再积分；一般情形见第\ref{ch:10}章。
+令$m(Y)=\E(X\given Y)$，写$X-\E X=(X-m)+(m-\E X)$。
+交叉项的条件期望为$(m-\E X)\E(X-m\given Y)=0$，两个平方项取期望即得\eqref{eq:totalvar}。
+\end{proof}
+\begin{method}{随机次数或随机参数先条件化}
+适用：混合计数、随机和。先固定潜在类别、参数或次数，使模型变熟悉；算条件均值和条件方差，再分别取期望与方差。
+全方差中的两项分别表示层内波动与层间波动。
+\end{method}
+\worked{混合Poisson计数}{考研风格}{\star\star}{4-10}
+{给定$\Lambda$时$N\mid\Lambda\sim\Pois(\Lambda)$，已知$\E\Lambda=m,\Var\Lambda=v$，求$N$均值和方差。}
+{将随机强度先固定。}
+{方法一：$\E N=\E\Lambda=m$，$\Var N=\E\Lambda+\Var\Lambda=m+v$。
+方法二：条件二阶矩为$\E(N^2\given\Lambda)=\Lambda+\Lambda^2$，取期望为$m+v+m^2$，减$m^2$也得$m+v$。
+若$v>0$，边缘方差大于均值，故一般不是单一Poisson分布。}
+{全方差更能看出多出来的波动来源，原点矩法适合直接核对。}
+{不能只用$\Var N=\E\Lambda$，那会漏掉层间差异。}
+\worked{随机和}{考研风格}{\star\star\star}{4-11}
+{$N$非负整数，独立于iid $X_i$，后者均值$\mu$、方差$\sigma^2$。求$S=\sum_{i=1}^NX_i$的均值方差。}
+{给定次数后是普通独立和。}
+{在$\E N<\infty,\Var N<\infty$等保证二阶矩的条件下，
+$\E(S\given N)=N\mu$、$\Var(S\given N)=N\sigma^2$。
+故$\E S=\mu\E N$，$\Var S=\sigma^2\E N+\mu^2\Var N$。
+$N=0$时约定空和为0，公式仍成立。}
+{一项是给定次数的抽样波动，一项是次数本身的波动。}
+{若$N$由$X_i$的停止规则决定，独立性假设不成立，不能直接套此方差式。}
+\worked{条件期望是最佳均方预测}{测度论选学}{\star\star\star}{4-12}
+{设$X\in L^2$，证明$m(Y)=\E(X\given Y)$在所有平方可积$g(Y)$中最小化$\E(X-g(Y))^2$。}
+{将预测误差拆成条件残差和可测差值。}
+{由条件残差均值为0，$\E[(X-m)(m-g)]=0$。
+展开平方得$\E(X-g)^2=\E(X-m)^2+\E(m-g)^2$，第二项非负，因此$m$最优。
+等号当且仅当$\E(m-g)^2=0$，即$g=m$几乎必然。
+图形上，这是$L^2$空间中的正交投影，残差与全部$Y$可测方向正交。}
+{最优性来自正交性而非正态性；正态仅使最优函数恰为仿射。}
+{“最佳线性预测”优化的函数类更小，通常不等同于条件期望。}
+
+\section{矩母函数、特征函数与矩不等式}\label{sec:45}
+\src{吴昊, §1.3、§4.1；Jensen有限维形式}
+\begin{definition}{两种变换}
+矩母函数$M_X(t)=\E e^{tX}$若在零邻域有限，可求导得到$M_X^{(k)}(0)=\E X^k$。
+特征函数$\phi_X(t)=\E e^{itX}$始终存在；独立和的特征函数相乘。
+\end{definition}
+\begin{theorem}{Cauchy与Jensen}
+平方可积时$|\E XY|^2\le\E X^2\E Y^2$。
+若$\psi$为凸函数、所需期望存在，则$\psi(\E X)\le\E\psi(X)$。
+\end{theorem}
+\begin{proof}
+Cauchy由$\E(X-tY)^2\ge0$的判别式得到。
+设$X$取值于凸函数$\psi$的定义区间，$\E|X|<\infty$且$\E|\psi(X)|<\infty$。
+均值$m=\E X$为区间内点时，支撑直线给$\psi(x)\ge\psi(m)+a(x-m)$，积分即得Jensen。
+若$m$为定义区间中可取到的有限端点，则$X-m$或$m-X$非负且均值0，故$X=m$几乎必然，直接取等；不需要假定端点存在有限斜率支撑线。
+母函数求导可由零邻域指数可积性支配$|X|^ke^{tX}$后交换导数与积分。
+\end{proof}
+\begin{method}{变换先找收敛域，矩先看所需阶数}
+适用：分布可加性、矩计算、证明上界。独立和用变换，低阶矩优先直接积分或指示变量。
+不等式取等时必须检查线性相关或凸函数的严格性。
+\end{method}
+\worked{Poisson均值方差的两法}{基础例题}{\star\star}{4-13}
+{$X\sim\Pois(\lambda)$，推导$\E X=\Var X=\lambda$。}
+{用阶乘矩或对数母函数。}
+{方法一：在$\lambda>0$时，
+\begin{align*}
+\E X&=e^{-\lambda}\sum_{k=1}^\infty\dfrac{k\lambda^k}{k!}
+=\lambda e^{-\lambda}\sum_{j=0}^\infty\dfrac{\lambda^j}{j!}=\lambda,\\
+\E X(X-1)&=e^{-\lambda}\sum_{k=2}^\infty\dfrac{k(k-1)\lambda^k}{k!}
+=\lambda^2 e^{-\lambda}\sum_{j=0}^\infty\dfrac{\lambda^j}{j!}=\lambda^2.
+\end{align*}
+因此$\E X^2=\lambda^2+\lambda$，方差为$\lambda$；$\lambda=0$的退化情形直接成立。
+方法二：$M(t)=\sum_{k\ge0}\frac{e^{tk}e^{-\lambda}\lambda^k}{k!}=e^{\lambda(e^t-1)}$。
+记$K=\log M$，$K'(0)=\lambda$、$K''(0)=\lambda$，分别给均值与方差。}
+{阶乘矩贴合离散计数；对数母函数将独立加法变成函数相加。}
+{$M''(0)$给二阶原点矩，$K''(0)$才直接给方差。}
+\worked{方差上界}{竞赛风格}{\star\star}{4-14}
+{若$a\le X\le b$几乎必然，证明$\Var X\le\frac{(b-a)^2}{4}$并给取等条件。}
+{用均方误差最优中心与区间中点。}
+{取$c=\frac{a+b}{2}$，则
+$\Var X\le\E(X-c)^2\le\frac{(b-a)^2}{4}$。
+第一处等号要求$\E X=c$，第二处等号要求$|X-c|=\frac{b-a}{2}$几乎必然。
+当$a<b$时，等价于$X$只取$a,b$且概率各为$\frac{1}{2}$。}
+{先选便于界定的中心，比先优化$\E X^2-(\E X)^2$更短。}
+{均匀分布的方差是上界的三分之一，并不达到上界。}
+\worked{正变量倒数的期望}{竞赛风格}{\star\star}{4-15}
+{若$X>0$且$\E X,\E(\frac{1}{X})$有限，证明$\E X\E(\frac{1}{X})\ge1$。}
+{把常数1写成两个随机量的乘积。}
+{取$U=\sqrt X,V=\frac{1}{\sqrt X}$，Cauchy给
+$1=(\E UV)^2\le\E X\E(\frac{1}{X})$。
+Jensen作用于严格凸函数$\frac{1}{x}$也给$\E(\frac{1}{X})\ge\frac{1}{\E X}$。
+两法取等均要求$X$几乎必然为常数。}
+{选平方根把目标乘积嵌入Cauchy，是常见巧解。}
+{分母期望不能直接搬进倒数：一般$\E(\frac{1}{X})\ne\frac{1}{\E X}$。}
+\begin{warning}
+期望线性无需独立，乘积期望分解则需要相应独立或其他特殊条件。
+相关系数在方差为零时没有定义。对称分布不保证期望存在，例如Cauchy的正负积分不能以主值抵消冒充期望。
+\end{warning}
+
+\section*{图解、理解与巧解复盘}
+\begin{insight}{期望不是最可能值，方差不是平均绝对误差}
+期望是平方损失下的最佳常数，证明来自$\E(X-a)^2=\Var X+(\E X-a)^2$。
+众数最大化局部概率或密度，中位数最小化绝对损失，这三者优化的是不同目标。
+方差对远离均值的误差平方加权，因此对重尾敏感；其平方根才与原变量具有相同单位。
+\end{insight}
+\begin{clevertrick}{尾面积能一次给出全部非负矩}
+非负$X$满足$X^r=\int_0^Xrt^{r-1}\dd t$（$r>0$）。非负积分交换得到
+$\E X^r=r\int_0^\infty t^{r-1}\Pp(X>t)\dd t$。
+因此$\E X$是尾曲线下的面积，$\E X^2$则是尾概率加权后的面积；对极值和等待分布常比先求密度更简便。
+\end{clevertrick}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[>=Stealth,scale=1.1]
+\fill[Teal!7](-.5,-.3)--(4,-.3)--(5,1)--(.5,1)--cycle;
+\coordinate(O)at(0,0);\coordinate(M)at(3,0);\coordinate(X)at(3,2.4);
+\draw[->,Ink,very thick](O)--(X)node[above]{$X-\E X$};
+\draw[->,Teal,very thick](O)--(M)node[right]{$\E(X\mid Y)-\E X$};
+\draw[->,Gold,very thick](M)--(X)node[midway,right]{$X-\E(X\mid Y)$};
+\draw[Ink](2.75,0)--(2.75,.25)--(3,.25);
+\node at(1.5,-.8){$\Var X=\Var\E(X\mid Y)+\E\Var(X\mid Y)$};
+\end{tikzpicture}\caption{全方差是$L^2$空间的勾股分解，图仅表示抽象正交关系}\label{fig:conditional-projection}\end{figure}
+
+\section*{章末分层习题}
+\exercise{4-a}{基础}{$X$在$0,1,2$上等概率，求均值、方差。}
+\exercise{4-b}{基础}{$X\sim\Exp(\lambda)$，直接积分求$\E X^2$及方差。}
+\exercise{4-c}{考研风格}{独立$X,Y$均值均1、方差均2，求$\Var(2X-3Y)$。}
+\exercise{4-d}{考研风格}{$N\mid P\sim\Bin(m,P)$，$\E P=a,\Var P=v$，求$\E N,\Var N$。}
+\exercise{4-e}{竞赛拓展}{随机排列$n\ge2$个对象，求同时装对的无序对象对数的期望。}
+\exercise{4-f}{竞赛拓展}{独立$U(0,1)$样本$n$个，用尾积分求最大值期望。}
+\exercise{4-g}{测度论选学}{构造期望不存在但对称主值为0的分布，并说明原因。}
+\exercise{4-h}{测度论选学}{若$X\in L^2$，证明$\Var[\E(X\given Y)]\le\Var X$并说明取等条件。}
+\section*{章末方法速查}
+\begin{quicktable}
+指示变量&计数可拆&对象、位置、配对&方差漏协方差\\
+尾和与尾积分&非负变量&等待、极值&整数尾指标错一位\\
+条件矩&潜在类别或随机次数&混合、随机和&遗漏层间方差\\
+平方展开&二阶矩有限&相关、最优预测&不先检查可积性\\
+\end{quicktable}

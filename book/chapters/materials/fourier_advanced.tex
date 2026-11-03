@@ -1,0 +1,94 @@
+\section{Fourier点收敛的理论链与进阶内容}\label{mat:fourier_advanced}
+\begin{examtip}本节介绍Fourier收敛理论的主要对象与证明依赖。初等部分给出推导，Carleson--Hunt定理给出结论与证明路线；后者的核心极大估计作为高级标准结论使用。\end{examtip}
+\subsection{Dirichlet核与卷积表达}\label{mat:fourier_advanced:kernel}
+\begin{method}{Dirichlet核与卷积表达}\textbf{适用条件} $f$为$2\pi$周期可积函数。\par\textbf{实施与依据} 采用$\widehat f(k)=(2\pi)^{-1}\int_{-\pi}^{\pi}f(t)\e^{-ikt}\dd t$；有限和可直接交换积分。\end{method}
+\begin{example}{专题例题｜Dirichlet核与卷积表达}{难度：$\star\star$}
+\textbf{题目} 推导部分和$S_Nf$的核表达。\par\textbf{思路与解答} $S_Nf(x)=(2\pi)^{-1}\int_{-\pi}^{\pi}D_N(x-t)f(t)\dd t$，其中$D_N(u)=\sum_{k=-N}^N\e^{iku}=\frac{\sin((N+\frac{1}{2})u)}{\sin(\frac{u}{2})}$。$u=0$取连续值$2N+1$。\par\textbf{方法点评与边界} $D_N$有变号，且其$L^1$范数随$N$增长，不能当作统一正平均核。
+\end{example}
+\subsection{局部收敛与Dini条件}\label{mat:fourier_advanced:localization}
+\begin{method}{局部收敛与Dini条件}\textbf{适用条件} 给定点左右极限存在，差商可积。\par\textbf{实施与依据} 将$f(x+t)+f(x-t)-f(x^+)-f(x^-)$除以$t$，使用振荡积分趋零。\end{method}
+\begin{example}{专题例题｜局部收敛与Dini条件}{难度：$\star\star$}
+\textbf{题目} 若$f$在$x$附近满足Hölder条件$|f(x+t)-f(x)|\le C|t|^\alpha$，$\alpha>0$，说明收敛。\par\textbf{思路与解答} 差商受$C|t|^{\alpha-1}$控制，在0附近可积，Dini型收敛条件成立，故$S_Nf(x)\to f(x)$。\par\textbf{方法点评与边界} 只连续时模连续性除以$t$未必可积，因此不能直接得到每点收敛。
+\end{example}
+\subsection{Fejér核与Cesàro求和}\label{mat:fourier_advanced:fejer}
+\begin{method}{Fejér核与Cesàro求和}\textbf{适用条件} 连续周期函数，或适当可积函数。\par\textbf{实施与依据} $\sigma_Nf=(N+1)^{-1}\sum_{j=0}^NS_jf$，核$F_N(t)=(N+1)^{-1}[\frac{\sin(\frac{(N+1)t}{2})}{\sin(\frac{t}{2})}]^2$。\end{method}
+\begin{example}{专题例题｜Fejér核与Cesàro求和}{难度：$\star\star$}
+\textbf{题目} 证明连续周期函数的Fejér均值一致趋于自身。\par\textbf{思路与解答} $F_N\ge0$且积分为$2\pi$。误差积分在$|t|<\delta$部分受模连续性控制；其余部分$F_N\le[(N+1)\sin^2(\frac{\delta}{2})]^{-1}$，质量趋零。因此误差一致趋0。\par\textbf{方法点评与边界} 平均部分和收敛不等于原部分和收敛。
+\end{example}
+\subsection{Hardy--Littlewood极大函数}\label{mat:fourier_advanced:maximal}
+\begin{method}{Hardy--Littlewood极大函数}\textbf{适用条件} 局部可积$f$。\par\textbf{实施与依据} $Mf(x)=\sup_{r>0}|B(x,r)|^{-1}\int_{B(x,r)}|f|$；它衡量局部平均而非点值最大。\end{method}
+\begin{example}{专题例题｜Hardy--Littlewood极大函数}{难度：$\star\star$}
+\textbf{题目} 对$f=\mathbf1_{[0,1]}$解释$Mf$的远端衰减及$L^1$问题。\par\textbf{思路与解答} 当$x>1$，选取包含$[0,1]$且以$x$为中心的区间，其平均不小于常数乘$\frac{1}{x}$。因此$Mf$的尾部不可积；$f\in L^1$并不推出$Mf\in L^1$。\par\textbf{方法点评与边界} 正确端点结论是弱$(1,1)$估计，而不是强$L^1$有界。
+\end{example}
+\subsection{覆盖引理与弱型估计}\label{mat:fourier_advanced:weak}
+\begin{method}{覆盖引理与弱型估计}\textbf{适用条件} $f\in L^1$，阈值$\lambda>0$。\par\textbf{实施与依据} 对$Mf>\lambda$的每点选平均过阈值的球，再选两两不交子族，用有限倍膨胀覆盖原集合。\end{method}
+\begin{example}{专题例题｜覆盖引理与弱型估计}{难度：$\star\star$}
+\textbf{题目} 解释$|\{Mf>\lambda\}|\le \frac{C_d\|f\|_1}{\lambda}$。\par\textbf{思路与解答} 所选不交球$B_j$满足$\lambda|B_j|<\int_{B_j}|f|$。膨胀覆盖给坏集测度$\le C_d\sum|B_j|\le \frac{C_d\|f\|_1}{\lambda}$。一般情形先取紧子集及有限覆盖再逼近。\par\textbf{方法点评与边界} 相交球不能直接把积分相加而不控制重复次数。
+\end{example}
+\subsection{Lebesgue微分定理}\label{mat:fourier_advanced:differentiate}
+\begin{method}{Lebesgue微分定理}\textbf{适用条件} 局部可积函数，结论在几乎处处成立。\par\textbf{实施与依据} 先对连续函数由一致局部变化证明，再用$L^1$逼近及极大函数弱型估计控制误差。\end{method}
+\begin{example}{专题例题｜Lebesgue微分定理}{难度：$\star\star$}
+\textbf{题目} 为何可把几乎每点视为局部平均的极限？\par\textbf{思路与解答} 对连续近似$g$，$\lim_{r\to0}\frac1{|B(x,r)|}\int_{B(x,r)}|g(y)-g(x)|=0$。$f-g$的局部平均由$M(f-g)$控制，其超阈值集合测度可由$\|f-g\|_1$任意压小，最终得到$f$的Lebesgue点结论。\par\textbf{方法点评与边界} “几乎处处”不允许改写为“每一点”，修改零测集上的值不会改变积分。
+\end{example}
+\subsection{分布函数与Marcinkiewicz插值}\label{mat:fourier_advanced:interpolation}
+\begin{method}{分布函数与Marcinkiewicz插值}\textbf{适用条件} 次线性算子在两个端点有弱型控制。\par\textbf{实施与依据} 按阈值把$f$拆为大值与小值部分，积分分布函数$\|Tf\|_p^p=p\int_0^\infty\lambda^{p-1}|\{|Tf|>\lambda\}|\dd\lambda$。\end{method}
+\begin{example}{专题例题｜分布函数与Marcinkiewicz插值}{难度：$\star\star$}
+\textbf{题目} 说明为何$M:L^p\to L^p$，$1<p<\infty$。\par\textbf{思路与解答} 弱$(1,1)$与$L^\infty$范数不增给端点估计。对每个阈值分解$f$后积分可得$\|Mf\|_p\le C_d\frac p{p-1}\|f\|_p$。该常数在$p\downarrow1$时发散，与端点仅弱型相容。\par\textbf{方法点评与边界} 插值的分解依赖阈值，不能只做一次固定分解。
+\end{example}
+\subsection{Banach连续性原理}\label{mat:fourier_advanced:banach}
+\begin{method}{Banach连续性原理}\textbf{适用条件} $T_n:L^p\to L^0$线性且依测度连续，极大算子$T^*f=\sup_n|T_nf|$几乎处处有限。\par\textbf{实施与依据} 由Baire类定理获得极大算子在0处依测度的统一控制，再用稠密子空间推广收敛。\end{method}
+\begin{example}{专题例题｜Banach连续性原理}{难度：$\star\star$}
+\textbf{题目} 给出从三角多项式推广Fourier收敛的框架。\par\textbf{思路与解答} 三角多项式的部分和最终稳定。对一般$f$取多项式$P$逼近，尾部振幅$\Omega(f)=\limsup_{m,n}|S_mf-S_nf|$满足$\Omega(f)\le2S^*(f-P)$。极大估计使右端大于任意固定阈值的集合测度趋零，故$\Omega(f)=0$几乎处处。\par\textbf{方法点评与边界} 关键缺口是极大估计；仅有稠密性不能自动得到逐点收敛。
+\end{example}
+\subsection{共轭函数与Hilbert变换}\label{mat:fourier_advanced:hilbert}
+\begin{method}{共轭函数与Hilbert变换}\textbf{适用条件} 先对光滑紧支撑函数定义，再按范数延拓。\par\textbf{实施与依据} $Hf(x)=\pi^{-1}\operatorname{p.v.}\int_\R \frac{f(t)}{x-t}\dd t$，对称截去奇点后取极限。周期共轭核对应$\cot(\frac{t}{2})$。\end{method}
+\begin{example}{专题例题｜共轭函数与Hilbert变换}{难度：$\star\star$}
+\textbf{题目} 说明对称奇性如何消去常数项。\par\textbf{思路与解答} 局部积分改写为$\int_{\varepsilon<|u|<1}\frac{[f(x-u)-f(x)]\dd u}{u}$，常数项因核奇而为零；若$f$局部Lipschitz，分子$O(|u|)$，局部奇性可积。\par\textbf{方法点评与边界} 主值是特定截断极限，不是两个发散单侧积分相加。
+\end{example}
+\subsection{截断算子与极大Hilbert变换}\label{mat:fourier_advanced:hilbertLp}
+\begin{method}{截断算子与极大Hilbert变换}\textbf{适用条件} $H_\varepsilon$为去掉半径$\varepsilon$奇点的算子。\par\textbf{实施与依据} 区分统一$L^p$控制、$H^*f=\sup_\varepsilon|H_\varepsilon f|$控制与主值存在。证明常用Calderón--Zygmund分解及插值。\end{method}
+\begin{example}{专题例题｜截断算子与极大Hilbert变换}{难度：$\star\star$}
+\textbf{题目} 为何逐个$H_\varepsilon$有界还不直接证明主值存在？\par\textbf{思路与解答} 一致范数界不蕴含点态Cauchy。需要在光滑稠密子类先证明主值收敛，再用极大截断算子估计控制逼近误差，逻辑与Banach连续性原理相同。\par\textbf{方法点评与边界} 不能把$\sup$与积分的次序未经估计直接交换。
+\end{example}
+\subsection{Carleson极大算子与频率调制}\label{mat:fourier_advanced:carleson}
+\begin{method}{Carleson极大算子与频率调制}\textbf{适用条件} 振荡奇异积分，频率参数变化。\par\textbf{实施与依据} 模型$Cf(x)=\sup_{\xi\in\R}|\operatorname{p.v.}\int \frac{f(t)\e^{i\xi(x-t)}}{x-t}\dd t|$；此处$\xi$是局部角频率参数；用全书实轴变换的频率记号时写作$\xi=2\pi\eta$，上确界不变。有限区间版本需另外明确核的归一化。\end{method}
+\begin{example}{专题例题｜Carleson极大算子与频率调制}{难度：$\star\star$}
+\textbf{题目} 解释它为何比单个Hilbert变换困难。\par\textbf{思路与解答} 固定$\xi$时可由调制与Hilbert变换联系，调制保持$L^p$范数。但取所有频率的上确界不能由单个频率的范数界直接推出，需要时频尺度选择和极大不等式。\par\textbf{方法点评与边界} 频率与位置共同变化正是点收敛问题的核心。
+\end{example}
+\subsection{基本分解：近场、平均与抵消}\label{mat:fourier_advanced:basicstep}
+\begin{method}{基本分解：近场、平均与抵消}\textbf{适用条件} 振荡奇异积分的区间分割。\par\textbf{实施与依据} 把振荡奇异积分分为含$x$的近邻积分、远区块平均和均值为零的余项；对远余项利用核的光滑性。\end{method}
+\begin{example}{专题例题｜基本分解：近场、平均与抵消}{难度：$\star\star$}
+\textbf{题目} 若$b_J$支撑在区间$J$且$\int_Jb_J=0$，估计远处积分。\par\textbf{思路与解答} 取区间中心$c_J$，有$\int_J\frac{b_J(t)}{x-t}\dd t=\int_Jb_J(t)[\frac{1}{x-t}-\frac{1}{x-c_J}]\dd t$。当$|x-c_J|\ge2|J|$，绝对值$\le \frac{C|J|\|b_J\|_1}{|x-c_J|^2}$。\par\textbf{方法点评与边界} 减去常数核利用了零平均，这是比粗估$\frac{1}{\text{距离}}$更强的衰减。
+\end{example}
+\subsection{二进分割、局部范数与坏集}\label{mat:fourier_advanced:dyadic}
+\begin{method}{二进分割、局部范数与坏集}\textbf{适用条件} 多尺度局部平均需要组织。\par\textbf{实施与依据} 将区间不断二等分；按平均超阈值选择极大坏区间，极大性给不交性。\end{method}
+\begin{example}{专题例题｜二进分割、局部范数与坏集}{难度：$\star\star$}
+\textbf{题目} 给$f\in L^1(I)$、$\lambda>|I|^{-1}\int_I|f|$，估计坏区间总长度。\par\textbf{思路与解答} 每个极大二进坏区间$J$有$\lambda|J|<\int_J|f|$，两两不交，所以$\sum|J|\le\frac{\|f\|_1}{\lambda}$；好区外二进平均不超过阈值，Lebesgue微分将控制传到几乎每点。\par\textbf{方法点评与边界} 局部范数、区间分割与基本步均围绕可累加的局部控制，不只是记一个核公式。
+\end{example}
+\subsection{频率选择、允许配对与例外集}\label{mat:fourier_advanced:selection}
+\begin{method}{频率选择、允许配对与例外集}\textbf{适用条件} Carleson--Hunt定理的多尺度证明。\par\textbf{实施与依据} 限制型弱估计先对$|f|=\mathbf1_A$控制；通过坏集剔除、尺度长度估计、频率平移及允许配对选择，累加基本步，再用插值与稠密推广。\end{method}
+\begin{example}{专题例题｜频率选择、允许配对与例外集}{难度：$\star\star$}
+\textbf{题目} 说明“先控制例外集”与“每点统一估计”的区别。\par\textbf{思路与解答} 若对每个阈值$\lambda$可找到$|E_\lambda|\le C\lambda^{-p}\|f\|_p^p$且在其外$S^*f\le\lambda$，则这是分布意义的弱型估计，而非在全空间给同一个逐点上界。实现这类控制通常需要频率选择、区间配对和多尺度分解。\par\textbf{方法点评与边界} 这些组合构造须另作论证；本卡只概述证明路线，深层弱型界作为高级标准结论使用。
+\end{example}
+\begin{theorem}{Carleson--Hunt点收敛：进阶标准结论}在圆周上，$1<p<\infty$时Fourier部分和极大算子满足$\|S^*f\|_p\le C_p\|f\|_p$，因此每个$f\in L^p$的Fourier级数几乎处处收敛到$f$。\end{theorem}
+\begin{proof}证明路线：先建立振荡奇异积分的限制型弱估计，借多尺度分解与频率选择控制其上确界；插值获得强$L^p$估计；三角多项式的部分和从某阶起等于原多项式，稠密逼近与极大控制推广到$L^p$；再用$L^p$范数收敛识别点态极限为$f$。前述限制型估计是主证明的核心；这里将该估计作为标准结论，再给出其后续推论。\end{proof}
+\subsection{三种收敛层次的边界}\label{mat:fourier_advanced:convergence}
+\begin{method}{三种收敛层次的边界}\textbf{适用条件} Fourier范数、一致与几乎处处结论。\par\textbf{实施与依据} 分别检查函数正则性、所处空间和所用求和方式。\end{method}
+\begin{example}{专题例题｜三种收敛层次的边界}{难度：$\star\star$}
+\textbf{题目} 连续函数的Fourier级数是否必然处处收敛？\par\textbf{思路与解答} 不必然；存在连续函数的Fourier级数在某点发散。连续函数属于任意有限$p$的$L^p$，Carleson--Hunt保证几乎处处收敛，但允许零测异常集；Fejér均值却一致收敛。三结论并不矛盾。\par\textbf{方法点评与边界} 不能把“几乎处处”或“Cesàro求和”省略掉。
+\end{example}
+\subsection{分布函数、递减重排与Lorentz空间}\label{mat:fourier_advanced:rearrangement}
+\begin{method}{分布函数、递减重排与Lorentz空间}\textbf{适用条件} 采用总测度1的空间。\par\textbf{实施与依据} $d_f(\lambda)=\mu\{|f|>\lambda\}$，$f^*(t)=\inf\{\lambda:d_f(\lambda)\le t\}$，$f^{**}(t)=t^{-1}\int_0^tf^*(s)\dd s$。Lorentz范数可按$\int \frac{t^{\frac{1}{p}}f^*(t)\dd t}{t}$或其上确界定义。\end{method}
+\begin{example}{专题例题｜分布函数、递减重排与Lorentz空间}{难度：$\star\star$}
+\textbf{题目} 计算指示函数$\mathbf1_A$的重排。\par\textbf{思路与解答} 若$\mu(A)=a$，则$f^*(t)=1$（$0<t<a$），其余为0；故弱$L^p$准范数$\sup t^{\frac{1}{p}}f^*(t)=a^{\frac{1}{p}}$，$L^{p,1}$积分型准范数为$p a^{\frac{1}{p}}$，归一化可除$p$。\par\textbf{方法点评与边界} 不同教材常数归一化不同，本册显式写出采用的表达式。
+\end{example}
+\subsection{接近L1的空间与Antonov路线}\label{mat:fourier_advanced:endpoint}
+\begin{method}{接近L1的空间与Antonov路线}\textbf{适用条件} 考察$L^1$端点附近的额外可积性。\par\textbf{实施与依据} 采用$\log(e+t)$等正则化对数定义Orlicz型条件；区分强、弱型与几乎处处收敛。\end{method}
+\begin{example}{专题例题｜接近L1的空间与Antonov路线}{难度：$\star\star$}
+\textbf{题目} 解释为何引入$L\log L$及更细的对数空间。\par\textbf{思路与解答} 普通$L^1$存在Fourier发散反例，而$p>1$的强型界接近1时常数变坏。分布函数、原子分解和近$L^1$条件把这种常数增长转为端点控制。进一步的端点理论涉及$Q,Q_A$与Antonov的$L\log L\log\log\log L$型充分条件。\par\textbf{方法点评与边界} 这里没有把端点充分条件误写成必要充分条件，也没有声称所有$L^1$函数都收敛。
+\end{example}
+\subsection{有限Fourier系数的集合逼近}\label{mat:fourier_advanced:antonov}
+\begin{method}{有限Fourier系数的集合逼近}\textbf{适用条件} $0\le f\le a\mathbf1_A$，只要求有限个部分和精度。\par\textbf{实施与依据} 把圆周分成足够细区间，每块选$B_k\subset A$使$a|B_k|=\int_{A\cap J_k}f$，利用有限个连续核的一致连续性。\end{method}
+\begin{example}{专题例题｜有限Fourier系数的集合逼近}{难度：$\star\star$}
+\textbf{题目} 为什么可用$a\mathbf1_B$逼近有限个$S_jf$？\par\textbf{思路与解答} 每块质量完全匹配，核乘常数的主项抵消；误差不超过各核在小块上的振幅乘总质量。对$j\le N$只有有限个核，统一选网格即可使误差小于$\varepsilon$。这给出有限频率条件下的集合替换机制。\par\textbf{方法点评与边界} 这是有限频率逼近，不等于$f$与$a\mathbf1_B$在所有点相近。
+\end{example}

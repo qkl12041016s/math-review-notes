@@ -1,0 +1,25 @@
+\section{曲线曲面积分与场论的直接法核对}\label{deep:fields_source_deep}
+
+\begin{examtip}每次使用Green、Gauss或Stokes前先检查方向、边界与奇点。\end{examtip}
+
+\subsection{两类曲线积分、Green与路径无关}\label{deep:fields_source_deep:green}
+
+\begin{method}{两类曲线积分、Green与路径无关}\textbf{适用条件} 第一类按弧长，第二类按有向微分；Green要求平面区域内场正则。\par\textbf{步骤与依据} 直接参数化作核对；封闭路径优先看旋度；有洞区域补边界或检验环路积分。\par\textbf{易错点} 偏导相等仅给局部闭性，单连通或环路条件决定全局势函数。\end{method}
+
+\begin{example}{考研风格｜圆周积分的直接与Green法}{难度：$\star\star$}\label{deep:ex:fields_source_deep:greenarea}\textbf{题目} $C:x^2+y^2=R^2$逆时针，求$\oint_C(-y\dd x+x\dd y)$。\par\textbf{思路} 参数圆周，或使用Green面积公式。\par\textbf{详细解答} 直接法$x=R\cos t,y=R\sin t$，被积式$R^2(\sin^2t+\cos^2t)\dd t$，积分$2\pi R^2$。Green法$Q_x-P_y=1-(-1)=2$，故为$2\iint_D\dd A=2\pi R^2$。\par\textbf{方法点评} 同一题同时验证方向与系数2。\par\textbf{变式与易错点} 若用$\frac12(x\dd y-y\dd x)$，结果才是面积。\end{example}
+
+\begin{example}{竞赛风格｜穿孔区域中的闭而非恰当}{难度：$\star\star\star$}\label{deep:ex:fields_source_deep:hole}\textbf{题目} 在$\R^2\setminus\{0\}$考察$\omega=-\frac{y\dd x}{x^2+y^2}+\frac{x\dd y}{x^2+y^2}$。\par\textbf{思路} 偏导相等但绕原点一周积分非零。\par\textbf{详细解答} 直接算$P_y=Q_x=\frac{y^2-x^2}{(x^2+y^2)^2}$，所以旋度0。沿单位圆$\omega=\dd t$，环路积分$2\pi$，故不存在全域单值势函数。在不穿过一条射线的单连通子域，极角$\theta$可连续选支，$\omega=\dd\theta$。\par\textbf{方法点评} 展示拓扑条件而非代数计算决定路径无关。\par\textbf{变式与易错点} 不能对包含原点的圆盘直接套Green，因为场在原点未定义。\end{example}
+
+\subsection{通量、补面与奇点}\label{deep:fields_source_deep:gauss}
+
+\begin{method}{通量、补面与奇点}\textbf{适用条件} Gauss要求闭曲面和内部场有连续偏导；开放曲面可补简单面。\par\textbf{步骤与依据} 先散度；补面法写清所求通量等于闭面通量减补面通量；有奇点挖小球。\par\textbf{易错点} 外法向与题设上侧、下侧不一定一致。\end{method}
+
+\begin{example}{考研风格｜半球通量双解}{难度：$\star\star\star$}\label{deep:ex:fields_source_deep:hemisphere}\textbf{题目} $S$为半径$R$上半球外侧，$F=(x,y,z)$，求通量。\par\textbf{思路} 补底盘用Gauss，或球面法向直接点乘。\par\textbf{详细解答} 补$z=0$底盘，其向外法向向下，$F\cdot n=-z=0$。散度3，半球体积$\frac{2\pi R^3}{3}$，所以通量$2\pi R^3$。直接法球面$n=\frac{1}{R}(x,y,z)$，$F\cdot n=R$，乘上半球面积$2\pi R^2$也得同值。\par\textbf{方法点评} 对径向场，直接法甚至比补面法更短。\par\textbf{变式与易错点} 若场的第三分量有常数项，底盘通量一般不为0。\end{example}
+
+\begin{example}{竞赛风格｜反平方场的奇点通量}{难度：$\star\star\star$}\label{deep:ex:fields_source_deep:inverse}\textbf{题目} 求$F=\frac{\bm r}{|\bm r|^3}$通过任意包围原点的光滑闭曲面的外通量。\par\textbf{思路} 挖去原点小球，在剩余区域散度为0。\par\textbf{详细解答} 对$r\ne0$计算$\operatorname{div}F=3r^{-3}-3r^{-5}(x^2+y^2+z^2)=0$。挖半径$\varepsilon$球，穿孔域内Gauss给外曲面通量等于小球按其自身外法向的通量。球上$F\cdot n=\varepsilon^{-2}$，面积$4\pi\varepsilon^2$，故答案$4\pi$。若曲面不包原点且区域无奇点，则通量0。\par\textbf{方法点评} 公式法与球面对称直接法结合，得到形状无关性。\par\textbf{变式与易错点} 散度为0只在穿孔空间成立，不能忽略原点直接得总通量0。\end{example}
+
+\subsection{Stokes、旋度与曲面替换}\label{deep:fields_source_deep:stokes}
+
+\begin{method}{Stokes、旋度与曲面替换}\textbf{适用条件} 边界曲线方向与法向满足右手规则，场在曲面邻域正则。\par\textbf{步骤与依据} 先算旋度；在相同有向边界下选择最简单曲面；直接参数化边界作复核。\par\textbf{易错点} 曲面可以替换，但边界方向必须保留。\end{method}
+
+\begin{example}{考研风格｜空间环路积分三解接口}{难度：$\star\star\star$}\label{deep:ex:fields_source_deep:stokes}\textbf{题目} $C$为$z=1,x^2+y^2=1$从上看逆时针，求$\oint_C(-y\dd x+x\dd y+z\dd z)$。\par\textbf{思路} 直接参数、Stokes平盘、全微分消项。\par\textbf{详细解答} 直接法$z=1,\dd z=0$，圆周给$2\pi$。Stokes法$F=(-y,x,z)$，$\operatorname{rot}F=(0,0,2)$，上向单位圆盘面积$\pi$，通量$2\pi$。第三观察$z\dd z=\dd(\frac{z^2}{2})$沿任意闭路积分0，问题退回平面Green公式。\par\textbf{方法点评} 对同一边界，平盘最便于计算；全微分项可先消去。\par\textbf{变式与易错点} 反向绕行时三个方法的结果都应变号。\end{example}

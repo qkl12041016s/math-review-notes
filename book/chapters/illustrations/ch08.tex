@@ -1,0 +1,12 @@
+\section{图解：边界方向与法向}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[scale=1.2,>=stealth]
+\fill[Teal!8](0,0)circle(1.6);
+\draw[Ink,thick](0,0)circle(1.6);
+\draw[->,Teal,very thick](0:1.6)arc(0:80:1.6);
+\draw[->,Teal,very thick](180:1.6)arc(180:260:1.6);
+\node at(0,0){$\odot\ \bm n$};
+\node[align=left,anchor=west]at(2.2,.3){法向指向读者\\正向边界逆时针\\法向反转，边界也反转};
+\end{tikzpicture}
+\caption{平面Green公式的正向与Stokes的右手规则一致。对单位圆及$\bm F=(-y,x,0)$，$\nabla\times\bm F=(0,0,2)$，正向积分$2\pi$；反向则为$-2\pi$。图中的点圈表示法向朝向读者。}\label{fig:review:orientation}
+\end{figure}

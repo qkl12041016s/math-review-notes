@@ -1,0 +1,11 @@
+\label{der:6-2}
+将$\vx=(x_1,\vz\T)\T$代入块矩阵，原式为
+\[f=a x_1^2+2x_1\vb\T\vz+\vz\T C\vz.\]
+因$a\ne0$，展开
+\[a(x_1+a^{-1}\vb\T\vz)^2=a x_1^2+2x_1\vb\T\vz+a^{-1}\vz\T\vb\vb\T\vz.\]
+从原式减去多出的末项，便得到式\eqref{eq:complete}。令$x_1=y_1-a^{-1}\vb\T\vz$，则变换矩阵
+\[P=\begin{pmatrix}1&-a^{-1}\vb\T\\0&I\end{pmatrix},\quad\det P=1,
+\quad P\T AP=\begin{pmatrix}a&0\\0&C-a^{-1}\vb\vb\T\end{pmatrix}.\]
+这说明配方、成对行列消元与合同是同一个过程。若列操作由右乘初等矩阵$E$实现，对应的同行操作应左乘$E\T$，总变化为$E\T AE$。
+
+若全部对角元为零但$a_{ij}\ne0$，仅在$i,j$两变量上令$x_i=u+v,x_j=u-v$，其交叉项变为$2a_{ij}(u^2-v^2)$，产生非零平方项；这个二阶代换行列式为$-2\ne0$。其余变量不变后即可继续上述配方，避免除以零对角元。

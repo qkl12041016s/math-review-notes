@@ -1,0 +1,11 @@
+\label{der:1-4}
+设主块$A$为$p$阶，$D$为$q$阶，块尺寸相容。左乘
+\[L=\begin{pmatrix}I_p&0\\-CA\inv&I_q\end{pmatrix},\qquad
+L\begin{pmatrix}A&B\\C&D\end{pmatrix}=\begin{pmatrix}A&B\\0&D-CA\inv B\end{pmatrix}.\]
+$L$是块下三角且两个对角块为单位阵，故$\det L=1$。块上三角行列式等于对角块行列式之积：排列定义中，后$q$行要取非零项只能占用后$q$列，于是前$p$行只能占用前$p$列，全部排列和分成两个独立和。对上式取行列式，得到Schur公式。
+
+对摄动式，记$A$与$H$的第$j$列为$a_j,h_j$。多线性展开是一个关于$t$的有限多项式。常数项为$\det A$；一次项只能选一列$t h_j$，所以
+\[\det(A+tH)=\det A+t\sum_j\det(a_1,\ldots,h_j,\ldots,a_n)+t^2R(t).\]
+将第$j$列更新行列式沿该列展开：$\det(a_1,\ldots,h_j,\ldots,a_n)=\sum_i h_{ij}C_{ij}$，余子式与$A$相同。因此$t=0$处导数为$\sum_{ij}C_{ij}h_{ij}$。又
+\[\tr(\adj(A)H)=\sum_j\sum_i(\adj A)_{ji}h_{ij}=\sum_{ij}C_{ij}h_{ij},\]
+得到一般导数式。可逆时$\adj A=(\det A)A\inv$，代入得$\det A\tr(A\inv H)$；奇异时保留伴随版本，不作除法。

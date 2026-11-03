@@ -1,0 +1,27 @@
+\section{多元微分的严格条件与高阶方法}\label{mat:multivariable}
+\begin{examtip}补充Euclid空间、紧致性、混合偏导、Jacobian、约束二次型与齐次函数。\end{examtip}
+\subsection{邻域、开闭与紧致性}\label{mat:multivariable:topology}
+\begin{method}{邻域、开闭与紧致性}\textbf{适用条件} 有限维Euclid空间。\par\textbf{实施与依据} 闭且有界等价于紧；连续像保紧，紧集上连续函数取最值。\end{method}
+\begin{example}{专题例题｜邻域、开闭与紧致性}{难度：$\star\star$}
+\textbf{题目} 解释$f(x,y)=\frac{1}{x^2+y^2}$在闭圆环$1\le x^2+y^2\le4$上最值。\par\textbf{思路与解答} 区域闭有界，函数连续；径向单调给最小$\frac{1}{4}$、最大1。若区域改为$0<x^2+y^2\le1$，失去闭性且函数无上界。\par\textbf{方法点评与边界} “闭集”必须相对于明确的空间定义。
+\end{example}
+\subsection{混合偏导交换的条件}\label{mat:multivariable:mixed}
+\begin{method}{混合偏导交换的条件}\textbf{适用条件} 二阶混合偏导在邻域连续。\par\textbf{实施与依据} 对小矩形的四点差分别两次使用中值定理，再令边长趋零。\end{method}
+\begin{example}{专题例题｜混合偏导交换的条件}{难度：$\star\star$}
+\textbf{题目} 给出偏导存在但混合偏导不等的典型结构。\par\textbf{思路与解答} 令$f=\frac{xy(x^2-y^2)}{x^2+y^2}$，原点补0。沿坐标计算得$f_x(0,y)=-y$、$f_y(x,0)=x$，故$f_{xy}(0,0)=-1,f_{yx}(0,0)=1$。\par\textbf{方法点评与边界} 没有连续性假设时，形式上的交换求导可能错误。
+\end{example}
+\subsection{反函数与Jacobian链式}\label{mat:multivariable:jacobian}
+\begin{method}{反函数与Jacobian链式}\textbf{适用条件} 映射$F\in C^1$且导数矩阵可逆。\par\textbf{实施与依据} 局部反函数满足$D(F^{-1})=(DF)^{-1}$；复合Jacobian相乘。\end{method}
+\begin{example}{专题例题｜反函数与Jacobian链式}{难度：$\star\star$}
+\textbf{题目} $u=x+y,v=x-y$，求反变换的Jacobian。\par\textbf{思路与解答} 正向行列式为$-2$，反向为$-\frac{1}{2}$。由$x=\frac{u+v}{2},y=\frac{u-v}{2}$直接计算也得到$-\frac{1}{2}$。\par\textbf{方法点评与边界} 面积换元用绝对值，导数矩阵本身不能擅自取绝对值。
+\end{example}
+\subsection{Euler齐次函数定理}\label{mat:multivariable:homogeneous}
+\begin{method}{Euler齐次函数定理}\textbf{适用条件} $f(t\bm x)=t^mf(\bm x)$且可微。\par\textbf{实施与依据} 对$t$在1处求导，得到$\bm x\cdot\nabla f=mf$。\end{method}
+\begin{example}{专题例题｜Euler齐次函数定理}{难度：$\star\star$}
+\textbf{题目} 验证$f=(x^2+y^2)^{\frac{3}{2}}$的齐次恒等式。\par\textbf{思路与解答} 除原点外$f_x=3x\sqrt{x^2+y^2},f_y=3y\sqrt{x^2+y^2}$，故$xf_x+yf_y=3f$。原点两边均0，经定义也成立。\par\textbf{方法点评与边界} 只有可微及缩放关系同时成立时才可用。
+\end{example}
+\subsection{条件极值的二阶检验}\label{mat:multivariable:constrained2}
+\begin{method}{条件极值的二阶检验}\textbf{适用条件} 约束正则，存在Lagrange乘子。\par\textbf{实施与依据} 将Lagrangian的Hessian限制在约束切空间，正定给严格条件极小。\end{method}
+\begin{example}{专题例题｜条件极值的二阶检验}{难度：$\star\star$}
+\textbf{题目} $x^2+y^2=1$上分析$f=x^2$。\par\textbf{思路与解答} 候选有$(0,\pm1)$与$(\pm1,0)$。前两点值0为条件最小，后两点值1为条件最大；参数$x=\cos t$给$f=\cos^2t$直接核验。\par\textbf{方法点评与边界} 限制在可行切向上，不要求整个空间Hessian正定。
+\end{example}

@@ -1,0 +1,186 @@
+\section{系数运算、隐式项与相邻消去}\label{cse:section}
+\subsection{收敛半径的相消与稀疏系数}\label{cse:radius}
+\begin{method}{将半径问题还原为系数或函数之差}
+\textbf{步骤} 相加半径至少为两半径的最小值；若两半径不同，反设相加后半径更大，再相减产生矛盾。系数平方使用根值上极限；抽取偶系数使用$\frac{F(x)+F(-x)}{2}$。
+\par\textbf{疑难点} 同半径相加可能完全抵消；子级数收敛不能反推整级数收敛。
+\end{method}
+\begin{theorem}{系数运算的半径规则}\label{cse:thm:radius}
+$A(x)=\sum a_nx^n$、$B(x)=\sum b_nx^n$的半径分别为$R_A,R_B$。其和的半径$R_C\ge\min(R_A,R_B)$；若$R_A\ne R_B$，等号成立。
+当$a_n$为实数且$0<R_A<\infty$时，$\sum a_n^2x^n$的半径为$R_A^2$。
+\end{theorem}
+\begin{proof}
+在公共半径内部两级数绝对收敛，故其和也绝对收敛。若$R_A<R_B$而$R_C>R_A$，则$A=C-B$在半径$\min(R_C,R_B)>R_A$内绝对收敛，矛盾。
+再由
+$\limsup|a_n^2|^{\frac{1}{n}}=(\limsup|a_n|^{\frac{1}{n}})^2=R_A^{-2}$，
+使用Cauchy--Hadamard公式即得平方系数的半径。这里“平方系数”不同于和函数$A(x)^2$。
+\end{proof}
+\begin{example}{考研风格｜相消后半径可以任意扩大}{难度：$\star\star$}\label{cse:ex:cancellation}
+\textbf{题目} 已知$\sum a_nx^n$半径为1。$\sum(a_n+1)x^n$的半径一定等于1吗？给出两种不同结果。
+\par\textbf{思路} 常数系数级数也具有半径1，但相加时可消去主系数。
+\par\textbf{详细解答} 公共半径结论只保证新半径不小于1。若$a_n=1$，新系数为2，半径仍为1。
+给定$s>1$，取$a_n=-1+s^{-n}$，则$|a_n|^{\frac{1}{n}}\to1$，原半径为1；相加后系数$s^{-n}$，新半径为$s$。
+若$a_n=-1$，相加后恒零，半径为$\infty$。
+\par\textbf{方法点评} 通过构造系数中大小不同的两层指数尺度，可精确控制相消后的半径。
+\par\textbf{疑难点} 同半径相加只有下界，不能机械使用“取最小值等号”。
+\end{example}
+\begin{example}{竞赛风格｜偶系数的加权提取}{难度：$\star\star$}\label{cse:ex:even}
+\textbf{题目} $\ln(2+x)=\sum_{n\ge0}a_nx^n$在0附近展开，求$\sum_{n\ge1}n a_{2n}$。
+\par\textbf{思路} 对偶部分求导，再乘变量恢复权重。
+\par\textbf{详细解答} 展开半径为2，故$x=\pm1$严格位于内部，逐项求导合法。
+设$F(x)=\ln(2+x)$，则
+\[
+E(x)=\dfrac{F(x)+F(-x)}2=\sum_{n\ge0}a_{2n}x^{2n},
+\qquad
+\sum_{n\ge1}na_{2n}x^{2n}=\dfrac{xE'(x)}2
+=\dfrac{x[F'(x)-F'(-x)]}{4}.
+\]
+令$x=1$得$\frac14(\frac{1}{3}-1)=-\frac{1}{6}$。
+第二法由$a_k=\frac{(-1)^{k-1}}{k2^k}$（$k\ge1$）直接得到$na_{2n}=-\frac{1}{2\cdot4^n}$，几何求和同得$-\frac{1}{6}$。
+\par\textbf{方法点评} 函数筛选法不必先写出全部系数，适合奇偶索引与导数权重同时出现。
+\par\textbf{疑难点} 链式法则使$F(-x)$求导带负号；$a_0$不参与加权和。
+\end{example}
+
+\subsection{不依赖单调性的相邻消去}\label{cse:pair}
+\begin{method}{有限部分和先配对}
+\textbf{条件} 相邻项以同一结构出现，或递推允许还原为差分。
+\par\textbf{步骤} 写出前几项，保留首尾项，证明中间项逐一抵消；普通收敛和绝对收敛分别判定。
+\par\textbf{疑难点} 一般项近似于交错调和项不足以判敛；配对恒等式可以替代缺失的单调性。
+\end{method}
+\begin{example}{考研风格｜相邻倒数和的条件收敛}{难度：$\star\star\star$}\label{cse:ex:paired}
+\textbf{题目} $u_n\ne0$且$\frac{n}{u_n}\to1$，证明
+$\sum_{n\ge1}(-1)^{n-1}(\frac{1}{u_n}+\frac{1}{u_{n+1}})$条件收敛，并求和。
+\par\textbf{思路} 每一个内部倒数在有限和中出现两次，符号相反。
+\par\textbf{详细解答} 直接展开给
+\[
+S_N=\dfrac1{u_1}+\dfrac{(-1)^{N-1}}{u_{N+1}}.
+\]
+由$\frac{u_n}{n}\to1$得$\frac{1}{u_{N+1}}\to0$，故$S_N\to\frac{1}{u_1}$。
+又$u_n>0$最终成立，且
+\[
+n\left|\dfrac1{u_n}+\dfrac1{u_{n+1}}\right|\longrightarrow2.
+\]
+绝对值级数与调和级数同敛散，故发散；原级数条件收敛。
+\par\textbf{方法点评} 这里没有假设$u_n$或$\frac{1}{u_n}+\frac{1}{u_{n+1}}$单调，有限消去已经给出普通和。
+\par\textbf{疑难点} 不能只凭“一般项等价于$\frac{2(-1)^{n-1}}{n}$”使用极限比较法；极限比较用于非负项。
+\end{example}
+
+\begin{example}{竞赛风格｜非线性递推产生的精确望远镜和}{难度：$\star\star\star$}\label{cse:ex:nonlinear}
+\textbf{题目} $a_1=c>1$，$a_{n+1}=a_n^2-a_n+1$。求$\sum_{n\ge1}\frac{1}{a_n}$及余项。
+\par\textbf{思路} 递推两边减1后可以因式分解。
+\par\textbf{详细解答} $a_{n+1}-a_n=(a_n-1)^2>0$，且$a_n\ge c>1$。
+若$a_n$有有限极限$L\ge c$，则$L=L^2-L+1$，得$L=1$，矛盾，故$a_n\to\infty$。
+由$a_{n+1}-1=a_n(a_n-1)$，
+\[
+\dfrac1{a_n}=\dfrac1{a_n-1}-\dfrac1{a_{n+1}-1},
+\qquad
+\sum_{n=1}^N\dfrac1{a_n}
+=\dfrac1{c-1}-\dfrac1{a_{N+1}-1}.
+\]
+因此和为$\frac{1}{c-1}$，尾和精确为$\frac{1}{a_{N+1}-1}$。
+\par\textbf{方法点评} 非线性迭代可能比线性迭代更容易形成倒数望远镜和。
+\par\textbf{疑难点} $c=1$是恒定解，原级数发散，不能把它代入和公式。
+\end{example}
+
+\subsection{有序级数与隐式比较量}\label{cse:implicit}
+\begin{method}{从符号或隐式方程构造正项比较}
+\textbf{步骤} 已知两级数收敛且项有序时，研究差级数；隐式关系中先证明变量趋0，再用确定阶数的余项决定比较对象。
+\par\textbf{疑难点} 未证明变量趋0时不能展开；任意项的大小关系本身不能保证绝对收敛传递。
+\end{method}
+\begin{example}{考研风格｜有序且收敛时的绝对收敛等价}{难度：$\star\star$}\label{cse:ex:ordered}
+\textbf{题目} 实数项满足$a_n\le b_n$，且$\sum a_n,\sum b_n$均收敛。证明一个绝对收敛当且仅当另一个绝对收敛。
+\par\textbf{思路} 差项非负，使通常收敛自动变成绝对收敛。
+\par\textbf{详细解答} 令$d_n=b_n-a_n\ge0$。有限部分和相减并取极限，知$\sum d_n$收敛。
+由$|b_n|\le|a_n|+d_n$，若$\sum|a_n|<\infty$则$\sum|b_n|<\infty$；由$|a_n|\le|b_n|+d_n$反向同理。
+\par\textbf{方法点评} 有序关系并非直接比较绝对值，而是先产生一个可和的非负差。
+\par\textbf{疑难点} 两级数都收敛是必要的前提。仅取$a_n=0,b_n=\frac{1}{n}$即说明删去该前提后结论失败。
+\end{example}
+
+\begin{example}{竞赛风格｜指数隐式关系中消失的一阶项}{难度：$\star\star\star$}\label{cse:ex:exponential}
+\textbf{题目} $a_n,b_n>0$，$\e^{a_n}=a_n+\e^{b_n}$，且$\sum a_n<\infty$。证明$\sum \frac{b_n}{a_n}<\infty$。
+\par\textbf{思路} 把$b_n$显式表示为一个对数，比较$a_n^2$阶的主项。
+\par\textbf{详细解答} $a_n\to0$，并且
+$b_n=\ln(\e^{a_n}-a_n)$。在$t\to0$时，
+\[
+\e^t-t=1+\dfrac12t^2+\dfrac16t^3+O(t^4),\qquad
+\ln(\e^t-t)=\dfrac12t^2+O(t^3).
+\]
+故$\frac{b_n}{a_n^2}\to\frac{1}{2}$。例如充分大的$n$有$0<\frac{b_n}{a_n}\le a_n$，与给定收敛正项级数比较即可。
+\par\textbf{方法点评} 方程消去了一阶项，把$b_n$压到$a_n^2$尺度。
+\par\textbf{疑难点} 只用$b_n\to0$不能得到结论，需要证明$\frac{b_n}{a_n}$的具体阶数。
+\end{example}
+
+\begin{example}{竞赛风格｜余弦隐式关系不必求逆函数}{难度：$\star\star\star$}\label{cse:ex:cosine}
+\textbf{题目} $0<a_n,b_n<\frac{\pi}{2}$，$\cos a_n-a_n=\cos b_n$，且$\sum b_n<\infty$。证明$\sum \frac{a_n}{b_n}<\infty$。
+\par\textbf{思路} 保留方程整体，分别除以变量的自然主阶。
+\par\textbf{详细解答} $\cos a_n>\cos b_n$且余弦在$(0,\frac{\pi}{2})$递减，故$0<a_n<b_n\to0$。
+方程整理为$a_n+1-\cos a_n=1-\cos b_n$，所以
+\[
+\dfrac{a_n}{b_n^2}
+=\dfrac{\frac{1-\cos b_n}{b_n^2}}{1+\frac{1-\cos a_n}{a_n}}
+\longrightarrow\dfrac12.
+\]
+于是$\frac{a_n}{b_n}\le b_n$最终成立，比较判别得所求级数收敛。
+\par\textbf{方法点评} 比值分解绕开$\arccos$的边界导数，控制更直接。
+\par\textbf{疑难点} $\cos$在0处导数为0，因此不能按普通可微反函数的一阶公式处理。
+\end{example}
+
+\subsection{根列与振荡相位定义的级数}\label{cse:rootphase}
+\begin{method}{将抽象一般项转成可控尺度}
+\textbf{步骤} 根列先用相邻有理点夹住；振荡相位先减去整数倍$\pi$，再判断小相位的正性、单调性与阶数。
+\par\textbf{疑难点} 条件收敛必须同时给普通收敛证明和绝对值发散证明。
+\end{method}
+\begin{example}{考研风格｜方程根定义的交错级数}{难度：$\star\star\star$}\label{cse:ex:rootseries}
+\textbf{题目} $a_n$为$x^n+nx-1=0$的唯一正根。证明$\sum(-1)^{n-1}a_n$条件收敛，并比较$a_n$与$\frac{1}{n}$的误差。
+\par\textbf{思路} 在$\frac{1}{n+1}$与$\frac{1}{n}$处计算函数符号。
+\par\textbf{详细解答} 左端对$x>0$严格递增，在0处为$-1$，趋于无穷，故唯一正根存在。
+对$n\ge2$，
+\[
+F_n(\dfrac{1}{n+1})=(n+1)^{-n}-(n+1)^{-1}<0,\qquad
+F_n(\dfrac{1}{n})=n^{-n}>0.
+\]
+于是$\frac{1}{n+1}<a_n<\frac{1}{n}$。相邻根的区间分离给$a_{n+1}<a_n$，且$a_1=\frac{1}{2}>a_2$。
+因此$a_n\downarrow0$，交错级数收敛；而$\sum a_n$由下界调和比较发散。
+方程还给$1-na_n=a_n^n\le n^{-n}$，故
+\[
+n^{n+1}(\dfrac{1}{n}-a_n)=(na_n)^n=(1-a_n^n)^n\longrightarrow1,
+\]
+最后一步由$0\le1-(1-a_n^n)^n\le n a_n^n\le n^{1-n}\to0$。
+\par\textbf{方法点评} 互不交叠的根区间能同时证明单调性和主阶，比连续化$n$求导更简便。
+\par\textbf{疑难点} 各$n$分别存在唯一根，不自动保证根列单调，仍须比较。
+\end{example}
+
+\begin{example}{竞赛风格｜从整数倍相位中剥离交错因子}{难度：$\star\star\star$}\label{cse:ex:phase}
+\textbf{题目} 对实参数$a$判定$\sum_{n\ge1}\sin(\pi\sqrt{n^2+a^2})$的敛散性。
+\par\textbf{思路} 大相位是$n\pi$加一个小正修正量。
+\par\textbf{详细解答} $a=0$时每项为0。若$a\ne0$，有
+\[
+\delta_n=\pi(\sqrt{n^2+a^2}-n)
+=\dfrac{\pi a^2}{\sqrt{n^2+a^2}+n}\downarrow0,\qquad
+\sin(\pi\sqrt{n^2+a^2})=(-1)^n\sin\delta_n.
+\]
+充分大的$n$有$0<\delta_n<\frac{\pi}{2}$，此后$\sin\delta_n$递减趋0，Leibniz判别给普通收敛。
+又$n\sin\delta_n\to\frac{\pi a^2}{2}>0$，绝对值级数与调和级数比较发散，故条件收敛。
+\par\textbf{方法点评} 有理化先得到小相位的精确表达，再讨论振荡，不会将整个正弦错当成小角。
+\par\textbf{疑难点} 最初若干项的$\sin\delta_n$可能不单调，只需从足够大的指标起成立即可。
+\end{example}
+
+\subsection{离散分部积分保留边界项}\label{cse:weighted}
+\begin{method}{加权差分还原部分和}
+\textbf{条件} 已知$\sum n(a_n-a_{n-1})$和边界项$na_n$的行为。
+\par\textbf{步骤} 在有限和层面移位，准确记录首项、末项；最后利用已有收敛条件。
+\par\textbf{疑难点} 权重$n$不能在无穷和中随意移位，边界项可能决定全部结论。
+\end{method}
+\begin{example}{竞赛风格｜差分级数与边界项的联立条件}{难度：$\star\star\star$}\label{cse:ex:boundary}
+\textbf{题目} 若$na_n\to A\in\R$，且$\sum_{n=2}^{\infty}n(a_n-a_{n-1})=T$收敛，证明$\sum a_n$收敛，并确定$A$。
+\par\textbf{思路} 有限加权差分恰好等于边界项减去原部分和。
+\par\textbf{详细解答} 对$N\ge2$，
+\[
+T_N=\sum_{n=2}^{N}n(a_n-a_{n-1})
+=Na_N-2a_1-\sum_{n=2}^{N-1}a_n
+=Na_N-a_1-\sum_{n=1}^{N-1}a_n.
+\]
+所以$\sum_{n=1}^{N-1}a_n=Na_N-a_1-T_N\to A-a_1-T$，原级数收敛。
+若$A\ne0$，则$a_n\sim \frac{A}{n}$，最终同号且其绝对值不小于$\frac{|A|}{2n}$，与原级数收敛矛盾。因此$A=0$，和为$-a_1-T$。
+\par\textbf{方法点评} 两个给定条件联用不仅推出级数收敛，还强迫边界极限为0。
+\par\textbf{疑难点} 直接删去$Na_N$会在尚未证明$A=0$时循环论证。
+\end{example}

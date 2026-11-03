@@ -1,0 +1,298 @@
+\chapter{假设检验}\label{ch:08}
+\chaptermap{假设与错误\\水平、功效}{正态单样本\\均值与方差}{两样本与比例\\比较与拟合}{似然比\\最优性与p值}
+\begin{examtip}
+\textbf{考研核心：}两类错误，正态均值方差检验，拒绝域与$p$值。
+\textbf{竞赛拓展：}功效与样本量，Neyman--Pearson原理，离散随机化与似然比。
+\textbf{理解重点：}先写备择方向，再选尾部；未拒绝不等于证明原假设为真。
+\end{examtip}
+\section{检验框架、两类错误与功效}\label{sec:81}
+\src{李东风, §8.1—8.3；统计笔记, §5}
+\begin{definition}{拒绝域与功效}
+检验函数$\psi(x)\in[0,1]$表示给定样本的拒绝概率，普通拒绝域检验取0或1。
+功效$\pi(\theta)=\E_\theta\psi(X)$；水平$\alpha$要求$\sup_{\theta\in\Theta_0}\pi(\theta)\le\alpha$。
+第一类错误是$H_0$真却拒绝，第二类错误是在指定备择$\theta$下未拒绝，概率$\beta(\theta)=1-\pi(\theta)$。
+\end{definition}
+\begin{theorem}{已知方差右侧均值检验的功效}
+正态样本检验$H_0:\mu\le\mu_0$对$H_1:\mu>\mu_0$，拒绝$\bar X>\mu_0+\frac{z_{1-\alpha}\sigma}{\sqrt n}$。
+其功效为
+\[\pi(\mu)=1-\Phi\!\left(z_{1-\alpha}-\dfrac{\sqrt n(\mu-\mu_0)}\sigma\right).\]
+\end{theorem}
+\begin{proof}
+用$\frac{\sqrt n(\bar X-\mu)}{\sigma}$标准化拒绝事件即得功效。
+它随$\mu$递增，所以$\mu\le\mu_0$时最大拒绝概率出现在边界$\mu_0$，等于$\alpha$，从而水平得到控制。
+\end{proof}
+\begin{method}{用备择决定尾部，用原假设定分布}
+适用：所有参数检验。写$H_0,H_1$，构造在零假设下可校准的统计量；再算观察值，比较临界值或$p$值。
+功效必须在具体备择参数下计算，不能把$\beta$当成一个脱离参数的固定数。
+\end{method}
+\worked{已知方差均值的双方法}{基础例题}{\star\star}{8-1}
+{正态总体$\sigma=2$，$n=25,\bar x=10.8$，检验$H_0:\mu=10$对$\mu>10$，$\alpha=0.05$。}
+{标准误$\frac{2}{5}=0.4$，观察统计量为2。}
+{方法一：右尾临界值$z_{.95}\approx1.645$，$2>1.645$，拒绝。
+方法二：$p=1-\Phi(2)\approx0.0228<0.05$，同样拒绝。
+两者等价，因为$\Phi$严格递增，$z>z_{1-\alpha}$恰等价于右尾概率小于$\alpha$。}
+{拒绝域便于预先设计，$p$值便于报告观察数据的相对极端程度。}
+{$p$不是“原假设为真的概率”。}
+\worked{双侧与单侧的差异}{考研风格}{\star\star}{8-2}
+{标准化观察值为$z=1.8$，比较水平0.05的右侧与双侧正态检验。}
+{同一观察值，不同备择有不同尾概率。}
+{右侧检验$p=1-\Phi(1.8)\approx0.0359$，拒绝。
+双侧检验$p=2[1-\Phi(1.8)]\approx0.0719$，不拒绝，亦因$1.8<1.96$。
+双侧需要对两个方向分配错误概率，右尾临界值从1.645提高到1.96。}
+{尾部选择必须由研究假设预先决定。}
+{不能看完数据方向后改用更容易显著的单侧检验。}
+\worked{设计功效与样本量}{竞赛风格}{\star\star\star}{8-3}
+{正态总体已知$\sigma>0$，右侧检验水平$0<\alpha<1$，希望在$\mu_1=\mu_0+\delta$（$\delta>0$）下功效至少$1-\beta$（$0<\beta<1$），推导样本量。}
+{把功效要求反解$n$。}
+{$1-\Phi(z_{1-\alpha}-\frac{\sqrt n\delta}{\sigma})\ge1-\beta$等价于
+$z_{1-\alpha}-\frac{\sqrt n\delta}{\sigma}\le z_\beta=-z_{1-\beta}$。
+记$A=z_{1-\alpha}+z_{1-\beta}$。要求为$\frac{\sqrt n\delta}{\sigma}\ge A$，所以最小正整数样本量为
+\[n_{\min}=\max\!\left\{1,\left\lceil\left[\dfrac{\sigma\max(0,A)}\delta\right]^2\right\rceil\right\}.\]
+常用的$0<\alpha,\beta<\frac{1}{2}$下$A>0$，才简化为熟悉的平方后向上取整公式；$A\le0$时所有正整数容量均满足目标。
+正态已知方差下这是精确设计；一般总体套CLT时则为近似。}
+{功效要求同时固定了可检测差异$\delta$，不指定差异就无法唯一设计样本量。}
+{不能把显著性$\alpha$与第二类错误$\beta$当成互补数。}
+
+\section{单个正态总体的检验}\label{sec:82}
+\src{李东风, §8.2、§8.5}
+\begin{theorem}{未知方差均值与方差检验}
+设$X_1,\ldots,X_n$为iid $\Normal(\mu,\sigma^2)$样本，$n\ge2$且$\sigma^2>0$。均值假设$H_0:\mu=\mu_0$下，$T=\frac{\sqrt n(\bar X-\mu_0)}{S}\sim t_{n-1}$。
+双侧拒绝$|T|>t_{n-1,1-\frac{\alpha}{2}}$，右侧拒绝$T>t_{n-1,1-\alpha}$，左侧相反。
+方差假设$H_0:\sigma^2=\sigma_0^2$下，$Q=\frac{(n-1)S^2}{\sigma_0^2}\sim\chi_{n-1}^2$，双侧等尾拒绝$Q$落在下$\frac{\alpha}{2}$或上$\frac{\alpha}{2}$尾。
+\end{theorem}
+\begin{proof}
+由定理\ref{thm:normal-sample}，零假设使枢轴变为可观测统计量，分别服从$t$和卡方。
+取分位数外事件便将零假设拒绝概率定为$\alpha$，单侧按备择的偏离方向选尾部。
+\end{proof}
+\begin{method}{方差未知用t，检验方差用卡方}
+适用：正态单样本。先看目标参数，方差未知不等于“检验方差”。
+卡方分布不对称，双侧$p$值可采用等尾定义$\min\{1,2\min(F_\nu(q),1-F_\nu(q))\}$，与等尾拒绝域对应。
+\end{method}
+\worked{未知方差均值检验}{考研风格}{\star\star}{8-4}
+{正态样本$n=10,\bar x=5.8,s=1$，检验$H_0:\mu=5$对$\mu\ne5$，水平0.05。}
+{用双侧$t$校准。}
+{观察$t=\sqrt{10}\cdot0.8\approx2.530$。
+方法一：$t_{9,.975}\approx2.262$，观察值绝对值更大，拒绝。
+方法二：$p=2[1-F_{t_9}(2.530)]<0.05$，同样拒绝。
+区间对偶法还可看$5$是否落入$5.8\pm\frac{2.262}{\sqrt{10}}$，下端约5.085，因此也排除5。}
+{三种报告形式共享同一$t$枢轴。}
+{自由度为9，不能因为样本量10就查$t_{10}$。}
+\worked{方差增大的检验}{考研风格}{\star\star}{8-5}
+{正态样本$n=16,s^2=9$，检验$H_0:\sigma^2=4$对$\sigma^2>4$，写拒绝域与$p$值。}
+{备择是方差增大，对应卡方右尾。}
+{$q=\frac{15\cdot9}{4}=33.75$。
+水平$\alpha$时拒绝若$33.75>\chi^2_{15,1-\alpha}$；$p=1-F_{\chi^2_{15}}(33.75)$。
+若检验改为双侧，须与两个等尾分位数比较，或使用对应等尾双侧$p$值，而不能继续沿用单右尾$p$。}
+{先确定尾部，再查表或写分布函数，避免依赖记忆符号。}
+{统计量含$s^2$，不要再平方成$s^4$。}
+\worked{均值已知时的方差检验}{考研风格}{\star\star}{8-6}
+{正态总体均值已知为$\mu_0$，检验方差$\sigma^2=\sigma_0^2$应采用什么统计量？}
+{已知均值无需估计，保留全部$n$个正态方向。}
+{取$Q_0=\sum_i\frac{(X_i-\mu_0)^2}{\sigma_0^2}$，零假设下$Q_0\sim\chi_n^2$。
+双侧水平$\alpha$拒绝条件为$Q_0<\chi^2_{n,\frac{\alpha}{2}}$或$Q_0>\chi^2_{n,1-\frac{\alpha}{2}}$。
+若改用样本均值中心化，仍能构造自由度$n-1$的有效检验，但丢弃了已知均值方向的信息。}
+{自由度与实际估计掉的参数对应。}
+{“正态方差检验都用$n-1$”是过度记忆。}
+
+\section{两样本、配对与方差比}\label{sec:83}
+\src{李东风, §8.4—8.5}
+\begin{theorem}{两均值与方差比检验}
+设两组样本相互独立，组内分别为容量$m,n\ge2$的iid正态样本，方差$\sigma_X^2,\sigma_Y^2>0$。若另有$\sigma_X^2=\sigma_Y^2$，则在$H_0:\mu_X-\mu_Y=\Delta_0$下可用
+$T=\frac{(\bar X-\bar Y)-\Delta_0}{S_p\sqrt{\frac{1}{m}+\frac{1}{n}}}\sim t_{m+n-2}$。
+不要求等方差时，在$H_0:\frac{\sigma_X^2}{\sigma_Y^2}=r_0>0$下可用$F=\frac{S_X^2}{r_0 S_Y^2}\sim F_{m-1,n-1}$。
+另对至少2对配对观测，若各对差值$D_i=X_i-Y_i$独立同分布且正态，并满足$\Var(D_i)>0$，则对差值均值使用单样本$t$检验，不要求每对内部的$X_i,Y_i$独立。
+\end{theorem}
+\begin{proof}
+两样本结论由独立均值差与合并卡方构造，见第\ref{ch:06}章。
+配对检验把不同配对间的独立差值作为新样本，差值均值为目标差异，应用单样本定理。
+\end{proof}
+\begin{method}{独立样本与配对设计先分清}
+适用：前后测、匹配对象、两组均值。配对数据先作差并计算差值标准差；独立组才用两组标准误。
+不等方差独立样本可用Welch近似，其自由度为
+$\nu_W=\frac{(\frac{S_X^2}{m}+\frac{S_Y^2}{n})^2}{\frac{(\frac{S_X^2}{m})^2}{m-1}+\frac{(\frac{S_Y^2}{n})^2}{n-1}}$，一般并非精确$t$。
+\end{method}
+\worked{等方差两均值的两种判定}{考研风格}{\star\star}{8-7}
+{独立正态等方差样本$m=n=10$，均值差2，两组方差均4。检验均值相等，对双侧备择，$\alpha=0.05$。}
+{合并方差4，标准误$\sqrt{0.8}$。}
+{$t=\frac{2}{\sqrt{0.8}}=\sqrt5\approx2.236$，自由度18。
+方法一：$t_{18,.975}\approx2.101$，故拒绝。
+方法二：$p=2[1-F_{t_{18}}(\sqrt5)]<0.05$，亦拒绝。
+同一均值差区间为$2\pm2.101\sqrt{0.8}$，不含0。}
+{独立样本、等方差和正态性共同支持精确$t$。}
+{不能将自由度写为两个容量的较小值减1。}
+\worked{配对差值}{考研风格}{\star\star}{8-8}
+{8对观测差值均值$\bar d=1.5$、标准差$s_D=2$，检验平均差异为0，对右侧备择。}
+{每对的信息凝聚成一个差值。}
+{$t=\frac{\sqrt8\cdot1.5}{2}=\frac{3}{\sqrt2}\approx2.121$，若差值iid正态，则零假设下服从$t_7$。
+右侧$p=1-F_{t_7}(\frac{3}{\sqrt2})$；水平0.05临界值约1.895，因此拒绝。
+这里只需要差值标准差，单独的两组方差不足以替代它，因为还涉及组内协方差。}
+{设计中利用配对相关性可显著改变标准误。}
+{8对是8个差值，不是16个独立差值。}
+\worked{配对为何可能提高功效}{竞赛风格}{\star\star}{8-9}
+{每对$X,Y$方差均$\sigma^2$，相关系数$\rho$，不同对独立，比较配对均值差的方差与误认为独立两组的计算。}
+{先展开单对差的方差。}
+{$\Var(X-Y)=2\sigma^2-2\rho\sigma^2=2\sigma^2(1-\rho)$，$n$对平均差方差为$\frac{2\sigma^2(1-\rho)}{n}$。
+若误按独立组会得到$\frac{2\sigma^2}{n}$。
+当$\rho>0$，正确配对标准误更小；当$\rho<0$，配对差的方差更大。
+这是设计带来的信息差异，不能为追求显著性事后随意配对。}
+{协方差项从代数上说明配对的作用。}
+{“配对一定更好”需要正相关及合理匹配前提。}
+
+\section{比例检验、拟合优度与p值}\label{sec:84}
+\src{李东风, §8.6—8.7}
+\begin{theorem}{比例与Pearson统计量的渐近校准}
+Bernoulli样本检验$p=p_0\in(0,1)$，$Z=\frac{\hat p-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}\dto\Normal(0,1)$。
+$k$类固定零假设概率$p_{j0}>0$时，计数$O_j$的Pearson量$Q=\sum_j\frac{(O_j-np_{j0})^2}{np_{j0}}\dto\chi_{k-1}^2$。
+若$k$固定，零假设概率属于光滑多项模型$p_j(\theta)$，真参数为内点、各$p_j>0$，概率向量对$d$维参数的导数满列秩，且$d<k-1$，用这$k$类计数的多项似然求正则MLE $\hat\theta$时，
+\[Q(\hat\theta)=\sum_{j=1}^k\dfrac{[O_j-np_j(\hat\theta)]^2}{np_j(\hat\theta)}\dto\chi_{k-1-d}^2.\]
+与该MLE一阶渐近等价的估计也可采用此结论。任意一致估计、仅用部分样本的估计，或直接使用未分组数据的MLE后再分组，均不能不经论证就减去$d$个自由度。
+\end{theorem}
+\begin{proof}
+比例式是Bernoulli CLT。多项计数向量的中心极限定理给协方差$\operatorname{diag}(p)-pp^\mathsf T$。
+按$\sqrt{p_j}$标准化后协方差为$I-\sqrt p\sqrt p^\mathsf T$，是秩$k-1$的投影矩阵；平方范数趋于$k-1$个独立标准正态平方和。
+拟合情形令$A=\frac{\operatorname{diag}(p)^{-\frac{1}{2}}\partial p}{\partial\theta^\mathsf T}$，其列与$\sqrt p$正交。
+标准化频数误差$V_n=\frac{\operatorname{diag}(p)^{-\frac{1}{2}}(O-np)}{\sqrt n}$的极限协方差为$P_0=I-\sqrt p\sqrt p^\mathsf T$。
+多项MLE的一阶得分方程给
+$\sqrt n(\hat\theta-\theta_0)=(A^\mathsf TA)^{-1}A^\mathsf TV_n+o_{\Pp}(1)$。
+因此拟合残差为$(I-P_A)V_n+o_{\Pp}(1)$，其中$P_A=A(A^\mathsf TA)^{-1}A^\mathsf T$。
+其极限协方差$P_0-P_A$为秩$k-1-d$的正交投影，平方范数才有上述卡方极限。稀疏格子还需检查近似质量。
+\end{proof}
+\begin{method}{原假设决定检验分母}
+适用：单比例、大样本两比例、分类拟合。单比例在零假设下用$p_0$的方差，而不是随意套区间中的$\hat p$方差。
+两比例相等检验用合并比例$\hat p=\frac{s_1+s_2}{n_1+n_2}$，标准误为$\sqrt{\hat p(1-\hat p)(\frac{1}{n_1}+\frac{1}{n_2})}$。
+\end{method}
+\worked{单比例的拒绝域与p值}{考研风格}{\star\star}{8-10}
+{100次试验成功60次，检验$p=\frac{1}{2}$对$p>\frac{1}{2}$，水平0.05。}
+{先用零假设标准误，再考虑离散精确式。}
+{$z=\frac{0.6-0.5}{0.05}=2$。
+方法一：$2>z_{.95}$，按大样本检验拒绝；方法二：近似$p=1-\Phi(2)\approx0.0228$。
+精确右尾$p=2^{-100}\sum_{k=60}^{100}\binom{100}k$；正态连续性修正用$1-\Phi(\frac{59.5-50}{5})=1-\Phi(1.9)$。
+离散精确值和两种近似不应写成相等。}
+{按同一检验校准方式计算临界值与$p$值，结论才可直接比较。}
+{将成功率0.6的方差放入分母会变成另一种渐近检验。}
+\worked{四类拟合优度}{考研风格}{\star\star}{8-11}
+{四类计数$30,20,25,25$，检验四类等概率。}
+{零假设期望计数均25。}
+{$Q=\frac{(30-25)^2}{25}+\frac{(20-25)^2}{25}=2$，另外两项为0。
+未估计额外参数，自由度$4-1=3$，近似$p=1-F_{\chi_3^2}(2)$。
+水平$\alpha$拒绝若$2>\chi^2_{3,1-\alpha}$；在0.05水平不拒绝，因为$\chi^2_{3,.95}\approx7.815$。
+一条总计数约束使自由度少1。}
+{卡方统计量越大表示偏离越大，所以是右尾。}
+{检验未拒绝不等于证明四类真实概率完全相同。}
+\worked{连续零假设下p值的均匀性}{测度论选学}{\star\star}{8-12}
+{零假设下统计量$T$有连续严格递增CDF $G$，以大值拒绝，证明$p=1-G(T)$在$H_0$下均匀。}
+{概率积分变换后再反射。}
+{$G(T)\sim U(0,1)$，故$1-G(T)$也均匀。
+直接对$0<u<1$算$\Pp(p\le u)=\Pp(T\ge G^{-1}(1-u))=u$。
+离散情况下非随机化精确尾$p$通常满足$\Pp(p\le u)\le u$，称超均匀，因此保守而不必恰均匀。}
+{检验水平来自零假设下$p$值的分布性质。}
+{观测到很小$p$不能反解成$\Pp(H_0\given\text{数据})$。}
+
+\section{Neyman--Pearson与似然比检验}\label{sec:85}
+\src{Neyman--Pearson引理；统计笔记, §5}
+\begin{theorem}{简单假设的最优似然比}
+检验受同一测度支配的简单$H_0:f=f_0$对$H_1:f=f_1$。取$c\ge0$，令$\psi^*$在$f_1>cf_0$处拒绝，在$f_1<cf_0$处不拒绝，边界按预先规定的概率随机化。
+若$\E_0\psi^*=\alpha$，则该检验在所有水平不超过$\alpha$的检验中功效最大。
+\end{theorem}
+\begin{proof}
+对任意竞争检验$\psi$，逐点有$(\psi^*-\psi)(f_1-cf_0)\ge0$。
+积分得$\E_1\psi^*-\E_1\psi\ge c(\E_0\psi^*-\E_0\psi)\ge0$。
+当$c\ge0$、$\psi^*$达到$\alpha$而竞争者水平不超过$\alpha$时，最后一式成立，证明最优。
+\end{proof}
+\begin{definition}{广义似然比}
+$\Lambda=\sup_{\theta\in\Theta_0}\frac{L(\theta)}{\sup_{\theta\in\Theta}L(\theta)}$，小$\Lambda$拒绝。
+固定维数、真参数为内点、可识别、信息非奇异并满足局部二阶展开等正则条件时，$-2\log\Lambda\dto\chi_r^2$，$r$为独立约束数；这是渐近Wilks结论。
+\end{definition}
+\begin{method}{先做两次最大化，再比较似然损失}
+适用：复合模型与参数约束。分别求无约束和受约束MLE，再形成比值。
+若能把$\Lambda$化为熟悉枢轴的单调函数，优先使用精确校准；否则检查正则性后才考虑渐近卡方。
+\end{method}
+\worked{正态均值LR与Z的等价}{考研风格}{\star\star\star}{8-13}
+{正态样本方差$\sigma^2$已知，检验$\mu=\mu_0$对双侧，推导似然比并与拒绝域、$p$值比较。}
+{使用平方和分解消去共同残差。}
+{无约束MLE为$\bar X$，受约束为$\mu_0$。
+\[\Lambda=\exp\!\left[-\dfrac{\sum(X_i-\mu_0)^2-\sum(X_i-\bar X)^2}{2\sigma^2}\right]
+=e^{-\frac{Z^2}{2}},\quad Z=\dfrac{\sqrt n(\bar X-\mu_0)}\sigma.\]
+方法一：小$\Lambda$等价于$|Z|$大，精确拒绝域$|Z|>z_{1-\frac{\alpha}{2}}$。
+方法二：$p=2[1-\Phi(|z|)]$，与拒绝域判定相同。
+这里$-2\log\Lambda=Z^2\sim\chi_1^2$是精确式。}
+{似然损失在正态均值模型中恰好等于标准化距离平方。}
+{不能由此把所有模型的LR卡方都说成精确分布。}
+\worked{Poisson均值的LR}{考研风格}{\star\star\star}{8-14}
+{iid $\Pois(\lambda)$，检验$\lambda=\lambda_0>0$，写LR统计量。}
+{似然仅通过总计数$S$进入。}
+{$S>0$时$\hat\lambda=\frac{S}{n}$；$S=0$且参数空间为$(0,\infty)$时，似然只在$\lambda\downarrow0$达到上确界而没有内点MLE，LR定义中的上确界仍存在。
+若把参数空间延拓为$[0,\infty)$并令$\Pois(0)$退化于0，则可统一记$\hat\lambda=\frac{S}{n}$。
+忽略数据阶乘常数后$\ell(\lambda)=S\log\lambda-n\lambda$，零计数按连续延拓处理。
+所以$-2\log\Lambda=2[S\log(\frac{S}{n\lambda_0})-S+n\lambda_0]$，约定$0\log0=0$。
+固定$\lambda_0>0$并$n\to\infty$时可用$\chi_1^2$近似；小总均值时，可直接在$S\sim\Pois(n\lambda_0)$下求精确拒绝概率。
+渐近式也可将对数在$S=n\lambda_0$处二阶展开，得到$\frac{(S-n\lambda_0)^2}{n\lambda_0}$。}
+{二次近似连接LR与标准化计数检验。}
+{零计数需使用连续延拓约定，不能直接计算$\log0$。}
+\worked{离散最优检验的随机化}{竞赛风格}{\star\star\star}{8-15}
+{单次Bernoulli观测，检验$p=0.2$对$p=0.8$，要求精确水平0.1，构造最有力检验。}
+{似然比在$X=1$时较大，但该事件零假设概率0.2超过水平。}
+{$X=1$时比值$\frac{0.8}{0.2}=4$，$X=0$时比值$\frac{0.2}{0.8}=\frac{1}{4}$。
+因此先在$X=1$处拒绝，以概率$\gamma$随机拒绝，令$0.2\gamma=0.1$得$\gamma=\frac{1}{2}$；$X=0$时不拒绝。
+功效为$\frac{0.8\cdot1}{2}=0.4$。由NP引理最优。
+若不允许随机化，单个事件的概率无法恰好达到0.1，唯一水平不超过0.1的普通检验是从不拒绝。}
+{随机化用于精确分配离散边界质量。}
+{随机化不是数据分析者随意决定，而是预先规定并独立实施的随机规则。}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.84\textwidth,height=5cm,axis lines=left,xlabel={$z$},ylabel={标准正态密度},xmin=-3.6,xmax=3.6,ymin=0,ymax=.43,ytick=\empty]
+\addplot[draw=none,fill=Rust!20,domain=-3.6:-1.96,samples=40] {exp(-x*x/2)/sqrt(2*pi)}\closedcycle;
+\addplot[draw=none,fill=Rust!20,domain=1.96:3.6,samples=40] {exp(-x*x/2)/sqrt(2*pi)}\closedcycle;
+\addplot[Teal,thick,domain=-3.6:3.6,samples=100]{exp(-x*x/2)/sqrt(2*pi)};
+\draw[dashed,Gold](axis cs:-1.96,0)--(axis cs:-1.96,.1);\draw[dashed,Gold](axis cs:1.96,0)--(axis cs:1.96,.1);
+\node at(axis cs:-2.65,.12){\small$\frac{\alpha}{2}$};\node at(axis cs:2.65,.12){\small$\frac{\alpha}{2}$};
+\end{axis}\end{tikzpicture}\caption{双侧正态检验将第一类错误分配到两端}\label{fig:reject}\end{figure}
+\begin{warning}
+拒绝不等于效应很大，未拒绝不等于原假设为真。
+同一题的$p$值须对应指定单侧或双侧规则；离散精确值和正态近似要分开。
+在边界参数或不可识别模型中，普通Wilks卡方近似可能失效。
+\end{warning}
+
+\section*{图解、理解与巧解复盘}
+\begin{extension}
+\textbf{正则似然比的卡方近似从何而来。}
+设参数维数$d$，零假设局部为$r$个独立光滑约束；真参数$\theta_0$为内点，信息$I$正定，MLE一致，局部平均Hessian一致收敛，得分满足CLT，并有局部Taylor余项一致可控。
+记$Z_n=\frac{\nabla\ell_n(\theta_0)}{\sqrt n}\dto\Normal_d(0,I)$。局部参数$\theta=\theta_0+\frac{h}{\sqrt n}$使
+\[\ell_n(\theta)-\ell_n(\theta_0)=h^\mathsf TZ_n-\dfrac12h^\mathsf TIh+o_{\Pp}(1).\]
+取约束导数矩阵$D\in\R^{r\times d}$满行秩，局部约束为$Dh=0$。
+二次目标配方后，无约束最优点$h_1=I^{-1}Z_n$；拉格朗日方程$I(h_0-h_1)+D^\mathsf T\lambda=0$、$Dh_0=0$给
+\[h_0=h_1-I^{-1}D^\mathsf T(DI^{-1}D^\mathsf T)^{-1}Dh_1.\]
+受约束损失的两倍为
+\[-2\log\Lambda=(Dh_1)^\mathsf T(DI^{-1}D^\mathsf T)^{-1}(Dh_1)+o_{\Pp}(1).\]
+$Dh_1$趋于$\Normal_r(0,DI^{-1}D^\mathsf T)$，用正定协方差平方根标准化后，上式是$r$个独立标准正态的平方和，故趋$\chi_r^2$。
+边界或不可识别时，约束的局部形状和信息矩阵可能改变，因此不能跳过这些条件。
+\end{extension}
+\begin{insight}{p值衡量数据相对零假设的极端程度}
+它在零假设抽样分布中向更极端方向累积概率。后验原假设概率还需要给原假设分配先验质量和备择模型，不能由$p$值单独恢复。
+功效则从另一参数分布观察相同拒绝域的质量，因此提高功效的途径是扩大真实偏离相对标准误的尺度。
+\end{insight}
+\begin{clevertrick}{检验、区间与似然距离可互证}
+正态均值双侧检验中的三个对象是同一集合的表达：标准化距离小于临界值、置信区间包含候选均值、受约束似然损失未超过阈值。
+只要模型与水平一致，三种方法必须得到一致判断；不一致通常来自单侧/双侧或标准误混用。
+\end{clevertrick}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.8\textwidth,height=4.7cm,axis lines=left,xlabel={真实标准化偏移 $\delta=\frac{\sqrt n(\mu-\mu_0)}{\sigma}$},ylabel={功效},xmin=-2,xmax=5,ymin=0,ymax=1.05,ytick={0,.05,.5,1}]
+\addplot[Teal,thick,smooth]coordinates{(-2,.00013)(-1,.0041)(0,.05)(.5,.126)(1,.259)(1.645,.5)(2,.639)(3,.912)(4,.991)(5,.9996)};
+\draw[Gold,dashed](axis cs:0,0)--(axis cs:0,.05);\draw[Gold,dashed](axis cs:-2,.05)--(axis cs:0,.05);
+\end{axis}\end{tikzpicture}\caption{水平0.05的右侧正态检验功效；曲线按公式计算代表点后平滑连接}\label{fig:power}\end{figure}
+
+\section*{章末分层习题}
+\exercise{8-a}{基础}{正态已知$\sigma=3$，$n=36,\bar x=11$，检验$\mu=10$对$\mu>10$，写$Z$及$p$值。}
+\exercise{8-b}{基础}{观察标准正态统计量$z=-2.1$，分别写左侧和双侧$p$值。}
+\exercise{8-c}{考研风格}{正态样本$n=9,\bar x=4,s=1.5$，检验$\mu=5$对$\mu<5$，写拒绝规则。}
+\exercise{8-d}{考研风格}{50次Bernoulli试验成功18次，检验$p=0.5$对$p<0.5$，写正态近似及精确$p$值。}
+\exercise{8-e}{竞赛拓展}{已知方差正态右侧均值检验，推导第二类错误$\beta(\mu_1)$。}
+\exercise{8-f}{竞赛拓展}{独立$\Exp(\lambda)$样本，检验$\lambda_0$对简单备择$\lambda_1>\lambda_0$，说明最有力检验拒绝于总和小还是大，并写精确阈值。}
+\exercise{8-g}{测度论选学}{证明连续零假设下右尾$p$值满足$\Pp_0(p\le\alpha)=\alpha$。}
+\exercise{8-h}{测度论选学}{若检验函数$\psi\in[0,1]$，独立$U\sim U(0,1)$，证明规则“$U\le\psi(X)$时拒绝”的功效为$\E_\theta\psi(X)$。}
+\section*{章末方法速查}
+\begin{quicktable}
+拒绝域与p值&零假设分布已知&单侧、双侧&尾方向或校准不一致\\
+功效反解&指定备择差异&样本量设计&把$\alpha+\beta$当1\\
+配对差值&配对设计与独立对&前后、匹配&当成两独立组\\
+似然比&两次最大化明确&复合约束&将渐近卡方当精确\\
+\end{quicktable}

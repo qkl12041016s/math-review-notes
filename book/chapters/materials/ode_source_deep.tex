@@ -1,0 +1,85 @@
+\section{常微分方程逐类深化与多方法比较}\label{deep:ode_source_deep}
+
+\begin{examtip}按方程结构、解的理论、线性算子和方程组逐层展开，区分通解、特解、奇解与最大存在区间。\end{examtip}
+
+\subsection{可分离、齐次与降阶中的失解}\label{deep:ode_source_deep:lost}
+
+\begin{method}{可分离、齐次与降阶中的失解}\textbf{适用条件} 除以含未知函数的因子前，先检查该因子为零的解。\par\textbf{步骤与依据} 列出平衡解；在非零支路分离；最后用初值和唯一性确定可拼接性。\par\textbf{易错点} 隐式式子满足不等于所有分支都满足原微分方程。\end{method}
+
+\begin{example}{考研风格｜分离变量与线性化双解}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:logistic}\textbf{题目} 解$y'=y(1-y),y(0)=y_0$，并说明平衡解。\par\textbf{思路} 分离变量，或对非零解令$z=\frac{1}{y}$。\par\textbf{详细解答} 平衡解为$y=0,1$。非平衡解$\int[\frac1y+\frac1{1-y}]\dd y=\int\dd x$，得$\ln|\frac{y}{1-y}|=x+C$，于是$y(x)=\frac{y_0\e^x}{1+y_0(\e^x-1)}$，在分母不为0且含0的最大区间成立。第二法$z'=-\frac{y'}{y^2}=1-z$，所以$z=1+Ce^{-x}$，回代同式。\par\textbf{方法点评} 两法均需补$y=0$；$y=1$已包含在公式中。\par\textbf{变式与易错点} 若$y_0<0$或$y_0>1$，分母可能在有限时间为0，不能宣称全实轴解。\end{example}
+
+\begin{example}{考研风格｜齐次方程与几何不变量}{难度：$\star\star$}\label{deep:ex:ode_source_deep:homogeneous}\textbf{题目} 解$y'=\frac{x+y}{x}$，$x\ne0$。\par\textbf{思路} 这是齐次形式，也是一阶线性式。\par\textbf{详细解答} \textbf{齐次换元：}$y=xv$，$y'=v+xv'$，所以$xv'=1$，$v=\ln|x|+C$，故$y=x(\ln|x|+C)$。\par\textbf{线性法：}$y'-\frac{y}{x}=1$，积分因子在固定半轴可取$\frac{1}{x}$，得到$(\frac{y}{x})'=\frac{1}{x}$，同解。\par\textbf{方法点评} 同一方程有多种分类时选微分最简单者。\par\textbf{变式与易错点} 解在正、负半轴分别取常数；不能经过系数奇点0。\end{example}
+
+\begin{example}{考研风格｜Bernoulli转线性}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:bernoulli}\textbf{题目} 解$y'+y=xy^2$。\par\textbf{思路} 对非零解令$z=y^{-1}$。\par\textbf{详细解答} $z'=-\frac{y'}{y^2}$，原式除以$y^2$得$-z'+z=x$，即$z'-z=-x$。取积分因子$\e^{-x}$，有$(z\e^{-x})'=-x\e^{-x}$，积分得$z=x+1+C\e^x$，所以$y=\frac{1}{x+1+C\e^x}$，另有$y=0$。可将非零解视为Riccati在已知特解0下的线性化。\par\textbf{方法点评} 变换由幂次$1-n$决定，负号最易出错。\par\textbf{变式与易错点} 通解只在分母不为0的连通区间成立。\end{example}
+
+\begin{example}{竞赛风格｜Riccati已知特解法}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:riccati}\textbf{题目} 解$y'=y^2-2xy+x^2+1$。\par\textbf{思路} 先发现特解$y_p=x$，再令$y=x+z$。\par\textbf{详细解答} $1+z'=z^2+1$，所以$z'=z^2$。$z=0$给$y=x$；其余$-\frac{1}{z}=x+C$，得$y=x-\frac{1}{x+C}$。第二法令$z=-\frac{u'}{u}$，则$z'=z^2$转为$u''=0$，$u=Ax+B$，回代得同一族。\par\textbf{方法点评} 已知Riccati特解可以将一般非线性式降成Bernoulli或二阶线性式。\par\textbf{变式与易错点} 线性化中的$u$不能为0；$u$乘非零常数不改变$z$，自由常数数目仍为一个。\end{example}
+
+\subsection{全微分、积分因子与轨线}\label{deep:ode_source_deep:exact}
+
+\begin{method}{全微分、积分因子与轨线}\textbf{适用条件} $M\dd x+N\dd y=0$，在单连通区域内系数有连续偏导。\par\textbf{步骤与依据} 先检$M_y=N_x$；若不成立，试$\frac{M_y-N_x}{N}$仅依赖$x$，或$\frac{N_x-M_y}{M}$仅依赖$y$。\par\textbf{易错点} 局部恰当与全局势函数有拓扑差别；被除分母为0的点须独立检查。\end{method}
+
+\begin{example}{考研风格｜单变量积分因子}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:factor}\textbf{题目} 解$(2xy+y)\dd x+x\dd y=0$，$x\ne0$。\par\textbf{思路} 检测恰当性，找只依赖$x$的积分因子。\par\textbf{详细解答} $M_y=2x+1,N_x=1$，故$\frac{M_y-N_x}{N}=2$，取$\mu(x)=\e^{2x}$。势函数$F=x y\e^{2x}$，因$F_x=(2x+1)y\e^{2x},F_y=x\e^{2x}$，解为$xy\e^{2x}=C$。第二法直接写$y'+(2+\frac{1}{x})y=0$，分离得$y=\frac{C\e^{-2x}}{x}$。\par\textbf{方法点评} 积分因子与一阶线性法本质相同，但势函数形式更易检查。\par\textbf{变式与易错点} $x=0$不是允许的自变量区间，不能由隐式式子擅自扩充。\end{example}
+
+\begin{example}{竞赛风格｜正交轨线与等角轨线}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:orthogonal}\textbf{题目} 求圆族$x^2+y^2=C$的正交轨线。\par\textbf{思路} 先消参数求斜率，再取负倒数。\par\textbf{详细解答} 圆族斜率$y'=-\frac{x}{y}$，正交轨线在非垂直点满足$y'=\frac{y}{x}$，故$y=kx$。竖直直线$x=0$也为轨线，由几何补入。若与原族夹角为$\alpha$，新斜率$m$满足$\frac{m-m_0}{1+mm_0}=\tan\alpha$，解得$m=\frac{m_0+\tan\alpha}{1-m_0\tan\alpha}$，用于一般等角轨线。\par\textbf{方法点评} 正交轨线的参数是曲线族参数，不能与原圆半径混淆。\par\textbf{变式与易错点} 负倒数规则在水平、竖直点需按切向量理解。\end{example}
+
+\subsection{一阶隐式方程、参数法与奇解}\label{deep:ode_source_deep:implicit}
+
+\begin{method}{一阶隐式方程、参数法与奇解}\textbf{适用条件} 方程可写为$F(x,y,p)=0,p=y'$，且局部可对一个变量求解。\par\textbf{步骤与依据} Clairaut型先微分拆分支；Lagrange型以$p$为参数，解关于$x(p)$的线性方程。\par\textbf{易错点} 微分后得到的解须代回原式，可能出现奇解或丢失常斜率解。\end{method}
+
+\begin{example}{竞赛风格｜Clairaut包络的两条推导}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:clairaut}\textbf{题目} 解$y=xy'+(y')^2$并求奇解。\par\textbf{思路} 令$p=y'$，微分后分成$p'=0$或$x+2p=0$。\par\textbf{详细解答} 微分给$p=p+(x+2p)p'$。$p'=0$时$p=C$，通解$y=Cx+C^2$。另一支$p=-\frac{x}{2}$，代回得$y=-\frac{x^2}{4}$，导数确为$-\frac{x}{2}$，是奇解。第二法把直线族视为包络，由$\partial_C(Cx+C^2)=x+2C=0$消去$C$，同得抛物线。\par\textbf{方法点评} 微分法验证方程，包络法说明几何构造。\par\textbf{变式与易错点} 奇解不等同于给通解选一个常数。上述微分拆支先用于二阶可导的局部支路；仅要求$C^1$时，直线与抛物线可在相切点拼接，仍须回代原方程验证。\end{example}
+
+\begin{example}{竞赛风格｜Lagrange参数解}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:lagrange}\textbf{题目} 解$y=2xy'+(y')^2$。\par\textbf{思路} 令$p=y'$，将$x$作为$p$的函数。\par\textbf{详细解答} 微分得$p=2p+(2x+2p)p'$，即$-\frac{p\dd x}{\dd p}=2x+2p$。当$p\ne0$，有$\frac{\dd x}{\dd p}+\frac{2x}{p}=-2$，乘$p^2$得$(p^2x)'=-2p^2$，所以$x=Cp^{-2}-\frac{2p}{3}$，$y=2xp+p^2=\frac{2C}{p}-\frac{p^2}{3}$。另$p=0$代原式得$y=0$，是需补的常斜率解。参数解在$\frac{\dd x}{\dd p}\ne0$段可表成$y(x)$。\par\textbf{方法点评} 参数解本身就是完整答案，不必强行消参数。\par\textbf{变式与易错点} 把$p=0$除掉前必须单列检查。\end{example}
+
+\subsection{存在唯一、延拓与初值依赖}\label{deep:ode_source_deep:exist}
+
+\begin{method}{存在唯一、延拓与初值依赖}\textbf{适用条件} $f$连续保证局部存在，局部Lipschitz保证唯一。\par\textbf{步骤与依据} 积分方程写出Picard迭代；用压缩或阶乘误差证明收敛；延拓时检查解是否离开紧集。\par\textbf{易错点} 存在、唯一、全局存在是三个不同结论。\end{method}
+
+\begin{theorem}{Picard迭代的局部构造}设$a,b>0$，$f$在矩形$|t-t_0|\le a,|y-y_0|\le b$内连续，且$|f|\le M$、$|f(t,u)-f(t,v)|\le L|u-v|$，$M,L\ge0$。取$0<h\le\min(a,\frac{b}{M})$且$Lh<1$（$M=0$时将$\frac{b}{M}$解释为$+\infty$），则初值问题在$[t_0-h,t_0+h]$有唯一解。\end{theorem}\begin{proof}在连续函数的闭球$\|y-y_0\|_\infty\le b$上定义$Ty=y_0+\int_{t_0}^tf(s,y(s))\dd s$。有$\|Ty-y_0\|_\infty\le Mh\le b$，且$\|Tu-Tv\|_\infty\le Lh\|u-v\|_\infty$，故压缩映射给唯一不动点。积分方程求导即原方程。较长局部区间可分段延拓。\end{proof}
+
+\begin{example}{竞赛风格｜连续而不唯一}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:nonunique}\textbf{题目} 讨论$y'=2\sqrt{|y|},y(0)=0$的非负解。\par\textbf{思路} 原点不满足对$y$局部Lipschitz，允许等待后离开零解。\par\textbf{详细解答} 对任意$c\ge0$，$y_c(t)=0$（$t\le c$）、$y_c(t)=(t-c)^2$（$t\ge c$）是$C^1$解，连接点左右导数均0，满足方程及初值。还有恒零解。因此连续性不能保证唯一。若限定非负解，正值段由分离$\frac{\dd y}{\sqrt y}=2\dd t$给平方支路；零值段可与其如上连接。\par\textbf{方法点评} 直接验连接点比口头说“可拼接”更严谨。\par\textbf{变式与易错点} 方程$y'=y$满足Lipschitz，不能作同样等待拼接。\end{example}
+
+\begin{example}{竞赛风格｜最大存在区间}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:blowup}\textbf{题目} 解$y'=y^2,y(0)=a$并给最大区间。\par\textbf{思路} 显式解的极点是有限时爆破。\par\textbf{详细解答} $a=0$为零解；$a\ne0$时$y=\frac{a}{1-at}$。若$a>0$，含0的最大区间$(-\infty,\frac{1}{a})$；若$a<0$则$(\frac{1}{a},\infty)$。在有限端点$|y|\to\infty$，不能连续延拓。若解始终位于$f$定义域的某个紧集内，局部存在定理可在端点重复应用，这说明本例不能延拓的原因。\par\textbf{方法点评} 局部唯一不排除有限时间爆破。\par\textbf{变式与易错点} 写出有理表达式不意味着可跨越极点连接为一个解。\end{example}
+
+\begin{theorem}{Gronwall不等式与连续依赖}若$u$在$[0,T]$上非负连续，且对$0\le t\le T$有$u(t)\le A+B\int_0^tu(s)\dd s$，$A,B\ge0$，则$u(t)\le A\e^{Bt}$。\end{theorem}\begin{proof}令$v(t)=A+B\int_0^tu$，则$u\le v,v'\le Bv$，故$(\e^{-Bt}v)'\le0$，得到$v\le A\e^{Bt}$；$A=0$也可通过$A+\varepsilon$再极限处理。两解差满足此式时得到$|y(t)-z(t)|\le|y(0)-z(0)|\e^{Lt}$。\end{proof}
+
+\begin{example}{竞赛拓展｜初值可微与变分方程}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:sensitivity}\textbf{题目} 设$y'=f(t,y)$且$f_y$连续，说明$z=\frac{\partial y}{\partial a}$（$y(0,a)=a$）满足什么方程，并在$y'=y^2$核验。\par\textbf{思路} 对积分方程求参数导数，得到线性变分式。\par\textbf{详细解答} 在公共紧存在区间，差商通过连续依赖与$f_y$的一致连续性收敛，满足$z'=f_y(t,y(t,a))z,z(0)=1$，所以$z=\exp(\int_0^tf_y(s,y(s,a))\dd s)$。对$y=\frac{a}{1-at}$，直接算$z=(1-at)^{-2}$；变分式$z'=2a(1-at)^{-1}z$给同值。\par\textbf{方法点评} 初值依赖可通过线性方程计算，即使原方程非线性。\par\textbf{变式与易错点} 必须在共同存在区间内讨论，不能越过参数相关爆破时间。\end{example}
+
+\subsection{Wronskian、降阶与非齐次结构}\label{deep:ode_source_deep:linear}
+
+\begin{method}{Wronskian、降阶与非齐次结构}\textbf{适用条件} 线性方程最高阶系数不为0，归一化后系数连续。\par\textbf{步骤与依据} 先求齐次基，再取一个非齐次特解；已知一解可降阶；常数变易用Wronskian解线性方程组。\par\textbf{易错点} 线性无关解数目应等于阶数；不同区间的奇点需分开。\end{method}
+
+\begin{theorem}{Abel恒等式与二阶降阶}$y''+p(x)y'+q(x)y=0$的两解Wronskian$W=y_1y_2'-y_1'y_2$满足$W'=-pW$。若$y_1\ne0$，第二解可取$y_2=y_1\int\frac{\e^{-\int p}}{y_1^2}\dd x$。\end{theorem}\begin{proof}微分$W$后代入方程，$q$项抵消。另设$y_2=vy_1$，代入得$y_1v''+(2y_1'+py_1)v'=0$，一阶积分给$v'=\frac{\e^{-\int p}}{y_1^2}$，积分即公式。\end{proof}
+
+\begin{example}{考研风格｜已知解降阶与Euler双解}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:reduction}\textbf{题目} 已知$y_1=x$，解$x^2y''-2xy'+2y=0$，$x>0$。\par\textbf{思路} 用降阶公式或Euler幂函数试解。\par\textbf{详细解答} 归一化$p=-\frac{2}{x}$，$\e^{-\int p}=x^2$，故$y_2=x\int \frac{x^2}{x^2}\dd x=x^2$，通解$C_1x+C_2x^2$。第二法设$y=x^r$，指标式$r(r-1)-2r+2=(r-1)(r-2)=0$，同解。\par\textbf{方法点评} 降阶公式适合已知一解；Euler法更快但依赖等幂结构。\par\textbf{变式与易错点} 若$x<0$可在该半轴独立处理，不能跨0套归一化。\end{example}
+
+\begin{example}{考研风格｜常数变易与卷积双解}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:variation}\textbf{题目} 解$y''+y=\sec x$，在$\cos x\ne0$的区间。\par\textbf{思路} 齐次基$\cos x,\sin x$，Wronskian为1。\par\textbf{详细解答} 常数变易给$u_1'=-\sin x\sec x=-\tan x,u_2'=\cos x\sec x=1$，可取$u_1=\ln|\cos x|,u_2=x$。通解$y=C_1\cos x+C_2\sin x+\cos x\ln|\cos x|+x\sin x$。第二法以Green核写特解$y_p=\int_{x_0}^x\sin(x-t)\sec t\dd t$，展开$\sin(x-t)$并积分，差异仅为齐次项。\par\textbf{方法点评} 卷积核形式天然适合初值，常数变易便于求闭式。\par\textbf{变式与易错点} 非齐次项不能用有限多项式待定系数法。\end{example}
+
+\subsection{微分算子移位、共振与复指数}\label{deep:ode_source_deep:operator}
+
+\begin{method}{微分算子移位、共振与复指数}\textbf{适用条件} 常系数线性算子$P(D)$作用于指数多项式或三角函数。\par\textbf{步骤与依据} 用$P(D)[\e^{ax}v]=\e^{ax}P(D+a)v$；共振时提取$D^m$，再积分$m$次。\par\textbf{易错点} 形式逆算子必须说明作用函数族，不能把$\frac{1}{D}$当普通数。\end{method}
+
+\begin{theorem}{移位公式}对多项式$P$，$P(D)(\e^{ax}v)=\e^{ax}P(D+a)v$。若$P(\lambda)$在$a$有$m$重根，则$P(D+a)=D^mQ(D)$且$Q(0)\ne0$。\end{theorem}\begin{proof}基本式$D(\e^{ax}v)=\e^{ax}(D+a)v$，归纳得$D^k$的对应式，线性相加即可。重根因式分解将共振转为积分因子$x^m$，说明待定系数为何须乘$x^m$。\end{proof}
+
+\begin{example}{考研风格｜共振三解}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:resonance}\textbf{题目} 求$y''-2y'+y=\e^x$的通解。\par\textbf{思路} 特征根1为二重根。\par\textbf{详细解答} \textbf{待定系数法：}$y_p=Ax^2\e^x$，代入得$2A\e^x=\e^x$，所以$A=\frac{1}{2}$。\par\textbf{算子移位：}设$y=\e^xv$，$(D-1)^2y=\e^xv''$，故$v''=1$，$v=\frac{x^2}{2}+C_1x+C_2$。\par\textbf{连续一阶法：}设$z=y'-y$，先解$z'-z=\e^x$得$z=\e^x(x+C_1)$，再解$y'-y=z$得同解。\par\textbf{方法点评} 三法结果$y=\e^x(C_2+C_1x+\frac{x^2}{2})$；移位法在重根问题最简。\par\textbf{变式与易错点} 设$A\e^x$或$Ax\e^x$均落入齐次解，必须乘$x^2$。\end{example}
+
+\begin{example}{考研风格｜复指数与实待定系数}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:complexforce}\textbf{题目} 求$y''+y=\e^x\cos x$的一个特解。\par\textbf{思路} 先解复方程右端$\e^{(1+i)x}$，再取实部。\par\textbf{详细解答} $P(1+i)=(1+i)^2+1=1+2i$，故复特解$\frac{\e^{(1+i)x}}{1+2i}$。取实部得$y_p=\frac{\e^x(\cos x+2\sin x)}{5}$。第二法设$\e^x(A\cos x+B\sin x)$，代入比较得$A=\frac{1}{5},B=\frac{2}{5}$。\par\textbf{方法点评} 复指数将两个实系数方程压缩为一个复数除法。\par\textbf{变式与易错点} 必须检查$P(1+i)\ne0$，否则要按重根次数乘$x$。\end{example}
+
+\subsection{幂级数、生成函数与积分方程}\label{deep:ode_source_deep:series}
+
+\begin{method}{幂级数、生成函数与积分方程}\textbf{适用条件} 系数解析，或题设给出可化为导数的递推和积分关系。\par\textbf{步骤与依据} 统一幂次后比较系数；积分方程求导时同时保留由端点产生的初值。\par\textbf{易错点} 求导可能丢积分常数，初值必须由原式恢复。\end{method}
+
+\begin{example}{竞赛风格｜幂级数解与显式解互证}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:power}\textbf{题目} 用幂级数解$y''=xy$，$y(0)=1,y'(0)=0$。\par\textbf{思路} 把$x^n$系数对齐，按模3分组。\par\textbf{详细解答} 设$y=\sum a_nx^n$，则$a_2=0$，$(n+2)(n+1)a_{n+2}=a_{n-1}$（$n\ge1$）。由$a_0=1,a_1=0$得只有$a_{3k}$非零，$a_{3k}=\frac{1}{\prod_{j=1}^k(3j)(3j-1)}$。所以$y=1+\frac{x^3}{6}+\frac{x^6}{180}+\frac{x^9}{12960}+\cdots$，比值给任意有限$x$绝对收敛。另一独立解从$a_1=1,a_0=0$生成，它们构成Airy方程的基。\par\textbf{方法点评} 不需要把答案强行写成命名特殊函数；递推与初值已经唯一确定解。\par\textbf{变式与易错点} 比较系数时$x$因子使下标移动一位，$n=0$需单列。\end{example}
+
+\begin{example}{竞赛风格｜生成函数型递推}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:generating}\textbf{题目} 设$a_0=4,a_1=1$，且$n(n-1)a_n=a_{n-2}$（$n\ge2$），求$S(x)=\sum_{n\ge0}a_nx^n$。\par\textbf{思路} 递推分母正好对应二阶导数。\par\textbf{详细解答} 逐项关系给$S''=S$，$S(0)=4,S'(0)=1$，所以$S=4\cosh x+\sinh x=\frac{5\e^x+3\e^{-x}}{2}$。直接分奇偶也可得$a_{2k}=\frac{4}{(2k)!}$、$a_{2k+1}=\frac{1}{(2k+1)!}$，故全实轴收敛并得到相同和。\par\textbf{方法点评} 微分方程法与奇偶系数法互证，避免先假定收敛却未解释。\par\textbf{变式与易错点} 递推关系必须对所有规定指标成立；初始系数决定微分方程的初值。\end{example}
+
+\begin{example}{考研风格｜Volterra方程转ODE双解}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:volterra}\textbf{题目} 解$y(x)=1+\int_0^x(x-t)y(t)\dd t$。\par\textbf{思路} 连续求导两次，并从原式读取初值。\par\textbf{详细解答} 若$y$连续，右边先得$y'(x)=\int_0^xy(t)\dd t$，再得$y''=y$，初值$y(0)=1,y'(0)=0$，故$y=\cosh x$。代回积分$\int_0^x(x-t)\cosh t\dd t=\cosh x-1$验证。第二法迭代核得到$1+\frac{x^2}{2!}+\frac{x^4}{4!}+\cdots=\cosh x$。\par\textbf{方法点评} 微分法短，逐次逼近法直接显示积分算子结构。\par\textbf{变式与易错点} 只写$y''=y$而漏初值会多出两参数。\end{example}
+
+\begin{example}{竞赛拓展｜Euler折线的误差分析}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:eulerscheme}\textbf{题目} 用显式Euler法近似$y'=y,y(0)=1$在$t=1$的值，步长$h=\frac{1}{n}$，并说明误差阶。\par\textbf{思路} 递推可显式求解，再用对数展开。\par\textbf{详细解答} $y_{k+1}=(1+h)y_k$，故$y_n=(1+\frac{1}{n})^n$。由对数展开$y_n=\e[1-\frac{1}{2n}+O(n^{-2})]$，所以全局误差$\e-y_n=\frac{\e h}{2}+O(h^2)$。每步精确流$\e^h=1+h+\frac{h^2}{2}+O(h^3)$，单步截断为$O(h^2)$，累积$n$步成为$O(h)$；一般情形再用离散Gronwall控制传播。\par\textbf{方法点评} 线素场与Euler折线不仅给出图形近似，还可用于量化误差。\par\textbf{变式与易错点} 局部截断二阶不意味着全局二阶。\end{example}
+
+\subsection{周期系数与解的结构}\label{deep:ode_source_deep:periodic}
+
+\begin{method}{周期系数与解的结构}\textbf{适用条件} 一阶线性系数连续且具有周期$T>0$。\par\textbf{步骤与依据} 将一个周期内的积分看作乘子；非齐次解之差归于齐次问题。\par\textbf{易错点} 系数周期不等于所有解自动具有同一周期。\end{method}
+
+\begin{example}{竞赛风格｜周期解的充要条件}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:periodicA}\textbf{题目} $p$是实连续$T$周期函数。证明$y'+p(x)y=0$的非零解具有周期$T$，当且仅当$\int_0^Tp(t)\dd t=0$。\par\textbf{思路} 用显式解比较$y(x+T)$与$y(x)$。\par\textbf{详细解答} 非零解$y(x)=C\exp(-\int_0^xp(t)\dd t)$，$C\ne0$。由于$p$周期，$\int_x^{x+T}p(t)\dd t$对$x$的导数为$p(x+T)-p(x)=0$，故等于$\int_0^Tp$。于是$\frac{y(x+T)}{y(x)}=\exp(-\int_0^Tp)$。实指数等于1当且仅当指数为0，充要条件得证。另一法直接积分$\frac{y'}{y}=-p$，周期性迫使$\ln|y(x+T)|-\ln|y(x)|=0$，得到必要性；充分性由同一积分还原。\par\textbf{方法点评} 周期积分与单周期乘子把“系数周期”转为“解周期”的准确条件。\par\textbf{变式与易错点} 零解无论积分是否为0都周期，所以题目必须限定非零解；复系数时指数为1还允许$2\pi i$的整数倍。\end{example}
+
+\begin{example}{考研风格｜两个非齐次特解生成通解}{难度：$\star\star\star$}\label{deep:ex:ode_source_deep:twosolutions}\textbf{题目} 若$y_1,y_2$是$y'+p(x)y=q(x)$的两个不同解，写出通解并说明任意线性组合何时仍是解。\par\textbf{思路} 解的差满足齐次方程。\par\textbf{详细解答} $h=y_1-y_2$满足$h'+ph=0$，且不是恒零，所以一阶齐次通解为$Ch$。原方程通解为$y=y_2+C(y_1-y_2)$。一般$\alpha y_1+\beta y_2$代入左侧得到$(\alpha+\beta)q$，故当$q$不恒零时，$\alpha+\beta=1$才保证同为非齐次解；$q\equiv0$时任意线性组合均可。\par\textbf{方法点评} 线性结构说明通解为何可写成“齐通加非特”。\par\textbf{变式与易错点} “两个不同解”在唯一性条件下意味着差在整个区间不为0，不能选相同解作基。\end{example}

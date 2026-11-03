@@ -1,0 +1,197 @@
+\section{曲面度量的消因子、切向消项与逆向识别}\label{cf:section}
+\begin{examtip}
+曲线与曲面积分可在参数化之前先作几何化简：隐式法向量能消去曲面度量，锥面上的径向向量属于切空间，路径族把积分最值化成一元问题。最后从恰当条件反求未知函数，并检查穿孔区域中是否真的存在非零环流。
+\end{examtip}
+
+\subsection{隐式曲面的投影消因子}\label{cf:projection}
+\begin{method}{识别法向余弦与面积元的乘积}
+\textbf{适用条件} $F(x,y,z)=0$是正则曲面，且某一支可投影为单值图形，$F_z\ne0$。\par
+\textbf{步骤} 用$z_x=-\frac{F_x}{F_z},z_y=-\frac{F_y}{F_z}$得到
+\[
+\dd S=\dfrac{|\nabla F|}{|F_z|}\dd x\dd y,
+\qquad
+\dfrac{|F_z|}{|\nabla F|}\dd S=\dd x\dd y.
+\]
+在选定的一支上先消去这对因子，再计算投影区域。\par
+\textbf{疑难点} 绝对值对应第一类面积元；若整个曲面在同一投影点上有多层，必须逐支计算，不能只算一次投影。
+\end{method}
+\begin{example}{竞赛风格｜倾斜椭球上的度量抵消}{难度：$\star\star\star$}
+\label{cf:ex:projection}
+\textbf{题目} 设
+$F=x^2+y^2+z^2-yz-1$，$\Sigma$为$F=0$上满足$2z-y\ge0$的一支。求
+\[
+I=\iint_\Sigma
+\dfrac{(x+\sqrt3)|2z-y|}
+{\sqrt{4+y^2+z^2-4yz}}\dd S.
+\]
+\textbf{思路} 分子中的$2z-y$是$F_z$，分母是曲面上$|\nabla F|$。\par
+\textbf{详细解答} 有
+\[
+\begin{aligned}
+|\nabla F|^2
+&=4x^2+(2y-z)^2+(2z-y)^2\\
+&=4(x^2+y^2+z^2-yz)+y^2+z^2-4yz\\
+&=4+y^2+z^2-4yz.
+\end{aligned}
+\]
+配方得$(z-\frac{y}{2})^2=1-x^2-\frac{3y^2}{4}$，故该支是
+$z=\frac{y}{2}+\sqrt{1-x^2-\frac{3y^2}{4}}$，投影为
+$D=\{x^2+\frac{3y^2}{4}\le1\}$。
+在投影内部$F_z>0$，由消因子公式
+\[
+I=\iint_D(x+\sqrt3)\dd A
+=\sqrt3\,\operatorname{Area}(D)
+=\sqrt3\cdot\pi\cdot1\cdot\dfrac2{\sqrt3}=2\pi.
+\]
+投影边界对应$F_z=0$，是一条曲线；可先在内部截去边界邻域，再取极限，结果不受该零面积边界影响。\par
+\textbf{方法点评} 无须显式展开复杂的$\sqrt{1+z_x^2+z_y^2}$；隐式法向量更快地暴露抵消结构。\par
+\textbf{易错点} 若同时取上下两支，不能仍只积一次$D$；也不能将$F_z=0$误认成$\nabla F=0$。
+\end{example}
+
+\subsection{切向分量对通量没有贡献}\label{cf:tangent}
+\begin{method}{先检查场是否沿曲面切向}
+\textbf{适用条件} 计算通量，场的一部分在曲面上与法向量正交。\par
+\textbf{步骤} 把场分解成切向项和剩余项，切向项的法向分量为零，可在积分前消去。\par
+\textbf{疑难点} 消去依赖曲面几何，不要求这一部分场在整个体域散度为零；未知函数只有连续性时，直接投影比套散度定理更合适。
+\end{method}
+\begin{example}{考研风格｜锥面上未知函数自动消失}{难度：$\star\star\star$}
+\label{cf:ex:tangent}
+\textbf{题目} 设$h$为连续函数，$\Sigma$为锥面$z=\sqrt{x^2+y^2}$上$1\le x^2+y^2\le4$的下侧。求场
+\[
+\bm F=h(xy)(x,y,z)+(2x-y,\ 2y+x,\ z)
+\]
+穿过$\Sigma$的通量。\par
+\textbf{思路} 锥面的径向向量$(x,y,z)$是切向，故含$h$的项不产生通量。\par
+\textbf{详细解答} 令$r=\sqrt{x^2+y^2}$，下侧定向面积元为
+$\bm n\dd S=(\frac{x}{r},\frac{y}{r},-1)\dd x\dd y$。
+在曲面上$z=r$，有
+\[
+h(xy)(x,y,z)\cdot(\dfrac{x}{r},\dfrac{y}{r},-1)=h(xy)(r-z)=0.
+\]
+剩余部分点乘为
+\[
+\dfrac{x(2x-y)+y(2y+x)}r-z=2r-z=r.
+\]
+所以
+\[
+\iint_\Sigma\bm F\cdot\bm n\dd S
+=\int_0^{2\pi}\int_1^2r^2\dd r\dd\theta
+=\dfrac{14\pi}{3}.
+\]
+另一解释是对锥面的齐次方程$z-r=0$使用Euler恒等式，得到径向向量与法向量正交。\par
+\textbf{方法点评} 几何正交使未知函数整体消失，不必求$h'$，也不必补面。\par
+\textbf{易错点} 下侧面积元的第三分量为$-1$；反向取上侧，结果为$-\frac{14\pi}{3}$。
+\end{example}
+
+\subsection{路径族的积分最值}\label{cf:pathfamily}
+\begin{method}{把路径参数代入后作一元优化}
+\textbf{适用条件} 路径由一个或有限个实参数确定，起终点固定。\par
+\textbf{步骤} 先保留路径方向，把曲线积分写成参数函数$I(a)$；再求参数可行域上的最值，必要时用Green补线核对。\par
+\textbf{疑难点} 在某个路径族内最优不意味着在所有可能曲线中最优。
+\end{method}
+\begin{example}{竞赛风格｜正弦路径族中的最小做功}{难度：$\star\star\star$}
+\label{cf:ex:pathfamily}
+\textbf{题目} $L_a$为$y=a\sin x$、$0\le x\le\pi$，方向由$(0,0)$到$(\pi,0)$，$a>0$。求
+\[
+I(a)=\int_{L_a}(1+y^3)\dd x+(2x+y)\dd y
+\]
+在此路径族中的最小值及对应路径。\par
+\textbf{思路} 代入$\dd y=a\cos x\dd x$，再对$a$优化。\par
+\textbf{详细解答} 直接计算
+\[
+\begin{aligned}
+I(a)
+&=\int_0^\pi
+[1+a^3\sin^3x+2ax\cos x+a^2\sin x\cos x]\dd x\\
+&=\pi+\dfrac43a^3-4a.
+\end{aligned}
+\]
+这里$\int_0^\pi\sin^3x\dd x=\frac{4}{3}$，
+$\int_0^\pi x\cos x\dd x=[x\sin x+\cos x]_0^\pi=-2$，
+最后一项积分为零。
+因此$I'(a)=4(a^2-1)$，在$(0,1)$为负、$(1,\infty)$为正，唯一最优为$a=1$，
+$I_{\min}=\pi-\frac{8}{3}$。
+
+第二法补$x$轴上由$(\pi,0)$回$(0,0)$的线段，其积分为$-\pi$。
+闭路为顺时针，Green给
+\[
+I(a)-\pi
+=-\int_0^\pi\int_0^{a\sin x}(2-3y^2)\dd y\dd x
+=-4a+\dfrac43a^3,
+\]
+与直接法相同。\par
+\textbf{方法点评} 直接法便于显式求值，补线法解释了$-4a$与$a^3$项来自区域中的低阶矩。\par
+\textbf{易错点} 上方弧从左向右行进、下方线段从右向左返回，整体是顺时针，Green公式要加负号。
+\end{example}
+
+\subsection{恰当条件反求未知场与全局势}\label{cf:inverse}
+\begin{method}{用独立变量的系数比较反求未知函数}
+\textbf{适用条件} 一个分量只含未知的一元函数，其余变量仍可自由变化。\par
+\textbf{步骤} 先由恰当条件$P_y=Q_x$建立恒等式，再比较独立变量的系数确定未知函数；最后另查全局闭路与势函数。\par
+\textbf{疑难点} 穿孔区域有洞，只表示无旋不足以保证有势，不表示任何无旋场都一定具有非零环流。
+\end{method}
+\begin{example}{竞赛风格｜有孔区域中仍可存在全局势}{难度：$\star\star\star$}
+\label{cf:ex:inverse}
+\textbf{题目} $\phi\in C^1(\R)$，在右半平面$x>0$上，一形式
+\[
+\omega=\dfrac{\phi(y)\dd x+2xy\dd y}{2x^2+y^4}
+\]
+是某函数的全微分。求$\phi$，并计算相应$\omega$沿穿孔平面$\R^2\setminus\{0\}$中任意分段光滑闭路的积分。\par
+\textbf{思路} 右半平面的恰当条件确定$\phi$；计算闭路时还要研究角函数是否能全局连续选支。\par
+\textbf{详细解答} 记$D=2x^2+y^4$。由$P_y=Q_x$得
+\[
+\phi'(y)(2x^2+y^4)-4y^3\phi(y)=2y^5-4x^2y.
+\]
+对所有$x>0$比较$x^2$系数，得到$\phi'=-2y$，故$\phi=-y^2+C$；
+代回常数项得$4Cy^3=0$对所有$y$成立，所以$C=0$。
+于是
+\[
+\omega=\dfrac{-y^2\dd x+2xy\dd y}{2x^2+y^4}
+=\dfrac1{\sqrt2}\dd\theta,\qquad
+\theta=\arg(\sqrt2x+\mathrm{i}y^2).
+\]
+此处取上半平面的辐角$0\le\theta\le\pi$。
+当$y\ne0$时，可明确写成
+$\theta=\frac{\pi}{2}-\arctan(\frac{\sqrt2x}{y^2})$。
+当$y=0,x>0$时置$\theta=0$，当$y=0,x<0$时置$\theta=\pi$。
+在前者附近$\theta=\arctan(\frac{y^2}{\sqrt2x})$，
+后者附近$\theta=\pi+\arctan(\frac{y^2}{\sqrt2x})$，故这些表达拼成穿孔平面上的光滑函数。
+直接求导有
+\[
+\theta_x=-\dfrac{\sqrt2y^2}{D},\qquad
+\theta_y=\dfrac{2\sqrt2xy}{D}.
+\]
+因此$\frac{\theta}{\sqrt2}$是全局单值势，任意闭路积分均为$0$。\par
+\textbf{方法点评} 映射$(x,y)\mapsto(\sqrt2x,y^2)$的像位于闭上半平面，绕行不会使所选辐角增加$2\pi$；这与通常极角场不同。\par
+\textbf{易错点} 不能仅因分母在原点为零就断言闭路积分非零；也不能把单个$\arctan(\frac{y^2}{\sqrt2x})$分支不加修正地用于整个穿孔平面。
+\end{example}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[>=stealth]
+\begin{scope}[shift={(1.8,1.5)}]
+\draw[->,gray](-1.5,0)--(1.65,0)node[right]{$x$};
+\draw[->,gray](0,-1.35)--(0,1.6)node[above]{$y$};
+\draw[Ink,thick](0,0)circle(1.1);
+\draw[->,Teal,very thick](1.1,0)arc[start angle=0,end angle=115,radius=1.1cm];
+\draw[->,Gold,very thick](-1.1,0)arc[start angle=180,end angle=295,radius=1.1cm];
+\fill[Ink](0,0)circle(1.2pt);
+\node[below left]at(0,0){$O$};
+\node[below,align=center,font=\small]at(0,-1.6){单位圆绕原点一周\\上、下半周依次经过};
+\end{scope}
+\draw[->,Ink,thick](4.1,1.55)--(6.3,1.55);
+\node[above,align=center,font=\small]at(5.2,1.6){$u=\sqrt2x$\\$v=y^2$};
+\begin{scope}[shift={(9,0.6)},x=1.35cm,y=1.7cm]
+\draw[->,gray](-1.7,0)--(1.8,0)node[right]{$u$};
+\draw[->,gray](0,-.2)--(0,1.45)node[above]{$v$};
+\draw[Teal,thick,domain=-1.4142:1.4142,samples=65]plot(\x,{1-\x*\x/2});
+\draw[->,Teal,very thick,domain=.95:.5,samples=15]plot(\x,{1-\x*\x/2});
+\draw[->,Gold,very thick,domain=-.95:-.5,samples=15]plot(\x,{1-\x*\x/2});
+\fill[Ink](0,0)circle(1pt);
+\node[below]at(1.4142,0){$\sqrt2$};
+\node[below]at(-1.4142,0){$-\sqrt2$};
+\node[below left]at(0,0){$O$};
+\node[above,font=\small]at(0,1.08){$v=1-\frac{u^2}{2}$};
+\node[below,align=center,font=\small]at(0,-.48){映射后沿同一弧线往返\\不绕原点，辐角净变化为0};
+\end{scope}
+\end{tikzpicture}
+\caption{原圆周的两半在$(u,v)$平面上重合，方向相反。图形解释了本例为何与通常极角场不同；任意闭路积分为零的严格依据仍是正文构造出的全局单值势。}\label{cf:fig:argumentmap}
+\end{figure}

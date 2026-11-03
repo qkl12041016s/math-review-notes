@@ -1,0 +1,23 @@
+\begin{insight}{乘积损失的秩，就是中间空间被核吞掉的维数}
+先经$B$后经$A$，只有落在$\im B$中的向量会进入第二步；其中属于$\ker A$的部分全部变成零。因此有精确等式
+\[\rank(AB)=\rank B-\dim(\im B\cap\ker A).
+\]
+Sylvester下界只是把交空间维数粗略地用$\dim\ker A$代替；看清交空间，通常比背不等式更接近题目的结构。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1]
+\fill[Teal!8](-1.1,0)ellipse(2.1 and 1.25);\fill[Gold!10](1.1,0)ellipse(2.1 and 1.25);
+\begin{scope}\clip(-1.1,0)ellipse(2.1 and 1.25);\fill[Rust!18](1.1,0)ellipse(2.1 and 1.25);\end{scope}
+\draw[Teal,thick](-1.1,0)ellipse(2.1 and 1.25);\draw[Gold,thick](1.1,0)ellipse(2.1 and 1.25);
+\node[lanote]at(-2.1,0){$\im B$};\node[lanote]at(2.1,0){$\ker A$};\node[lanote]at(0,0){共同部分\\被$A$消去};
+\draw[-{Stealth},Ink,thick](-2,-1.55)--(2,-1.55)node[midway,below]{$\text{进入的维数}-\text{消失的维数}=\text{输出的维数}$};
+\end{tikzpicture}
+\caption{集合关系示意，面积不代表维数；重叠部分正是乘积秩的损失。}\label{fig:rank-intersection}
+\end{figure}
+\begin{clevertrick}{要取等，直接找核与像的位置}
+设$A$有$n$列，记$X=\im B,K=\ker A$。限制映射$A|_X$的核为$X\cap K$、像为$\im AB$，秩--零化度给精确等式$\rank AB=\rank B-\dim(X\cap K)$。所以$\rank AB=\rank B$恰当于$\dim(X\cap K)=0$，也就是交只有零向量。
+再与Sylvester下界$\rank A+\rank B-n=\rank B-\dim K$比较，二者取等恰当于
+\[\dim(X\cap K)=\dim K.\]
+由于$X\cap K\subseteq K$，有限维子空间同维则相等，因此此条件等价于$X\cap K=K$，即$\ker A\subseteq\im B$。这说明$A$能消去的方向全部被$B$送了进来。例\ref{ex:8-1}中$K=\Span(e_3)$、$X=\Span(e_2,e_3)$，所以交维数1，$\rank AB=2-1=1=2+2-3$，下界取等。这里指原Sylvester表达式；若其下界为负，虽可用0替代作有效下界，取等条件须重新讨论。
+\textbf{易错提示：}不能只凭两因子的秩决定交空间的位置；相同的两项秩可能产生不同的乘积秩。
+\end{clevertrick}

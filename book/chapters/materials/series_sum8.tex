@@ -1,0 +1,42 @@
+\section{八种级数求和方法}\label{mat:series_sum8}
+\begin{examtip}以下按八种求和方法组织算例，与通用判敛和逐项运算相互配合。\end{examtip}
+\subsection{一、利用定义求和}\label{mat:series_sum8:j1}
+\begin{method}{一、利用定义求和}\textbf{适用条件} 有限部分和可写成闭式。\par\textbf{实施与依据} 先求$S_N$再令$N\to\infty$，不作未经许可的无穷重排。\end{method}
+\begin{example}{专题例题｜一、利用定义求和}{难度：$\star\star$}
+\textbf{题目} 求$\sum_{n=1}^\infty\frac{2}{n(n+1)(n+2)}$。\par\textbf{思路与解答} 裂项为$\frac{1}{n(n+1)}-\frac{1}{(n+1)(n+2)}$，部分和$\frac{1}{2}-\frac{1}{(N+1)(N+2)}$，故和$\frac{1}{2}$。\par\textbf{方法点评与边界} 这是按定义取极限，不需要幂级数。
+\end{example}
+\subsection{二、利用已知级数和公式}\label{mat:series_sum8:j2}
+\begin{method}{二、利用已知级数和公式}\textbf{适用条件} 已知收敛级数的删项与子列可合法处理。\par\textbf{实施与依据} 精确对应下标，再减去有限项。\end{method}
+\begin{example}{专题例题｜二、利用已知级数和公式}{难度：$\star\star$}
+\textbf{题目} 求$\sum_{n=1}^\infty\frac{1}{(n+2)^2}$。\par\textbf{思路与解答} 利用$\sum_{k\ge1}k^{-2}=\frac{\pi^2}{6}$，去掉$k=1,2$，得到$\frac{\pi^2}{6}-\frac{5}{4}$。\par\textbf{方法点评与边界} 下标从$n=1$开始，不能误把$k=2$保留。
+\end{example}
+\subsection{三、利用幂级数求和}\label{mat:series_sum8:j3}
+\begin{method}{三、利用幂级数求和}\textbf{适用条件} 参数点位于收敛半径内部。\par\textbf{实施与依据} 先建立和函数，再代入给定参数。\end{method}
+\begin{example}{专题例题｜三、利用幂级数求和}{难度：$\star\star$}
+\textbf{题目} 求$\sum_{n=0}^\infty\frac{1}{2^n(n+1)}$。\par\textbf{思路与解答} $\sum \frac{x^n}{n+1}=-\frac{\ln(1-x)}{x}$，在$x=0$连续补1。代$x=\frac{1}{2}$得到$2\ln2$。\par\textbf{方法点评与边界} 把积分生成的$x^{n+1}$除以$x$时要单独解释0点。
+\end{example}
+\subsection{四、利用Fourier级数求和}\label{mat:series_sum8:j4}
+\begin{method}{四、利用Fourier级数求和}\textbf{适用条件} 展开及所选点满足收敛定理。\par\textbf{实施与依据} 先算系数，再根据待求符号选点。\end{method}
+\begin{example}{专题例题｜四、利用Fourier级数求和}{难度：$\star\star$}
+\textbf{题目} 从$x^2$展开求交错平方倒数和。\par\textbf{思路与解答} $x^2=\frac{\pi^2}{3}+4\sum\frac{(-1)^n\cos nx}{n^2}$，在$x=0$代入得$\sum_{n\ge1}\frac{(-1)^{n-1}}{n^2}=\frac{\pi^2}{12}$。\par\textbf{方法点评与边界} 代$x=\pi$得到非交错和，两点作用不同。
+\end{example}
+\subsection{五、利用代数运算求和}\label{mat:series_sum8:j5}
+\begin{method}{五、利用代数运算求和}\textbf{适用条件} 绝对收敛允许错位相减。\par\textbf{实施与依据} 用$S-xS$降低系数次数，反复操作得到几何级数。\end{method}
+\begin{example}{专题例题｜五、利用代数运算求和}{难度：$\star\star$}
+\textbf{题目} 求$S=\sum n^2x^n$，$|x|<1$。\par\textbf{思路与解答} $(1-x)S=\sum_{n\ge1}(2n-1)x^n=\frac{2x}{(1-x)^2}-\frac{x}{1-x}$，故$S=\frac{x(1+x)}{(1-x)^3}$。\par\textbf{方法点评与边界} 无穷移位相减先有收敛依据，不能照搬到发散级数。
+\end{example}
+\subsection{六、利用微分方程求和}\label{mat:series_sum8:j6}
+\begin{method}{六、利用微分方程求和}\textbf{适用条件} 系数在求导后形成递推。\par\textbf{实施与依据} 给和函数建立ODE并利用初值唯一性。\end{method}
+\begin{example}{专题例题｜六、利用微分方程求和}{难度：$\star\star$}
+\textbf{题目} 求$F(x)=\sum_{n=0}^\infty \frac{x^{2n}}{(2n)!}$。\par\textbf{思路与解答} 全实轴绝对收敛且可逐项求导，$F\prime\prime=F,F(0)=1,F\prime(0)=0$，所以$F=\cosh x=\frac{\e^x+\e^{-x}}{2}$。\par\textbf{方法点评与边界} 只解ODE通解而不代初值，会留下不该有的任意常数。
+\end{example}
+\subsection{七、利用Euler公式求和}\label{mat:series_sum8:j7}
+\begin{method}{七、利用Euler公式求和}\textbf{适用条件} $|q|<1$，振荡项带几何权。\par\textbf{实施与依据} 用$\e^{i\theta}$把三角序列变为几何级数，再取实部。\end{method}
+\begin{example}{专题例题｜七、利用Euler公式求和}{难度：$\star\star$}
+\textbf{题目} 求$\sum_{n=1}^\infty q^n\cos((2n-1)\theta)$。\par\textbf{思路与解答} 复和为$\frac{q\e^{i\theta}}{1-q\e^{2i\theta}}$。乘共轭取实部，结果$\frac{q(1-q)\cos\theta}{1-2q\cos2\theta+q^2}$。\par\textbf{方法点评与边界} 分母是复数模方，始终正；不能只把分子分母分别取实部。
+\end{example}
+\subsection{八、利用复数求和}\label{mat:series_sum8:j8}
+\begin{method}{八、利用复数求和}\textbf{适用条件} $0\le r<1$，复对数可取连续主支。\par\textbf{实施与依据} $\sum \frac{z^n}{n}=-\log(1-z)$，取实部或虚部。\end{method}
+\begin{example}{专题例题｜八、利用复数求和}{难度：$\star\star$}
+\textbf{题目} 求$\sum_{n=1}^\infty \frac{r^n\sin(n\theta)}{n}$。\par\textbf{思路与解答} 取$z=r\e^{i\theta}$，因$1-r\cos\theta>0$，虚部为$\arctan[\frac{r\sin\theta}{1-r\cos\theta}]$。\par\textbf{方法点评与边界} $r\uparrow1$的端点需要另用Abel定理与点态收敛条件。
+\end{example}

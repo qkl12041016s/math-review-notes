@@ -1,0 +1,22 @@
+\begin{insight}{范德蒙德为何总出现“节点之差”}
+令$p(t)=c_0+c_1t+\cdots+c_{n-1}t^{n-1}$。范德蒙德矩阵的转置把系数列送到各节点的函数值。当$n$个节点互异时，次数不超过$n-1$的非零多项式不可能在这$n$点全部为零，所以这个映射的核为零，矩阵可逆。两个节点重合时，两次求值重复，正是出现两列相同。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.76\textwidth,height=5.1cm,xmin=.3,xmax=3.4,ymin=-.6,ymax=2.5,axis lines=middle,xlabel={$t$},ylabel={$p(t)$},xtick={1,2,3},ytick={0,2},grid=major,grid style={Teal!10},every axis plot/.append style={thick}]
+\addplot[Teal,domain=.4:3.15,samples=80]{(x-1)*(x-2)};
+\addplot[only marks,mark=*,Ink]coordinates{(1,0)(2,0)};
+\addplot[only marks,mark=*,Rust]coordinates{(3,0)(3,2)};
+\addplot[dashed,Rust]coordinates{(3,0)(3,2)};
+\node[font=\small,anchor=west]at(axis cs:1.1,1.5){$p(t)=(t-1)(t-2)$};
+\node[font=\small,anchor=east]at(axis cs:2.9,2.2){$p(3)=2\ne0$};
+\end{axis}
+\end{tikzpicture}
+\caption{非零二次多项式可经过两个指定零点，却不能再有第三个互异零点。}\label{fig:vander-roots}
+\end{figure}
+\begin{clevertrick}{把行列式题换成多项式基题}
+令$p_0(t)=1$，$p_k(t)=\sum_{\ell=0}^k c_{k\ell}t^\ell$且$c_{kk}=1$。若$V_{\ell+1,j}=x_j^\ell$是范德蒙德矩阵，求值矩阵$M_{k+1,j}=p_k(x_j)$就满足$M=CV$，其中$C=(c_{k\ell})$为下三角矩阵，对角全1。因此
+\[\det M=\det C\det V=1\cdot\prod_{i<j}(x_j-x_i).\]
+例\ref{ex:1-10}中四个首一多项式的次数依次为0、1、2、3，正可如此识别，无需逐项展开。若首项系数改为$a_k\ne0$，则$C$的对角改成$a_k$，所以$\det C=\prod_k a_k$，结果额外乘这个因子；节点重合时两式仍同时为零。
+\textbf{易错提示：}图像只帮助理解，严格理由是多项式根数定理；节点不同时，节点顺序仍会影响行列式符号。
+\end{clevertrick}

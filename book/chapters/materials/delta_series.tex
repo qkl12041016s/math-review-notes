@@ -1,0 +1,31 @@
+\section{级数判别与求和的综合构型}\label{ic:delta_series}
+
+\begin{examtip}本节以几何级数、裂项和逐项求导积分为基础，进一步讨论判别细化、参数族与综合算例。\end{examtip}
+
+\subsection{对数判别与统一裕量}\label{ic:delta_series:logtest}\begin{method}{对数判别与统一裕量}\textbf{识别信号} 正项可以写为指数形式，或根值、比值都处于临界值1。\par \textbf{操作步骤} 计算$\lambda_n=-\frac{\ln a_n}{\ln n}$。若最终$\lambda_n\ge1+\delta$且$\delta>0$固定，收敛；若最终$\lambda_n\le1$，发散。极限$\lambda>1$或$<1$时分别推出上述比较。\par \textbf{疑难点与条件} 最终$\lambda_n>1$但与1的差趋0，不保证收敛。\end{method}
+
+\begin{theorem}{对数判别的比较证明}若$\lambda_n\ge1+\delta$，则$a_n\le n^{-1-\delta}$；若$\lambda_n\le1$，则$a_n\ge\frac{1}{n}$。因此有上述敛散结论。\end{theorem}\begin{proof}由于$n>1$时$\ln n>0$，$\lambda_n\ge1+\delta$等价于$\ln a_n\le-(1+\delta)\ln n$。指数函数保序给第一界。第二界同理。再使用$p$级数与调和级数比较即可。\end{proof}
+
+\begin{example}{竞赛风格｜指数写法隐藏的幂级数}{难度：$\star\star\star$}\label{ic:ex:delta_series:logparameter}\textbf{题目} 判定$\sum_{n\ge2}b^{-\ln n}$，$b>1$。\par \textbf{思路} 将底数幂换成自然指数。\par \textbf{详细解答} $b^{-\ln n}=\e^{-(\ln b)(\ln n)}=n^{-\ln b}$。对数判别量恒为$\ln b$，所以$b>\e$时收敛，$1<b<\e$时发散；$b=\e$时恰为调和尾和，也发散。\par \textbf{验算与条件复核} 指数恒等式严格成立，无渐近误差；阈值由$p=\ln b$与1比较确定。\par \textbf{疑难点与方法比较} 临界值需回到原级数，不可把判别失效写成敛散未必能知。\end{example}
+
+\subsection{Raabe非极限版与临界反例}\label{ic:delta_series:raabemargin}\begin{method}{Raabe非极限版与临界反例}\textbf{识别信号} $r_n=n(\frac{a_n}{a_{n+1}}-1)$不一定有极限。\par \textbf{操作步骤} 若最终$r_n\ge1+\delta$，取$1<p<1+\delta$与$n^{-p}$作比值比较；若最终$r_n\le1$，则$na_n$最终不减，支配调和级数。\par \textbf{疑难点与条件} “$r_n>1$”与“距1有固定正裕量”不同。\end{method}
+
+\begin{theorem}{Raabe单侧形式}最终$r_n\ge1+\delta$时收敛；最终$r_n\le1$时发散。\end{theorem}\begin{proof}第一种情形选$1<p<1+\delta$，因$(1+\frac{1}{n})^p=1+\frac{p}{n}+O(n^{-2})$，最终$\frac{a_n}{a_{n+1}}\ge(1+\frac{1}{n})^p$，故$n^pa_n$最终不增，$a_n\le Cn^{-p}$。第二种有$\frac{a_n}{a_{n+1}}\le\frac{n+1}{n}$，即$na_n\le(n+1)a_{n+1}$，所以$a_n\ge \frac{c}{n}$。\end{proof}
+
+\begin{example}{疑难辨析｜每项判别量大于1仍可发散}{难度：$\star\star\star$}\label{ic:ex:delta_series:raabecounter}\textbf{题目} 说明$a_n=\frac{1}{n\ln n}$满足$r_n>1$但其级数发散，$n\ge2$。\par \textbf{思路} 严格不等式不等于统一裕量。\par \textbf{详细解答} $\frac{a_n}{a_{n+1}}=\frac{(1+\frac{1}{n})\ln(n+1)}{\ln n}>1+\frac{1}{n}$，故$r_n>1$。但$\int_2^\infty\frac{\dd x}{x\ln x}=\infty$，由积分判别发散。展开得$r_n=1+\frac{1}{\ln n}+O(\frac{1}{n\ln n})\to1$，恰说明缺少固定裕量。\par \textbf{验算与条件复核} 代入比值及变量$t=\ln x$的积分变换分别核验两结论。\par \textbf{疑难点与方法比较} 不能将充分条件中的固定$\delta$删除。\end{example}
+
+\begin{example}{竞赛风格｜阶乘商的阈值与精确和}{难度：$\star\star\star$}\label{ic:ex:delta_series:factorialparameter}\textbf{题目} 判定并在收敛时求$\sum_{n\ge1}\frac{n!}{(a+1)(a+2)\cdots(a+n)}$，$a>0$。\par \textbf{思路} 比值给Raabe量，Beta积分给总和。\par \textbf{详细解答} 记项为$u_n$，则$\frac{u_n}{u_{n+1}}=\frac{n+a+1}{n+1}$，Raabe量$\frac{an}{n+1}\to a$，故$a>1$收敛、$0<a<1$发散。$a=1$时$u_n=\frac{1}{n+1}$也发散。若$a>1$，$u_n=a\int_0^1t^n(1-t)^{a-1}\dd t$，由非负性换序，总和$a\int_0^1t(1-t)^{a-2}\dd t=\frac{1}{a-1}$。\par \textbf{验算与条件复核} Beta恒等式$aB(n+1,a)=\frac{\Gamma(n+1)\Gamma(a+1)}{\Gamma(n+a+1)}$验证项表示；末积分直接换$u=1-t$为$a[\frac{1}{a-1}-\frac{1}{a}]$。\par \textbf{疑难点与方法比较} Gamma表达、判敛和换序的条件分别交代，不能先对发散参数求和。\end{example}
+
+\begin{example}{竞赛风格｜双阶乘幂的临界参数}{难度：$\star\star\star$}\label{ic:ex:delta_series:doublefactorial}\textbf{题目} 判定$\sum_{n\ge1}[\frac{(2n-1)!!}{(2n)!!}]^s$，$s>0$。\par \textbf{思路} Raabe先给非临界值，Wallis补$s=2$。\par \textbf{详细解答} 令$b_n$为括号内比值，$\frac{b_n}{b_{n+1}}=\frac{2n+2}{2n+1}$，所以$n[(\frac{b_n}{b_{n+1}})^s-1]\to \frac{s}{2}$。$s>2$收敛，$s<2$发散。$s=2$时，由Wallis得$b_n\sim\frac{1}{\sqrt{\pi n}}$，因此$b_n^2\sim\frac{1}{\pi n}$，发散。\par \textbf{验算与条件复核} 对$(1+\frac{1}{2n+1})^s$作一阶展开得$\frac{s}{2}$；临界项用正项极限比较。\par \textbf{疑难点与方法比较} Raabe量等于1时必须继续判断，不能简单归入收敛或发散。\end{example}
+
+\subsection{用部分和作分母的抽象正项级数}\label{ic:delta_series:partialsums}\begin{method}{用部分和作分母的抽象正项级数}\textbf{识别信号} $u_n>0,S_n=\sum_{k=1}^nu_k$。\par \textbf{操作步骤} 若$S_n\to\infty$，$\sum \frac{u_n}{S_n^\alpha}$在$\alpha>1$时收敛，$\alpha\le1$时发散；若$S_n$有有限极限，则任意实$\alpha$均收敛。\par \textbf{疑难点与条件} 处理$\alpha=1$必须容许$u_n$有很大跳跃，不能假定$\frac{u_n}{S_n}\to0$。\end{method}
+
+\begin{theorem}{部分和分母定理的完整证明}上述结论不要求$u_n$单调。\end{theorem}\begin{proof}当$\alpha>1$，对$n\ge2$，$\frac{u_n}{S_n^\alpha}\le\int_{S_{n-1}}^{S_n}t^{-\alpha}\dd t$，总和受$\int_{S_1}^\infty t^{-\alpha}\dd t$控制。若$\sum \frac{u_n}{S_n}$收敛，记$v_n=\frac{u_n}{S_n}$，则最终$v_n\le\frac{1}{2}$，且$\ln S_n-\ln S_{n-1}=-\ln(1-v_n)\le2v_n$，累加会使$\ln S_n$有界，与$S_n\to\infty$矛盾。$\alpha<1$时最终$S_n\ge1$，各项不小于$\frac{u_n}{S_n}$。若$S_n\to S<\infty$，因$S_n$在$[u_1,S]$内，$S_n^{-\alpha}$有界，与$\sum u_n$比较即可。\end{proof}
+
+\begin{example}{竞赛风格｜非线性递推与级数的等价}{难度：$\star\star\star$}\label{ic:ex:delta_series:recursivesum}\textbf{题目} $b_1=1,a_n>0,b_{n+1}=b_n+\frac{a_n}{b_n}$，证明$\sum a_n$收敛当且仅当$b_n$收敛。\par \textbf{思路} 把$a_n$还原成$b_n$乘增量。\par \textbf{详细解答} $b_n\ge1$且递增。若$\sum a_n<\infty$，则$b_{n+1}-b_n=\frac{a_n}{b_n}\le a_n$，累加知$b_n$有界。反之若$b_n\to B$，则$a_n=b_n(b_{n+1}-b_n)\le B(b_{n+1}-b_n)$，部分和$\le B(B-1)$，故收敛。\par \textbf{验算与条件复核} 只使用正性、单调有界和有限望远镜求和，无未授权极限交换。\par \textbf{疑难点与方法比较} 递推中的分母$b_n$非零由$b_n\ge1$先保证。\end{example}
+
+\begin{example}{竞赛风格｜取整函数控制的分组交错}{难度：$\star\star\star$}\label{ic:ex:delta_series:floorsign}\textbf{题目} 判定$\sum_{n\ge1}\frac{(-1)^{\lfloor\sqrt n\rfloor}}{n}$。\par \textbf{思路} 按平方区间分组，不直接声称原项交错。\par \textbf{详细解答} 令$B_k=\sum_{n=k^2}^{(k+1)^2-1}\frac{1}{n}$。由$\frac{2k+1}{(k+1)^2}\le B_k\le\frac{2k+1}{k^2}$，得到$B_k=\frac{2}{k}+O(k^{-2})$。所以$\sum(-1)^kB_k$是收敛交错调和级数加绝对收敛余项。组内任意部分的绝对值不超过$B_k\to0$，故原部分和也收敛。绝对值级数为调和级数，因而条件收敛。\par \textbf{验算与条件复核} 两界与$\frac{2}{k}$的差均为$O(k^{-2})$，严格控制组内误差。\par \textbf{疑难点与方法比较} 组长无界时不能只凭分组后收敛推出原级数收敛，必须补组内振幅趋零。\end{example}
+
+\begin{example}{竞赛风格｜连乘分母的裂项}{难度：$\star\star\star$}\label{ic:ex:delta_series:productsum}\textbf{题目} $a>1$，求$\sum_{n\ge1}\frac{a^n}{\prod_{k=1}^n(1+a^k)}$。\par \textbf{思路} 设连乘倒数$b_n$。\par \textbf{详细解答} $b_0=1,b_n=\prod_{k=1}^n(1+a^k)^{-1}$，则$b_{n-1}-b_n=a^nb_n$。有限部分和$1-b_N$。又$0<b_N\le a^{-\frac{N(N+1)}{2}}\to0$，故总和为1。\par \textbf{验算与条件复核} 相邻乘积仅差因子$1+a^n$，所以裂项恒等式严格成立。\par \textbf{疑难点与方法比较} 先写有限和，避免不必要的无穷乘积交换。\end{example}
+
+\begin{example}{考研风格｜复合指数的系数求和}{难度：$\star\star\star$}\label{ic:ex:delta_series:weightedexp}\textbf{题目} 求$\sum_{n\ge0}\frac{(2n+1)x^{2n}}{n!}$。\par \textbf{思路} 它是$x\e^{x^2}$的导数。\par \textbf{详细解答} 由$\sum \frac{x^{2n+1}}{n!}=x\e^{x^2}$，在任意紧区间逐项求导，得和$(1+2x^2)\e^{x^2}$。收敛半径为无穷，所以全实轴有效。\par \textbf{验算与条件复核} 系数乘$2n+1$正对应幂$x^{2n+1}$的导数，没有遗漏$n=0$项。\par \textbf{疑难点与方法比较} 逐项求导依赖幂级数的局部一致性质，而不是“各项相互独立”。\end{example}

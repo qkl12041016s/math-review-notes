@@ -1,0 +1,17 @@
+\section{端点函数空间与弱型求和细节}\label{mat:endpoint_spaces}
+\begin{examtip}本节给出Q、QA等空间的定义，并说明它们在端点估计中的作用。\end{examtip}
+\subsection{原子上包络空间Q}\label{mat:endpoint_spaces:qspace}
+\begin{method}{原子上包络空间Q}\textbf{适用条件} 圆周归一化测度$\mu(X)=1$。\par\textbf{实施与依据} 若$|f|\le\sum_{j\ge1}a_j\mathbf1_{A_j}$，$a_j>0,m_j=\mu(A_j)$，以$\sum a_jm_j\log(\frac{e}{m_j})(1+\log j)$的下确界定义$\|f\|_Q$。\end{method}
+\begin{example}{专题例题｜原子上包络空间Q}{难度：$\star\star$}
+\textbf{题目} 估计$f=a\mathbf1_A$的Q准范数。\par\textbf{思路与解答} 只取$j=1$的一项分解，得到$\|f\|_Q\le a\mu(A)\log(\frac{e}{\mu(A)})$。限制型弱估计对单原子给相同规模，弱$L^1$的对数凸求和再控制一般分解。\par\textbf{方法点评与边界} 这给上界，不声称单项分解必定达到定义中的下确界。
+\end{example}
+\subsection{Antonov空间QA}\label{mat:endpoint_spaces:qaspace}
+\begin{method}{Antonov空间QA}\textbf{适用条件} 同一概率测度空间，采用非负有界分解。\par\textbf{实施与依据} 以$|f|\le\sum f_j,f_j\ge0$的所有分解上$\sum(1+\log j)\|f_j\|_1\log(\frac{e\|f_j\|_\infty}{\|f_j\|_1})$的下确界定义$\|f\|_{Q_A}$；零项按0处理。\end{method}
+\begin{example}{专题例题｜Antonov空间QA}{难度：$\star\star$}
+\textbf{题目} 给出单个有界函数的QA上界。\par\textbf{思路与解答} 取唯一分量$f_1=|f|$，得到$\|f\|_{Q_A}\le\|f\|_1\log(\frac{e\|f\|_\infty}{\|f\|_1})$。利用有限Fourier系数的集合逼近把每分量替成等质量原子，再传递Q空间的弱型估计。\par\textbf{方法点评与边界} 端点弱型估计为$\mu\{S^*f>y\}\le \frac{C\|f\|_{Q_A}}{y}$；定义有限性与这个算子结论是不同层次。
+\end{example}
+\subsection{弱L1的对数加权求和}\label{mat:endpoint_spaces:weakseries}
+\begin{method}{弱L1的对数加权求和}\textbf{适用条件} 弱$L^1$准范数不满足普通三角不等式。\par\textbf{实施与依据} 对可数和使用$\|\sum f_j\|_{1,\infty}\le C\sum(1+\log j)\|f_j\|_{1,\infty}$等对数凸控制。\end{method}
+\begin{example}{专题例题｜弱L1的对数加权求和}{难度：$\star\star$}
+\textbf{题目} 若$\|f_j\|_{1,\infty}\le2^{-j}$，说明右端有限。\par\textbf{思路与解答} $\sum(1+\log j)2^{-j}$收敛，因此上述定理保证级数和具有弱$L^1$控制。普通$\sum\|f_j\|_{1,\infty}<\infty$本身不能未经论证就按Banach范数三角不等式使用。\par\textbf{方法点评与边界} 对数权重来自坏集测度分配与熵型估计，是Q与QA定义的一部分。
+\end{example}

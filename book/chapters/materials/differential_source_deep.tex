@@ -1,0 +1,35 @@
+\section{微分、中值定理与不等式的构造训练}\label{deep:differential_source_deep}
+
+\begin{examtip}补齐高阶导数、隐参数求导、辅助函数构造、Taylor余项、曲率和渐近线之间的联系。\end{examtip}
+
+\subsection{复合、隐函数、参数与高阶导数}\label{deep:differential_source_deep:derivatives}
+
+\begin{method}{复合、隐函数、参数与高阶导数}\textbf{适用条件} 相关函数在所考察点可微，隐式求导的分母非零。\par\textbf{步骤与依据} 先写依赖关系；二阶求导把一阶结果整体再求导；参数方程使用$\frac{\dd}{\dd x}=\frac{1}{x'(t)}\frac{\dd}{\dd t}$。\par\textbf{易错点} 二阶导数不是$\frac{y''(t)}{x''(t)}$，隐函数中$y$随$x$变化。\end{method}
+
+\begin{example}{考研风格｜对数求导与Taylor互证}{难度：$\star\star\star$}\label{deep:ex:differential_source_deep:logdiff}\textbf{题目} 求$y=x^x$（$x>0$）的一、二阶导数，并给$x=1$处二阶Taylor式。\par\textbf{思路} 先取对数，或写成指数复合。\par\textbf{详细解答} $\ln y=x\ln x$，故$y'=x^x(1+\ln x)$，$y''=x^x[(1+\ln x)^2+\frac{1}{x}]$。在1处$y=1,y'=1,y''=2$，所以$x^x=1+(x-1)+(x-1)^2+o((x-1)^2)$。另一法令$h=x-1$，$(1+h)\ln(1+h)=h+\frac{h^2}{2}+o(h^2)$，再指数展开得到同式。\par\textbf{方法点评} 对数求导适合变底变指数；局部展开可核对导数。\par\textbf{变式与易错点} 不能写$(x^x)'=x\,x^{x-1}$，那只适用于常指数。\end{example}
+
+\begin{example}{考研风格｜隐函数二阶导数}{难度：$\star\star\star$}\label{deep:ex:differential_source_deep:implicit2}\textbf{题目} 设$x^2+xy+y^2=3$，求过$(1,1)$的局部支在该点的$y',y''$。\par\textbf{思路} 先确认$F_y=x+2y$非零。\par\textbf{详细解答} $F_y(1,1)=3$，存在局部可微函数。一次微分$2x+y+(x+2y)y'=0$，得$y'(1)=-1$。再微分$2+2y'+2(y')^2+(x+2y)y''=0$，代入得$y''(1)=-\frac{2}{3}$。另一法在点附近令$y=1+ah+bh^2+o(h^2),x=1+h$，比较系数得$a=-1,b=-\frac{1}{3}$，所以$y''=2b=-\frac{2}{3}$。\par\textbf{方法点评} 局部展开法适合只求某点导数，避免解完整二次根式。\par\textbf{变式与易错点} 把$xy'$再求导时会产生$y'$，不能漏乘积项。\end{example}
+
+\begin{example}{考研风格｜摆线曲率与参数导数}{难度：$\star\star\star$}\label{deep:ex:differential_source_deep:parametric}\textbf{题目} 摆线$x=a(t-\sin t),y=a(1-\cos t)$，$a>0,0<t<2\pi$。求$\frac{\dd y}{\dd x}$和曲率。\par\textbf{思路} 参数导数公式与平面曲率行列式。\par\textbf{详细解答} $x'=a(1-\cos t),y'=a\sin t$，故$y_x'=\frac{\sin t}{1-\cos t}=\cot(\frac{t}{2})$。曲率$\kappa=\frac{|x'y''-y'x''|}{(x'^2+y'^2)^{\frac{3}{2}}}$。分子$a^2(1-\cos t)$，分母$a^3[2(1-\cos t)]^{\frac{3}{2}}$，所以$\kappa=\frac{1}{4a\sin(\frac{t}{2})}$。也可由$\kappa=\frac{|y_{xx}''|}{[1+(y_x')^2]^{\frac{3}{2}}}$核对。\par\textbf{方法点评} 参数公式在切线接近竖直时较稳健。\par\textbf{变式与易错点} 尖点$t=0,2\pi$速度为0，以上正规曲线公式不适用。\end{example}
+
+\begin{theorem}{Leibniz公式}若$f,g$有$n$阶导数，则$(fg)^{(n)}=\sum_{k=0}^n\binom nkf^{(k)}g^{(n-k)}$。\end{theorem}\begin{proof}$n=1$是乘积法则。若$n$成立，再求导后将$f^{(k+1)}g^{(n-k)}$和$f^{(k)}g^{(n+1-k)}$按相同指标合并，用Pascal恒等式$\binom n{k-1}+\binom nk=\binom{n+1}k$得到$n+1$式。\end{proof}
+
+\begin{example}{考研风格｜高阶导数的有限项化}{难度：$\star\star\star$}\label{deep:ex:differential_source_deep:leibniz}\textbf{题目} 求$(x^2\e^{ax})^{(n)}$，$n\ge2$。\par\textbf{思路} 多项式三阶以后导数为0。\par\textbf{详细解答} Leibniz公式只剩$k=0,1,2$三项：$\e^{ax}[a^nx^2+2na^{n-1}x+n(n-1)a^{n-2}]$。当$a=0$应直接由原函数区分$n=2$给2、$n>2$给0，以免书写$0^0$。另一法指数移位$D^n(\e^{ax}x^2)=\e^{ax}(D+a)^nx^2$，二项式展开同样只有三项。\par\textbf{方法点评} 两种表达本质相同，算子法方便与ODE章节衔接。\par\textbf{变式与易错点} 参数为0时从原式处理退化。\end{example}
+
+\subsection{辅助函数：端点、零点与导数信号}\label{deep:differential_source_deep:mvt}
+
+\begin{method}{辅助函数：端点、零点与导数信号}\textbf{适用条件} Rolle要求闭区间连续、开区间可微，端点值相等。\par\textbf{步骤与依据} 从目标导数反积分，或用指数因子消去$f'-\lambda f$；多点条件用插值多项式制造多个零点。\par\textbf{易错点} 只写“由中值定理”而不展示辅助函数，容易掩盖端点条件缺失。\end{method}
+
+\begin{example}{竞赛风格｜指数辅助函数双思路}{难度：$\star\star\star$}\label{deep:ex:differential_source_deep:auxiliary}\textbf{题目} $f\in C[a,b]$且在$(a,b)$可微，$f(a)=f(b)=0$。证明对任意$\lambda\in\R$，存在$c$使$f'(c)=\lambda f(c)$。\par\textbf{思路} 目标是$(\e^{-\lambda x}f)'=0$。\par\textbf{详细解答} 令$g(x)=\e^{-\lambda x}f(x)$，端点均0，由Rolle存在$c$使$g'(c)=\e^{-\lambda c}[f'(c)-\lambda f(c)]=0$。另一思路：若$f'-\lambda f$处处不为零，则$g'=\e^{-\lambda x}(f'-\lambda f)$也处处不为零。由导数的Darboux性质，$g'$在$(a,b)$同号；再由中值定理知$g$严格单调，与$g(a)=g(b)=0$矛盾。此反证也不要求$f'$连续。\par\textbf{方法点评} 比较证明条件，可以避免为反证法无意增加假设。\par\textbf{变式与易错点} 不能在$f(c)=0$时除以$f(c)$写$\frac{f'}{f}=\lambda$。\end{example}
+
+\begin{example}{竞赛风格｜插值余项与多点Rolle}{难度：$\star\star\star$}\label{deep:ex:differential_source_deep:interpolation}\textbf{题目} $f\in C^2[a,b],a<c<b$，证明存在$\xi\in(a,b)$使$f(c)-L(c)=\frac{f''(\xi)(c-a)(c-b)}{2}$，$L$为端点线性插值。\par\textbf{思路} 用二次因子制造三个零点。\par\textbf{详细解答} 设$K=\frac{f(c)-L(c)}{(c-a)(c-b)}$，$g(x)=f(x)-L(x)-K(x-a)(x-b)$。$g(a)=g(c)=g(b)=0$，两次Rolle给$g''(\xi)=0$。因$L''=0$、二次因子二阶导数为2，得$f''(\xi)=2K$，即结论。若$f''\ge0$，由$(c-a)(c-b)<0$知$f(c)\le L(c)$，也得到凸函数图像在弦下。\par\textbf{方法点评} 证明余项与凸性是同一个零点构造。\par\textbf{变式与易错点} $\xi$依赖$c$，不能把不同$c$对应的$\xi$视为同一固定点。\end{example}
+
+\subsection{Taylor积分余项、凸性与不等式}\label{deep:differential_source_deep:taylor}
+
+\begin{method}{Taylor积分余项、凸性与不等式}\textbf{适用条件} 导数具有足够连续性，或使用相应较弱余项版本。\par\textbf{步骤与依据} 将高阶导数积分回去，利用核符号给双边界；最值问题先检临界点再检端点。\par\textbf{易错点} 高阶导数在某点为0不自动说明拐点，须看符号变化。\end{method}
+
+\begin{theorem}{Taylor积分余项}若$f\in C^{n+1}$，则$f(x)=\sum_{k=0}^n\frac{f^{(k)}(a)(x-a)^k}{k!}+\frac1{n!}\int_a^x(x-t)^nf^{(n+1)}(t)\dd t$。\end{theorem}\begin{proof}$n=0$是基本定理。对余项分部一次，将$f^{(n+1)}$降为$f^{(n)}$，边界产生下一Taylor项；重复$n$次即还原$f(x)-f(a)$。反向也可对右边逐次求导，并比较在$a$的初值。\end{proof}
+
+\begin{example}{考研风格｜对数不等式双解}{难度：$\star\star$}\label{deep:ex:differential_source_deep:logbound}\textbf{题目} 证明$x>0$时$\frac{x}{1+x}<\ln(1+x)<x$。\par\textbf{思路} 用积分夹逼或导数单调。\par\textbf{详细解答} 积分法：在$0<t<x$，$\frac{1}{1+x}<\frac{1}{1+t}<1$，积分得结论。导数法：$g=x-\ln(1+x)$有$g(0)=0,g'=\frac{x}{1+x}>0$；$h=\ln(1+x)-\frac{x}{1+x}$有$h(0)=0,h'=\frac{x}{(1+x)^2}>0$。\par\textbf{方法点评} 积分法最短，导数法适合构造更高阶余量。\par\textbf{变式与易错点} $-1<x<0$时积分方向反转，不能原样沿用同一链条。\end{example}
+
+\begin{example}{考研风格｜渐近线与精细差值}{难度：$\star\star\star$}\label{deep:ex:differential_source_deep:asymptote}\textbf{题目} 求$f(x)=\sqrt{x^2+x+1}$在$\pm\infty$的斜渐近线，并给首项误差。\par\textbf{思路} 在两端分别提取$|x|$。\par\textbf{详细解答} $x\to+\infty$，$f=x\sqrt{1+\frac{1}{x}+\frac{1}{x^2}}=x+\frac{1}{2}+\frac{3}{8x}+O(x^{-2})$，故渐近线$y=x+\frac{1}{2}$。$x\to-\infty$，$f=-x\sqrt{1+\frac{1}{x}+\frac{1}{x^2}}=-x-\frac{1}{2}-\frac{3}{8x}+O(x^{-2})$，故$y=-x-\frac{1}{2}$。也可先求斜率极限$\frac{f}{x}=\pm1$，再分别有理化求截距。\par\textbf{方法点评} 两端斜率不同源于$|x|$。\par\textbf{变式与易错点} 把$\sqrt{x^2}$写成$x$会丢失负无穷方向。\end{example}

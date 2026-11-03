@@ -1,0 +1,12 @@
+\section{图解：投影系数为何除以模的平方}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[scale=1.1,>=stealth]
+\draw[->,Ink](-.5,0)--(5.4,0)node[right]{$\bm u$方向};
+\draw[->,Teal,thick](0,0)--(3.5,2.5)node[above]{$\bm v$};
+\draw[dashed](3.5,2.5)--(3.5,0)node[below]{$\operatorname{proj}_{\bm u}\bm v$};
+\draw(3.2,0)--(3.2,.3)--(3.5,.3);
+\draw[->,Gold,thick](0,0)--(3.5,0);
+\node[below]at(0,0){$O$};
+\end{tikzpicture}
+\caption{设投影向量为$\lambda\bm u$，垂直条件$(\bm v-\lambda\bm u)\cdot\bm u=0$给$\lambda=\frac{\bm v\cdot\bm u}{|\bm u|^2}$。投影长度的绝对值为$\frac{|\bm v\cdot\bm u|}{|\bm u|}$，与投影系数不同。}\label{fig:review:projection}
+\end{figure}

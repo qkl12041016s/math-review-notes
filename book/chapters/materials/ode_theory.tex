@@ -1,0 +1,42 @@
+\section{一阶隐式方程与微分方程基本定理}\label{mat:ode_theory}
+\begin{examtip}补入线素场、隐式类型、奇解、延展、连续依赖与参数变分。\end{examtip}
+\subsection{线素场与Euler折线}\label{mat:ode_theory:direction}
+\begin{method}{线素场与Euler折线}\textbf{适用条件} $y\prime=f(x,y)$连续，在计算区间适当光滑。\par\textbf{实施与依据} 在网格点用斜率$f(x_n,y_n)$作线段，迭代$y_{n+1}=y_n+h f(x_n,y_n)$。\end{method}
+\begin{example}{专题例题｜线素场与Euler折线}{难度：$\star\star$}
+\textbf{题目} 对$y\prime=y,y(0)=1$使用Euler法到$t=1$。\par\textbf{思路与解答} 取$h=\frac{1}{N}$，得到$y_N=(1+\frac{1}{N})^N\to\e$。若$f$对$y$为Lipschitz且局部截断误差为$O(h^2)$，离散Gronwall给全局误差$O(h)$。\par\textbf{方法点评与边界} 存在唯一性与数值稳定性是不同问题，步长过大可产生伪振荡。
+\end{example}
+\subsection{Riccati方程的已知特解降阶}\label{mat:ode_theory:riccati}
+\begin{method}{Riccati方程的已知特解降阶}\textbf{适用条件} $y\prime=a(x)y^2+b(x)y+c(x)$且已知特解$y_p$。\par\textbf{实施与依据} 在$y\ne y_p$区间令$y=y_p+\frac{1}{u}$，化为$u\prime+(2ay_p+b)u=-a$。\end{method}
+\begin{example}{专题例题｜Riccati方程的已知特解降阶}{难度：$\star\star$}
+\textbf{题目} 解$y\prime=y^2-1$并说明降阶。\par\textbf{思路与解答} 已知$y_p=1$，得$u\prime+2u=-1$，$u=C\e^{-2x}-\frac{1}{2}$，所以$y=1+\frac{1}{C\e^{-2x}-\frac{1}{2}}$，另补$y=1$。也可分离积分$\frac12\ln|\frac{y-1}{y+1}|=x+C_0$并补$\pm1$。\par\textbf{方法点评与边界} 代换可能遗漏已知特解，必须补回。
+\end{example}
+\subsection{Clairaut与d’Alembert型}\label{mat:ode_theory:clairaut}
+\begin{method}{Clairaut与d’Alembert型}\textbf{适用条件} 含$p=y\prime$的一阶隐式方程。\par\textbf{实施与依据} Clairaut型$y=xp+\phi(p)$求导给$(x+\phi\prime(p))p\prime=0$，分别求常$p$直线族与包络。\end{method}
+\begin{example}{专题例题｜Clairaut与d’Alembert型}{难度：$\star\star$}
+\textbf{题目} 解$y=xy\prime+(y\prime)^2$。\par\textbf{思路与解答} 常$p=C$给直线族$y=Cx+C^2$；另一支$x+2p=0$给$p=-\frac{x}{2}$，代回$y=-\frac{x^2}{4}$，并验证其导数为$-\frac{x}{2}$。这是奇解。\par\textbf{方法点评与边界} 只保留$p\prime=0$会漏掉包络奇解；对$p$求导的推导先在二阶可导的支路进行。若允许仅$C^1$的解，还可在直线与包络的相切点拼接，须代回原式检查，不能把两个光滑解族直接宣称为全部$C^1$解。
+\end{example}
+\subsection{正交轨线与模型}\label{mat:ode_theory:trajectory}
+\begin{method}{正交轨线与模型}\textbf{适用条件} 给定曲线族且斜率有限非零的局部区域。\par\textbf{实施与依据} 消去参数得到原斜率$m(x,y)$，正交族满足新斜率$-\frac{1}{m}$。\end{method}
+\begin{example}{专题例题｜正交轨线与模型}{难度：$\star\star$}
+\textbf{题目} 求抛物线族$y=Cx^2$的正交轨线。\par\textbf{思路与解答} 原斜率$y\prime=\frac{2y}{x}$，正交族$y\prime=-\frac{x}{2y}$，积分$2y\dd y=-x\dd x$得$y^2+\frac{x^2}{2}=C_1$。退化点需用切向几何补查。\par\textbf{方法点评与边界} 正交法在斜率0或无穷处不直接相除。
+\end{example}
+\subsection{Picard迭代与存在唯一性证明}\label{mat:ode_theory:picard}
+\begin{method}{Picard迭代与存在唯一性证明}\textbf{适用条件} $f$在矩形内连续并对$y$统一Lipschitz。\par\textbf{实施与依据} 令$y_0$为常函数，$y_{n+1}=y_0+\int_{t_0}^tf(s,y_n(s))\dd s$，用阶乘误差或压缩估计证明一致收敛。\end{method}
+\begin{example}{专题例题｜Picard迭代与存在唯一性证明}{难度：$\star\star$}
+\textbf{题目} 从$y\prime=y,y(0)=1$的迭代得到解。\par\textbf{思路与解答} $y_0=1,y_1=1+t,y_2=1+t+\frac{t^2}{2}$，一般$y_n=\sum_{k=0}^n\frac{t^k}{k!}$。在有限区间尾项一致趋零，极限为$\e^t$并满足积分方程。\par\textbf{方法点评与边界} 迭代的收敛与极限满足方程必须各自证明。
+\end{example}
+\subsection{最大解区间与爆破}\label{mat:ode_theory:extension}
+\begin{method}{最大解区间与爆破}\textbf{适用条件} 局部存在唯一解。\par\textbf{实施与依据} 若解图像在有限端点前始终留在定义域的一个紧子集，局部定理允许继续延展；不能延展时可能逼近边界或无界。\end{method}
+\begin{example}{专题例题｜最大解区间与爆破}{难度：$\star\star$}
+\textbf{题目} 求$y\prime=y^2,y(0)=1$的最大区间。\par\textbf{思路与解答} 解$y=\frac{1}{1-t}$，在$t=1$爆破，含0的最大存在区间为$(-\infty,1)$。不能跨过1把同一公式称为同一初值解的延拓。\par\textbf{方法点评与边界} 公式在其他区间有定义不代表能穿过奇点连续延拓。
+\end{example}
+\subsection{连续依赖与Gronwall}\label{mat:ode_theory:dependence}
+\begin{method}{连续依赖与Gronwall}\textbf{适用条件} 同一ODE，右端对$y$有Lipschitz常数$L$。\par\textbf{实施与依据} 两个解的差满足$|u-v|\le|u_0-v_0|+L\int|u-v|$，使用Gronwall。\end{method}
+\begin{example}{专题例题｜连续依赖与Gronwall}{难度：$\star\star$}
+\textbf{题目} 给出初值扰动的误差界。\par\textbf{思路与解答} 在共同区间$t\ge t_0$有$|u(t)-v(t)|\le|u_0-v_0|\e^{L(t-t_0)}$。右端再有一致扰动$\delta$时，误差上界增加$\frac{\delta(\e^{L(t-t_0)}-1)}{L}$，$L=0$按极限解释。\par\textbf{方法点评与边界} 该界说明有限时间稳定，不自动给无穷时间稳定。
+\end{example}
+\subsection{对初值与参数的可微依赖}\label{mat:ode_theory:variation}
+\begin{method}{对初值与参数的可微依赖}\textbf{适用条件} $f$对状态与参数连续可微。\par\textbf{实施与依据} 对积分方程求参数导数，得到线性变分方程。\end{method}
+\begin{example}{专题例题｜对初值与参数的可微依赖}{难度：$\star\star$}
+\textbf{题目} $y\prime=ay,y(0)=y_0$，求对$a$和$y_0$的敏感度。\par\textbf{思路与解答} $y=y_0\e^{at}$，故$\partial_a y=t y_0\e^{at}$、$\partial_{y_0}y=\e^{at}$。一般敏感度$z$满足$z\prime=f_yz+f_a$并配相应初值。\par\textbf{方法点评与边界} 需要正则性才能对解族求参数导数。
+\end{example}

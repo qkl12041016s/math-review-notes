@@ -1,0 +1,22 @@
+\begin{insight}{相关是“有冗余”，不只是“平行”}
+在平面上，两条不平行的向量已能生成全部方向；第三条向量即使不与前两条中的任何一条平行，仍是多余的。向量组相关的对象是整组系数关系，而不是只比较两两夹角。图中的$\va,\vb,\va+\vb$两两不平行，三个合起来却相关。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.45]
+\draw[laaxis](-.3,0)--(3.7,0)node[right]{$x$};\draw[laaxis](0,-.2)--(0,2)node[above]{$y$};
+\draw[dashed,Teal!50](2,0)--(2.6,1.4)--(.6,1.4);
+\draw[lavec,Ink](0,0)--(2,0)node[midway,below]{$\va$};
+\draw[lavec,Gold](0,0)--(.6,1.4)node[above left]{$\vb$};
+\draw[lavec,Teal](0,0)--(2.6,1.4)node[above right]{$\va+\vb$};
+\node[lanote]at(2.3,-.65){$\va+\vb-(\va+\vb)=0$};
+\end{tikzpicture}
+\caption{第三条向量并未增加生成空间的维数。}\label{fig:dependent-vectors}
+\end{figure}
+\begin{clevertrick}{抽象向量题先“脱掉向量外衣”}
+设$\va,\vb$无关，记新组$u=\va+\vb,v=\va-\vb,w=3\va+\vb$。任意关系$\alpha u+\beta v+\gamma w=0$整理成
+\[(\alpha+\beta+3\gamma)\va+(\alpha-\beta+\gamma)\vb=0.\]
+由于原组无关，两个标量系数必须同时为零。这正是二维系数列$(1,1)\T,(1,-1)\T,(3,1)\T$的相关性方程，所以可将抽象向量问题转成系数问题。前两列行列式为$-2\ne0$，故$u,v$无关。又$(3,1)\T=2(1,1)\T+(1,-1)\T$，从而
+\[w=2u+v,\qquad 2u+v-w=0.\]
+所以整组秩2，$u,v$是一个极大无关组，第三条的表示已完整给出，不必给$\va,\vb$设任何具体坐标。
+\textbf{易错提示：}这一步保留无关性需要原向量组无关；若原组本来相关，系数矩阵满秩也不能保证新组无关。
+\end{clevertrick}

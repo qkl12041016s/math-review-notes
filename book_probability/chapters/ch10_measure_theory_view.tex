@@ -1,0 +1,310 @@
+\chapter{测度论选学：概率的积分视角}\label{ch:10}
+\chaptermap{可测空间\\随机变量}{推前分布\\期望积分}{极限与积分\\MCT、Fatou、DCT}{收敛关系\\条件期望与RN}
+\begin{measurebox}{阅读定位}
+本章集中安排提高内容。考研主线读者可先掌握收敛关系及条件期望的积分含义，再读一般测度构造。
+竞赛视角重在反例、函数逼近与极限交换；所有概率空间均为$(\Omega,\Fcal,\Pp)$，几乎处处均相对所讨论的测度。
+\end{measurebox}
+\section{\ensuremath{\sigma}代数、测度与可测函数}\label{sec:101}
+\src{吴昊, §1.1—1.2}
+\begin{definition}{可测空间与测度}
+$\Fcal$是$\Omega$上的$\sigma$代数，指包含$\Omega$、对补集与可数并封闭；因此也对可数交封闭。
+测度$\mu:\Fcal\to[0,\infty]$满足$\mu(\varnothing)=0$及可数可加性；若$\mu(\Omega)=1$即为概率测度。
+$\mu$称$\sigma$有限，指$\Omega$可被可数个有限测度的可测集覆盖。
+$X:\Omega\to\R$可测指每个Borel集$B$的逆像$X^{-1}(B)\in\Fcal$。
+\end{definition}
+\begin{lemma}{生成类判定}
+实函数$X$可测当且仅当$\{X\le x\}\in\Fcal$对所有实$x$成立；只检查有理$x$也足够。
+可测函数的和、积、极限（存在处并作可测延拓）仍可测。
+\end{lemma}
+\begin{proof}
+集合族$\{B:X^{-1}(B)\in\Fcal\}$是$\sigma$代数，若含全部半直线就含其生成的Borel族。
+实阈值用有理数递减逼近。对和，$\{X+Y<a\}=\bigcup_{q\in\mathbb Q}\{X<q\}\cap\{Y<a-q\}$，故可测；平方等连续复合给乘积。
+$\limsup X_n=\inf_m\sup_{n\ge m}X_n$的阈值事件可写成可数并交，故极限可测。
+\end{proof}
+\begin{method}{用生成集合代替检查所有集合}
+适用：可测性与分布构造。检查半直线逆像，再用生成类推广；复杂极限先写成上确界下确界。
+不可测集合不是“概率尚未算出”，而是不在当前测度定义域内。
+\end{method}
+\worked{有限信息的\ensuremath{\sigma}代数}{基础例题}{\star}{10-1}
+{$\Omega=\{1,2,3,4\}$，只观察奇偶，写观察产生的$\sigma$代数，并判断$X(\omega)=\omega$是否可测。}
+{信息只区分两个原子。}
+{生成族为$\{\varnothing,\Omega,\{1,3\},\{2,4\}\}$。
+$\{X\le1\}=\{1\}$不属于该族，所以$X$对此信息不可测。
+奇偶指标$Y=\ind_{\{1,3\}}$可测，因为其阈值逆像只取上述四个集合。
+若把事件域扩大为幂集，$X$就可测。}
+{可测性依赖事件域，含义是观测信息能否确定变量值。}
+{有限样本空间不代表任意给定的$\sigma$代数都是全体子集。}
+\worked{可数并与任意并的差别}{考研风格提高}{\star\star}{10-2}
+{说明Borel族由开集生成，并解释“每个单点零测”为什么不能推出整个区间零测。}
+{可数可加只允许可数不交族。}
+{每个实开集可写成可数个有理端点开区间之并，因此只用这些区间已生成全部Borel集。
+Lebesgue测度下每个$\{x\}$为零，但$[0,1]$为不可数个单点之并，不能应用可数可加；其测度是1。
+对可数有理数集$\mathbb Q\cap[0,1]$，可数并确实给零测。}
+{开集的可数基与可数可加性配合，是实分析可操作性的来源。}
+{将“可数”删掉会使连续概率模型产生矛盾。}
+\worked{独立性是\ensuremath{\sigma}代数之间的关系}{竞赛风格}{\star\star}{10-3}
+{若$X,Y$独立，证明任意Borel可测$g,h$使$g(X),h(Y)$独立。}
+{复合变量的事件仍属于原有信息族。}
+{方法一：对Borel集$A,B$，$\{g(X)\in A\}=\{X\in g^{-1}(A)\}$，$h$同理；逆像仍为Borel集，由独立定义概率相乘。
+方法二：$\sigma(g(X))\subseteq\sigma(X)$、$\sigma(h(Y))\subseteq\sigma(Y)$，独立$\sigma$代数的子族仍独立。
+两法分别是事件语言和信息语言。}
+{可测变换不会创造两个独立信息源之间的依赖。}
+{对同一变量的两个函数一般不独立，例如$X$与$X^2$。}
+
+\section{分布测度、Lebesgue--Stieltjes与期望}\label{sec:102}
+\src{吴昊, §1.2—1.3；Lebesgue--Stieltjes构造}
+\begin{definition}{推前分布与积分}
+对$B\in\Bcal(\R)$定义$\Pp_X(B)=\Pp(X^{-1}(B))$。
+非负简单函数写为有限和$s=\sum_{i=1}^m a_i\ind_{A_i}$，其中$a_i\ge0$有限、$A_i$两两不交且可测，定义积分为$\sum_i a_i\mu(A_i)$，约定$0\cdot\infty=0$。
+非负可测$f$的积分定义为所有$0\le s\le f$的非负简单函数积分的上确界。
+有符号$f$分为$f^+,f^-$，只要不出现$\infty-\infty$即可定义积分；$\int|f|<\infty$称可积。
+\end{definition}
+\begin{theorem}{CDF与分布积分}
+任一CDF $F$唯一确定Borel概率$\mu_F$，满足$\mu_F((a,b])=F(b)-F(a)$。
+对非负或可积$g$，$\E g(X)=\int_\R g(x)\dd\Pp_X(x)=\int g\dd F_X$。
+\end{theorem}
+\begin{proof}
+先在半开区间的有限不交并上用增量定义集函数，望远镜求和给有限可加，$F$右连续及端点极限给相应可数可加的前测度。
+外测度构造取可数区间覆盖的增量和之下确界，限制到Borel集得到延拓；半直线构成生成族，两个有限测度在该族一致时用单调类论证得唯一。
+这里外测度延拓与单调类为测度构造的基础定理。
+积分换元先对$g=\ind_B$由推前定义成立，再对简单函数线性成立，最后非负逼近及正负分解得到一般式。
+\end{proof}
+\begin{method}{离散、连续、混合用一个积分表示}
+适用：含原子或一般CDF。以$\dd F$记录全部质量；若有分解$\mu_F=\sum p_i\delta_{x_i}+f\dd x$，就把积分拆成求和与普通积分。
+CDF连续不必有Lebesgue密度，绝对连续才保证密度形式。
+\end{method}
+\worked{混合期望的两种记法}{基础例题}{\star\star}{10-4}
+{分布$\frac12\delta_0+\frac12U(0,1)$，求均值与二阶矩。}
+{按质量分解或分布积分计算。}
+{方法一：$\E X=\frac12\cdot0+\frac12\int_0^1x\dd x=\frac{1}{4}$，$\E X^2=\frac12\int_0^1x^2\dd x=\frac{1}{6}$。
+方法二：$F$在0跳跃$\frac{1}{2}$，$(0,1)$导数$\frac{1}{2}$，所以$\int g\dd F=\frac{g(0)}{2}+\int_0^1\frac{g(x)\dd x}{2}$，代入$g=x,x^2$得到同值。
+方差为$\frac{1}{6}-\frac{1}{16}=\frac{5}{48}$。}
+{分布积分同时容纳原子与连续密度。}
+{若只对CDF求导，常数函数的积分会丢失一半质量。}
+\worked{几乎处处相等的积分}{考研风格提高}{\star\star}{10-5}
+{证明若$f=g$几乎处处且二者可积，则积分相等。以$\ind_{\mathbb Q}$在$[0,1]$上的积分说明。}
+{差值只支撑在零测集上。}
+{$|f-g|=0$几乎处处，非负函数在零测集上的积分为0：任意截断都由常数乘零测集指标控制，再取上确界。
+于是$|\int f-\int g|\le\int|f-g|=0$。
+由于有理数集可数，$\ind_{\mathbb Q}=0$几乎处处，Lebesgue积分为0；其在每个区间均振荡，普通Riemann积分不存在。}
+{Lebesgue积分对零测集上的修改稳定。}
+{“到处不连续”并不妨碍Lebesgue可积。}
+\worked{奇异连续分布}{竞赛风格}{\star\star\star}{10-6}
+{独立公平Bernoulli变量$B_k$，令$X=\sum_{k\ge1}\frac{2B_k}{3^k}$。说明它无原子却不具有普通密度。}
+{分布集中在三进制只含0和2的Cantor集。}
+{级数绝对收敛，$X$可测且落在Cantor集$C$。
+第$n$层覆盖由$2^n$段长度$3^{-n}$的区间构成，故Lebesgue测度至多$(\frac{2}{3})^n\to0$。
+对任意$x$，满足$X=x$的前$n$位选择至多2种（端点展开歧义至多两种），概率至多$2\cdot2^{-n}\to0$，所以没有原子。
+若存在密度，则$\Pp(X\in C)=\int_Cf=0$，但实际为1，矛盾。}
+{分布不止离散与有密度连续两类；此例是奇异连续。}
+{CDF连续仅表示没有原子，不推出可由导数恢复全部质量。}
+
+\section{单调收敛、Fatou与控制收敛}\label{sec:103}
+\src{吴昊, §1.3、§2.5}
+\begin{theorem}{三个积分极限定理}
+以下函数均在同一测度空间上可测。若$0\le f_n\uparrow f$，则$\int f_n\uparrow\int f$（单调收敛，MCT）。
+若$f_n\ge0$，则$\int\liminf f_n\le\liminf\int f_n$（Fatou）。
+若$f_n\to f$几乎处处，$|f_n|\le g$且$\int g<\infty$，则$\int|f_n-f|\to0$，特别$\int f_n\to\int f$（控制收敛，DCT）。
+\end{theorem}
+\begin{proof}
+MCT：令$L=\lim\int f_n\le\int f$。任取非负简单$s\le f$及$0<c<1$，$A_n=\{f_n\ge cs\}\uparrow\Omega$（除$s=0$处不影响）。
+故$\int f_n\ge c\int s\ind_{A_n}\to c\int s$；简单函数有限和与测度连续性支持最后极限。
+于是$L\ge c\int s$，对$s$取上确界再$c\uparrow1$得反向不等式。
+
+Fatou：$h_m=\inf_{n\ge m}f_n\uparrow\liminf f_n$，MCT给$\int\liminf f_n=\lim_m\int h_m\le\lim_m\inf_{n\ge m}\int f_n$。
+
+DCT：$|f|\le g$几乎处处，对非负$2g-|f_n-f|$用Fatou，有
+$2\int g\le\liminf(2\int g-\int|f_n-f|)=2\int g-\limsup\int|f_n-f|$。
+所以非负积分差的上极限为0，得到$L^1$收敛及积分收敛。
+\end{proof}
+\begin{method}{交换极限先寻找三种入口}
+适用：期望极限、无穷级数与参数积分。非负且单调用MCT；只有非负用Fatou得一侧界；有共同可积控制函数用DCT。
+每个$f_n$可积并不等于存在共同控制函数，期望相等也不能代替支配条件。
+\end{method}
+\worked{几何尾和的MCT证明}{基础例题}{\star\star}{10-7}
+{几何变量$N$成功率$p$，用部分尾和证明$\E N=\frac{1}{p}$。}
+{初等有限和与单调积分作对照。}
+{方法一：$N\wedge m=\sum_{k=1}^m\ind_{\{N\ge k\}}$，取期望得$\sum_{k=1}^m(1-p)^{k-1}$；令$m\to\infty$得到$\frac{1}{p}$。
+方法二：$N\wedge m\uparrow N$，MCT保证$\E(N\wedge m)\uparrow\E N$，说明第一法取极限的合法性。
+无需预先假定$N$的期望有限，级数结果本身证实有限。}
+{MCT允许先计算截断量，再由非负单调性进入无穷。}
+{任意有正负项的级数不能无条件这样交换。}
+\worked{移动尖峰与Fatou严格不等式}{考研风格提高}{\star\star}{10-8}
+{$U\sim U(0,1)$，$X_n=n\ind_{\{U<\frac{1}{n}\}}$。分析点态极限与均值。}
+{面积恒定但支撑收缩。}
+{对每个$U>0$，最终$\frac{1}{n}<U$，所以$X_n\to0$几乎必然。
+但$\E X_n=n(\frac{1}{n})=1$，故$\E\liminf X_n=0<1=\liminf\E X_n$。
+不存在共同可积支配$g$，否则DCT将迫使均值趋0；也可看到这些尖峰在原点附近的包络不可积。
+该例还说明几乎必然收敛不推出$L^1$收敛。}
+{质量可以集中到越来越窄且越来越高的区域，点态极限会漏掉面积。}
+{不要因每个$X_n$都可积就交换极限与期望。}
+\worked{从DCT重建特征函数连续性}{竞赛风格}{\star\star\star}{10-9}
+{证明任意随机变量的特征函数$\phi(t)=\E e^{itX}$在每个$t$连续。}
+{复指数模恒为1，天然提供控制。}
+{若$t_n\to t$，则$e^{it_nX}\to e^{itX}$逐点成立，且模为1。
+分别对实部余弦和虚部正弦用DCT，可得$\phi(t_n)\to\phi(t)$。
+另一法用差的界$|e^{it_nX}-e^{itX}|\le\min(2,|t_n-t||X|)$；即便$\E|X|$无限，仍由常数2支配并逐点趋0，所以期望差趋0。}
+{有界变换允许在不要求原变量有矩的情况下交换极限。}
+{若要对$\phi$求导，则需要相应绝对矩，连续性与可微性条件不同。}
+
+\section{四种收敛、关系与反例}\label{sec:104}
+\src{吴昊, §2.1—2.5}
+\begin{definition}{收敛概念}
+$X_n\asto X$指$\Pp(\lim X_n=X)=1$；$X_n\pto X$指每个$\varepsilon>0$的偏差概率趋0；
+$X_n\dto X$指CDF在$F_X$连续点收敛；对$1\le p<\infty$，$X_n\xrightarrow{L^p}X$指$X_n,X\in L^p$且$\E|X_n-X|^p\to0$。
+几乎必然、依概率和$L^p$收敛均在共同概率空间上比较；依分布收敛只要求分布函数满足该条件。
+\end{definition}
+\begin{theorem}{基本蕴含}
+几乎必然收敛与$L^p$收敛分别推出依概率收敛；依概率推出依分布。
+依分布收敛到常数$c$则依概率收敛到$c$；概率空间上$p\ge q\ge1$时$L^p$收敛推出$L^q$收敛。
+\end{theorem}
+\begin{proof}
+几乎必然收敛时$\ind_{\{|X_n-X|>\varepsilon\}}\to0$几乎处处，受1控制，DCT给概率趋0。
+Markov给$\Pp(|X_n-X|>\varepsilon)\le\varepsilon^{-p}\E|X_n-X|^p$。
+若依概率收敛，则
+\[F_X(x-\delta)-\Pp(|X_n-X|>\delta)\le F_{X_n}(x)
+\le F_X(x+\delta)+\Pp(|X_n-X|>\delta).\]
+先$n\to\infty$再$\delta\downarrow0$，在连续点得到分布收敛。
+若极限为$c$，选$c\pm\frac{\varepsilon}{2}$两个连续点即可控制偏差概率。
+最后Jensen作用于$u^{\frac{p}{q}}$给$\E|Z|^q\le(\E|Z|^p)^{\frac{q}{p}}$，取$Z=X_n-X$。
+\end{proof}
+\begin{method}{反向箭头要主动找反例}
+适用：判断收敛强弱。依分布只比较边缘分布，其他三者涉及同一空间上的差。
+想证明期望收敛还需$L^1$、共同支配或一致可积等条件。
+\end{method}
+\worked{两种证明的L2一致性}{考研风格提高}{\star\star}{10-10}
+{iid有限方差样本，证明$\bar X_n\to\mu$在$L^2$与依概率意义成立。}
+{均方差直接计算或用交叉项消失。}
+{方法一：$\E|\bar X_n-\mu|^2=\Var\bar X_n=\frac{\sigma^2}{n}\to0$，得到$L^2$；Markov推出依概率。
+方法二：令$Z_i=X_i-\mu$，展开$n^{-2}\E(\sum Z_i)^2$；独立中心化使交叉期望0，只剩$\frac{n\sigma^2}{n^2}$。
+两法同为平方结构，第二法清楚显示独立性只用来消去协方差。}
+{两两不相关且共同有限方差已足以支持此均方证明。}
+{有限均值但无限方差时仍可能有LLN，却不能沿此$L^2$路线。}
+\worked{依概率但不几乎必然的打字机序列}{竞赛风格}{\star\star\star}{10-11}
+{在$[0,1)$上均匀取$U$，依次列出每层二进制区间的指标，证明序列依概率趋0但不逐点趋0。}
+{第$m$层由$2^m$个长度$2^{-m}$区间组成。}
+{精确定义$X_{2^m+k}=\ind_{[k2^{-m},(k+1)2^{-m})}(U)$，$m\ge0,0\le k<2^m$。
+序号趋∞时层数趋∞，所以$\Pp(X_n=1)=2^{-m}\to0$，从而依概率趋0。
+但每个$u$在每层恰落入一个区间，指标无限次为1；除首层外每层也有0项，所以对每个$u$极限不存在。
+这是显式构造，不依赖变量间独立。}
+{小概率事件可在空间中反复移动，使每个点仍被无限次击中。}
+{不能由$\Pp(X_n=1)\to0$就断言几乎必然最终为0。}
+\worked{同分布而不依概率靠近}{测度论选学}{\star\star}{10-12}
+{$X$等概率取$\pm1$，令$X_n=-X$。验证$X_n\dto X$但不依概率收敛于$X$。}
+{边缘分布完全相同，样本点上的差却固定。}
+{方法一：每个$X_n$与$X$同分布，CDF完全一致，故分布收敛；但$|X_n-X|=2$几乎必然，$\Pp(|X_n-X|>1)=1$。
+方法二：任何有界连续$g$的期望相同，满足弱收敛测试函数判据；联合耦合却把$X_n$放在相反符号，不能得到差趋0。}
+{分布收敛不指定变量在同一空间上如何配对。}
+{如果极限是常数，逆向反而成立，不能把本反例套到常数极限。}
+
+\section{条件期望与Radon--Nikodym定理}\label{sec:105}
+\src{吴昊, §5.1；Radon--Nikodym的一般形式}
+\begin{theorem}{Radon--Nikodym，\ensuremath{\sigma}有限正测度形式}
+若$\nu,\mu$是同一可测空间上的$\sigma$有限正测度，且$\nu\ll\mu$（即$\mu(A)=0\Rightarrow\nu(A)=0$），则存在非负可测$h$使$\nu(A)=\int_Ah\dd\mu$，$h$按$\mu$几乎处处唯一，记$h=\frac{\dd\nu}{\dd\mu}$。
+\end{theorem}
+\begin{proof}
+先设两测度有限，令$\lambda=\mu+\nu$。
+在Hilbert空间$L^2(\lambda)$中，$L(f)=\int f\dd\nu$是有界线性泛函，因为
+$|L(f)|\le\sqrt{\nu(\Omega)}(\int f^2\dd\nu)^{\frac{1}{2}}\le\sqrt{\nu(\Omega)}\|f\|_{L^2(\lambda)}$。
+Hilbert表示原理给$L(f)=\int fg\dd\lambda$。
+该原理可由闭子空间投影证明：非零泛函的核$K$闭，取$u$不在核中，将$u$减去到$K$的最近点得$e\perp K$；每个$f$分解为核元素与$e$的倍数，故$L(f)=\langle f,\frac{eL(e)}{\|e\|^2}\rangle$。
+最近点的存在由最小化序列与平行四边形恒等式保证其为Cauchy，完备性给极限，沿子空间方向求最小得正交性。
+
+取指标函数得到$\nu(A)=\int_Ag\dd\lambda$。
+因$0\le\nu(A)\le\lambda(A)$，分别在$g<0$与$g>1$的水平集检验，推出$0\le g\le1$几乎处处。
+于是$\mu(A)=\int_A(1-g)\dd\lambda$。
+集合$\{g=1\}$有$\mu$测度0，由$\nu\ll\mu$也有$\nu$测度0，故其$\lambda$测度0。
+令$h=\frac{g}{1-g}$（零测例外处定义0），则
+$\int_Ah\dd\mu=\int_Ah(1-g)\dd\lambda=\int_Ag\dd\lambda=\nu(A)$。
+若$h_1,h_2$均满足，考察$\{h_1>h_2+\frac{1}{k}\}$，积分相等迫使这些集合$\mu$零测，从而唯一。
+一般$\sigma$有限情形，将两测度的有限覆盖交叉后不交化，得到共同有限的可数划分，在各块用有限情形并拼接，完成证明。
+\end{proof}
+\begin{definition}{条件期望}
+$X\in L^1$，子$\sigma$代数$\Gcal\subseteq\Fcal$。
+$Z=\E(X\given\Gcal)$是满足以下条件的可积随机变量：$Z$为$\Gcal$可测，且对所有$G\in\Gcal$有$\int_GZ\dd\Pp=\int_GX\dd\Pp$。
+\end{definition}
+\begin{theorem}{存在、唯一与塔式}
+条件期望存在且几乎处处唯一；具有线性、取出有界已知量及塔式性质：$\mathcal H\subseteq\Gcal$时
+$\E[\E(X\given\Gcal)\given\mathcal H]=\E(X\given\mathcal H)$。
+\end{theorem}
+\begin{proof}
+先$X\ge0$可积，在$(\Omega,\Gcal)$上定义有限测度$\nu(G)=\int_GX\dd\Pp$，它对$\Pp$绝对连续，RN导数即所需$Z$；一般$X$分别处理正负部分再相减。
+唯一性在$\{Z_1>Z_2+\frac{1}{k}\}\in\Gcal$上检验积分得证。
+线性由积分线性与唯一性。
+有界$\Gcal$可测$H$先为简单函数时，将定义对各原子相乘求和得到$\int_GHZ=\int_GHX$；一般有界$H$用简单函数一致逼近，得$\E(HX\given\Gcal)=H\E(X\given\Gcal)$。
+塔式中最外条件量为$\mathcal H$可测，对任意$A\in\mathcal H$，两次定义给积分等于$\int_AX$，由唯一性即得。
+\end{proof}
+\begin{method}{条件平均以信息原子或积分恒等式检验}
+适用：有限划分先在每块平均；连续变量用条件密度；一般信息用可测性加所有条件事件的积分恒等式。
+RN导数是测度相对另一测度的密度，普通概率密度只是相对Lebesgue测度的特殊情况。
+\end{method}
+\worked{有限划分的条件平均}{基础例题}{\star\star}{10-13}
+{$\Omega=\{1,2,3,4\}$等概率，$X=(1,3,2,6)$，只观察奇偶，求条件期望。}
+{两种语言都要求在信息原子上平均。}
+{方法一：奇数原子$\{1,3\}$上均值$\frac{1+2}{2}=\frac{3}{2}$；偶数原子上均值$\frac{3+6}{2}=\frac{9}{2}$。
+方法二：$\nu(A)=\E(X\ind_A)$在两个原子上分别为$\frac{3}{4},\frac{9}{4}$，每个原子的$\Pp$质量为$\frac{1}{2}$，RN导数为比值$\frac{3}{2},\frac{9}{2}$。
+其总期望为3，与$\E X=\frac{1+3+2+6}{4}=3$一致。}
+{离散Bayes式的平均就是RN条件期望的具体形式。}
+{条件期望必须在每个信息原子上为常数。}
+\worked{独立信息与条件期望}{测度论选学}{\star\star}{10-14}
+{若$X\in L^1$与$\Gcal$独立，证明$\E(X\given\Gcal)=\E X$；若$X$本身$\Gcal$可测，则条件期望等于$X$。}
+{分别检验可测性与积分恒等式。}
+{独立时常数$\E X$可测，对任意$G\in\Gcal$，$\E(X\ind_G)=\E X\Pp(G)=\int_G\E X\dd\Pp$，故由唯一性成立。
+若$X$已可测，它自身满足积分定义，因此条件期望就是$X$。
+初等语言分别是“没有新信息时仍用总体均值”与“完全知道时无需平均”。}
+{两个极端帮助判断实际条件化结果应有的信息量。}
+{独立不是只与某个单一事件独立，而是与整个条件信息族独立。}
+\worked{全方差的投影几何}{竞赛风格}{\star\star\star}{10-15}
+{$X\in L^2$，令$Z=\E(X\given\Gcal)$。用积分与几何两种语言证明全方差。}
+{条件残差对所有可测平方可积方向正交。}
+{方法一：$\E[(X-Z)(Z-\E X)]=0$，对无界$Z$先截断再以Cauchy及$L^2$极限推广；展开$X-\E X=(X-Z)+(Z-\E X)$并取平方期望，得到$\Var X=\E\Var(X\given\Gcal)+\Var Z$。
+方法二：在$L^2$内，$Z-\E X$为中心化$X$到$\Gcal$可测子空间的正交投影，残差是垂直分量，Pythagoras恒等式给相同分解。
+$Z\in L^2$可由条件Jensen或条件截断证明$Z^2\le\E(X^2\given\Gcal)$后取期望。}
+{有限维回归、Rao--Blackwell与全方差都是同一正交分解。}
+{若只有一阶可积，方差可能无限，不能直接使用有限范数的几何恒等式。}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[>=Stealth,node distance=12mm,every node/.style={draw=Teal,rounded corners,fill=Teal!4,align=center,minimum width=28mm,minimum height=10mm}]
+\node(a){几乎必然收敛};\node[right=25mm of a](p){依概率收敛};\node[right=25mm of p](d){依分布收敛};\node[below=of a](l){$L^p$收敛};
+\draw[->,thick](a)--(p);\draw[->,thick](l)--(p);\draw[->,thick](p)--(d);
+\draw[->,Gold,bend left=30](d)to node[below,draw=none,fill=white,font=\small]{极限是常数时}(p);
+\end{tikzpicture}\caption{收敛关系图；一般逆向箭头均需附加条件}\label{fig:convergence}\end{figure}
+\begin{warning}
+几乎处处相等是积分与条件期望的自然等价，不等于处处相等。
+Fatou只有一侧不等式；DCT需要共同可积控制。
+RN的绝对连续是测度间关系，不等于CDF连续。条件期望是随机变量及其几乎处处等价类，不只是一个数。
+\end{warning}
+
+\section*{图解、理解与巧解复盘}
+\begin{insight}{同一极限函数可以遗漏不同规模的面积}
+尖峰$X_n=n\ind_{\{U<\frac{1}{n}\}}$逐点趋0，但面积保持1；若高度改成$\sqrt n$，面积为$\frac{1}{\sqrt n}$，于是$L^1$趋0，而二阶面积仍为1。
+收敛概念的差别可看成是否控制尾部高度与面积，而不只是图上每个固定点的行为。
+\end{insight}
+\begin{clevertrick}{不循环地证明条件期望属于L2}
+设$X\in L^2$且$Z=\E(X\mid\Gcal)$已由$L^1$定义存在。取有界可测$H_K=Z\ind_{\{|Z|\le K\}}$。
+定义推广到有界可测乘子给$\E[Z^2\ind_{\{|Z|\le K\}}]=\E(XH_K)$。
+Cauchy于是给$A_K\le\|X\|_2\sqrt{A_K}$，所以$A_K\le\E X^2$；MCT令$K\to\infty$得到$\E Z^2\le\E X^2$。
+再用$L^2$截断极限延伸乘子恒等式，才能合法地谈正交投影与全方差。
+\end{clevertrick}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.8\textwidth,height=4.8cm,axis lines=left,xlabel={$u$},ylabel={$X_n(u)$},xmin=0,xmax=1.05,ymin=0,ymax=8.7,ytick={0,2,4,8},legend style={draw=none,font=\small}]
+\addplot[Ink,thick]coordinates{(0,2)(.5,2)(.5,0)(1,0)};\addlegendentry{$n=2$}
+\addplot[Teal,thick]coordinates{(0,4)(.25,4)(.25,0)(1,0)};\addlegendentry{$n=4$}
+\addplot[Gold,thick]coordinates{(0,8)(.125,8)(.125,0)(1,0)};\addlegendentry{$n=8$}
+\end{axis}\end{tikzpicture}\caption{尖峰的高度与宽度相抵，面积始终为1，故无法用DCT交换期望极限}\label{fig:spikes}\end{figure}
+
+\section*{章末分层习题}
+\exercise{10-a}{基础}{在$\Omega=\{1,2,3\}$上写出由$\{1\}$生成的$\sigma$代数。}
+\exercise{10-b}{基础}{证明常数函数和事件指示函数可测。}
+\exercise{10-c}{考研风格提高}{$U\sim U(0,1)$，求$\lim_n\E U^n$并用DCT解释。}
+\exercise{10-d}{考研风格提高}{$X_n=\min(X,n)$，$X\ge0$，用MCT证明$\E X_n\uparrow\E X$。}
+\exercise{10-e}{竞赛拓展}{对$X_n=n\ind_{\{U<\frac{1}{n}\}}$，求$\E|X_n|^p$，判断$p\ge1$时的$L^p$收敛。}
+\exercise{10-f}{竞赛拓展}{证明$L^2$收敛推出期望收敛，并给$L^1$但不$L^2$收敛的例子。}
+\exercise{10-g}{测度论选学}{设$X\in L^1$，$A_1,\ldots,A_m$是有限可测划分且每个$\Pp(A_i)>0$，推导$\E(X\given\sigma(A_1,\ldots,A_m))$的显式公式。}
+\exercise{10-h}{测度论选学}{若$\nu\ll\mu$且$h=\frac{\dd\nu}{\dd\mu}$，证明非负可测$g$满足$\int g\dd\nu=\int gh\dd\mu$。}
+\section*{章末方法速查}
+\begin{quicktable}
+生成类&半直线足以生成Borel&可测性&检查任意不可数族\\
+积分极限&单调非负、非负、可积支配&极限与积分&每项可积误当共同支配\\
+收敛关系&概率空间和矩条件明确&极限、反例&依分布反推依概率\\
+RN与条件积分&绝对连续、可积&密度、条件平均&将零概率条件写成0/0\\
+\end{quicktable}

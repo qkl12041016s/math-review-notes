@@ -1,0 +1,25 @@
+\section{多元微分的反例、隐函数与极值深化}\label{deep:multivariable_source_deep}
+
+\begin{examtip}从偏导、方向导数到可微逐级辨析，并将约束几何与Hessian判定联系。\end{examtip}
+
+\subsection{极限、偏导与全微分的层级}\label{deep:multivariable_source_deep:differentiable}
+
+\begin{method}{极限、偏导与全微分的层级}\textbf{适用条件} 多元极限须对所有趋近路径成立。\par\textbf{步骤与依据} 否定极限先选路径；证明可微则直接估计线性化余项除以距离。\par\textbf{易错点} 所有方向导数存在仍不足以推出可微。\end{method}
+
+\begin{example}{竞赛风格｜所有方向导数存在仍不可微}{难度：$\star\star\star$}\label{deep:ex:multivariable_source_deep:directioncounter}\textbf{题目} 令$f(x,y)=\frac{x^3}{x^2+y^2}$（非原点），$f(0,0)=0$。求方向导数并判断可微。\par\textbf{思路} 沿直线算导数，再检查方向导数是否来自同一线性映射。\par\textbf{详细解答} 沿单位方向$(a,b)$，$\frac{f(ta,tb)}{t}=\frac{a^3}{a^2+b^2}=a^3$，故各方向导数存在。又$|f|\le|x|\le\sqrt{x^2+y^2}$，所以连续。偏导为$f_x(0)=1,f_y(0)=0$，若可微，方向导数应为$a$；而在$a=b=\frac{1}{\sqrt2}$时实际为$\frac{1}{2\sqrt2}$，故不可微。等价地沿$y=x$，$\frac{f(x,x)-x}{\sqrt{2x^2}}$不趋0。\par\textbf{方法点评} 本例准确展示“函数连续、所有方向导数存在，但不可微”，比只给不连续反例更强。\par\textbf{变式与易错点} 若方向导数不能表示成方向向量的同一个线性函数，就不可能全微分；仅逐方向计算存在性不够。\end{example}
+
+\begin{example}{竞赛风格｜沿直线都趋零仍无极限}{难度：$\star\star\star$}\label{deep:ex:multivariable_source_deep:discontinuous}\textbf{题目} 令$g(x,y)=\frac{x^2y}{x^4+y^2}$，原点置0。检验直线和曲线趋近。\par\textbf{思路} 比较$y=kx$与$y=x^2$。\par\textbf{详细解答} 固定$k\ne0$，$g(x,kx)=\frac{kx}{x^2+k^2}\to0$；$k=0$时恒为0；竖直线$x=0$也为0。但沿$y=x^2$，$g=\frac{1}{2}$，所以原点不连续。说明所有直线方向的函数值极限一致仍不足以证明二元极限存在。\par\textbf{方法点评} 用非线性路径命中分母两项同阶的区域。\par\textbf{变式与易错点} 这里讨论沿线的函数极限，不是把所有方向导数也算作0。\end{example}
+
+\subsection{隐函数、Jacobian与多元Taylor}\label{deep:multivariable_source_deep:implicitmany}
+
+\begin{method}{隐函数、Jacobian与多元Taylor}\textbf{适用条件} 隐函数定理要求待解变量的Jacobian可逆。\par\textbf{步骤与依据} 把一阶偏导写成矩阵方程，二阶导数再求导；Taylor展开用Hessian二次型。\par\textbf{易错点} 偏导中保持不变的变量要明确，不能混用不同坐标系。\end{method}
+
+\begin{example}{考研风格｜二元隐函数的一、二阶信息}{难度：$\star\star$}\label{deep:ex:multivariable_source_deep:implicitmatrix}\textbf{题目} $z=z(x,y)$由$x^2+y^2+z^2=1$在$(0,0,1)$附近定义，求二阶Taylor式。\par\textbf{思路} 先用$F_z=2z\ne0$确认上半球支。\par\textbf{详细解答} $z_x=-\frac{x}{z},z_y=-\frac{y}{z}$，在原点均0。由二次微分或$z=\sqrt{1-x^2-y^2}$得到$z_{xx}=z_{yy}=-1,z_{xy}=0$。因此$z=1-\frac12(x^2+y^2)+o(x^2+y^2)$。显式二项展开可进一步给余项$O((x^2+y^2)^2)$。\par\textbf{方法点评} 隐式法适用于不能显解的曲面，显式展开核对系数。\par\textbf{变式与易错点} 下半球支二阶项符号相反。\end{example}
+
+\subsection{无条件、条件与退化临界点}\label{deep:multivariable_source_deep:extrema}
+
+\begin{method}{无条件、条件与退化临界点}\textbf{适用条件} 内部极值用梯度零，边界用参数或乘数，最后比较候选值。\par\textbf{步骤与依据} 二阶正定给严格极小，半正定需高阶分析；约束下只看切空间上的二次型。\par\textbf{易错点} 拉格朗日方程给候选点，不自动给最大最小。\end{method}
+
+\begin{example}{考研风格｜乘数、代入与不等式三解}{难度：$\star\star$}\label{deep:ex:multivariable_source_deep:lagrange}\textbf{题目} 在$x,y\ge0,x+y=2$下求$xy$的最大最小值。\par\textbf{思路} 三种方法都需检查端点。\par\textbf{详细解答} \textbf{乘数：}内部$(y,x)=\lambda(1,1)$，得$x=y=1$，值1；边界$(0,2),(2,0)$值0。\par\textbf{代入：}$xy=x(2-x)=1-(x-1)^2$，$0\le x\le2$，最大1、最小0。\par\textbf{不等式：}$xy\le[\frac{x+y}{2}]^2=1$，且非负，等号条件给全部极值点。\par\textbf{方法点评} 简单线性约束优先代入或不等式，乘数法适合更高维结构。\par\textbf{变式与易错点} 忘记非负约束时，最小值不存在。\end{example}
+
+\begin{example}{竞赛风格｜Hessian退化的两个结局}{难度：$\star\star\star$}\label{deep:ex:multivariable_source_deep:degenerate}\textbf{题目} 比较$f=x^4+y^4$与$g=x^4-y^4$在原点的极值。\par\textbf{思路} 二阶导数全0，直接看高阶项符号。\par\textbf{详细解答} 两者原点梯度为0、Hessian都是零矩阵，二阶判别不定。$f\ge0$且只有原点为0，故严格极小；$g(x,0)>0,g(0,y)<0$，故鞍点。另$h=x^4+y^2$的Hessian半正定但仍严格极小，表明半正定不是否定结论。\par\textbf{方法点评} 退化时必须继续分析实际函数。\par\textbf{变式与易错点} 行列式为0只表示二阶判别无法决定。\end{example}

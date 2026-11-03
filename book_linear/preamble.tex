@@ -1,0 +1,112 @@
+% Series palette and typography follow ../book/preamble.tex.
+\defaultCJKfontfeatures{}
+\IfFontExistsTF{SimSun}{
+  \setCJKmainfont[BoldFont=SimHei,ItalicFont=KaiTi,BoldItalicFont=KaiTi]{SimSun}
+  \setCJKsansfont[BoldFont=Microsoft YaHei Bold]{Microsoft YaHei}
+  \setCJKmonofont{SimSun}
+}{
+  \setCJKmainfont[BoldFont=FandolSong-Bold,ItalicFont=FandolKai-Regular]{FandolSong-Regular}
+  \setCJKsansfont[BoldFont=FandolHei-Bold]{FandolHei-Regular}
+  \setCJKmonofont{FandolFang-Regular}
+}
+\usepackage[a4paper,inner=24mm,outer=21mm,top=24mm,bottom=24mm,headheight=16pt]{geometry}
+\usepackage{lmodern,amsmath,amssymb,mathtools,bm,mathrsfs}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz,pgfplots,booktabs,array,longtable,tabularx,multirow,enumitem,fancyhdr,graphicx}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{caption,subcaption,listings,etoolbox,float}
+\usepackage{multicol}
+\usepackage{hyperref,cleveref}
+\pgfplotsset{compat=1.18}
+\definecolor{Ink}{HTML}{19364A}
+\definecolor{Teal}{HTML}{227C81}
+\definecolor{Gold}{HTML}{A87830}
+\definecolor{Rust}{HTML}{9B483A}
+\definecolor{FrontBlue}{HTML}{3578C4}
+\definecolor{CoverTeal}{HTML}{20ADAA}
+\definecolor{CoverGold}{HTML}{DDBD35}
+\hypersetup{colorlinks=true,linkcolor=Teal,urlcolor=Teal,citecolor=Teal,bookmarksnumbered=true,pdftitle={线性代数考研与竞赛复习册},pdfauthor={雪落长安无声},pdfsubject={线性代数教材}}
+\ctexset{chapter={format=\Huge\bfseries\color{Ink},beforeskip=10pt,afterskip=22pt},section={format=\Large\bfseries\color{Teal}},subsection={format=\large\bfseries\color{Ink}}}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+\ctexset{chapter/tocline={\CTEXifname{\protect\numberline{\thechapter}}{}#2}}
+\makeatletter
+\newcommand{\booktableofcontents}{%
+  \clearpage\phantomsection\pdfbookmark[0]{目录}{book.contents}%
+  \begingroup
+  \pagestyle{plain}\markboth{目录}{目录}%
+  \setlength{\parskip}{0pt}\setlength{\columnsep}{8mm}%
+  \vspace*{6mm}%
+  \begin{center}{\zihao{2}\bfseries\color{FrontBlue}目\quad 录}\end{center}%
+  \vspace{7mm}%
+  \hypersetup{linkcolor=black}%
+  \renewcommand{\l@chapter}[2]{\addpenalty{-\@highpenalty}\addvspace{.75em}%
+    {\bfseries\@dottedtocline{0}{0em}{1.5em}{##1}{##2}}}%
+  \renewcommand{\l@section}[2]{\@dottedtocline{1}{1.1em}{2.4em}{##1}{##2}}%
+  \renewcommand{\l@subsection}[2]{\@dottedtocline{2}{1.7em}{3.2em}{##1}{##2}}%
+ \begin{multicols}{2}\fontsize{10}{15}\selectfont\@starttoc{toc}\end{multicols}%
+  \clearpage\endgroup
+}
+\makeatother
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[LE,RO]{\small\color{Ink}\thepage}
+\fancyhead[LO]{\small\nouppercase{\leftmark}}
+\fancyhead[RE]{\small 线性代数考研与竞赛复习册}
+\fancyfoot[C]{\scriptsize\color{Teal}概念体系\quad /\quad 多解训练\quad /\quad 证明方法}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+\tcbset{enhanced,breakable,boxrule=0.45pt,arc=1mm,left=2mm,right=2mm,top=1.2mm,bottom=1.2mm,before skip=8pt,after skip=8pt,fonttitle=\bfseries,colback=white,colframe=Teal}
+\newcounter{statement}[chapter]
+\renewcommand{\thestatement}{\thechapter.\arabic{statement}}
+\newenvironment{definition}[1]{\refstepcounter{statement}\begin{tcolorbox}[title={定义\thestatement\quad #1},colback=Teal!3]}{\end{tcolorbox}}
+\newenvironment{theorem}[1]{\refstepcounter{statement}\begin{tcolorbox}[title={定理\thestatement\quad #1},colframe=Ink,colback=Ink!3]}{\end{tcolorbox}}
+\newenvironment{lemma}[1]{\refstepcounter{statement}\begin{tcolorbox}[title={引理\thestatement\quad #1}]}{\end{tcolorbox}}
+\newenvironment{corollary}[1]{\refstepcounter{statement}\begin{tcolorbox}[title={推论\thestatement\quad #1}]}{\end{tcolorbox}}
+\newcounter{derivation}[chapter]
+\renewcommand{\thederivation}{\thechapter.\arabic{derivation}}
+\newenvironment{proof}{\refstepcounter{derivation}\begin{tcolorbox}[title={证明与推导\thederivation},colframe=Ink!40,colback=Ink!2]}{\hfill$\square$\end{tcolorbox}}
+\newenvironment{method}[1]{\begin{tcolorbox}[title={方法卡\quad #1},colback=Teal!3]}{\end{tcolorbox}}
+\newenvironment{warning}{\begin{tcolorbox}[title=易错警示,colframe=Rust,colback=Rust!3]}{\end{tcolorbox}}
+\newenvironment{examtip}{\begin{tcolorbox}[title=考研要求与竞赛视角,colframe=Gold,colback=Gold!4]}{\end{tcolorbox}}
+\newenvironment{insight}[1]{\begin{tcolorbox}[title={理解札记\quad #1},colframe=Teal,colback=Teal!3]}{\end{tcolorbox}}
+\newenvironment{clevertrick}[1]{\begin{tcolorbox}[title={巧解与数形结合\quad #1},colframe=Gold,colback=Gold!4]}{\end{tcolorbox}}
+\tikzset{laaxis/.style={->,Ink!65,line width=.45pt},lavec/.style={-{Stealth[length=2mm]},line width=1pt},lanote/.style={font=\small,align=center},lapt/.style={circle,fill=Teal,inner sep=1.5pt}}
+\captionsetup{font=small,labelfont={bf,color=Teal},skip=6pt}
+\newenvironment{extension}{\begin{tcolorbox}[title=竞赛拓展与选学提高,colframe=Gold,colback=Gold!4]}{\end{tcolorbox}}
+\newcounter{example}[chapter]\renewcommand{\theexample}{\thechapter.\arabic{example}}
+\newenvironment{example}[2]{\refstepcounter{example}\begin{tcolorbox}[title={例\theexample\quad #1\quad #2},colframe=Ink]}{\end{tcolorbox}}
+% title, style, stars, label, problem, strategy, solution, method comparison, variation
+\newcommand{\worked}[9]{\begin{example}{#1}{#2\;\ensuremath{#3}}\label{ex:#4}
+\textbf{题目}\ #5\par\smallskip
+\textbf{思路}\ #6\par\smallskip
+\textbf{解答}\ #7\par\smallskip
+\textbf{方法点评}\ #8\par\smallskip
+\textbf{易错点或变式}\ #9\end{example}}
+\newcounter{exercise}[chapter]\renewcommand{\theexercise}{\thechapter.\arabic{exercise}}
+\newcommand{\exercise}[3]{\refstepcounter{exercise}\par\medskip\noindent\textbf{习题\theexercise\quad #2}\label{q:#1}\quad #3\hfill\hyperref[ans:#1]{\small 答案见\pageref*{ans:#1}页}\par}
+\newcommand{\answer}[2]{\par\medskip\noindent\textbf{习题\ref{q:#1}解答}\label{ans:#1}\quad #2\hfill\hyperref[q:#1]{\small 返回题目}\par}
+\newcommand{\chaptermap}[4]{\begin{center}\begin{tikzpicture}[node distance=3mm, every node/.style={draw=Teal!50,fill=Teal!4,rounded corners=1mm,text width=.205\textwidth,minimum height=16mm,align=center,font=\small},>=Stealth]
+\node(a){#1};\node[right=of a](b){#2};\node[right=of b](c){#3};\node[right=of c](d){#4};
+\draw[->,Teal](a)--(b);\draw[->,Teal](b)--(c);\draw[->,Teal](c)--(d);
+\end{tikzpicture}\end{center}}
+\newenvironment{quicktable}{\small\begin{longtable}{@{}p{.17\textwidth}p{.25\textwidth}p{.24\textwidth}p{.25\textwidth}@{}}\toprule 方法&适用条件&典型信号&易错点\\\midrule\endhead}{\bottomrule\end{longtable}\normalsize}
+\newcommand{\R}{\mathbb{R}}\newcommand{\C}{\mathbb{C}}\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{^{\mathsf T}}\newcommand{\inv}{^{-1}}
+\newcommand{\vx}{\bm{x}}\newcommand{\vy}{\bm{y}}\newcommand{\vz}{\bm{z}}
+\newcommand{\vu}{\bm{u}}\newcommand{\vv}{\bm{v}}\newcommand{\vb}{\bm{b}}\newcommand{\va}{\bm{a}}
+\newcommand{\vq}{\bm{q}}\newcommand{\vw}{\bm{w}}
+\newcommand{\vc}{\bm{c}}
+\renewcommand{\listfigurename}{图解目录}
+\newcommand{\zero}{\bm{0}}
+\DeclareMathOperator{\rank}{rank}\DeclareMathOperator{\tr}{tr}\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\adj}{adj}\DeclareMathOperator{\Span}{span}\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\sgn}{sgn}\DeclareMathOperator{\nul}{nullity}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}\newcommand{\abs}[1]{\left|#1\right|}
+\numberwithin{equation}{chapter}
+\setlength{\parindent}{2em}\setlength{\parskip}{3pt}
+\setlist{nosep,topsep=4pt,leftmargin=2em}
+\renewcommand{\arraystretch}{1.22}
+\emergencystretch=3em
+\raggedbottom
+\pdfstringdefDisableCommands{\def\T{T}\def\R{R}\def\C{C}\def\bm#1{#1}}

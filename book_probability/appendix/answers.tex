@@ -1,0 +1,114 @@
+\chapter{分层习题详解}\label{app:answers}
+每题编号与章末习题双向对应。解答中的近似式与精确式分开书写；分位数均沿用下侧约定。
+\section{第1章：事件与概率}
+\answer{1-a}{$\Pp(A^c\cap B)=\Pp(B)-\Pp(A\cap B)=0.5$；$\Pp(A\cup B)=0.4+0.7-0.2=0.9$。两个不交区域$A$与$B\setminus A$之并亦验证0.9。}
+\answer{1-b}{共有3张偶数签，所求$\frac{\binom32}{\binom62}=\frac{3}{15}=\frac{1}{5}$。顺序法为$(\frac{3}{6})(\frac{2}{5})=\frac{1}{5}$，抽后第二次条件概率改变。}
+\answer{1-c}{不合格总概率$\frac14\cdot0.2+\frac34\cdot0.1=0.125$；第一厂与不合格的联合概率0.05，故后验$\frac{0.05}{0.125}=0.4$。}
+\answer{1-d}{不相遇区域为两块直角边$\frac{2}{3}$的三角形，总面积$\frac{4}{9}$；相遇概率$\frac{5}{9}$。边界线面积为0，因此等号是否纳入不影响结果。}
+\answer{1-e}{允许成功位置集合为$\varnothing$、三个单点以及$\{1,3\}$；记$q=1-p$，概率$q^3+3pq^2+p^2q$。其中0、1、2次成功的事件互斥，所有相邻成功组合被排除。}
+\answer{1-f}{状态0表示尚无末尾正面，状态1表示末尾为正面。$e_0=1+\frac12e_0+\frac12e_1$，$e_1=1+\frac12e_1$，故$e_1=2,e_0=4$。每两次出现正反的概率$\frac{1}{4}$控制总等待期望有限。}
+\answer{1-g}{将区间内有理数列为$q_1,q_2,\ldots$，均匀模型中每个单点概率0，由并集界得到有理数事件概率0。该集合不空，所以零概率不等于空事件；其补集无理数概率1。}
+\answer{1-h}{并集界给$0\le\Pp(\bigcup_n A_n)\le\sum_n0=0$。任意不可数并的反例：单位区间是全部单点之并，每单点概率0而区间概率1；可数可加不能超出其条件。}
+
+\section{第2章：一元分布}
+\answer{2-a}{归一化$c+2c+3c=1$得$c=\frac{1}{6}$。$F_X(1)=\Pp(X\le1)=3c=\frac{1}{2}$。CDF在0、1、2处跳跃分别为$\frac{1}{6},\frac{1}{3},\frac{1}{2}$。}
+\answer{2-b}{区间概率$F(2)-F(1)=e^{-3}-e^{-6}$。中位数解$e^{-3m}=\frac{1}{2}$，得$m=\frac{\log2}{3}$。}
+\answer{2-c}{$y<0$时CDF为0；$0\le y<4$时$F_Y(y)=\Pp(X\le\sqrt y)=\frac{\sqrt y}{2}$；$y\ge4$时为1。密度$f_Y(y)=\frac{1}{4\sqrt y}$（$0<y<4$），范围外为0；积分为1。}
+\answer{2-d}{卷积为交区间长度的一半：$\max(0,s-2)<x<\min(1,s)$。故密度在$(0,1)$为$\frac{s}{2}$、$(1,2)$为$\frac{1}{2}$、$(2,3)$为$\frac{3-s}{2}$，范围外为0。面积$\frac{1}{4}+\frac{1}{2}+\frac{1}{4}=1$。}
+\answer{2-e}{概率生成函数$G(z)=e^{\lambda(z-1)}$。偶数与奇数概率和为1，差为$G(-1)=e^{-2\lambda}$，所以偶数概率$\frac{1+e^{-2\lambda}}{2}$。亦可分离指数级数的偶数项。}
+\answer{2-f}{总和$k\ge2$时卷积有$k-1$项，每项$p^2(1-p)^{k-2}$，所以质量为$(k-1)p^2(1-p)^{k-2}$；其他为0。此为等到第二次成功的负二项等待分布。}
+\answer{2-g}{原子$\Pp(Y=0)=\Pp(X\le0)=\frac{1}{2}$；在$(0,2)$密度为$\frac{1}{4}$，总连续质量$\frac{1}{2}$。分布$\frac12\delta_0+\frac12U(0,2)$。}
+\answer{2-h}{例如取$U(0,1)$的CDF，却将$F(0)$改为$\frac{1}{2}$。它不右连续，且对很小$x>0$有$F(x)=x<\frac{1}{2}$，还破坏非减性。即使设计只改变跳点值、保留非减性，例如把Bernoulli CDF在0处从$\frac{1}{2}$改成0，仍因右连续性失败而不是CDF。}
+
+\section{第3章：多维分布}
+\answer{3-a}{$\iint_{(0,1)^2}cxy=\frac{c}{4}=1$，故$c=4$。边缘分别$f_X(x)=2x$、$f_Y(y)=2y$，各在$(0,1)$上，且联合为乘积，故独立。}
+\answer{3-b}{事件是单位正方形左下角直角边$\frac{1}{2}$的三角形，面积$\frac12(\frac{1}{2})^2=\frac{1}{8}$。积分$\int_0^{\frac{1}{2}}\int_0^{\frac{1}{2}-x}1\dd y\dd x$给同值。}
+\answer{3-c}{$f_Y(y)=2y$，条件$X\mid Y=y\sim U(0,y)$，均值$\frac{y}{2}$。$\Pp(Y>\frac{3}{4})=\int_{\frac{3}{4}}^12y\dd y=1-\frac{9}{16}=\frac{7}{16}$。}
+\answer{3-d}{对$t\ge0$，$\Pp(\min(X,Y)>t)=e^{-2t}e^{-3t}=e^{-5t}$，所以最小值服从$\Exp(5)$；CDF在$t<0$为0，在$t\ge0$为$1-e^{-5t}$。}
+\answer{3-e}{令$R=\frac{X}{Y}$。$r\le0$时CDF为0；$0<r\le1$时$F_R(r)=\int_0^1ry\dd y=\frac{r}{2}$；$r>1$时分$y<\frac{1}{r}$与其余，得$\int_0^{\frac{1}{r}}ry\dd y+1-\frac{1}{r}=1-\frac{1}{2r}$。在$r=1$两段均为$\frac{1}{2}$。}
+\answer{3-f}{平方和服从$\chi_2^2=\Exp(\frac{1}{2})$，所求$e^{-\frac{4}{2}}=e^{-2}$。极坐标积分$\int_2^\infty re^{-\frac{r^2}{2}}\dd r$同样为$e^{-2}$。}
+\answer{3-g}{联合分布全部集中在对角线$D=\{x=y\}$，其平面面积为0。若有平面密度$f$，则$\Pp((X,Y)\in D)=\iint_Df=0$，与实际概率1矛盾。边缘有密度并不保证联合有平面密度。}
+\answer{3-h}{连续$X$满足$\Pp(X=x_0)=0$。联合概率由$\int_A f_X(x)\Pp(Y\in B\mid X=x)\dd x$恢复，在单点$x_0$处的改变只影响零测集合上的积分，故不改变联合概率。改变后的版本仍须在该点取合法条件概率。}
+
+\section{第4章：数字特征}
+\answer{4-a}{$\E X=\frac{0+1+2}{3}=1$，$\E X^2=\frac{5}{3}$，方差$\frac{5}{3}-1=\frac{2}{3}$。直接中心化平方平均为$\frac{1+0+1}{3}$。}
+\answer{4-b}{令$u=\lambda x$，$\E X^2=\lambda\int_0^\infty x^2e^{-\lambda x}\dd x=\lambda^{-2}\Gamma(3)=\frac{2}{\lambda^2}$；分部积分给$\Gamma(3)=2$。减去均值平方$\frac{1}{\lambda^2}$，得方差$\frac{1}{\lambda^2}$。}
+\answer{4-c}{独立使协方差为0，$\Var(2X-3Y)=4\cdot2+9\cdot2=26$。均值只影响期望$2-3=-1$，不影响本方差。}
+\answer{4-d}{$\E N=ma$。全方差给$\Var N=m\E[P(1-P)]+m^2v$；$\E P^2=a^2+v$，故$\Var N=ma(1-a)+m(m-1)v$。若按给定$P$条件独立的Bernoulli试验实现此混合二项模型，则两次成功指示的协方差为$v\ge0$；$v>0$时才严格正相关，$v=0$时没有额外波动。}
+\answer{4-e}{无序对数为$\binom K2=\sum_{i<j}I_iI_j$。每个指定对同时装对的概率$\frac{1}{n(n-1)}$，所以期望$\frac{\binom n2}{n(n-1)}=\frac{1}{2}$。}
+\answer{4-f}{$M$尾概率$1-t^n$（$0<t<1$），故$\E M=\int_0^1(1-t^n)\dd t=\frac{n}{n+1}$。由密度$nt^{n-1}$积分$t$也可验证。}
+\answer{4-g}{标准Cauchy密度$f(x)=\frac{1}{\pi(1+x^2)}$关于0对称，$\int_{-R}^Rxf(x)\dd x=0$。但正半轴$\int_0^\infty xf(x)\dd x=(2\pi)^{-1}\log(1+x^2)|_0^\infty=\infty$，负部分也无限，期望为未定义的$\infty-\infty$，并非0。}
+\answer{4-h}{由全方差，差为$\E\Var(X\mid Y)\ge0$。取等恰当且仅当条件残差方差几乎必然为0，即$\E(X-\E(X\mid Y))^2=0$，亦即$X=\E(X\mid Y)$几乎必然，是$Y$可测的函数。}
+
+\section{第5章：极限定理}
+\answer{5-a}{样本均值方差$\frac{9}{n}$，所求上界$\min(1,\frac{36}{n})$。当$n\le36$时界1没有提供额外信息，但仍有效。}
+\answer{5-b}{Bernoulli方差至多$\frac{1}{4}$，偏差至少0.1的概率至多$\frac{1}{4n\cdot0.01}=\frac{25}{n}$。令$\frac{25}{n}\le0.01$，得$n\ge2500$，这是严格充分值。}
+\answer{5-c}{每个均值$\frac{1}{2}$、方差$\frac{1}{12}$，总和均值60、方差10。CLT近似为$\Phi(\frac{5}{\sqrt{10}})-\Phi(-\frac{5}{\sqrt{10}})=2\Phi(\sqrt{\frac{5}{2}})-1$。原变量连续，无整数格点修正。}
+\answer{5-d}{均值80、方差48，$S\ge90$的连续边界为89.5。近似$1-\Phi(\frac{89.5-80}{\sqrt{48}})=1-\Phi(\frac{9.5}{\sqrt{48}})$；精确式为$\sum_{k=90}^{200}\binom{200}k0.4^k0.6^{200-k}$。}
+\answer{5-e}{$g(x)=\frac{1}{x}$在$\mu>0$附近可微，导数$-\frac{1}{\mu^2}$，Delta给$\Normal(0,\frac{\sigma^2}{\mu^4})$。若某些样本均值恰为0，可在那里任意定义估计；一致性使该例外概率趋0，不影响极限。}
+\answer{5-f}{指数均值$\frac{1}{\lambda}$、方差$\frac{1}{\lambda^2}$。倒数导数在$\frac{1}{\lambda}$处为$-\lambda^2$，极限方差为$\frac{\lambda^4}{\lambda^2}=\lambda^2$，所以极限$\Normal(0,\lambda^2)$。}
+\answer{5-g}{$U\sim U(0,1)$，令$X_n=n\ind_{\{U<\frac{1}{n}\}}$。偏差概率$\Pp(X_n>\varepsilon)=\frac{1}{n}$对充分大$n$成立，趋0；均值始终1，不趋于极限0的均值。事实上本例还几乎必然趋0。}
+\answer{5-h}{$|X|\ind_{\{|X|>K\}}\to0$几乎处处，且由可积$|X|$支配，DCT给尾期望趋0。也可由$|X|\ind_{\{|X|\le K\}}\uparrow|X|$的MCT后相减得到。}
+
+\section{第6章：抽样分布}
+\answer{6-a}{$\bar x=4$，$A_2=\frac{4+16+36}{3}=\frac{56}{3}$，$s^2=\frac{(2-4)^2+0+(6-4)^2}{2}=4$。用$\frac{56-3\cdot16}{2}=4$复核。}
+\answer{6-b}{令$U=Z_1^2+Z_2^2\sim\chi_2^2$、$V=Z_3^2\sim\chi_1^2$，由三变量独立知$U,V$独立。题中分式为$\frac{\frac{U}{2}}{\frac{V}{1}}$，故服从$F_{2,1}$。}
+\answer{6-c}{$4=\sqrt{16}$，故$\frac{4(\bar X-\mu)}{S}\sim t_{15}$；$\frac{15S^2}{\sigma^2}\sim\chi_{15}^2$。学生化的均值与方差统计量不独立，因为前者的分母包含$S$；独立的是$\bar X$与$S^2$。}
+\answer{6-d}{$S_p^2=\frac{5S_X^2+7S_Y^2}{12}$，均值差统计量$\frac{(\bar X-\bar Y)-(\mu_X-\mu_Y)}{S_p\sqrt{\frac{1}{6}+\frac{1}{8}}}\sim t_{12}$。自由度为$6+8-2=12$。}
+\answer{6-e}{最小值$L$密度$n(1-l)^{n-1}$，尾概率$(1-t)^n$。尾积分给$\E L=\frac{1}{n+1}$；二阶矩由$\E L^2=2\int_0^1t(1-t)^n\dd t=\frac{2}{(n+1)(n+2)}$，故方差$\frac{n}{(n+1)^2(n+2)}$。}
+\answer{6-f}{和比变换给$R\sim\Beta(1,2)$，密度$2(1-r)$（$0<r<1$），均值$\frac{1}{1+2}=\frac{1}{3}$；直接积分$\int_0^12r(1-r)\dd r=\frac{1}{3}$。}
+\answer{6-g}{每个指标为Bernoulli$(F(x))$，相互独立，均值平均为$F(x)$，方差平均为$\frac{F(x)(1-F(x))}{n}$。Chebyshev给偏差概率至多$\frac{F(x)(1-F(x))}{n\varepsilon^2}\to0$。这里只固定$x$，未直接证明对所有$x$一致收敛。}
+\answer{6-h}{取两次独立公平Bernoulli。$\bar X$为0或1时$S^2=0$，$\bar X=\frac{1}{2}$时$S^2=\frac{1}{2}$。因此$\Pp(S^2=0\mid\bar X=0)=1$，而边缘$\Pp(S^2=0)=\frac{1}{2}$，不独立。}
+
+\section{第7章：参数估计}
+\answer{7-a}{矩法由$\E X=p$得$\hat p=\bar x=\frac{12}{20}=0.6$。似然$p^{12}(1-p)^8$对数导数$\frac{12}{p}-\frac{8}{1-p}$为0也得0.6，二阶导数负，故为MLE。}
+\answer{7-b}{$\E\bar X=\lambda$、方差$\frac{\lambda}{n}$，所以MSE为$\frac{\lambda}{n}$。Chebyshev给$\Pp(|\bar X-\lambda|>\varepsilon)\le\frac{\lambda}{n\varepsilon^2}\to0$，因此一致。}
+\answer{7-c}{均值区间$5\pm t_{24,.975}(\frac{3}{5})$。方差区间$[\frac{216}{\chi^2_{24,.975}},\frac{216}{\chi^2_{24,.025}}]$。216来自$(n-1)s^2=24\cdot9$，卡方分位数在倒数中逆序。}
+\answer{7-d}{$\Var(2\bar X)=\frac{\theta^2}{3n}$。最大值二阶矩为$\frac{n\theta^2}{n+2}$，由均值$\frac{n\theta}{n+1}$得$\Var M=\frac{n\theta^2}{(n+1)^2(n+2)}$；修正后方差$\frac{\theta^2}{n(n+2)}$。当$n>1$，$n+2>3$，最大值修正量方差更小；$n=1$相同。}
+\answer{7-e}{$S=\sum X_i$完备充分。$S(S-1)=\sum_{i\ne j}X_iX_j$，期望$n(n-1)p^2$，所以$\frac{S(S-1)}{n(n-1)}$无偏且为$S$函数，由Lehmann--Scheffé得UMVU。}
+\answer{7-f}{$T\sim\Ga(n,\lambda)$，$\E T^{-2}=\frac{\lambda^2}{(n-1)(n-2)}$，因此$\Var[\frac{n-1}{T}]=(n-1)^2\E T^{-2}-\lambda^2=\frac{\lambda^2}{n-2}$。CR下界$\frac{\lambda^2}{n}$更小；该无偏量未达到下界，并不否定它可为UMVU，因为下界未必可达到。}
+\answer{7-g}{全方差差值$\Var T-\Var\E(T\mid S)=\E[(T-\E(T\mid S))^2]$。非负变量期望为0当且仅当自身几乎必然为0，故取等当且仅当$T=\E(T\mid S)$几乎必然，即$T$等价于某个$S$可测函数。}
+\answer{7-h}{后验$\Beta(a+S,b+n-S)$。新试验给定$p$成功概率为$p$，全期望给后验预测概率$\E(p\mid X)=\frac{a+S}{a+b+n}$。这与平方损失Bayes点估计数值相同，但目标是预测事件概率。}
+
+\section{第8章：假设检验}
+\answer{8-a}{标准误$\frac{3}{6}=\frac{1}{2}$，$z=\frac{11-10}{\frac{1}{2}}=2$，右尾$p=1-\Phi(2)\approx0.0228$。水平0.05拒绝；若水平0.01则不拒绝，说明结论依赖预定水平。}
+\answer{8-b}{左侧$p=\Phi(-2.1)\approx0.0179$；双侧$p=2\Phi(-2.1)\approx0.0357$。若是右侧备择，则$p=1-\Phi(-2.1)$，不能用左尾的小值。}
+\answer{8-c}{$t=\frac{3(4-5)}{1.5}=-2$，自由度8。左侧水平$\alpha$拒绝若$T<t_{8,\alpha}=-t_{8,1-\alpha}$，$p=F_{t_8}(-2)$。在0.05水平临界值约$-1.860$，因此拒绝。}
+\answer{8-d}{零假设均值25、标准差$\sqrt{12.5}$。未修正$z=\frac{18-25}{\sqrt{12.5}}=-\frac{7}{\sqrt{12.5}}$，近似$p=\Phi(z)$；连续性修正对$S\le18$用$\Phi(\frac{18.5-25}{\sqrt{12.5}})$。精确$p=2^{-50}\sum_{k=0}^{18}\binom{50}k$。}
+\answer{8-e}{拒绝阈值为$\bar X>\mu_0+\frac{z_{1-\alpha}\sigma}{\sqrt n}$。在$\mu_1>\mu_0$下未拒绝概率为$\beta(\mu_1)=\Phi(z_{1-\alpha}-\frac{\sqrt n(\mu_1-\mu_0)}{\sigma})$。它随样本量和备择差异增大而下降。}
+\answer{8-f}{似然比$(\frac{\lambda_1}{\lambda_0})^n\exp[-(\lambda_1-\lambda_0)T]$随总和$T$递减，所以最有力检验拒绝于小$T$。零假设下$2\lambda_0T\sim\chi_{2n}^2$，精确水平$\alpha$拒绝若$T<\frac{\chi^2_{2n,\alpha}}{2\lambda_0}$。}
+\answer{8-g}{若零假设CDF为连续严格递增$G$，$p=1-G(T)$，则$\Pp_0(p\le\alpha)=\Pp_0(T\ge G^{-1}(1-\alpha))=\alpha$。一般连续CDF可使用广义逆和零质量平坦区间得到相同结果。}
+\answer{8-h}{给定样本$X$，独立均匀$U$满足$\Pp(U\le\psi(X)\mid X)=\psi(X)$。对该条件概率取期望，拒绝概率为$\E_\theta\psi(X)$；因此检验函数可由额外独立随机化具体实现。}
+
+\section{第9章：ANOVA与回归}
+\answer{9-a}{总均值2，$SS_B=3(1+0+1)=6$，组内$SS_W=6$。$N=9,g=3$，组间df2、组内df6，所以$F=\frac{\frac{6}{2}}{\frac{6}{6}}=3$，零假设参考$F_{2,6}$。}
+\answer{9-b}{$\bar x=1,\bar y=\frac{4}{3},S_{xx}=2,S_{xy}=3$，所以$\hat b=\frac{3}{2},\hat a=-\frac{1}{6}$。拟合值$-\frac{1}{6},\frac{4}{3},\frac{17}{6}$，残差$\frac{1}{6},-\frac{1}{3},\frac{1}{6}$，和为0且与$x$内积0，验证最优。}
+\answer{9-c}{$s^2=\frac{16}{8}=2$，斜率标准误$\sqrt{\frac{2}{8}}=\frac{1}{2}$，$t=\frac{2}{\frac{1}{2}}=4$，自由度8。整体$F=16$可作平方验证。}
+\answer{9-d}{$F=\frac{(n-2)R^2}{1-R^2}=\frac{18\cdot0.4}{0.6}=12$，分子自由度1、分母18。带截距一元回归才有此简单关系。}
+\answer{9-e}{总均值为$\bar Z=\frac{m\bar X+n\bar Y}{m+n}$。两组均值相对总均值的偏差为
+\[\begin{aligned}
+ \bar X-\bar Z&=\dfrac{n(\bar X-\bar Y)}{m+n},\\
+ \bar Y-\bar Z&=-\dfrac{m(\bar X-\bar Y)}{m+n}.
+\end{aligned}\]
+因此，加权平方和为
+\[\begin{aligned}
+ SS_B&=m(\bar X-\bar Z)^2+n(\bar Y-\bar Z)^2\\
+     &=\dfrac{(mn^2+nm^2)(\bar X-\bar Y)^2}{(m+n)^2}\\
+     &=\dfrac{mn}{m+n}(\bar X-\bar Y)^2.
+\end{aligned}\]}
+\answer{9-f}{对截距求导，$\partial_aQ=-2\sum e_i=0$，所以残差和0。于是$\sum(y_i-\hat a-\hat bx_i)=0$，即$\bar y=\hat a+\hat b\bar x$，拟合线过重心。对斜率求导还得$\sum x_ie_i=0$。}
+\answer{9-g}{条件期望在全部平方可积$g(X)$中最优，而题设条件期望恰属于仿射函数类，因此也是该子类中最优。直接平方分解$\E(Y-a'-b'X)^2=\E(Y-a-bX)^2+\E[(a-a')+(b-b')X]^2$也给结论。}
+\answer{9-h}{带截距且$S_{xx}>0$时设计空间维数2，$P$为其正交投影，所以$I-P$投到正交补，秩$n-2$。正态误差沿该补空间的$n-2$个正交坐标为独立标准正态，经平方和得到$\frac{SSE}{\sigma^2}\sim\chi_{n-2}^2$。}
+
+\section{第10章：测度论选学}
+\answer{10-a}{生成族为$\{\varnothing,\{1\},\{2,3\},\Omega\}$。它对补集和任意可数并封闭，且任何包含$\{1\}$的$\sigma$代数必须包含这四个集合，故最小。}
+\answer{10-b}{常数$c$的阈值逆像是$\varnothing$或$\Omega$。对$\ind_A$，阈值逆像依次为$\varnothing,A^c,\Omega$（按阈值小于0、在$[0,1)$、至少1分段），当$A\in\Fcal$时均可测。}
+\answer{10-c}{直接积分$\E U^n=\frac{1}{n+1}\to0$。对$U\in[0,1)$，$U^n\to0$，$U=1$概率0；且$0\le U^n\le1$，可积常数1控制，所以DCT同样给极限0。}
+\answer{10-d}{$0\le X\wedge n\uparrow X$逐点成立，MCT给期望单调趋$\E X$，允许其为无穷。也可用尾积分$\E(X\wedge n)=\int_0^n\Pp(X>t)\dd t$观察积分区间扩张。}
+\answer{10-e}{$\E|X_n|^p=n^p\Pp(U<\frac{1}{n})=n^{p-1}$。$p=1$时恒为1，$p>1$时发散，均不趋0，因此不在任何$p\ge1$的$L^p$中趋0，虽几乎必然和依概率趋0。}
+\answer{10-f}{Cauchy给$|\E X_n-\E X|\le\E|X_n-X|\le(\E|X_n-X|^2)^{\frac{1}{2}}\to0$。
+反例令$X_n=n\ind_{\{U<\frac{1}{n^2}\}}$，则$\E|X_n|=\frac{1}{n}\to0$而$\E X_n^2=1$，所以$L^1$趋0但不$L^2$趋0。}
+\answer{10-g}{在原子$A_i$上可测函数必须常值$c_i$。积分条件$c_i\Pp(A_i)=\E(X\ind_{A_i})$给
+$\E(X\mid\sigma(A_i))=\sum_i[\frac{\E(X\ind_{A_i})}{\Pp(A_i)}]\ind_{A_i}$。
+在有限划分上逐个核验即可扩展至该$\sigma$代数全部事件。}
+\answer{10-h}{先$g=\ind_A$时正是RN定义；非负简单$g$由线性得到；一般非负可测$g$取简单$g_n\uparrow g$，两侧用MCT，得$\int g\dd\nu=\int gh\dd\mu$。允许结果为无穷，因此不需预先可积。}

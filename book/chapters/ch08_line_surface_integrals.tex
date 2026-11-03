@@ -1,0 +1,208 @@
+\chapter{曲线积分、曲面积分与场论初步}\label{ch:8}
+\begin{tcolorbox}[title=章首知识地图,colframe=Ink]
+弧长与面积度量 $\to$ 切向做功与法向通量 $\to$ Green、Gauss、Stokes $\to$ 势函数、散度和旋度。
+\end{tcolorbox}
+\begin{examtip}考研主线：两类曲线与曲面积分、Green、Gauss、Stokes及路径无关。常见题型：直接法与公式法、补线补面、方向判断。竞赛拓展：奇点与区域孔洞、势函数、散度旋度恒等式。上述为学习任务分层，具体范围以所报考科目的当年大纲为准。\end{examtip}
+\section{两类曲线积分与参数化}\label{sec:8:1}
+\subsection{概念、定理与推导}
+
+\begin{definition}{弧长积分与做功积分}第一类曲线积分$\int_Lf\dd s$按长度加权，与方向无关；第二类$\int_L\bm F\cdot\dd\bm r=\int_LP\dd x+Q\dd y+R\dd z$依赖方向。\end{definition}
+\begin{theorem}{参数计算}设$\bm r(t)$在$[a,b]$上分段$C^1$，$f$和$\bm F$在曲线上连续。沿参数描绘的曲线积分为
+\begin{align}\int_Lf\dd s&=\int_a^bf(\bm r(t))|\bm r\prime(t)|\dd t,\\
+\int_L\bm F\cdot\dd\bm r&=\int_a^b\bm F(\bm r(t))\cdot\bm r\prime(t)\dd t.\end{align}
+\end{theorem}
+\begin{proof}小线段长度近似为$|\bm r\prime|\Delta t$，有向位移近似为$\bm r\prime\Delta t$，分别代入积分和得到。\end{proof}
+两类关系为$\bm F\cdot\dd\bm r=(\bm F\cdot\bm T)\dd s$，其中$\bm T$是方向单位切向量。
+
+\begin{method}{两类曲线积分与参数化}条件：参数方向与题设一致。步骤：代入坐标，计算速度模或速度向量；分段曲线分段积分。易错点：第一类用模长，第二类保留符号。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜圆周弧长}{难度：$\star$}
+\label{ex:8:1}\textbf{题目} 单位圆上求$\int_Lx^2\dd s$。\par
+\textbf{思路} 参数化或对称。\par
+\textbf{解答} 方法一：$x=\cos t,y=\sin t,\dd s=\dd t$，积分$\int_0^{2\pi}\cos^2t\dd t=\pi$。方法二：由$x,y$对称两平方积分相等，其和为周长$2\pi$，每项$\pi$。\par
+\textbf{方法点评} 对称法避免三角积分。\par
+\textbf{易错点或变式} 反向走圆周第一类积分仍为$\pi$。
+\end{example}
+\begin{example}{考研风格例题｜圆周做功}{难度：$\star\star$}
+\label{ex:8:2}\textbf{题目} 逆时针单位圆求$\oint_L(-y\dd x+x\dd y)$。\par
+\textbf{思路} 直接参数化或Green。\par
+\textbf{解答} 方法一：代入后被积式$(\sin^2t+\cos^2t)\dd t$，值$2\pi$。方法二：$Q_x-P_y=2$，Green给$2\iint_D1\dd A=2\pi$。\par
+\textbf{方法点评} 直接法适合规则曲线，Green适合闭曲线与简单旋度。\par
+\textbf{易错点或变式} 顺时针结果为$-2\pi$。
+\end{example}
+\begin{example}{考研风格例题｜保守场}{难度：$\star\star$}
+\label{ex:8:3}\textbf{题目} 任意曲线从$(0,0)$至$(1,2)$，求$\int_L(2x\dd x+2y\dd y)$。\par
+\textbf{思路} 识别全微分。\par
+\textbf{解答} 方法一：势函数$\varphi=x^2+y^2$，积分为$5-0=5$。方法二：选折线先沿$x$到$(1,0)$再沿$y$到$(1,2)$，两段为1与4，总和5；路径无关由势函数保证。\par
+\textbf{方法点评} 势函数法给任意路径结论，选路径只在已知路径无关后合法。\par
+\textbf{易错点或变式} 不能未经证明随意把题设曲线换成折线。
+\end{example}
+\section{Green公式与路径无关}\label{sec:8:2}
+
+\begin{center}\begin{tikzpicture}[scale=.8,>=stealth]
+\fill[Teal!10](0,0)circle(1.6);\fill[white](0,0)circle(.65);
+\draw[Ink,thick](0,0)circle(1.6);\draw[Ink,thick](0,0)circle(.65);
+\draw[->,Teal,very thick](1.6,0)arc(0:60:1.6);
+\draw[->,Gold,very thick](.65,0)arc(0:-110:.65);
+\node[right]at(2,1){外边界逆时针};\node[right]at(2,-.5){内边界顺时针};
+\end{tikzpicture}\par\small 两条边界均保持区域在行进方向左侧。
+\end{center}
+
+\subsection{概念、定理与推导}
+
+\begin{theorem}{Green公式}设$D$为边界分段光滑的有界平面区域，$P,Q$在包含闭包$\overline D$的一个开邻域内为$C^1$，则
+\begin{equation}\oint_{\partial D}P\dd x+Q\dd y=\iint_D(Q_x-P_y)\dd A.\end{equation}
+正向要求行进时区域在左；有孔时外圈逆时针、内圈顺时针。\end{theorem}
+\begin{proof}对可投影简单区域分别把$Q_x$和$-P_y$积分化成两侧边界差；一般区域分块，内部公共边方向相反而抵消。\end{proof}
+\begin{theorem}{路径无关的常用判据}在开连通区域，连续场有势函数等价于分段光滑曲线积分只依赖端点；对于$C^1$平面场，在单连通区域$P_y=Q_x$可保证势函数存在。\end{theorem}
+\begin{proof}有势时沿曲线使用链式法则。反向固定基点用路径积分定义势，路径无关使定义唯一。单连通与Green使所有闭路积分为零。\end{proof}
+
+\begin{method}{Green公式与路径无关}条件：场在区域及内部无奇点。步骤：确认闭合与方向，算$Q_x-P_y$；非闭曲线可补线并减去补线积分。易错点：旋度零但区域有孔时不保证路径无关。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜面积公式}{难度：$\star\star$}
+\label{ex:8:4}\textbf{题目} 求椭圆逆时针边界上的$\oint(x\dd y-y\dd x)$，半轴$a,b>0$。\par
+\textbf{思路} Green或椭圆参数。\par
+\textbf{解答} 方法一：Green给$2\operatorname{Area}(D)=2\pi ab$。方法二：$x=a\cos t,y=b\sin t$，表达式恒为$ab\dd t$，积分$2\pi ab$。\par
+\textbf{方法点评} 面积公式从常旋度产生。\par
+\textbf{易错点或变式} 若题目是面积，须再除以2。
+\end{example}
+\begin{example}{考研风格例题｜有孔反例}{难度：$\star\star$}
+\label{ex:8:5}\textbf{题目} 平面去掉原点，$\bm F=(-\frac{y}{r^2},\frac{x}{r^2})$，判断是否全局有势。\par
+\textbf{思路} 局部旋度零但圆周积分非零。\par
+\textbf{解答} 方法一：单位圆上积分$\int_0^{2\pi}1\dd t=2\pi$，所以不存在全局单值势。方法二：局部势为极角$\theta$，绕原点一周增加$2\pi$，不能在穿孔平面定义连续单值角函数。\par
+\textbf{方法点评} 拓扑障碍不是求偏导能发现的。\par
+\textbf{易错点或变式} 不能对含奇点原点的圆盘使用Green。
+\end{example}
+\begin{example}{考研风格例题｜补线}{难度：$\star\star$}
+\label{ex:8:6}\textbf{题目} 沿上半单位圆从$(1,0)$到$(-1,0)$求$\int_L y\dd x$。\par
+\textbf{思路} 加$x$轴线段闭合。\par
+\textbf{解答} 补线从$(-1,0)$到$(1,0)$，其积分为0，整体逆时针。$P=y,Q=0$，$Q_x-P_y=-1$，积分为负半圆面积$-\frac{\pi}{2}$。直接参数$t\in[0,\pi]$给$-\int_0^\pi\sin^2t\dd t$同值。\par
+\textbf{方法点评} 补线选让积分易算的边界。\par
+\textbf{易错点或变式} 判断闭合后的方向，不能只看弧的形状。
+\end{example}
+\section{两类曲面积分与通量}\label{sec:8:3}
+
+\begin{method}{三种投影的定向面积元}
+若$z=g(x,y)$，朝上取$(-g_x,-g_y,1)\dd x\dd y$；若$x=g(y,z)$，朝正$x$方向取$(1,-g_y,-g_z)\dd y\dd z$；若$y=g(z,x)$，朝正$y$方向取$(-g_x,1,-g_z)\dd z\dd x$。反向全部乘$-1$。这些向量已包含面积倍率，不再额外乘$\sqrt{1+|\nabla g|^2}$。第一类积分则只取对应向量的模长。
+\end{method}
+
+\subsection{概念、定理与推导}
+
+\begin{definition}{曲面积分}第一类$\iint_Sf\dd S$对面积加权，与定向无关。第二类通量$\iint_S\bm F\cdot\bm n\dd S$依赖指定单位法向；反向变号。记作$\iint_SP\dd y\dd z+Q\dd z\dd x+R\dd x\dd y$时三个投影面积元带方向。\end{definition}
+\begin{theorem}{参数与图形公式}参数曲面$\bm r(u,v)$满足$\bm r_u\times\bm r_v\ne0$时，$\dd S=|\bm r_u\times\bm r_v|\dd u\dd v$。对$z=g(x,y)$，上侧有$\bm n\dd S=(-g_x,-g_y,1)\dd x\dd y$，$\dd S=\sqrt{1+g_x^2+g_y^2}\dd x\dd y$。\end{theorem}
+\begin{proof}小参数矩形被切向量映成小平行四边形，叉积模长给面积，叉积向量给定向面积元。\end{proof}
+
+\begin{method}{两类曲面积分与通量}条件：先确认曲面投影与方向。步骤：第一类用叉积模，第二类用定向叉积；图形曲面优先投影。易错点：通量公式再乘一次面积根号会重复计量。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜平面片面积}{难度：$\star$}
+\label{ex:8:7}\textbf{题目} 求$z=x+y$在$0\le x,y\le1$上曲面面积。\par
+\textbf{思路} 图形面积公式。\par
+\textbf{解答} $g_x=g_y=1$，面积$\int_0^1\int_0^1\sqrt3\dd x\dd y=\sqrt3$。参数边向量$(1,0,1),(0,1,1)$叉积$(-1,-1,1)$模同为$\sqrt3$。\par
+\textbf{方法点评} 线性参数面是平行四边形，几何与积分一致。\par
+\textbf{易错点或变式} 投影面积1与实际面积$\sqrt3$不同。
+\end{example}
+\begin{example}{考研风格例题｜平面通量}{难度：$\star\star$}
+\label{ex:8:8}\textbf{题目} $\bm F=(0,0,1)$穿过上一题曲面上侧的通量。\par
+\textbf{思路} 上侧定向面积元。\par
+\textbf{解答} $\bm F\cdot(-1,-1,1)=1$，积分为1。也可单位法向的$z$分量为$\frac{1}{\sqrt3}$，乘曲面面积$\sqrt3$得到1。\par
+\textbf{方法点评} 恒定竖直场通量等于投影面积。\par
+\textbf{易错点或变式} 下侧通量为$-1$。
+\end{example}
+\begin{example}{考研风格例题｜球面径向通量}{难度：$\star\star$}
+\label{ex:8:9}\textbf{题目} 半径$R$球面外侧，求$\bm F=(x,y,z)$的通量。\par
+\textbf{思路} 场与单位外法向同向。\par
+\textbf{解答} $\bm n=\frac{\bm r}{R}$，$\bm F\cdot\bm n=R$，通量$4\pi R^3$。Gauss法散度为3，体积$\frac{4\pi R^3}{3}$，同得。\par
+\textbf{方法点评} 直接法利用恒定法向分量，公式法避免参数化。\par
+\textbf{易错点或变式} 通量的量纲是长度三次，不是球面积。
+\end{example}
+\section{Gauss公式、散度与补面}\label{sec:8:4}
+\subsection{概念、定理与推导}
+
+\begin{definition}{散度}对$\bm F=(P,Q,R)$，$\diver\bm F=P_x+Q_y+R_z$，描述单位体积净向外通量的局部密度。\end{definition}
+\begin{theorem}{Gauss散度定理}对分段光滑闭曲面包围的有界区域$\Omega$，若$\bm F$在包含$\overline\Omega$的一个开邻域内为$C^1$，则
+\begin{equation}\iint_{\partial\Omega}\bm F\cdot\bm n\dd S=\iiint_\Omega\diver\bm F\dd V,\end{equation}
+其中$\bm n$为外法向。\end{theorem}
+\begin{proof}先对小长方体，将相对两面的通量差用一维基本定理变为偏导体积分；拼合时内部面通量抵消，取极限得一般区域结论。\end{proof}
+闭曲面是必要几何条件；开曲面可补面，求闭合通量后扣除补面。场的奇点不能置于所用体区域内而忽略。
+
+\begin{method}{Gauss公式、散度与补面}条件：闭合、外向、无内部奇点。步骤：算散度，选易积分的体域；开面加底面后扣除。易错点：补面的外法向可能向下。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜半球补面}{难度：$\star\star$}
+\label{ex:8:10}\textbf{题目} 上半单位球面取外侧，求$\bm F=(x,y,z)$的通量。\par
+\textbf{思路} 补$z=0$底盘。\par
+\textbf{解答} 闭区域体积$\frac{2\pi}{3}$，散度3，总通量$2\pi$。底盘外法向$(0,0,-1)$，场的法向分量$-z=0$，故半球通量$2\pi$。直接法球面上法向分量1，半球面积$2\pi$，同得。\par
+\textbf{方法点评} 补面先算其贡献，不能凭图形假定为零。\par
+\textbf{易错点或变式} 底盘为零依赖具体场。
+\end{example}
+\begin{example}{考研风格例题｜立方体}{难度：$\star\star$}
+\label{ex:8:11}\textbf{题目} 单位立方体$[0,1]^3$外侧求$\bm F=(x^2,y^2,z^2)$通量。\par
+\textbf{思路} 散度法或逐面法。\par
+\textbf{解答} 散度$2(x+y+z)$，体积分为3。逐面法：三个坐标为0的面通量0，三个坐标为1的面各通量1，总3。\par
+\textbf{方法点评} 多面体场简单时逐面法便于核验。\par
+\textbf{易错点或变式} 负向外法向对应低坐标面。
+\end{example}
+\begin{example}{考研风格例题｜源点场}{难度：$\star\star$}
+\label{ex:8:12}\textbf{题目} 半径$R$球面外侧求$\bm F=\frac{\bm r}{|\bm r|^3}$通量。\par
+\textbf{思路} 直接算，避免在含原点球体上误用Gauss。\par
+\textbf{解答} 球面上$\bm F\cdot\bm n=\frac{1}{R^2}$，乘面积$4\pi R^2$得$4\pi$。虽然原点外散度为0，但场在原点未定义；对球壳应用Gauss只说明内外球面的向外径向通量相等。\par
+\textbf{方法点评} 奇点决定非零总通量。\par
+\textbf{易错点或变式} 不能以“散度为0”直接得闭球通量0。
+\end{example}
+\section{Stokes、旋度与场论联系}\label{sec:8:5}
+\subsection{概念、定理与推导}
+
+\begin{definition}{旋度}$\rot\bm F=(R_y-Q_z,P_z-R_x,Q_x-P_y)$，表示局部环流的方向与强度。\end{definition}
+\begin{theorem}{Stokes公式}若$S$是带分段光滑边界的紧致定向分段光滑曲面，$\bm F$在包含$S$的一个开邻域内为$C^1$，边界方向与法向满足右手规则，则
+\begin{equation}\oint_{\partial S}\bm F\cdot\dd\bm r=\iint_S(\rot\bm F)\cdot\bm n\dd S.\end{equation}
+\end{theorem}
+\begin{proof}将曲面参数化，在参数域对切向一形式用Green；链式法则整理后右端为旋度与定向叉积的内积。多片拼合时内部边界抵消。\end{proof}
+\begin{extension}对二阶连续可微函数，$\rot(\nabla f)=0$；对二阶连续向量场，$\diver(\rot\bm F)=0$。两式均由混合偏导交换而抵消。全局“无旋即有势”仍需区域拓扑条件。\end{extension}
+
+\begin{method}{Stokes、旋度与场论联系}条件：边界与法向右手一致，场在所选曲面邻域光滑。步骤：闭空间曲线可换成同边界的简单曲面；计算旋度投影。易错点：随意换面跨过场的奇点。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{竞赛风格例题｜空间圆环流}{难度：$\star\star\star$}
+\label{ex:8:13}\textbf{题目} 曲线$x^2+y^2=1,z=2$从上看逆时针，求$\oint(-y\dd x+x\dd y+z\dd z)$。\par
+\textbf{思路} 选水平圆盘。\par
+\textbf{解答} 旋度$(0,0,2)$，上法向对应题设方向，积分$2\pi$。直接参数$(\cos t,\sin t,2)$得被积式$\dd t$，同为$2\pi$。\par
+\textbf{方法点评} 曲线高度对该环流无影响，$z\dd z$为全微分。\par
+\textbf{易错点或变式} 从下看同一行进方向为顺时针。
+\end{example}
+\begin{example}{竞赛风格例题｜势函数重建}{难度：$\star\star\star$}
+\label{ex:8:14}\textbf{题目} $\bm F=(yz,xz,xy)$，求从$(1,1,1)$到$(2,3,4)$的曲线积分。\par
+\textbf{思路} 识别乘积梯度。\par
+\textbf{解答} $\bm F=\nabla(xyz)$，故积分$24-1=23$。若逐坐标折线计算，三段分别1、4、18，合计23。\par
+\textbf{方法点评} 势函数把曲线计算压缩成端点代入。\par
+\textbf{易错点或变式} 无须知道实际路径形状，因为场在全空间有势。
+\end{example}
+\begin{example}{竞赛风格例题｜旋度通量}{难度：$\star\star\star$}
+\label{ex:8:15}\textbf{题目} 设$\bm F\in C^2$，证明任意适用Gauss的闭曲面上$\iint\rot\bm F\cdot\bm n\dd S=0$。\par
+\textbf{思路} 散度作用于旋度恒为零。\par
+\textbf{解答} 由Gauss，左边等于$\iiint\diver(\rot\bm F)\dd V$。展开得到$R_{yx}-Q_{zx}+P_{zy}-R_{xy}+Q_{xz}-P_{yz}=0$，混合偏导成对抵消，故积分0。\par
+\textbf{方法点评} 场论恒等式是微分运算与边界积分的兼容关系。\par
+\textbf{易错点或变式} $C^2$保证此处混合偏导可交换。
+\end{example}
+\begin{warning}第一类积分不随方向改变，第二类积分反向变号；Green与Gauss的内部光滑条件不能省略；无旋的局部结论不能自动提升为全局势函数结论。\end{warning}
+
+
+\input{chapters/materials/fields}
+
+
+
+\input{chapters/materials/fields_source_deep}
+\input{chapters/materials/delta_fields}
+\input{chapters/illustrations/ch08}
+\input{chapters/materials/course_fields}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\refstepcounter{exercise}\label{q:8:1}\par\noindent\textbf{习题\theexercise\quad 基础题} 半径2圆周求$\int_L1\dd s$。\quad\hyperref[a:8:1]{[答案]}\par
+\refstepcounter{exercise}\label{q:8:2}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$\bm F=(x,y,z)$的散度。\quad\hyperref[a:8:2]{[答案]}\par
+\refstepcounter{exercise}\label{q:8:3}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$\bm F=(-y,x,0)$的旋度。\quad\hyperref[a:8:3]{[答案]}\par
+\refstepcounter{exercise}\label{q:8:4}\par\noindent\textbf{习题\theexercise\quad 考研风格} 单位圆顺时针求$\oint x\dd y$。\quad\hyperref[a:8:4]{[答案]}\par
+\refstepcounter{exercise}\label{q:8:5}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$\int_L\dd(xy)$，起点$(1,2)$终点$(3,4)$。\quad\hyperref[a:8:5]{[答案]}\par
+\refstepcounter{exercise}\label{q:8:6}\par\noindent\textbf{习题\theexercise\quad 考研风格} 平面$z=1$单位圆盘上侧，恒场$(0,0,2)$的通量。\quad\hyperref[a:8:6]{[答案]}\par
+\refstepcounter{exercise}\label{q:8:7}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 单位球外侧求$(x^3,y^3,z^3)$的通量。\quad\hyperref[a:8:7]{[答案]}\par
+\refstepcounter{exercise}\label{q:8:8}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 证明$\oint_L\nabla f\cdot\dd\bm r=0$，$L$闭合且$f\in C^1$。\quad\hyperref[a:8:8]{[答案]}\par
+\refstepcounter{exercise}\label{q:8:9}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 解释穿孔平面无旋场不一定有全局势。\quad\hyperref[a:8:9]{[答案]}\par
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\par\noindent\begin{tabularx}{\textwidth}{p{23mm}XXX}\toprule 方法&适用条件&典型信号&易错点\\\midrule
+参数法&明确参数&简单曲线面&方向与模混淆\\Green&平面闭曲线&面积与环流&内部奇点\\Gauss&闭曲面外侧&散度简单&开面未补\\Stokes&定向边界&空间环流&右手方向反转\\
+\bottomrule\end{tabularx}

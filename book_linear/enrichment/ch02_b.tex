@@ -1,0 +1,28 @@
+\begin{insight}{秩是在问还剩几个独立方向}
+二维图形经满秩线性变换仍可有两个独立方向；秩1时整个平面压到一条过原点的直线；秩0时只剩原点。因此$\det A=0$只说二维面积消失，并未说明最后剩下一条线还是一个点。三阶及更高阶的情形也要用秩进一步分辨。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.05]
+\begin{scope}
+\draw[laaxis](-.3,0)--(3,0);\draw[laaxis](0,-.3)--(0,2);
+\filldraw[fill=Teal!10,draw=Teal](0,0)--(2,0)--(2.5,1.4)--(.5,1.4)--cycle;
+\draw[lavec,Ink](0,0)--(2,0);\draw[lavec,Gold](0,0)--(.5,1.4);
+\node[lanote]at(1.3,-.65){两个独立方向：秩2};
+\end{scope}
+\draw[-{Stealth},Rust,thick](3.3,.8)--(4.8,.8)node[midway,above]{$\diag(1,0)$};
+\begin{scope}[xshift=5.5cm]
+\draw[laaxis](-.3,0)--(3,0);\draw[laaxis](0,-.3)--(0,2);
+\draw[Teal!35,line width=3pt](0,0)--(2.5,0);
+\draw[lavec,Ink](0,0)--(2,0)node[midway,above]{$A\vu$};\draw[lavec,Gold](0,0)--(.5,0)node[midway,below]{$A\vv$};
+\node[lanote]at(1.3,-.65){只剩一个方向：秩1};
+\end{scope}
+\end{tikzpicture}
+\caption{秩描述像空间维数；压缩方向构成核，满足秩与零化度之和等于原维数。}\label{fig:rank-collapse}
+\end{figure}
+\begin{clevertrick}{低秩矩阵先写成外积}
+矩阵$K=\begin{pmatrix}1&2&3\\2&4&6\end{pmatrix}$的两行成比例，可写$K=(1,2)\T(1,2,3)$。因此$Kx=(1,2)\T(x_1+2x_2+3x_3)$，所有输出均在$\Span((1,2)\T)$，且取$x=e_1$确实得到非零输出，故秩恰为1。
+若$K=\vu\vv\T$为方阵，记$c=\vv\T\vu$，结合律给
+\[K^2=\vu(\vv\T\vu)\vv\T=cK.\]
+由$K^1=K$起归纳，$K^m=c^{m-1}K$对$m\ge1$成立；$c=0$时应分别写$K^1=K,K^m=0\ (m\ge2)$，避免在记号上误解零次幂。又$K\vu=c\vu$、$Kx=0$对$\vv\T x=0$成立，直接给出相关特征方向。求$(I+K)\inv$时试$I-\alpha K$，乘积为$I+[1-\alpha(1+c)]K$；若$1+c\ne0$，取$\alpha=\frac{1}{1+c}$即得逆的更新公式。
+\textbf{易错提示：}外积中的两个向量必须非零，才能断言秩恰为1；写出一个分解$A=BC$，一般只能先得秩的上界。
+\end{clevertrick}

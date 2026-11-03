@@ -1,0 +1,77 @@
+\section{双元法、代数约化与复杂不定积分}\label{deep:integral_source_deep}
+
+\begin{examtip}本节系统讨论二次双元、分式构型、单元化、高次双元、隐函数和伪椭圆积分。本节每次换元都说明微分关系，结果在原积分的连通定义区间理解。\end{examtip}
+
+\subsection{双元基本恒等式的统一推导}\label{deep:integral_source_deep:duality}
+
+\begin{method}{双元基本恒等式的统一推导}\textbf{适用条件} $u,v$可微且满足$v^2-u^2=a^2$或$u^2+v^2=a^2$。\par\textbf{步骤与依据} 先对约束求微分，再计算$\frac{u}{v}$、$u+v$或角变量的微分；选择能使分母次数降低的参数。\par\textbf{易错点} 代数关系与微分关系必须同时满足，不能只凭外形套公式。\end{method}
+
+\begin{theorem}{双曲双元的基本微分}若$v^2-u^2=a^2>0,v>0$，则$\dd v=\frac{u\dd u}{v}$，$\dd\ln(u+v)=\frac{\dd u}{v}$，$\dd(\frac{u}{v})=\frac{a^2\dd u}{v^3}$。\end{theorem}\begin{proof}对$v^2-u^2=a^2$求微分得$v\dd v=u\dd u$。第二式由$\frac{\dd u+\dd v}{u+v}=\frac{\dd u}{v}$；第三式由$\frac{v\dd u-u\dd v}{v^2}=\frac{(v^2-u^2)\dd u}{v^3}$。这些关系分别对应对数型、降次型积分。\end{proof}
+
+\begin{example}{考研风格｜双元与三角换元双解}{难度：$\star\star$}\label{deep:ex:integral_source_deep:dual1}\textbf{题目} 求$\int\frac{\dd x}{(x^2+a^2)^{\frac{3}{2}}}$，$a>0$。\par\textbf{思路} 直接识别$\frac{x}{\sqrt{x^2+a^2}}$的导数，或令$x=a\tan t$。\par\textbf{详细解答} \textbf{双元法：}取$u=x,v=\sqrt{x^2+a^2}$，上式给原函数$\frac{x}{a^2\sqrt{x^2+a^2}}+C$。\par\textbf{三角法：}$x=a\tan t$、$t\in(-\frac{\pi}{2},\frac{\pi}{2})$，积分为$a^{-2}\int\cos t\dd t=a^{-2}\sin t+C$，回代同上。\par\textbf{方法点评} 双元法避免显式反三角换元；三角法把分支选择呈现得更直观。\par\textbf{变式与易错点} 若$a=0$，需按$x$的正负重新积分$|x|^{-3}$。\end{example}
+
+\begin{example}{竞赛风格｜分式构型与共轭因子}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:dual2}\textbf{题目} 求$\int\frac{\dd x}{\sqrt{x^2+1}(x+\sqrt{x^2+1})}$。\par\textbf{思路} 使用$(v+x)(v-x)=1$。\par\textbf{详细解答} 令$v=\sqrt{x^2+1}$，则$\frac{1}{x+v}=v-x$，被积函数$=1-\frac{x}{v}$，故答案$x-v+C$。另一法令$t=x+v>0$，由$\frac{\dd t}{t}=\frac{\dd x}{v}$，积分$\int t^{-2}\dd t=-\frac{1}{t}+C$；因$-\frac{1}{t}=x-v$，结果完全相同。\par\textbf{方法点评} 先共轭化只需一次初等积分；参数$t$则系统地消去整个根式族。\par\textbf{变式与易错点} 不要漏掉换元后分母中的另一个$t$。\end{example}
+
+\begin{example}{竞赛风格｜有理化参数的一般公式}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:dual3}\textbf{题目} 证明含$x,\sqrt{x^2+a^2}$的任意有理式积分都能化为有理积分。\par\textbf{思路} 用双元和$t=x+\sqrt{x^2+a^2}$，反解两个变量。\par\textbf{详细解答} 令$v=\sqrt{x^2+a^2}$，则$v-x=\frac{a^2}{t}$，所以$x=\frac{t-\frac{a^2}{t}}{2},v=\frac{t+\frac{a^2}{t}}{2}$，$\dd x=\frac{(1+\frac{a^2}{t^2})\dd t}{2}$。因此$R(x,v)\dd x$变成$t$的有理式。例$\int\frac{\dd x}{v}$化为$\int\frac{\dd t}{t}=\ln t+C$。\par\textbf{方法点评} 这是双元化单元的结构证明，不局限于一个积分。\par\textbf{变式与易错点} $a>0$时$t>0$；平方差$v^2=x^2-a^2$须选择其可微实分支。\end{example}
+
+\subsection{Euler三类替换与多重根式}\label{deep:integral_source_deep:euler}
+
+\begin{method}{Euler三类替换与多重根式}\textbf{适用条件} 含$\sqrt{ax^2+bx+c}$的有理式，根式实且可微。\par\textbf{步骤与依据} $a>0$设根式$=\sqrt a\,x+t$；$c>0$可设根式$=tx+\sqrt c$；有实根$r$时设根式$=t(x-r)$。平方后解$x$。\par\textbf{易错点} 平方引入的支路需由原根式非负条件筛选。\end{method}
+
+\begin{example}{考研风格｜Euler替换全过程}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:euler1}\textbf{题目} 求$\int\frac{\dd x}{x\sqrt{x^2+x+1}}$，$x\ne0$。\par\textbf{思路} 设$t=\frac{\sqrt{x^2+x+1}-1}{x}$，利用常数项是平方。\par\textbf{详细解答} 写$v=1+tx$，平方得$x^2+x+1=1+2tx+t^2x^2$，故$x=\frac{2t-1}{1-t^2}$。计算$\frac{\dd x}{xv}=\frac{2\dd t}{2t-1}$，所以原函数$\ln|2t-1|+C$。也可令$u=\frac{1}{x}$，在$x>0$积分变为$-\int\frac{\dd u}{\sqrt{u^2+u+1}}$，配方后为$-\ln|u+\frac{1}{2}+\sqrt{u^2+u+1}|+C$；两表达在每个正区间相差常数。\par\textbf{方法点评} Euler法统一适用；倒数换元在本题更短。\par\textbf{变式与易错点} $x<0$时$\sqrt{x^2+x+1}=|x|\sqrt{1+u+u^2}$，不能无条件把$|x|$写成$x$。\end{example}
+
+\begin{example}{竞赛风格｜嵌套根式先降一层}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:nested}\textbf{题目} 求$\int\frac{\dd x}{\sqrt{x+\sqrt{x^2+1}}}$。\par\textbf{思路} 以双元和为变量，外层根式再平方根化。\par\textbf{详细解答} 设$t=\sqrt{x+\sqrt{x^2+1}}>0$。由$t^2=x+v$得$x=\frac{t^2-t^{-2}}{2}$，$\dd x=(t+t^{-3})\dd t$。积分$=\int(1+t^{-4})\dd t=t-\frac1{3t^3}+C$。另一法$x=\sinh u$使$x+v=\e^u$，积分$\int\e^{-\frac{u}{2}}\cosh u\dd u=\e^{\frac{u}{2}}-\frac{\e^{-\frac{3u}{2}}}{3}+C$，回代相同。\par\textbf{方法点评} 双元和把嵌套根式变成单一幂函数，双曲法解释其指数结构。\par\textbf{变式与易错点} 应使用$t>0$支路，不能给$t$任意符号。\end{example}
+
+\begin{example}{竞赛风格｜根式比值参数}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:rootratio}\textbf{题目} 求$\int\sqrt{\frac{x-1}{x+1}}\dd x$，$x>1$。\par\textbf{思路} 用$t=\sqrt{\frac{x-1}{x+1}}$或$x=\cosh u$。\par\textbf{详细解答} 双曲法令$x=\cosh u,u>0$，根式$=\tanh(\frac{u}{2})$，乘$\dd x=\sinh u\dd u$得$(\cosh u-1)\dd u$，所以答案$\sqrt{x^2-1}-\operatorname{arcosh}x+C=\sqrt{x^2-1}-\ln(x+\sqrt{x^2-1})+C$。比值法$x=\frac{1+t^2}{1-t^2}$，积分为$\int\frac{4t^2}{(1-t^2)^2}\dd t$，部分分式给同值。\par\textbf{方法点评} 比值法对一般分式构型系统；双曲法最短。\par\textbf{变式与易错点} $x<-1$时根式和对数支路要另验，不能照抄本区间的推导。\end{example}
+
+\subsection{有理积分、重因子与Hermite约化}\label{deep:integral_source_deep:rational}
+
+\begin{method}{有理积分、重因子与Hermite约化}\textbf{适用条件} 被积函数是实系数有理式。\par\textbf{步骤与依据} 先长除，再因式分解；重因子用导数项降低幂数，剩余平方自由分母只产生对数和反正切。\par\textbf{易错点} 二次因子分子须设一次多项式，重因子各幂均须保留。\end{method}
+
+\begin{example}{考研风格｜四次分母的实因式分解}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:quartic}\textbf{题目} 求$\int\frac{\dd x}{x^4+1}$。\par\textbf{思路} 分解为两个正定二次式，利用对称性配分子。\par\textbf{详细解答} $x^4+1=(x^2+\sqrt2x+1)(x^2-\sqrt2x+1)$，且$\frac1{x^4+1}=\frac{\frac{x}{2\sqrt2}+\frac{1}{2}}{x^2+\sqrt2x+1}+\frac{-\frac{x}{2\sqrt2}+\frac{1}{2}}{x^2-\sqrt2x+1}$。配成分母导数加常数后，原函数为$\frac1{4\sqrt2}\ln\frac{x^2+\sqrt2x+1}{x^2-\sqrt2x+1}+\frac1{2\sqrt2}[\arctan(\sqrt2x+1)+\arctan(\sqrt2x-1)]+C$。\par\textbf{方法点评} 实二次分解比复根法更适合直接书写实原函数；复根展开是第二条系统路线。\par\textbf{变式与易错点} 把两个反正切合并为一个时可能有分段常数，保留和式更稳妥。\end{example}
+
+\begin{example}{竞赛风格｜Hermite约化的系数方程}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:hermite}\textbf{题目} 求$\int\frac{\dd x}{(x^2+1)^3}$。\par\textbf{思路} 设导数部分为$\frac{x}{(x^2+1)^2}$和$\frac{x}{x^2+1}$，余下反正切。\par\textbf{详细解答} 记$I_n=\int(1+x^2)^{-n}\dd x$。对$x(1+x^2)^{1-n}$求导得$[x(1+x^2)^{1-n}]'=(3-2n)(1+x^2)^{1-n}+2(n-1)(1+x^2)^{-n}$，因此$I_n=\frac{x}{2(n-1)(1+x^2)^{n-1}}+\frac{2n-3}{2(n-1)}I_{n-1}$。依次用$n=3,2$得$I_3=\frac{x}{4(1+x^2)^2}+\frac{3x}{8(1+x^2)}+\frac38\arctan x+C$。第二法$x=\tan t$后积分$\cos^4t$并降幂。\par\textbf{方法点评} 递推体现约化算法；三角法在低次时直观。\par\textbf{变式与易错点} 求导首项的符号和$2n-3$系数要逐项核验。\end{example}
+
+\begin{example}{竞赛风格｜高次双元的可积信号}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:binomial}\textbf{题目} 求$\int x^2(1+x^3)^{-\frac{2}{3}}\dd x$，在$1+x^3>0$上。\par\textbf{思路} 观察内层导数；复杂分数幂不一定非初等。\par\textbf{详细解答} 令$u=1+x^3$，$\dd u=3x^2\dd x$，积分$=u^{\frac{1}{3}}+C=(1+x^3)^{\frac{1}{3}}+C$。另一法设$v=(1+x^3)^{\frac{1}{3}}$，直接微分$v^3-x^3=1$得$v^2\dd v=x^2\dd x$，所以原积分$\int\dd v=v+C$。\par\textbf{方法点评} 高次双元约束可以比二次根式更容易。\par\textbf{变式与易错点} 判断是否初等，不能仅看根式次数；还要看微分是否匹配。\end{example}
+
+\subsection{伪椭圆积分与精确微分识别}\label{deep:integral_source_deep:pseudo}
+
+\begin{method}{伪椭圆积分与精确微分识别}\textbf{适用条件} 出现三、四次根式，但分子含其导数或可构造有理函数的导数。\par\textbf{步骤与依据} 先试$u=P(x)$、$u=R(x)$；再检查$\sqrt{P(x)}$或有理函数与根式乘积的导数。\par\textbf{易错点} “三次或四次根式”并不自动意味着真正椭圆积分；反过来，也不能把任意此类积分都初等化。\end{method}
+
+\begin{example}{竞赛风格｜外观椭圆而实际可换元}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:pseudo1}\textbf{题目} 求$\int\frac{(3x^2-1)\dd x}{\sqrt{x^3-x+2}}$，根式为正。\par\textbf{思路} 分子是根式内多项式的导数。\par\textbf{详细解答} 令$u=x^3-x+2$，积分$\int u^{-\frac{1}{2}}\dd u=2\sqrt{x^3-x+2}+C$。也可直接求导核验。与$\int\frac{\dd x}{\sqrt{x^3-x+2}}$相比，本题多出的导数因子改变了可积性质。\par\textbf{方法点评} 先检查精确微分可避免误引特殊函数。\par\textbf{变式与易错点} 不能在根式过零点处直接宣称整个实轴上的同一原函数可微。\end{example}
+
+\begin{example}{竞赛风格｜有理映射诱导的高次根式}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:pseudo2}\textbf{题目} 求$\int \frac{(x^2-1)\dd x}{x\sqrt{x^4+3x^2+1}}$，$x>0$。\par\textbf{思路} 根式可提取$x^2$，用$u=x+\frac{1}{x}$。\par\textbf{详细解答} $x^4+3x^2+1=x^2[(x+\frac{1}{x})^2+1]$，$\dd u=(1-x^{-2})\dd x$，故原积分$=\int\frac{\dd u}{\sqrt{u^2+1}}=\ln(u+\sqrt{u^2+1})+C$。回代$u=x+\frac{1}{x}$即可。另一法先除分母中的$x^2$再找凑微分，得到同一转换。\par\textbf{方法点评} 这是“非齐次化齐次”的实质：让$x$与$x^{-1}$成对。\par\textbf{变式与易错点} $x<0$时提根式必须带$|x|$，符号需重新处理。\end{example}
+
+\begin{example}{竞赛风格｜由导数反构造积分}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:exactalg}\textbf{题目} 判断$F=\frac{x\sqrt{x^4+x^2+1}}{x^2+1}$是否是$\frac{2x^4+3x^2+2}{(x^2+1)^2\sqrt{x^4+x^2+1}}$的原函数，并构造一个可初等积分的邻近题。\par\textbf{思路} 设$F=\frac{x\sqrt{x^4+x^2+1}}{x^2+1}$，直接检验其导数是否匹配。\par\textbf{详细解答} 令$P=x^4+x^2+1$，则$F'=\frac{(1-x^2)P+\frac{x(x^2+1)P'}{2}}{(x^2+1)^2\sqrt P}=\frac{x^6+3x^4+x^2+1}{(x^2+1)^2\sqrt P}$，并不匹配题中分子。因此该试探不能直接作答案。改取$G=\frac{x}{\sqrt P}$，有$G'=\frac{1-x^4}{P^{\frac{3}{2}}}$；这给出一个可初等化的邻近题$\int(1-x^4)P^{-\frac{3}{2}}\dd x=\frac{x}{\sqrt P}+C$。该邻近题的构造已完成；判错题不要求计算被否定候选对应的另一积分。\par\textbf{方法点评} 本例训练对“猜原函数”的否证与修正，展示复杂积分中求导验算的必要性。\par\textbf{变式与易错点} 不能把形式相近当作导数相同；本题的判错和变式构造均已完成。\end{example}
+
+\subsection{三角混合、等分结构与指数锁}\label{deep:integral_source_deep:trig}
+
+\begin{method}{三角混合、等分结构与指数锁}\textbf{适用条件} 三角有理式、指数三角混合或隐含导数因子。\par\textbf{步骤与依据} 先找半角有理化和复指数；若分母$Q$且分子为$Q'$，先对数；若两项形成闭合微分组，再设待定原函数。\par\textbf{易错点} “锁”只是对隐藏微分结构的简写，不能替代明确的可逆换元与验证。\end{method}
+
+\begin{example}{考研风格｜一般线性三角分母}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:triglinear}\textbf{题目} 求$\int\frac{\dd x}{a+b\cos x}$，$a>|b|$。\par\textbf{思路} 半角代换后只有正定二次式。\par\textbf{详细解答} 令$t=\tan(\frac{x}{2})$，$\dd x=\frac{2\dd t}{1+t^2}$，分母$=\frac{(a+b)+(a-b)t^2}{1+t^2}$。所以答案$\frac2{\sqrt{a^2-b^2}}\arctan\!\left(\sqrt{\frac{a-b}{a+b}}\tan\frac x2\right)+C$，在不跨越半角极点的区间理解。第二法将积分区间分段后用复单位圆，可得到相应定积分$\frac{2\pi}{\sqrt{a^2-b^2}}$。\par\textbf{方法点评} 半角法直接产出原函数；围道法更适合整周期积分。\par\textbf{变式与易错点} $a^2<b^2$时二次式会有实根，原函数改为对数型。\end{example}
+
+\begin{example}{竞赛风格｜三角混合与分部闭合}{难度：$\star\star$}\label{deep:ex:integral_source_deep:trigmix}\textbf{题目} 求$\int x\sec^2x\dd x$及$\int \e^x(\sin x+\cos x)\dd x$。\par\textbf{思路} 前者让$x$求导，后者识别积的导数。\par\textbf{详细解答} 第一题取$u=x,\dd v=\sec^2x\dd x$，得$x\tan x-\int\tan x\dd x=x\tan x+\ln|\cos x|+C$。第二题由$(\e^x\sin x)'=\e^x(\sin x+\cos x)$直接得$\e^x\sin x+C$；也可设$\e^x(A\sin x+B\cos x)$比较系数得$A=1,B=0$。\par\textbf{方法点评} 分部法与待定系数法都依赖求导后复杂度是否下降。\par\textbf{变式与易错点} 复指数法取实部或虚部时，须保留最后的实常数。\end{example}
+
+\begin{example}{竞赛风格｜隐函数参数积分}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:implicit}\textbf{题目} 曲线$y^2=x^2+1,y>0$上，求$\int y\dd x$。\par\textbf{思路} 用约束微分或参数化，最后回到$x$。\par\textbf{详细解答} 分部得$\int y\dd x=xy-\int x\dd y=xy-\int \frac{x^2\dd x}{y}=xy-\int(y-\frac{1}{y})\dd x$。移项得$\frac12[xy+\ln(x+y)]+C$。第二法$x=\sinh t,y=\cosh t$，积分$\int\cosh^2t\dd t=\frac14\sinh2t+\frac{t}{2}+C$，回代相同。\par\textbf{方法点评} 双元分部自动把同一积分移回左侧，适合圆锥曲线约束。\par\textbf{变式与易错点} 隐函数表达必须声明所取分支。\end{example}
+
+\begin{example}{竞赛风格｜由一阶方程生成原函数}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:odeint}\textbf{题目} 求$\int \e^x(x^3-3x^2+6x-6)\dd x$。\par\textbf{思路} 设原函数$\e^xP(x)$，将积分变成$P'+P=Q$。\par\textbf{详细解答} 比较次数，设$P=x^3+ax^2+bx+c$，则$P'+P=x^3+(a+3)x^2+(b+2a)x+(c+b)$。与$Q$比较得$a=-6,b=18,c=-24$，所以答案$\e^x(x^3-6x^2+18x-24)+C$。另一法连续分部，有限算子逆$(1+D)^{-1}Q=Q-Q'+Q''-Q'''$，也得该多项式。\par\textbf{方法点评} 连接微分方程思想与微分算子法。\par\textbf{变式与易错点} 输入多项式若变为一般函数，几何级数形式不再自动有限终止。\end{example}
+
+\subsection{共同根次、指数单元与根分解通式}\label{deep:integral_source_deep:unitroot}
+
+\begin{method}{共同根次、指数单元与根分解通式}\textbf{适用条件} 有理分数次幂可取公分母，指数有理式可取$\e^x$。\par\textbf{步骤与依据} 将所有变量和微分同时化为一个有理参数；一般有理式的简单根可用导数给部分分式系数。\par\textbf{易错点} 共同根次换元通常需限定$x>0$；复对数结果要成对还原实值。\end{method}
+
+\begin{example}{考研风格｜共同根次化有理}{难度：$\star\star$}\label{deep:ex:integral_source_deep:lcmroot}\textbf{题目} 求$\int\frac{\dd x}{\sqrt x+\sqrt[3]x}$，$x>0$。\par\textbf{思路} 平方根与立方根的公分母是6。\par\textbf{详细解答} 令$x=t^6,t>0$，积分$=6\int \frac{t^3}{t+1}\dd t=6\int(t^2-t+1-\frac{1}{t+1})\dd t$，得$2t^3-3t^2+6t-6\ln(t+1)+C$。回代为$2\sqrt x-3x^{\frac{1}{3}}+6x^{\frac{1}{6}}-6\ln(1+x^{\frac{1}{6}})+C$。\par\textbf{方法点评} 共同根次换元把所有分数幂同时化为整数幂。\par\textbf{变式与易错点} 若只换根式而不换$\dd x$，次数会完全错误。\end{example}
+
+\begin{example}{考研风格｜指数单元与部分分式}{难度：$\star\star$}\label{deep:ex:integral_source_deep:expunit}\textbf{题目} 求$\int\frac{\e^{2x}\dd x}{\e^{2x}+3\e^x+2}$。\par\textbf{思路} 令$t=\e^x$，分母可分解。\par\textbf{详细解答} 积分$=\int \frac{t\dd t}{(t+1)(t+2)}=\int[-\frac{1}{t+1}+\frac{2}{t+2}]\dd t$，答案$-\ln(1+\e^x)+2\ln(2+\e^x)+C$。可直接设原函数$A\ln(1+\e^x)+B\ln(2+\e^x)$，求导比较得$A=-1,B=2$，作为第二法。\par\textbf{方法点评} 指数类的复杂外观被一个正参数消去。\par\textbf{变式与易错点} 此处对数真数恒正，不必多加绝对值。\end{example}
+
+\begin{theorem}{简单根有理积分的统一分解}若$P$次数大于$Q$且$P$在复数域有互异根$r_1,\ldots,r_m$，则$\frac{Q(x)}{P(x)}=\sum_{j=1}^m\frac{\frac{Q(r_j)}{P'(r_j)}}{x-r_j}$。\end{theorem}\begin{proof}每项与$\frac{Q}{P}$在$r_j$有相同留数，差函数无极点且在无穷处趋0，故为零。也可通分得到次数小于$m$的多项式，在$m$个互异根处为0，因此恒为0。积分后为复对数和；实系数时将共轭根项配对，得到实对数和反正切。重根先作Hermite约化。\end{proof}
+
+\begin{example}{考研风格｜三次有理积分双解}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:cubic}\textbf{题目} 求$\int\frac{\dd x}{1+x^3}$，$x\ne-1$。\par\textbf{思路} 按实因式分解，或用三个单位根的通式。\par\textbf{详细解答} $\frac{1}{1+x^3}=\frac{1}{3(x+1)}+\frac{-x+2}{3(x^2-x+1)}$。把二次分子配成导数，得$\frac13\ln|x+1|-\frac16\ln(x^2-x+1)+\frac1{\sqrt3}\arctan(\frac{2x-1}{\sqrt3})+C$。根分解通式给三个复对数，配共轭项可还原同一实式。\par\textbf{方法点评} 统一有理积分可由因式分解与部分分式解释，所用函数及其定义域均须明确。\par\textbf{变式与易错点} 对数的系数和反正切的缩放同时由配方决定。\end{example}
+
+\subsection{恒等式诱导、Pell型关系与算法边界}\label{deep:integral_source_deep:pell}
+
+\begin{method}{恒等式诱导、Pell型关系与算法边界}\textbf{适用条件} 已找到多项式$P,Q,D$使$P^2-DQ^2=c\ne0$，且$Q\sqrt D\ne0$。\par\textbf{步骤与依据} 对代数恒等式求导，构造$\ln|P+Q\sqrt D|$；连分式算法是寻找这类恒等式的一种途径。\par\textbf{易错点} 算法发现候选后必须检验恒等式；不存在候选不等于已经证明不可初等积分。\end{method}
+
+\begin{theorem}{Pell型恒等式的对数微分}设$P,Q,D$为实多项式，在所用开区间有$D>0,Q\ne0$。若$P^2-DQ^2=c\ne0$，则$\frac{\dd\ln|P+Q\sqrt D|}{\dd x}=\frac{P'}{Q\sqrt D}$，在实表达有定义的区间成立。\end{theorem}\begin{proof}微分恒等式得$PP'=DQQ'+\frac{D'Q^2}{2}$。计算对数导数的分子$P'+Q'\sqrt D+\frac{QD'}{2\sqrt D}$，将后两项写成$\frac{DQ'+\frac{QD'}{2}}{\sqrt D}=\frac{PP'}{Q\sqrt D}$，整体等于$\frac{P'(P+Q\sqrt D)}{Q\sqrt D}$，约去分母即得。\end{proof}
+
+\begin{example}{竞赛风格｜高次恒等式核验}{难度：$\star\star\star$}\label{deep:ex:integral_source_deep:pellcase}\textbf{题目} 求$\int\frac{2x\dd x}{\sqrt{x^4+x^2+1}}$。\par\textbf{思路} 可用$u=x^2$后配方，也可用Pell型关系。\par\textbf{详细解答} 取$P=2x^2+1,Q=2,D=x^4+x^2+1$，有$P^2-DQ^2=-3$，所以原函数$\ln|2x^2+1+2\sqrt{x^4+x^2+1}|+C$。第二法$u=x^2$，积分$\int\frac{\dd u}{\sqrt{u^2+u+1}}=\ln(u+\frac{1}{2}+\sqrt{u^2+u+1})+C$，两式只差$\ln2$。\par\textbf{方法点评} 展示“恒等式诱导”背后的严格导数机制。\par\textbf{变式与易错点} 本例有$2x$因子；去掉它后不能凭同一恒等式得相同答案。\end{example}

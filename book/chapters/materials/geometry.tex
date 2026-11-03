@@ -1,0 +1,17 @@
+\section{空间几何的参数、投影与分类}\label{mat:geometry}
+\begin{examtip}补入旋转面、柱锥面、曲面分类与空间曲线的计算入口。\end{examtip}
+\subsection{旋转曲面与轴向识别}\label{mat:geometry:rotation}
+\begin{method}{旋转曲面与轴向识别}\textbf{适用条件} 平面母线绕坐标轴旋转。\par\textbf{实施与依据} 用到轴的距离替换原平面中的横向坐标；保留轴坐标。\end{method}
+\begin{example}{专题例题｜旋转曲面与轴向识别}{难度：$\star\star$}
+\textbf{题目} 把$z=x^2$（$y=0$）绕$z$轴旋转得到何面？\par\textbf{思路与解答} 到$z$轴的距离平方是$x^2+y^2$，所以旋转面为$z=x^2+y^2$，是椭圆抛物面。\par\textbf{方法点评与边界} 旋转轴坐标不能也被替换成半径。
+\end{example}
+\subsection{二次型对角化与主轴}\label{mat:geometry:quadratic}
+\begin{method}{二次型对角化与主轴}\textbf{适用条件} 曲面方程含交叉项。\par\textbf{实施与依据} 用正交变换将实对称二次型对角化，再平移去一次项。\end{method}
+\begin{example}{专题例题｜二次型对角化与主轴}{难度：$\star\star$}
+\textbf{题目} 识别$x^2+2xy+y^2+z^2=1$。\par\textbf{思路与解答} 令$u=\frac{x+y}{\sqrt2},v=\frac{x-y}{\sqrt2}$，方程为$2u^2+z^2=1$，不含$v$，是沿$v$方向的椭圆柱面。\par\textbf{方法点评与边界} 退化方向的零特征值决定柱面或更高退化结构。
+\end{example}
+\subsection{曲线投影与消参}\label{mat:geometry:curve}
+\begin{method}{曲线投影与消参}\textbf{适用条件} 两曲面交线或参数曲线。\par\textbf{实施与依据} 消元后回查原约束，必要时加符号与范围限制。\end{method}
+\begin{example}{专题例题｜曲线投影与消参}{难度：$\star\star$}
+\textbf{题目} 求$x^2+y^2+z^2=1,z=x$交线在$xy$平面的投影。\par\textbf{思路与解答} 代入得$2x^2+y^2=1$，任意该椭圆上的点配$z=x$均满足原式，故投影恰为该椭圆而无多余分支。\par\textbf{方法点评与边界} 若消元涉及平方，必须另外检查符号。
+\end{example}

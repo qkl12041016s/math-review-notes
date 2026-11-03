@@ -1,0 +1,188 @@
+\section{角向积分、联合分区与未知积分的代数化}\label{cmi:section}
+\begin{examtip}
+换元后仍要选择积分次序；分段表达式的分界线要共同决定区域划分。遇到未知函数被若干积分约束时，可以把这些积分视为待定常数，再建立有限维方程组。三重积分部分讨论积分区域的最优化，以及球面与抛物面相交时两种分层方式的核对。
+\end{examtip}
+
+\subsection{极坐标中先积角度}\label{cmi:angular}
+\begin{method}{角向导数匹配优先于径向积分}
+\textbf{识别信号} 换元后出现$\e^{r^2h(\theta)}h'(\theta)$、$\sin(r^2h(\theta))h'(\theta)$等结构。\par
+\textbf{步骤} 先固定$r$对$\theta$积分，消去复合函数；再处理剩下的一元径向积分。\par
+\textbf{疑难点} 极坐标并没有规定必须先对$r$积分，改变次序时仍须确认角度范围是否依赖$r$。
+\end{method}
+\begin{example}{竞赛风格｜先积角度消去复合指数}{难度：$\star\star\star$}
+\label{cmi:ex:angular}
+\textbf{题目} 在$D=\{x^2+y^2\le1,\ 0\le y\le x\}$上求
+$I=\iint_D\e^{(x+y)^2}(x^2-y^2)\dd A$。\par
+\textbf{思路} 极坐标使指数含$\sin2\theta$，而$x^2-y^2$提供其导数因子。\par
+\textbf{详细解答} 令$x=r\cos\theta,y=r\sin\theta$，则$0\le r\le1$、$0\le\theta\le\frac{\pi}{4}$，
+\[
+I=\int_0^1r^3\dd r
+\int_0^{\frac{\pi}{4}}\e^{r^2(1+\sin2\theta)}\cos2\theta\,\dd\theta.
+\]
+对$r>0$，内层积分等于
+$[\frac{\e^{r^2(1+\sin2\theta)}}{2r^2}]_0^{\frac{\pi}{4}}$。所以
+\[
+\begin{aligned}
+I&=\dfrac12\int_0^1r(\e^{2r^2}-\e^{r^2})\dd r\\
+ &=\dfrac14\int_0^1(\e^{2u}-\e^u)\dd u
+ =\dfrac{(\e-1)^2}{8},\qquad u=r^2.
+\end{aligned}
+\]
+在$r=0$使用连续延拓理解中间表达式，单个端点也不影响积分。\par
+\textbf{方法点评} 简化来自角向逆链式结构，而不是指数函数突然获得了初等径向原函数。\par
+\textbf{易错点} 先把$\int\e^{r^2(1+\sin2\theta)}r^3\dd r$展开会增加运算量；必须保留原有$r^3$再与角积分系数合并。
+\end{example}
+
+\subsection{绝对值与最大值的共同分界}\label{cmi:partition}
+\begin{method}{先叠加所有分界曲线，再逐块去符号}
+\textbf{适用条件} 被积函数含绝对值、$\max$、$\min$或符号函数，且有多个分界条件。\par
+\textbf{步骤} 列出每个表达式改变形式的曲线，判断它们在积分区间内的先后顺序；每块同时固定全部符号和分支。\par
+\textbf{疑难点} 只按其中一条曲线划分，会使另一项在同一块内仍有两种表达式。
+\end{method}
+\begin{example}{竞赛风格｜带参数的三块积分}{难度：$\star\star\star$}
+\label{cmi:ex:partition}
+\textbf{题目} 对$p>1$，计算
+\[
+I(p)=\int_0^1\int_0^1|y-x^p|\max\{x,y\}\dd y\dd x.
+\]
+\textbf{思路} $0\le x\le1$时$x^p\le x$，因此$y=x^p$和$y=x$把正方形分为三块。\par
+\textbf{详细解答} 依次在$0\le y\le x^p$、$x^p\le y\le x$、$x\le y\le1$积分：
+\[
+\begin{aligned}
+I_1&=\int_0^1\int_0^{x^p}(x^p-y)x\dd y\dd x
+    =\dfrac1{4(p+1)},\\
+I_2&=\int_0^1\int_{x^p}^{x}(y-x^p)x\dd y\dd x\\
+   &=\int_0^1\left(\dfrac{x^3}2-x^{p+2}+\dfrac{x^{2p+1}}2\right)\dd x\\
+   &=\dfrac18-\dfrac1{p+3}+\dfrac1{4(p+1)},\\
+I_3&=\int_0^1\int_x^1(y-x^p)y\dd y\dd x\\
+   &=\int_0^1\left(\dfrac{1-x^3}3-\dfrac{x^p(1-x^2)}2\right)\dd x\\
+   &=\dfrac14-\dfrac1{2(p+1)}+\dfrac1{2(p+3)}.
+\end{aligned}
+\]
+相加时$(p+1)^{-1}$项完全抵消，故
+\[
+I(p)=\dfrac38-\dfrac1{2(p+3)}
+=\dfrac{3p+5}{8(p+3)}.
+\]
+例如$p=2$时为$\frac{11}{40}$；令$p\downarrow1$，公式趋$\frac{1}{4}$，与直接按$y=x$两块积分相符。\par
+\textbf{方法点评} 引入参数后，区域的先后关系和抵消结构比某一数值答案更清楚。\par
+\textbf{易错点} 若$0<p<1$，两条曲线的顺序反转，不能原封不动使用这里的三个积分限。
+\end{example}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[x=5cm,y=4cm,>=stealth]
+\fill[Teal!8](0,0)--(1,1)--(0,1)--cycle;
+\fill[Gold!13]plot[domain=0:1,samples=65](\x,{\x*\x})--(1,1)--cycle;
+\fill[Ink!6](0,0)--(1,0)--(1,1)
+ --plot[domain=1:0,samples=65](\x,{\x*\x})--cycle;
+\draw[Ink](0,0)rectangle(1,1);
+\draw[Teal,thick](0,0)--(1,1);
+\draw[Rust,thick]plot[domain=0:1,samples=65](\x,{\x*\x});
+\draw[->,Ink](0,0)--(1.12,0)node[right]{$x$};
+\draw[->,Ink](0,0)--(0,1.12)node[above]{$y$};
+\node at(.22,.75){$D_3$};
+\node at(.63,.51){$D_2$};
+\node at(.73,.16){$D_1$};
+\node[right]at(1,1){$y=x$};
+\node[below]at(.48,.23){$y=x^2$};
+\node[below left]at(0,0){$O$};
+\end{tikzpicture}
+\caption{$p=2$时的共同分区。跨过抛物线改变绝对值符号，跨过对角线改变最大值的取值；两项必须同时处理。}
+\label{cmi:fig:partition}
+\end{figure}
+
+\subsection{有限个未知积分化为代数方程}\label{cmi:finiterank}
+\begin{method}{先把积分记成常数，再积分恢复常数}
+\textbf{适用条件} 未知函数通过有限个定积分或重积分进入等式，而且这些积分对自由变量为常数。\par
+\textbf{步骤} 分别记$A,B,\ldots$，将未知函数写成显式函数与这些常数的线性组合；沿原有积分算子再次积分，解有限维线性方程组，最后代回验算。\par
+\textbf{疑难点} 方程组可能无解或有多个解；不能默认每个积分关系都会唯一确定函数。
+\end{method}
+\begin{example}{考研风格｜含一维迹积分和二重积分的函数方程}{难度：$\star\star\star$}
+\label{cmi:ex:finiterank}
+\textbf{题目} $f$在$D=[0,1]^2$连续，并满足
+\[
+f(x,y)=xy+x+2\int_0^1f(t,0)\dd t+\iint_Df(u,v)\dd u\dd v.
+\]
+求$f$。\par
+\textbf{思路} 两个积分与$x,y$无关；先合并成一个未知常数。\par
+\textbf{详细解答} 记
+$A=\int_0^1f(t,0)\dd t$、$B=\iint_D f$、$C=2A+B$，则$f=xy+x+C$。
+沿$y=0$积分以及在单位正方形上积分，分别给
+\[
+A=\dfrac12+C,\qquad B=\dfrac34+C.
+\]
+所以
+$C=2(\frac12+C)+(\frac34+C)=\frac74+3C$，
+解得$C=-\frac{7}{8}$。因此
+\[
+f(x,y)=xy+x-\dfrac78,\qquad A=-\dfrac38,\quad B=-\dfrac18.
+\]
+代回$2A+B=-\frac{7}{8}$，原关系成立；而$C$的线性方程有唯一解，故$f$也唯一。\par
+\textbf{方法点评} 二重积分作为一个数参与方程，避免把问题误当成偏微分方程。\par
+\textbf{易错点} 若把系数改变到使常数方程的左右$C$系数相同，需要另查相容性，不能直接相除。
+\end{example}
+
+\subsection{按正负选择积分域与球抛面交域}\label{cmi:regions}
+\begin{theorem}{不受体积约束时的正部选域}
+若实函数$h$的正部$h_+=\max(h,0)$在全空间可积，则对任何使积分有意义的可测区域$\Omega$，
+\[
+\int_\Omega h\le\int_{\R^d}h_+.
+\]
+当允许取$\{h>0\}$时，上界可以达到。等号要求未选入的正值部分与选入的负值部分的积分均为零。
+\end{theorem}
+\begin{proof}
+设$E=\{h>0\}$，则
+\[
+\int_Eh-\int_\Omega h
+=\int_{E\setminus\Omega}h+\int_{\Omega\setminus E}(-h)\ge0.
+\]
+两项均非负，因而也给出等号条件。
+\end{proof}
+\begin{method}{先判断是否有选域约束}
+\textbf{适用条件} 题目要求在区域变化时使积分最大，且没有固定体积、固定边界等额外限制。\par
+\textbf{步骤} 选择全部正值区，排除负值区；再用线性缩放或合适坐标计算最大值。\par
+\textbf{疑难点} 若限制体积固定，通常要选某个超水平集，不能直接把整个正值区全部选入。
+\end{method}
+\begin{example}{竞赛风格｜同时求最优三维区域与最大值}{难度：$\star\star\star$}
+\label{cmi:ex:positivepart}
+\textbf{题目} 在有界分段光滑区域$\Omega\subset\R^3$中选择区域，使
+$I(\Omega)=\iiint_\Omega(1-x^2-2y^2-3z^2)\dd V$最大，并求该最大值。\par
+\textbf{思路} 先用正部选域，不对未知边界作变分。\par
+\textbf{详细解答} 可取
+$\Omega_*=\{x^2+2y^2+3z^2<1\}$。
+作$x=u,y=\frac{v}{\sqrt2},z=\frac{w}{\sqrt3}$，Jacobian绝对值$\frac{1}{\sqrt6}$，得到
+\[
+\begin{aligned}
+I_{\max}
+&=\dfrac1{\sqrt6}\iiint_{u^2+v^2+w^2<1}(1-u^2-v^2-w^2)\dd u\dd v\dd w\\
+&=\dfrac{4\pi}{\sqrt6}\int_0^1(1-r^2)r^2\dd r
+=\dfrac{8\pi}{15\sqrt6}.
+\end{aligned}
+\]
+椭球边界上被积式为零，取开域或加入边界不改变积分。\par
+\textbf{方法点评} 选域依据是符号，坐标换元只用于计算已确定的最大值。\par
+\textbf{易错点} 这里没有预先固定体积；如果增加体积条件，最优区域的推导须重新进行。
+\end{example}
+
+\begin{example}{考研风格｜球面与抛物面之间两种分层}{难度：$\star\star\star$}
+\label{cmi:ex:sphereparaboloid}
+\textbf{题目} $\Omega$由抛物面$z=x^2+y^2$和上半球面$z=\sqrt{2-x^2-y^2}$围成，计算$\iiint_\Omega z\dd V$。\par
+\textbf{思路} 柱坐标适合先对$z$积分；水平切片则在交线高度处分段。\par
+\textbf{详细解答} 令$r^2=x^2+y^2$。交线满足$r^2=\sqrt{2-r^2}$，
+即$(r^2-1)(r^2+2)=0$，所以$r=1,z=1$。
+柱坐标给
+\[
+\begin{aligned}
+I&=2\pi\int_0^1r\dd r\int_{r^2}^{\sqrt{2-r^2}}z\dd z\\
+ &=\pi\int_0^1(2r-r^3-r^5)\dd r=\dfrac{7\pi}{12}.
+\end{aligned}
+\]
+第二法固定$z$：在$0\le z\le1$时截面为$r^2\le z$，面积$\pi z$；
+在$1\le z\le\sqrt2$时截面为$r^2\le2-z^2$，面积$\pi(2-z^2)$。
+因此
+\[
+I=\pi\int_0^1z^2\dd z+\pi\int_1^{\sqrt2}z(2-z^2)\dd z
+=\dfrac{\pi}3+\dfrac{\pi}4=\dfrac{7\pi}{12}.
+\]
+\textbf{方法点评} 同一体域的两个截面描述核对了球面根号、交线和积分限。\par
+\textbf{易错点} 上边界是$\sqrt{2-r^2}$，不是$2-r^2$；水平截面必须在$z=1$处改变控制边界。
+\end{example}

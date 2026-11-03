@@ -1,0 +1,88 @@
+\section{Fourier点收敛的基础证明与进阶接口}\label{deep:fourier_source_deep}
+
+\begin{examtip}本节展开核、收敛、极大算子与函数空间的基本证明。Carleson极大估计作为高级标准结论使用；以下基础引理说明由主估计通向收敛结论的逻辑。\end{examtip}
+
+\subsection{Riemann--Lebesgue引理与局部化}\label{deep:fourier_source_deep:riemann}
+
+\begin{method}{Riemann--Lebesgue引理与局部化}\textbf{适用条件} $f\in L^1$，利用简单函数或阶梯函数的$L^1$逼近。\par\textbf{步骤与依据} 先对区间示性函数直接积分，再用$|\widehat f-\widehat g|\le\|f-g\|_1$推广。\par\textbf{易错点} 连续性不是必要条件；可积性和逼近范数才是关键。\end{method}
+
+\begin{theorem}{Riemann--Lebesgue引理}若$f\in L^1([-\pi,\pi])$，则$\widehat f(n)\to0$。\end{theorem}\begin{proof}对区间$[a,b]$，$\int_a^b\e^{-int}\dd t=\frac{\e^{-ina}-\e^{-inb}}{in}\to0$，故有限阶梯函数成立。给$\varepsilon>0$取阶梯函数$g$使$\|f-g\|_1<\varepsilon$，则$2\pi|\widehat f(n)|\le\|f-g\|_1+|\int g\e^{-int}|\le\varepsilon+o(1)$，令$\varepsilon\downarrow0$。\end{proof}
+
+\begin{theorem}{Riemann局部化原理}若两个周期可积函数在$x$的某邻域相同，则它们的Fourier部分和在$x$之差趋0。\end{theorem}\begin{proof}令$h=f-g$在$|t-x|<\delta$为0。由Dirichlet核，$S_Nh(x)$是远离0区间上$\frac{h(x-u)}{\sin(\frac{u}{2})}$与$\sin((N+\frac{1}{2})u)$的积分。该商可积，Riemann--Lebesgue引理给极限0。半整数频率可吸收固定的$\sin(\frac{u}{2}),\cos(\frac{u}{2})$因子，仍由整数频率的引理处理。\end{proof}
+
+\begin{example}{竞赛拓展｜Dini收敛准则的完整核推导}{难度：$\star\star\star$}\label{deep:ex:fourier_source_deep:dini}\textbf{题目} 设$f$在$x$两侧极限为$f_+,f_-$，且$\int_0^\delta\frac{|f(x+t)+f(x-t)-f_+-f_-|\dd t}{t}<\infty$。证明$S_Nf(x)\to\frac{f_++f_-}{2}$。\par\textbf{思路} 核的偶性把两侧值成对，并将误差写成可积函数的振荡积分。\par\textbf{详细解答} 设$s=\frac{f_++f_-}{2}$。常函数核积分为1。记
+\[g(t)=\dfrac{f(x+t)+f(x-t)-2s}{\sin(\frac{t}{2})},\]
+则误差可写为
+\[S_Nf(x)-s=\dfrac{1}{2\pi}\int_0^\pi
+     g(t)\sin\bigl((N+\dfrac12)t\bigr)\dd t.\]
+近0时，$g$由假设可积；远离0时，由$f\in L^1$可知$g$可积。Riemann--Lebesgue引理使整体趋0。\par\textbf{方法点评} 给出的充分条件是对称差的Dini条件，比单侧绝对差条件稍灵活。\par\textbf{变式与易错点} 若只知道$f$连续，商未必可积，不能直接沿用此证明。\end{example}
+
+\begin{example}{考研风格｜跳跃点、端点与奇偶延拓}{难度：$\star\star\star$}\label{deep:ex:fourier_source_deep:jump}\textbf{题目} 对$f(x)=x$在$(-\pi,\pi)$的周期延拓，写Fourier级数并说明端点值。\par\textbf{思路} 奇函数只有正弦项，跳跃点收敛到左右平均。\par\textbf{详细解答} $b_n=(\frac{2}{\pi})\int_0^\pi x\sin nx\dd x=\frac{2(-1)^{n+1}}{n}$。所以$x=2\sum_{n\ge1}\frac{(-1)^{n+1}\sin nx}{n}$在$-\pi<x<\pi$成立。在$x=\pi$和$-\pi$，周期左右极限为$\pi,-\pi$，平均为0，而每个正弦项也为0。\par\textbf{方法点评} 区间端点按周期延拓处理，不能只看原区间单侧。\par\textbf{变式与易错点} 给$f(\pi)$指定成$\pi$不改变系数，也不改变级数在该点收敛到0。\end{example}
+
+\subsection{Fejér核、逼近与Fourier唯一性}\label{deep:fourier_source_deep:fejerproof}
+
+\begin{method}{Fejér核、逼近与Fourier唯一性}\textbf{适用条件} 周期连续函数，或$L^p$中的平移连续性。\par\textbf{步骤与依据} 核非负、质量1、远端质量趋0三个性质构成近似恒等算子。\par\textbf{易错点} Cesàro平均与普通部分和是不同序列。\end{method}
+
+\begin{theorem}{Fejér核的三条性质}$F_N(t)=\frac1{N+1}\left|\sum_{k=0}^N\e^{ikt}\right|^2$非负，$(2\pi)^{-1}\int F_N=1$，且对每个$0<\delta\le\pi$，$\sup_{\delta\le|t|\le\pi}F_N(t)\le[(N+1)\sin^2(\frac{\delta}{2})]^{-1}$。\end{theorem}\begin{proof}非负由平方给出。展开平方$\frac1{N+1}\sum_{j,k=0}^N\e^{i(j-k)t}$，只有$j=k$项积分非零，恰有$N+1$项。几何和公式给$F_N=\frac{(N+1)^{-1}\sin^2(\frac{(N+1)t}{2})}{\sin^2(\frac{t}{2})}$，分母远离0即得尾界。\end{proof}
+
+\begin{example}{竞赛拓展｜Fourier系数唯一性}{难度：$\star\star\star$}\label{deep:ex:fourier_source_deep:uniqueness}\textbf{题目} 若周期连续函数所有Fourier系数均为0，证明函数恒为0。\par\textbf{思路} 所有Fejér均值为0，而它们一致趋原函数。\par\textbf{详细解答} 由系数表达，$\sigma_Nf=\sum_{|k|\le N}(1-\frac{|k|}{N+1})\widehat f(k)\e^{ikx}=0$。另一方面核三性质和一致连续性给$\|\sigma_Nf-f\|_\infty\to0$，故$f=0$。对$L^1$函数，用平移的$L^1$连续性证明$\|\sigma_Nf-f\|_1\to0$，可得$f=0$几乎处处。\par\textbf{方法点评} 唯一性不要求普通Fourier部分和已逐点收敛。\par\textbf{变式与易错点} $L^1$版本只能得到几乎处处相同，不能识别零测集上的任意改值。\end{example}
+
+\subsection{弱型估计、分布函数与强型推导}\label{deep:fourier_source_deep:maxproof}
+
+\begin{method}{弱型估计、分布函数与强型推导}\textbf{适用条件} 实轴极大算子先定义在$L^1_{\rm loc}$上。\par\textbf{步骤与依据} 用有限区间覆盖选不交子族；按每个阈值重新拆分函数；最后积分分布函数。\par\textbf{易错点} 从每个单独平均的有界性不能直接得到上确界算子的同型界。\end{method}
+
+\begin{theorem}{从弱$(1,1)$到强$L^p$的直接推导}若次线性正极大算子$M$满足$|\{Mf>\lambda\}|\le \frac{C\|f\|_1}{\lambda}$及$\|Mf\|_\infty\le\|f\|_\infty$，则对$p>1$有$\|Mf\|_p^p\le \frac{C\,2^p p\|f\|_p^p}{p-1}$。\end{theorem}\begin{proof}按阈值分解$f=g+h$，其中$g=f\mathbf1_{\{|f|\le\frac{\lambda}{2}\}}$。有$Mg\le\frac{\lambda}{2}$，故$\{Mf>\lambda\}\subset\{Mh>\frac{\lambda}{2}\}$，测度$\le2C\lambda^{-1}\int_{|f|>\frac{\lambda}{2}}|f|$。乘$p\lambda^{p-1}$积分并交换非负积分，得到$2Cp\int|f(x)|\int_0^{2|f(x)|}\lambda^{p-2}\dd\lambda\dd x=\frac{C2^pp\|f\|_p^p}{p-1}$。先作截断避免无穷，再用单调收敛。\end{proof}
+
+\begin{example}{竞赛拓展｜Lebesgue微分定理的误差集证明}{难度：$\star\star\star$}\label{deep:ex:fourier_source_deep:differentiation}\textbf{题目} 说明如何由极大函数弱型与连续函数稠密性，证明$f\in L^1$几乎每点为Lebesgue点。\par\textbf{思路} 以连续近似$g$分拆局部平均振幅。\par\textbf{详细解答} 记$D f(x)=\limsup_{r\downarrow0}(2r)^{-1}\int_{x-r}^{x+r}|f(t)-f(x)|\dd t$。连续$g$满足$Dg=0$，故$Df\le M(f-g)+|f-g|$。于是$\lvert\{Df>2\varepsilon\}\rvert\le\dfrac{(C+1)\lVert f-g\rVert_1}{\varepsilon}$，第二项用Chebyshev。取连续紧支撑$g$使$L^1$误差任意小，则该集合测度为0。对可数$\varepsilon=\frac{1}{m}$合并，得$Df=0$几乎处处。\par\textbf{方法点评} 误差拆成极大平均与点值两项，补齐了“用稠密性推广”中的关键估计。\par\textbf{变式与易错点} 局部可积情形先在有界区间截断，再用可数区间覆盖全实轴。\end{example}
+
+\subsection{奇异积分的抵消、频率乘子与主值}\label{deep:fourier_source_deep:hilbertproof}
+
+\begin{method}{奇异积分的抵消、频率乘子与主值}\textbf{适用条件} 先对光滑紧支撑函数定义，再借范数控制延拓。\par\textbf{步骤与依据} 局部减去常数；远端直接积分；用Fourier乘子看$L^2$结构。\par\textbf{易错点} 主值存在与两个单侧反常积分收敛不是同一件事。\end{method}
+
+\begin{example}{竞赛拓展｜示性函数的Hilbert变换}{难度：$\star\star\star$}\label{deep:ex:fourier_source_deep:hilbertindicator}\textbf{题目} 计算$H\mathbf1_{[0,1]}(x)$，采用$Hf(x)=\pi^{-1}\operatorname{p.v.}\int \frac{f(t)}{x-t}\dd t$。\par\textbf{思路} 直接积分对数，区间内用对称截断抵消。\par\textbf{详细解答} 当$x\notin[0,1]$，积分$=\pi^{-1}[\ln|x|-\ln|x-1|]$。当$0<x<1$，在$t=x$左右截去同一$\varepsilon$，两项中的$\ln\varepsilon$抵消，得到同一表达式。因此除端点外$Hf(x)=\pi^{-1}\ln|\frac{x}{x-1}|$。端点对数发散；远端$Hf(x)\sim\frac{1}{\pi x}$。\par\textbf{方法点评} 给出主值、端点奇性和弱型尾部的具体模型。\par\textbf{变式与易错点} 若采用核$\frac{1}{t-x}$，整体符号相反。\end{example}
+
+\begin{example}{竞赛拓展｜Hilbert变换的$L^2$等距}{难度：$\star\star\star$}\label{deep:ex:fourier_source_deep:l2hilbert}\textbf{题目} 在本册实轴Fourier约定下解释$H$的乘子及$L^2$性质。\par\textbf{思路} 对称截断核的Fourier变换趋$-i\operatorname{sgn}\xi$。\par\textbf{详细解答} 核$\pi^{-1}\operatorname{p.v.}(\frac{1}{x})$的乘子为$-i\operatorname{sgn}\xi$：奇性消去余弦，正弦积分
+\[
+\int_0^\infty\dfrac{\sin(2\pi\xi x)}x\dd x
+=\dfrac\pi2\operatorname{sgn}\xi\qquad(\xi\ne0)
+\]
+给出该乘子。由本书归一化下的Plancherel恒等式，
+\[
+\|Hf\|_2^2
+=\int_\R|{-i\operatorname{sgn}\xi}|^2|\widehat f(\xi)|^2\dd\xi
+=\|f\|_2^2.
+\]又乘子平方为$-1$几乎处处，所以$H^2f=-f$。\par\textbf{方法点评} 这是$L^2$空间中的定义与延拓；一般逐点主值仍需极大截断理论。\par\textbf{变式与易错点} 零频率的一个点不影响实轴$L^2$等式；周期情形常数项会被消去。\end{example}
+
+\subsection{极大控制如何真正推出点收敛}\label{deep:fourier_source_deep:density}
+
+\begin{method}{极大控制如何真正推出点收敛}\textbf{适用条件} $T_n$在稠密子类上逐点收敛，$T^*=\sup_n|T_n|$有弱型控制。\par\textbf{步骤与依据} 定义尾部振幅，近似函数的尾部振幅为0；以极大估计控制余项。\par\textbf{易错点} 范数收敛、依测度收敛与几乎处处收敛应分别证明。\end{method}
+
+\begin{theorem}{稠密类推广引理}设$T_n$为线性算子，$1\le p<\infty$，$|\{T^*h>\lambda\}|\le C\lambda^{-p}\|h\|_p^p$，且$T_n g$在稠密类$\mathcal D\subset L^p$上几乎处处收敛，则$T_nf$对任意$f\in L^p$几乎处处为Cauchy列。\end{theorem}\begin{proof}令$\Omega(f)=\lim_{N\to\infty}\sup_{m,n\ge N}|T_mf-T_nf|$。线性给$\Omega(f)\le\Omega(g)+2T^*(f-g)=2T^*(f-g)$几乎处处。于是$|\{\Omega(f)>\varepsilon\}|\le C(\frac{2}{\varepsilon})^p\|f-g\|_p^p$。稠密性使右端任意小，故$\Omega(f)=0$几乎处处。若另知$T_nf\to f$于$L^p$或依测度，可由子列唯一性识别极限。\end{proof}
+
+\begin{example}{竞赛拓展｜Carleson主估计的逻辑位置}{难度：$\star\star\star$}\label{deep:ex:fourier_source_deep:carlesongap}\textbf{题目} 从$\|S^*f\|_p\le C_p\|f\|_p$推导$L^p$ Fourier级数几乎处处收敛，$p>1$，并说明尚需证明的核心。\par\textbf{思路} 三角多项式作稠密类，套推广引理。\par\textbf{详细解答} 三角多项式$P$的$S_NP$最终等于$P$。强型估计经Chebyshev给推广引理所需弱型，故$S_Nf$几乎处处收敛。又$S_N$在$L^p$一致有界，利用多项式逼近得$\|S_Nf-f\|_p\to0$，于是点态极限为$f$。真正困难是最开始的$\|S^*f\|_p$估计，固定频率Hilbert有界性不能替代它；建立该估计需要局部范数、多尺度分解、频率配对和例外集控制。\par\textbf{方法点评} 完整写出“主估计之后”的推论，准确区分基础引理与主估计。\par\textbf{变式与易错点} 本例证明的是主估计的推论，主估计本身仍作为高级标准结论使用。\end{example}
+
+\subsection{重排、Lorentz空间与端点区别}\label{deep:fourier_source_deep:rearrangement}
+
+\begin{method}{重排、Lorentz空间与端点区别}\textbf{适用条件} 用分布函数组织函数值大小，测度空间先取有限或$\sigma$有限。\par\textbf{步骤与依据} 定义递减重排$f^*$，用层蛋糕公式连接范数；弱$L^p$对应分布尾界。\par\textbf{易错点} $L^{p,\infty}$不等于$L^p$，而且端点嵌入可能严格。\end{method}
+
+\begin{definition}{递减重排与Lorentz量}令$d_f(\lambda)=|\{|f|>\lambda\}|$，$f^*(t)=\inf\{\lambda\ge0:d_f(\lambda)\le t\}$。对$0<p<\infty,0<q<\infty$，定义$\|f\|_{p,q}=(\int_0^\infty\frac{[t^{\frac{1}{p}}f^*(t)]^q\dd t}{t})^{\frac{1}{q}}$，$q=\infty$时取上确界。本册采用这个常见归一化；等价范数可有固定因子。\end{definition}
+
+\begin{example}{竞赛拓展｜弱$L^p$与强$L^p$的严格差别}{难度：$\star\star\star$}\label{deep:ex:fourier_source_deep:weaklp}\textbf{题目} 在$(0,1)$上考察$f(x)=x^{-\frac{1}{p}}$，$p>0$。\par\textbf{思路} 直接算分布函数和积分。\par\textbf{详细解答} $\lambda\ge1$时$d_f(\lambda)=\lambda^{-p}$，$0<\lambda<1$时为1。因此$\sup_{\lambda>0}\lambda d_f(\lambda)^{\frac{1}{p}}=1$，$f\in L^{p,\infty}$。但$\int_0^1|f|^p\dd x=\int_0^1\frac{\dd x}{x}=\infty$，不在$L^p$。其重排$f^*(t)=t^{-\frac{1}{p}}$（$0<t<1$），$t\ge1$时为0；有限$q$的Lorentz量包含$\int_0^1\frac{\dd t}{t}$，均发散。\par\textbf{方法点评} 端点估计需要区分强型与弱型空间，仅用普通$L^p$记号不足以表达。\par\textbf{变式与易错点} 有限测度上$L^r\subset L^p$需要$r>p$，方向不可倒置。\end{example}
+
+\begin{warning}接近$L^1$的端点理论涉及重排空间、Q与QA空间以及Antonov端点定理。前节给出定义与标准结论，本节说明它们所依赖的分布函数、插值与稠密推广。空间之间的精细包含关系、最优常数与时频组合主估计属于进一步专题，不能由本节基础引理直接推出。\end{warning}
+
+\subsection{正交投影、Bessel不等式与Parseval}\label{deep:fourier_source_deep:parseval}
+
+\begin{method}{正交投影、Bessel不等式与Parseval}\textbf{适用条件} 圆周$L^2$采用归一化内积$(2\pi)^{-1}\int f\overline g$。\par\textbf{步骤与依据} 先有限投影得到平方范数恒等式，再用三角多项式稠密性。\par\textbf{易错点} 系数平方和有限是范数结论，本身不给每点收敛。\end{method}
+
+\begin{theorem}{Bessel不等式与Parseval恒等式}对$f\in L^2$，$\sum_{k\in\mathbb Z}|\widehat f(k)|^2=(2\pi)^{-1}\int_{-\pi}^{\pi}|f|^2$，且$S_Nf\to f$于$L^2$。\end{theorem}\begin{proof}指数函数是正交单位系，有限展开给$\|f-S_Nf\|_2^2=\|f\|_2^2-\sum_{|k|\le N}|\widehat f(k)|^2\ge0$，先得Bessel不等式。三角多项式在$L^2$稠密，若$P$次数$\le N$，正交投影的最佳逼近性给$\|f-S_Nf\|_2\le\|f-P\|_2$。因此误差趋0，有限恒等式取极限得Parseval。稠密性可由Fejér逼近连续函数和连续函数在$L^2$中稠密得到。\end{proof}
+
+\begin{example}{竞赛风格｜平方积分求四次倒数和}{难度：$\star\star\star$}\label{deep:ex:fourier_source_deep:baselparseval}\textbf{题目} 由$f(x)=x^2$的Fourier展开求$\sum_{n\ge1}n^{-4}$。\par\textbf{思路} 先求系数，再用Parseval。\par\textbf{详细解答} $a_0=\frac{2\pi^2}{3},a_n=\frac{4(-1)^n}{n^2},b_n=0$。实形式Parseval为$\pi^{-1}\int_{-\pi}^{\pi}f^2=\frac{a_0^2}{2}+\sum(a_n^2+b_n^2)$。代入$\frac{2\pi^4}{5}=\frac{2\pi^4}{9}+16\sum n^{-4}$，所以和为$\frac{\pi^4}{90}$。若用复系数归一化，正负频率各贡献一次，得到同值。\par\textbf{方法点评} Fourier求和法可系统推广到偶次倒数和。\par\textbf{变式与易错点} 常数项为$\frac{a_0}{2}$，Parseval中贡献$\frac{a_0^2}{2}$，不能漏因子。\end{example}
+
+\subsection{连续函数也可能Fourier发散}\label{deep:fourier_source_deep:continuousdivergence}
+
+\begin{method}{连续函数也可能Fourier发散}\textbf{适用条件} 考虑$C(\mathbb T)$上的点值部分和泛函。\par\textbf{步骤与依据} 证明Dirichlet核$L^1$范数无界，再用一致有界原理。\par\textbf{易错点} Fejér均值一致收敛不意味着普通部分和对所有连续函数收敛。\end{method}
+
+\begin{theorem}{存在连续函数在一点的Fourier部分和无界}存在$f\in C(\mathbb T)$使$\sup_N|S_Nf(0)|=\infty$。\end{theorem}\begin{proof}令$L_N(f)=S_Nf(0)$，其算子范数为$(2\pi)^{-1}\|D_N\|_1$；上界由积分估计，下界可用连续函数逼近$\operatorname{sgn}D_N$达到任意接近。又在$t\in[\frac{1}{N},1]$上$|\sin(\frac{t}{2})|\le \frac{t}{2}$。把该区间分成$\sin((N+\frac{1}{2})t)$的半周期，每个半周期取正弦绝对值至少$\frac{1}{2}$的中间部分，其积分下界为常数乘$\frac{1}{j}$，相加得$\|D_N\|_1\ge c\log N$。因此$\sup_N\|L_N\|=\infty$。\par 若每个连续$f$的$\sup_N|L_Nf|$都有限，由一致有界原理应有$\sup_N\|L_N\|<\infty$，矛盾。该原理的Baire证明为：闭集$E_m=\{f:\sup_N|L_Nf|\le m\}$覆盖Banach空间，故某个$E_m$有内点；相减得到零点某球内全部$L_N$一致有界，缩放即得范数一致有界。\end{proof}
+
+\begin{example}{竞赛拓展｜三种收敛互不替代}{难度：$\star\star\star$}\label{deep:ex:fourier_source_deep:threelimits}\textbf{题目} 把普通逐点收敛、几乎处处收敛与Fejér一致收敛在连续函数上的关系说清。\par\textbf{思路} 结合上一存在性定理、Carleson--Hunt和Fejér。\par\textbf{详细解答} 每个连续周期函数属于$L^2$，所以由Carleson--Hunt其普通Fourier级数几乎处处收敛。上一结论给出某个连续函数在指定点普通部分和无界，故不能提升到每点。另一方面每个连续函数的Fejér均值一致收敛。这三句相容：平均序列更平滑，且几乎处处允许例外零测集。\par\textbf{方法点评} 消除把连续性、正交性和点收敛混为一谈的常见误读。\par\textbf{变式与易错点} 例外集可非空；一致收敛必逐点收敛，但说的是同一个序列时才可推。\end{example}

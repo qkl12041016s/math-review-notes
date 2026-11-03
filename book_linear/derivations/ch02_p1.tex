@@ -1,0 +1,19 @@
+\label{der:2-1}
+先说明迹交换公式：若$A\in\F^{m\times n},B\in\F^{n\times m}$，则
+\[\tr(AB)=\sum_{i=1}^m\sum_{j=1}^n a_{ij}b_{ji}=\sum_{j=1}^n\sum_{i=1}^m b_{ji}a_{ij}=\tr(BA).\]
+特别$\tr(P\inv AP)=\tr(APP\inv)=\tr A$，所以相似保持迹；一般合同不具备这一保证。
+
+结合律逐项为
+\[((AB)C)_{ij}=\sum_\ell\sum_k a_{ik}b_{k\ell}c_{\ell j}=\sum_k a_{ik}\sum_\ell b_{k\ell}c_{\ell j}=(A(BC))_{ij}.\]
+分配律由有限和的分配律逐项得到。转置公式的$(i,j)$元为
+\[((AB)\T)_{ij}=\sum_k a_{jk}b_{ki}=\sum_k(B\T)_{ik}(A\T)_{kj}=(B\T A\T)_{ij}.\]
+伴随恒等式左乘积的$(i,j)$元为$\sum_k a_{ik}C_{jk}=\delta_{ij}\det A$，右乘积按列的同列、异列展开同样得到$\delta_{ij}\det A$，因此两边均为$(\det A)I$。
+
+若$A,B$可逆，直接计算
+\[(AB)(B\inv A\inv)=A(BB\inv)A\inv=I,\quad
+(B\inv A\inv)(AB)=B\inv(A\inv A)B=I,\]
+故候选矩阵就是乘积的逆。将$AA\inv=I,A\inv A=I$分别转置，得到$(A\inv)\T A\T=A\T(A\inv)\T=I$，证明转置求逆公式。
+
+可逆时$\adj A=(\det A)A\inv$，于是
+\[\det(\adj A)=(\det A)^n\det A\inv=(\det A)^{n-1}.\]
+若$A$奇异，考察$A+tI$。$\det(A+tI)$是首一$n$次多项式，只在有限个$t$上为零；两边关于$t$均为多项式，在其余无限多个$t$上相等，所以作为多项式恒等，取$t=0$得到奇异情形。$n=1$时直接由$\adj[a]=[1]$核验，右边按零次幂恒为1解释。

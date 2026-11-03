@@ -1,0 +1,229 @@
+\chapter{矩阵：运算、求逆与秩}\label{ch:matrix}
+\chaptermap{运算与伴随}{求逆四法}{秩与分解}{方程与分块}
+\begin{examtip}
+\textbf{考研核心：}矩阵运算、逆矩阵、初等矩阵、秩、矩阵方程。每次运算先写维数，再写乘法顺序。
+\textbf{竞赛视角：}用多项式关系降次，用秩分解压缩维数，用分块消元统一求逆与解方程。经典伴随记作$\adj A$，不与共轭转置混用。
+\end{examtip}
+\section{运算规则与经典伴随}
+\subsection{乘法次序是条件的一部分}
+\begin{definition}{乘积、转置与伴随}
+矩阵相等要求形状相同且对应元素相同。同形矩阵按元素相加、数乘：$(A+B)_{ij}=a_{ij}+b_{ij}$，$(cA)_{ij}=ca_{ij}$。若$A\in\F^{m\times n},B\in\F^{n\times p}$，乘积为$m\times p$矩阵，$(AB)_{ij}=\sum_{k=1}^n a_{ik}b_{kj}$。转置由$(A\T)_{ij}=a_{ji}$定义。
+
+$I_n$的对角元为1、其余为0。对$n$阶$A$，若存在同阶$B$使$AB=BA=I_n$，称$A$可逆，$B$称其逆矩阵，记$A\inv$；其唯一性由$B=B(AC)=(BA)C=C$得到。方阵的迹定义为$\tr A=\sum_i a_{ii}$。实方阵满足$A\T=A$称对称，满足$A\T=-A$称反对称；实方阵$Q$满足$Q\T Q=I$称正交矩阵，此时$Q\inv=Q\T$，也有$QQ\T=I$。
+
+对方阵，经典伴随为$\adj A=(C_{ji})$。三类初等行变换是交换两行、一行乘非零标量、某行加上另一行的标量倍；初等列变换相应定义。对$I_n$作一次初等行变换所得矩阵称初等矩阵，左乘它实施相同的行变换；右乘相应初等矩阵实施列变换。
+\end{definition}
+\begin{theorem}{代数规则与伴随恒等式}
+乘法满足结合律与分配律，通常不满足交换律。并有
+\begin{equation}(AB)\T=B\T A\T,\quad A\adj A=\adj A\,A=(\det A)I.\label{eq:adj}\end{equation}
+可逆时$(AB)\inv=B\inv A\inv$，$(A\T)\inv=(A\inv)\T$。$n$阶矩阵满足$\det(\adj A)=(\det A)^{n-1}$；$n=1$时伴随按$[1]$约定。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch02_p1}
+\end{proof}
+\begin{method}{先整理等式再计算}
+适用：复合矩阵式。步骤：核对维数；按括号逆序展开逆与转置；只对可交换的同一矩阵多项式合并。易错：不能任意约去奇异矩阵，$AB=0$也不能推出某个因子为零。
+\end{method}
+\worked{不交换的最小例子}{基础例题}{\star}{2-1}
+{取$A=\begin{pmatrix}0&1\\0&0\end{pmatrix}$，$B=\begin{pmatrix}0&0\\1&0\end{pmatrix}$，求$AB,BA$。}
+{按“行乘列”计算。}
+{逐项行乘列：
+\[AB=\begin{pmatrix}0\cdot0+1\cdot1&0\cdot0+1\cdot0\\0&0\end{pmatrix}=\begin{pmatrix}1&0\\0&0\end{pmatrix},\quad
+BA=\begin{pmatrix}0&0\\1\cdot0+0\cdot0&1\cdot1+0\cdot0\end{pmatrix}=\begin{pmatrix}0&0\\0&1\end{pmatrix}.\]
+两矩阵的$(1,1)$元不同，故不交换。另算$A^2=B^2=O$，但$AB\ne O$，因此幂零不意味着与别的矩阵相乘为零。}
+{一个二阶反例就能否定无条件的交换与消去。}
+{展开$(A+B)^2$应保留$AB+BA$，不能默认是$2AB$。}
+\worked{逆与转置的顺序}{考研风格}{\star\star}{2-2}
+{可逆$A,B$满足$X=(A\T B)\inv$，写出$X\T$。}
+{每遇一次逆或转置，整体因子顺序反转。}
+{\textbf{方法一：}先展开逆，再转置：$X=B\inv(A\T)\inv=B\inv(A\inv)\T$，于是
+\[X\T=\bigl((A\inv)\T\bigr)\T(B\inv)\T=A\inv(B\inv)\T.\]
+\textbf{方法二：}先把整体逆与转置交换，再转置内部乘积：
+\[X\T=\bigl((A\T B)\T\bigr)\inv=(B\T A)\inv=A\inv(B\T)\inv=A\inv(B\inv)\T.\]
+每一步都保留因子次序，且可逆性由$A,B$可逆保证。}
+{两条路线得到相同的乘法次序，可用于自检。}
+{相同字母位置不同也不能跨越另一个矩阵约去。}
+\worked{伴随需要转置}{基础例题}{\star}{2-3}
+{求$A=\begin{pmatrix}1&2\\3&6\end{pmatrix}$的伴随并核验式\eqref{eq:adj}。}
+{二阶伴随是对角交换、副对角变号。}
+{二阶代数余子式为$C_{11}=6,C_{12}=-3,C_{21}=-2,C_{22}=1$，转置后
+\[\adj A=\begin{pmatrix}6&-2\\-3&1\end{pmatrix}.\]
+核验$\det A=1\cdot6-2\cdot3=0$，并逐项相乘：
+\[A\adj A=\begin{pmatrix}6-6&-2+2\\18-18&-6+6\end{pmatrix}=O=(\det A)I.\]
+伴随第二行是第一行的$-\frac{1}{2}$倍且不为零，故秩1；原矩阵虽不可逆，伴随仍有定义。}
+{奇异矩阵仍有伴随，只有求逆时才需除以行列式。}
+{代数余子式矩阵未转置时不是经典伴随。}
+\worked{幂等关系的逆}{考研风格}{\star\star}{2-4}
+{若$P^2=P$，证明$I+P$可逆并求逆。}
+{寻找$I+cP$使乘积退化为$I$。}
+{\textbf{方法一：}待定逆$I+cP$，利用$P^2=P$得$(I+P)(I+cP)=I+(1+2c)P$。令$1+2c=0$，取$c=-\frac{1}{2}$，左右乘均得到$I$，故逆为$I-\frac{P}{2}$。
+\textbf{方法二：}任意$x=Px+(I-P)x$，前一项在$\im P$，后一项在$\ker P$；交中向量$z$同时满足$Pz=z$与$Pz=0$，故只有零。在前空间$I+P$乘2，在后空间乘1，逆应分别乘$\frac{1}{2},1$，即$\frac12P+(I-P)=I-\frac{P}{2}$。}
+{系数待定法快，空间分解法解释为何只需两个系数。}
+{一般$(I+P)\inv$不等于$I-P$。}
+\input{enrichment/ch02_a}
+
+\section{逆矩阵的四条路线}
+\subsection{伴随、消元、分块与多项式}
+\begin{theorem}{可逆的等价刻画}
+对$n$阶$A$，下列等价：$A$可逆；$\det A\ne0$；$\rank A=n$；$A\vx=0$只有零解；$A$行等价于$I$；$A$为有限个初等矩阵之积。此时
+\begin{equation}A\inv=\dfrac{\adj A}{\det A},\qquad [A\mid I]\longrightarrow[I\mid A\inv].\end{equation}
+\end{theorem}
+\begin{proof}
+\input{derivations/ch02_p2}
+\end{proof}
+\begin{method}{求逆按结构选路}
+二、三阶精确题可用伴随；一般数字题用增广矩阵；块三角先求对角块逆；给$A$的低次关系则先凑$I$。易错：行变换必须同步作用于右块，不可在$[A\mid I]$中随意混入列变换。
+\end{method}
+\worked{同一矩阵的四法求逆}{考研风格}{\star\star}{2-5}
+{求$A=\begin{pmatrix}2&1\\1&1\end{pmatrix}$的逆。}
+{本题既适合二阶公式，也可演示一般方法。}
+{\textbf{方法一（伴随）：}$\det A=2-1=1$，伴随$\begin{pmatrix}1&-1\\-1&2\end{pmatrix}$，除以1即为逆。
+\textbf{方法二（消元）：}
+\[\left[\begin{array}{cc|cc}2&1&1&0\\1&1&0&1\end{array}\right]
+\xrightarrow{r_1-r_2}\left[\begin{array}{cc|cc}1&0&1&-1\\1&1&0&1\end{array}\right]
+\xrightarrow{r_2-r_1}\left[\begin{array}{cc|cc}1&0&1&-1\\0&1&-1&2\end{array}\right].\]
+右块就是所求。
+\textbf{方法三（分块）：}主块为标量2，Schur补$S=1-\frac{1}{2}=\frac{1}{2}$，其逆为2。四块分别为$\frac{1}{2}+(\frac{1}{2})\cdot1\cdot2\cdot1\cdot(\frac{1}{2})=1$、$-(\frac{1}{2})\cdot1\cdot2=-1$、$-2\cdot1\cdot(\frac{1}{2})=-1$、$2$。
+\textbf{方法四（CH）：}$\chi_A(t)=(t-2)(t-1)-1=t^2-3t+1$，所以$A(3I-A)=I$，逆为$3I-A=\begin{pmatrix}1&-1\\-1&2\end{pmatrix}$。乘回得$\begin{pmatrix}2-1&-2+2\\1-1&-1+2\end{pmatrix}=I$，四法一致。}
+{小阶数伴随最省；消元最通用；分块重用主块；多项式法适合抽象矩阵。}
+{四种方法都应以$AA\inv=I$作最后核验。}
+\worked{幂零矩阵的有限几何级数}{竞赛风格}{\star\star}{2-6}
+{若$N^k=0$，求$(I-N)\inv$。}
+{模仿有限等比和，不需要无穷级数收敛。}
+{令$S=I+N+\cdots+N^{k-1}$，相乘后按同次幂相减：
+\[(I-N)S=(I+N+\cdots+N^{k-1})-(N+N^2+\cdots+N^k)=I-N^k=I.\]
+所有项是$N$的多项式，可交换，所以$S(I-N)=I$也成立，$S$为双侧逆。例如取$N=\begin{pmatrix}0&1&0\\0&0&1\\0&0&0\end{pmatrix}$，则$N^2=\begin{pmatrix}0&0&1\\0&0&0\\0&0&0\end{pmatrix},N^3=0$，故$I+N+N^2=\begin{pmatrix}1&1&1\\0&1&1\\0&0&1\end{pmatrix}$。这是有限和，不需要讨论无穷级数收敛。}
+{多项式恒等式比逐项求伴随高效。}
+{对一般$N$不能把无穷几何级数无条件代入。}
+\worked{由关系式构造逆}{考研风格}{\star\star}{2-7}
+{已知$A^2-A-2I=0$，求$A\inv$与$(I-A)\inv$。}
+{从原式提取乘积等于常数单位阵。}
+{\textbf{方法一：}原式给$A^2-A=2I$，即$A(A-I)=(A-I)A=2I$，故$A\inv=\frac{A-I}{2}$。另有$(I-A)A=A-A^2=-2I$，所以$(I-A)\inv=-\frac{A}{2}$。
+\textbf{方法二：}设$A\inv=qA+rI$，利用$A^2=A+2I$，有$A(qA+rI)=(q+r)A+2qI$；取$q=\frac{1}{2},r=-\frac{1}{2}$使之为$I$。对$(I-A)\inv=uA+vI$，乘开并降次得到$-vA+(v-2u)I$，取$v=0,u=-\frac{1}{2}$。两次都是构造出逆后再核验，不预设未知矩阵可逆。}
+{凑单位阵最直接，模多项式方法可处理更高次题。}
+{$(A+I)(A-2I)=0$只推出两因子不能同时可逆。}
+\worked{块上三角求逆}{考研风格}{\star\star}{2-8}
+{设$A,D$可逆，求$M=\begin{pmatrix}A&B\\0&D\end{pmatrix}$的逆。}
+{未知逆也设为块上三角。}
+{\textbf{方法一：}设候选逆为$\begin{pmatrix}X&Y\\0&Z\end{pmatrix}$，乘积为$\begin{pmatrix}AX&AY+BZ\\0&DZ\end{pmatrix}$。等于$I$要求$X=A\inv,Z=D\inv,Y=-A\inv BD\inv$，得到
+\[M\inv=\begin{pmatrix}A\inv&-A\inv BD\inv\\0&D\inv\end{pmatrix}.\]
+反向相乘的右上块为$A\inv B-A\inv BD\inv D=0$，也等于$I$。
+\textbf{方法二：}$M=\diag(A,D)(I+K)$，$K=\begin{pmatrix}0&A\inv B\\0&0\end{pmatrix}$满足$K^2=0$。所以$M\inv=(I-K)\diag(A\inv,D\inv)$，逐块乘开正是上式。}
+{待定块法通用，分解法解释负号与次序。}
+{右上角通常不能写成$-B A\inv D\inv$。}
+\section{秩、初等变换与秩分解}
+\subsection{子式与空间描述相互验证}
+\begin{definition}{秩与等价标准形}
+$\rank A$是非零子式的最大阶数；零矩阵的秩为零。各行向量中极大无关子组的向量数称行秩，各列相应称列秩。两个$m\times n$矩阵$A,B$若存在可逆$m$阶$P$及可逆$n$阶$Q$使$B=PAQ$，称矩阵等价；只用左侧初等行变换联系时称行等价。矩阵等价区别于相似与合同。
+\end{definition}
+\begin{theorem}{秩的基本性质}
+行秩、列秩与非零子式最大阶数相等。可逆左、右乘保持秩；任意秩$r$的$m\times n$矩阵等价于$\begin{pmatrix}I_r&0\\0&0\end{pmatrix}$，称秩的等价标准形。乘积秩有上界；实矩阵的Gram矩阵与原矩阵同秩：
+\[\rank(AB)\le\min(\rank A,\rank B),\qquad\rank(A\T A)=\rank A.\]
+若$n\ge2$，经典伴随矩阵满足
+\[\rank(\adj A)=\begin{cases}n,&\rank A=n,\\1,&\rank A=n-1,\\0,&\rank A\le n-2.\end{cases}\]
+\end{theorem}
+\begin{proof}
+\input{derivations/ch02_p3}
+\end{proof}
+\begin{method}{秩的上下界夹逼}
+先找非零子式得下界，再找相关关系得上界；参数题先求满阶行列式的零点，再在这些点检查低阶子式。不要用“行列式为零”直接判断秩降了几级。
+\end{method}
+\worked{参数秩的三个区间}{考研风格}{\star\star}{2-9}
+{三阶矩阵对角元为$t$、非对角元为$1$，求秩。}
+{由第1章公式先找到特殊参数。}
+{\textbf{方法一：}行列式为$(t-1)^2(t+2)$。$t\ne1,-2$时非零，秩3；$t=1$时所有列均为$\bm1$，有非零元且列同向，秩1；$t=-2$时行列式零，秩至多2，而左上二阶子式$(-2)^2-1=3\ne0$给下界2，故秩2。
+\textbf{方法二：}$A=(t-1)I+\bm1\bm1\T$。在$\Span(\bm1)$上特征值为$t+2$，在二维和零平面上为$t-1$。这两个空间直和为$\R^3$，故秩等于非零标量作用所覆盖的维数：一般为$1+2=3$，$t=1$只剩前一维，$t=-2$只剩后两维。此计数依赖已经证明的直和结构。}
+{子式法不依赖可对角化；谱法适合这个特殊结构。}
+{仅看行列式的二重零点，不能对一般矩阵推断秩降$2$。}
+\worked{伴随矩阵的秩}{考研风格}{\star}{2-10}
+{四阶$A$的秩依次为$4,3,2$时，求伴随的秩。}
+{使用按$n-1$阶子式划分的三类。}
+{若原秩4，则$A$可逆，$\adj A=(\det A)A\inv$也可逆，秩4。若原秩3，某个三阶子式非零使伴随非零；又$A\adj A=0$，伴随全部列在一维核中，因此秩1。若原秩2，全部三阶子式为零，伴随所有元素为零，秩0。三个答案依次是$4,1,0$，不是把原秩统一减1。}
+{这里的$n-1$是结构阈值，不是“秩减一”。}
+{当$n=1$时经典伴随恒为$[1]$，需单独看约定。}
+\worked{实数域中的Gram矩阵}{竞赛风格}{\star\star}{2-11}
+{证明实矩阵$A$满列秩当且仅当$A\T A$可逆，并说明复数域要如何修改。}
+{把二次式变成平方和。}
+{\textbf{方法一：}对任意实$x$，$x\T A\T Ax=\sum_i(Ax)_i^2$。所以$A\T Ax=0$推出平方和为零，进而$Ax=0$；反向由矩阵乘法直接得到。两核相同，所以$A$满列秩恰当于$A\T A$核为零，也恰当于它作为方阵可逆。
+\textbf{方法二：}若列无关，对非零系数$x$有$Ax\ne0$，故Gram二次型$x\T A\T Ax>0$，正定使Gram矩阵可逆；若列相关，取非零$x$使$Ax=0$，便给Gram的非零核向量，不能可逆。复数域须改用$x^*A^*Ax=\sum_i|(Ax)_i|^2$；只取转置时$A=(1,i)\T$虽满列秩，却有$A\T A=1+i^2=0$。}
+{平方和论证同时给出可逆性和正定性。}
+{复数的平方和可以抵消，共轭内积才有正性。}
+\worked{秩分解}{竞赛风格}{\star\star}{2-12}
+{将$A=\begin{pmatrix}1&0&1\\0&1&1\\1&1&2\end{pmatrix}$写成满列秩矩阵与满行秩矩阵的乘积。}
+{第三列等于前两列之和。}
+{\textbf{方法一：}前两列$b_1=(1,0,1)\T,b_2=(0,1,1)\T$独立，第三列等于$b_1+b_2$，故
+\[B=\begin{pmatrix}1&0\\0&1\\1&1\end{pmatrix},\quad C=\begin{pmatrix}1&0&1\\0&1&1\end{pmatrix},\quad BC=(b_1,b_2,b_1+b_2)=A.\]
+$B$前二行含$I_2$，$C$前二列含$I_2$，两者秩均2。
+\textbf{方法二：}对$A$作$r_3\leftarrow r_3-r_1-r_2$，得$\begin{pmatrix}1&0&1\\0&1&1\\0&0&0\end{pmatrix}$，主元列为1、2；由非主元列的系数$(1,1)\T$恢复原列表示，仍得到上述$B,C$。必须返回原列，不能把消元后的列误作$B$。}
+{秩分解把大矩阵运算压到$r$维，是低秩技巧的基础。}
+{采用本题的选列算法时，应取原矩阵中对应主元编号的列，不能直接搬用行变换后的列。一般秩分解中，$B$也可取原列空间的任意一组基。}
+\input{enrichment/ch02_b}
+
+\section{矩阵方程与分块技巧}
+\subsection{左、右乘与Schur逆}
+\begin{theorem}{矩阵方程与分块逆}
+若$A,B$可逆，则$AXB=C$唯一解为$X=A\inv CB\inv$。若$A$可逆且$S=D-CA\inv B$可逆，则
+\begin{equation}
+\begin{pmatrix}A&B\\C&D\end{pmatrix}^{-1}
+=\begin{pmatrix}A\inv+A\inv BS\inv CA\inv&-A\inv BS\inv\\-S\inv CA\inv&S\inv\end{pmatrix}.\label{eq:blockinverse}
+\end{equation}
+\end{theorem}
+\begin{proof}
+\input{derivations/ch02_p4}
+\end{proof}
+\begin{method}{方程分列与结构消元}
+$AX=C$可按$C$的列逐列求解；$XA=C$可转置处理。若出现$AX+XB$，不要误作$(A+B)X$，可设元素或进入特征基。块逆公式较长，优先现场消元以免记错次序。
+\end{method}
+\worked{双侧矩阵方程}{考研风格}{\star\star}{2-13}
+{设$A=\diag(2,1),B=\diag(1,3)$，解$AXB=\begin{pmatrix}2&6\\1&3\end{pmatrix}$。}
+{对角左乘按行缩放，右乘按列缩放。}
+{\textbf{方法一：}左乘$A\inv=\diag(\frac{1}{2},1)$先将右端按行缩放，得$\begin{pmatrix}1&3\\1&3\end{pmatrix}$；右乘$B\inv=\diag(1,\frac{1}{3})$再按列缩放，得到$X=\begin{pmatrix}1&1\\1&1\end{pmatrix}$。
+\textbf{方法二：}设元素为$x_{ij}$，四式依次为$2x_{11}=2,6x_{12}=6,x_{21}=1,3x_{22}=3$，全解得1。代回$AX=\begin{pmatrix}2&2\\1&1\end{pmatrix}$，再右乘$B$恢复题给右端，且四个非零系数保证唯一。}
+{元素法适合对角系数，逆矩阵公式更一般。}
+{右乘逆会缩放列，不能把它施加到行。}
+\worked{奇异系数下的矩阵方程}{考研风格}{\star\star}{2-14}
+{设$A=\begin{pmatrix}1&1\\2&2\end{pmatrix}$，解$AX=\begin{pmatrix}1&2\\2&4\end{pmatrix}$。}
+{每一列是一个相容但不唯一的方程组。}
+{设$X=\begin{pmatrix}x&y\\z&w\end{pmatrix}$。乘开有$AX=\begin{pmatrix}x+z&y+w\\2x+2z&2y+2w\end{pmatrix}$，所以独立条件仅$x+z=1,y+w=2$，第二行自动为第一行的两倍。令$z=s,w=t$，解得$x=1-s,y=2-t$，因此
+\[X=\begin{pmatrix}1-s&2-t\\s&t\end{pmatrix},\qquad s,t\in\R.\]
+任意$s,t$代回均满足四个元素等式；任何解也都能用自己的$z,w$作$s,t$，故没有遗漏。}
+{奇异不等于无解；相容时每一列都可添加核向量。}
+{不能使用不存在的$A\inv$。若右端第二行不为第一行的两倍，则无解。}
+\worked{一般分块逆的实例}{竞赛风格}{\star\star\star}{2-15}
+{求$M=\begin{pmatrix}I&I\\I&2I\end{pmatrix}$的逆，各$I$阶数相同。}
+{Schur补是$I$，也可把未知向量分块。}
+{\textbf{方法一：}主块$I$可逆，Schur补$2I-II^{-1}I=I$，将四块逆式代入得$M\inv=\begin{pmatrix}2I&-I\\-I&I\end{pmatrix}$。核验左上块$2I-I=I$，右上块$-I+I=0$，左下块$2I-2I=0$，右下块$-I+2I=I$。
+\textbf{方法二：}解$M(u,v)\T=(a,b)\T$，即$u+v=a,u+2v=b$。相减得$v=b-a$，再得$u=a-v=2a-b$，所以逆映射的四块分别为$2I,-I,-I,I$。两方法均不要求各块是一阶数，但要求尺寸相同。}
+{解方程法更不易记错，适合验证公式。}
+{两个块行都必须满足原方程。}
+\worked{低秩更新的逆}{竞赛风格}{\star\star\star}{2-16}
+{证明当$1+\vv\T\vu\ne0$时，$(I+\vu\vv\T)\inv=I-\frac{\vu\vv\T}{1+\vv\T\vu}$。}
+{平方后仍是原秩一矩阵的倍数。}
+{\textbf{方法一：}记$K=uv\T,c=v\T u$，则$K^2=u(v\T u)v\T=cK$。因此
+\[(I+K)\left(I-\dfrac{K}{1+c}\right)=I+\left(1-\dfrac1{1+c}-\dfrac c{1+c}\right)K=I.\]
+因两因子均是$K$的多项式，反向乘积相同，故为双侧逆。
+\textbf{方法二：}解$x+u(v\T x)=b$。左乘$v\T$得$(1+c)v\T x=v\T b$，由$1+c\ne0$，$v\T x=\frac{v\T b}{1+c}$；代回$x=b-\frac{u(v\T b)}{1+c}$，即给候选逆。若$1+c=0$，则$u\ne0$且$(I+uv\T)u=(1+c)u=0$，确实不可逆，说明分母条件必要。}
+{多项式法适合证明，标量消元法说明低秩更新为何便宜。}
+{分母为零时行列式为零，不能求逆；$c=0$而$K\ne0$时公式仍成立。}
+\begin{warning}
+矩阵“等价”“相似”“合同”分别为$PAQ,P\inv AP,P\T AP$，不变量不同。伴随存在不代表逆存在。$A\T A$的秩等于$A$依赖实数域，复数域应换共轭转置。矩阵方程最后用代回检验乘法顺序。
+\end{warning}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\exercise{2-1}{基础}{求$A=\begin{pmatrix}1&2\\0&1\end{pmatrix}$的逆，并计算$A^3$。}
+\exercise{2-2}{基础}{设$A,B$均为$n$阶方阵且$AB=I_n$，证明$BA=I_n$。}
+\exercise{2-3}{基础}{求$\begin{pmatrix}1&2&3\\2&4&6\end{pmatrix}$的秩。}
+\exercise{2-4}{考研风格}{已知$A^2-3A+2I=0$，求$A\inv$。}
+\exercise{2-5}{考研风格}{三阶$A$的秩为2，求$\rank\adj A$与$\det\adj A$。}
+\exercise{2-6}{考研风格}{解$\diag(2,3)X=\begin{pmatrix}2&4\\3&6\end{pmatrix}$。}
+\exercise{2-7}{竞赛拓展}{若$N^3=0$，求$(2I-N)\inv$并验证。}
+\exercise{2-8}{竞赛拓展}{设$A$可逆，推导$A+\vu\vv\T$的逆及存在条件。}
+\exercise{2-9}{竞赛拓展}{证明任意秩$r$的矩阵都存在秩分解$A=BC$，其中$B$满列秩、$C$满行秩。}
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\begin{quicktable}
+伴随求逆&小阶可逆矩阵&二阶、稀疏余子式&伴随要转置\\
+增广消元&一般数字矩阵&多个右端&行变换同步\\
+多项式求逆&已知低次关系&幂零、幂等&常数项必须可解\\
+秩夹逼&参数与抽象矩阵&非零子式、相关式&行列式零不定秩\\
+分块逆&可逆主块与Schur补&自然块结构&两个可逆条件\\
+分列解方程&系数可奇异&$AX=C$&检查每列相容\\
+\end{quicktable}

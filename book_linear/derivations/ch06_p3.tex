@@ -1,0 +1,8 @@
+\label{der:6-3}
+\textbf{定义、谱与规范形。}令$x=Qy$，$Q$正交，则$f=\sum_i\lambda_i y_i^2$。若全$\lambda_i>0$，非零$y$至少一项正，故正定；若某$\lambda_i\le0$，取对应$y=e_i$便否定正定。故正定等价于全正谱，也等价于惯性$(n,0)$。令$R=\diag(\sqrt{\lambda_i})Q\T$，则$A=R\T R$且$R$可逆；反之$R$可逆时$x\T R\T Rx=\norm{Rx}^2>0$。
+
+\textbf{顺序主子式。}正定矩阵限制到前$k$坐标仍正定，故该子矩阵的特征值全正，行列式$\Delta_k>0$。反向以维数归纳：$n=1$明显。若全部$\Delta_k>0$，则$a_{11}=\Delta_1>0$；按推导\ref{der:6-2}合同到$\diag(a_{11},S)$。$S$的前$k$阶顺序主子式为$\frac{\Delta_{k+1}}{a_{11}}>0$，这是对相应前$k+1$阶块应用Schur行列式公式所得。归纳知$S$正定，故整式正定。连续主元相应为$d_k=\frac{\Delta_k}{\Delta_{k-1}}$，$\Delta_0=1$。负定就是$-A$正定，$-A$的$k$阶顺序主子式为$(-1)^k\Delta_k$，得到负定判据。
+
+\textbf{半正定与所有主子式。}若半正定，任一主子矩阵也半正定，谱非负，其行列式非负。反向，设全部主子式非负。任一$k$阶主子矩阵$B$满足
+\[\det(B+\varepsilon I_k)=\sum_{J\subseteq\{1,\ldots,k\}}\varepsilon^{k-|J|}\det B[J,J].\]
+此式由列多线性得到：选择$\varepsilon e_j$的列占据同号的对应行，未选位置留下同指标主子式，空主子式取1。各系数非负且$\varepsilon^k>0$，所以对$\varepsilon>0$全部顺序主子式严格正，$A+\varepsilon I$正定。固定$x$有$x\T Ax+\varepsilon\norm x^2>0$，令$\varepsilon\downarrow0$得到$x\T Ax\ge0$。这证明充分性，并说明为何只检查顺序主子式非负不够。

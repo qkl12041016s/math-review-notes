@@ -1,0 +1,20 @@
+\chapter{符号表}
+\par\noindent\begin{tabularx}{\textwidth}{lX}\toprule
+符号&含义与约定\\\midrule
+$\R,\mathbb N$&实数集、自然数集；求和起点另行注明\\
+$o(g),O(g),f\sim g$&相对于同一极限过程的小量、有界比与比值趋于1\\
+$\dd x, f', f^{(n)}$&微分、一阶导数与高阶导数\\
+$f_x,f_{xy}$&偏导数，$f_{xy}=\partial_y(\partial_x f)$\\
+$\bm a,\bm r,\bm F$&向量、位置向量与向量场\\
+$\nabla f,\diver\bm F,\rot\bm F$&梯度、散度与旋度\\
+$\dd s,\dd S,\bm n$&弧长元、面积元与指定方向的单位法向量\\
+$D,\Omega,S,L$&平面区域、空间区域、曲面与曲线\\
+$J, H, W$&雅可比行列式、Hessian矩阵与Wronskian行列式\\
+$C,C_1,C_2$&任意常数；不同出现位置不必相同\\\bottomrule
+\end{tabularx}
+\begin{tcolorbox}[title=进阶符号的定义,colframe=Ink]
+“几乎处处”指允许在一个Lebesgue零测集上例外。$L^p(E)$（$0<p<\infty$）由满足$\int_E|f|^p<\infty$的可测函数组成，并把几乎处处相同的函数视为同一元素；记$\|f\|_p=(\int_E|f|^p)^{\frac{1}{p}}$，$p\ge1$时为范数。$L^\infty$用本质上确界，$L^1_{\rm loc}$指每个紧集上可积；$L^0$表示有限几乎处处的可测函数，依测度讨论其收敛。
+Schwartz函数是实轴上所有导数都比任意负幂衰减的$C^\infty$函数，即对非负整数$m,n$有$\sup_x|x^mf^{(n)}(x)|<\infty$。
+实轴变换采用$\widehat f(\xi)=\int_\R f(x)\e^{-2\pi ix\xi}\dd x$；$2\pi$周期复系数采用$\widehat f(k)=(2\pi)^{-1}\int_{-\pi}^{\pi}f(x)\e^{-ikx}\dd x$。两者的自变量与测度不同，不能混用常数。
+\end{tcolorbox}
+涉及参数的求导均先声明参数区间。反常积分与级数的等式需先确认收敛。角度采用弧度，球坐标极角从正$z$轴起算。

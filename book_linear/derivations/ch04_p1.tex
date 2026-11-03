@@ -1,0 +1,6 @@
+\label{der:4-1}
+三类行操作都有逆操作，所以将系数块与右端同时左乘可逆$E$时，$A\vx=\vb$推出$EA\vx=E\vb$，反向再左乘$E\inv$也成立，解集完全相同。若$A$可逆，左乘$A\inv$得到必要形式$\vx=A\inv\vb$；代回成立，因而存在且唯一。
+
+记$A=(a_1,\ldots,a_n)$，唯一解满足$\vb=\sum_i x_i a_i$。把$\vb$置于第$j$列，按该列展开：
+\[\det A_j(\vb)=\sum_i x_i\det(a_1,\ldots,\underbrace{a_i}_{j\text{列}},\ldots,a_n).\]
+当$i\ne j$，第$i,j$列相同，该项为零；当$i=j$，矩阵就是$A$。所以$\det A_j(\vb)=x_j\det A$，再除以已知非零的$\det A$得克拉默法则。若$\det A=0$，这一步不能相除，算法须返回消元与秩判据。

@@ -1,0 +1,6 @@
+\label{der:7-2}
+先取核基$u_1,\ldots,u_k$，扩充为$V$的基$u_1,\ldots,u_n$。任意$v=\sum_i c_iu_i$，线性性给$T(v)=\sum_{i>k}c_iT(u_i)$，所以后$n-k$个像生成$\im T$。若$\sum_{i>k}c_iT(u_i)=0$，则$\sum_{i>k}c_iu_i$落在核中，可写成前$k$个基向量的组合；移到一边利用整组基无关，全部$c_i=0$。因此这些像是像空间的基，$\dim\im T=n-k$，从而$n=\dim\ker T+\dim\im T$。
+
+表示矩阵的第$j$列是$T(b_j)$的值域坐标，所以对$v=\sum_j\xi_jb_j$，线性性给$[T(v)]_\mathcal C=A\xi$。若定义域新基$B'=BP$，值域新基$C'=CQ$，同一向量的坐标有$\xi=P\xi'$，像坐标有$\eta=Q\eta'$，因此
+\[Q\eta'=AP\xi',\qquad\eta'=Q\inv AP\xi'.\]
+这给一般换基矩阵$Q\inv AP$。当$V=W$且输入输出同时使用同一新基时$Q=P$，才成为相似式$P\inv AP$。

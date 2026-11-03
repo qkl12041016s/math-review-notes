@@ -1,0 +1,205 @@
+\chapter{一元函数微分学}\label{ch:2}
+\begin{tcolorbox}[title=章首知识地图,colframe=Ink]
+导数定义 $\to$ 求导规则 $\to$ 高阶结构 $\to$ 中值定理 $\to$ Taylor近似 $\to$ 单调、极值、凹凸与几何。
+\end{tcolorbox}
+\begin{examtip}考研主线：复合、隐式、参数求导，高阶导数，中值定理，单调极值与凹凸。常见题型：构造辅助函数证明等式、不等式，分析完整函数图像。竞赛拓展：插值余项、二阶包络与导数估计。上述为学习任务分层，具体范围以所报考科目的当年大纲为准。\end{examtip}
+\section{导数、微分与复合求导}\label{sec:2:1}
+\subsection{概念、定理与推导}
+
+\begin{definition}{可导与可微}设$f$在$a$的一个开邻域有定义。若差商有有限实极限$f\prime(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h}$，称$f$在$a$可导；无穷极限不称为通常意义的导数。区间端点可另定义单侧导数。若$\Delta f=A\Delta x+o(\Delta x)$，称在$a$可微，微分为$\dd f=A\dd x$。一元情形可微等价于可导，并蕴含连续。\end{definition}
+\begin{theorem}{求导规则}设所涉及函数在对应点可导，则$ (uv)\prime=u\prime v+uv\prime$，$(\frac{u}{v})\prime=\frac{u\prime v-uv\prime}{v^2}$（$v\ne0$）；复合导数$(f\circ g)\prime=f\prime(g)g\prime$。若$f$在$a$附近的区间上连续且严格单调，$f\prime(a)\ne0$，则反函数在$b=f(a)$处可导，且$(f^{-1})\prime(b)=\frac{1}{f\prime(a)}$。\end{theorem}
+\begin{proof}乘积增量拆成$u\Delta v+v\Delta u+\Delta u\Delta v$；最后一项除以$\Delta x$趋零。复合微分将外层增量写成$f\prime(g)\Delta g+o(\Delta g)$即可。\end{proof}
+若$F$在$(a,b)$附近属于$C^1$，$F(a,b)=0$且$F_y(a,b)\ne0$，则该点附近存在唯一经过$(a,b)$的$C^1$隐函数$y=y(x)$，并有$y\prime=-\frac{F_x}{F_y}$。参数方程$x=x(t),y=y(t)$在点附近属于$C^1$且$x\prime(t)\ne0$时，$\frac{\dd y}{\dd x}=\frac{y\prime(t)}{x\prime(t)}$。正函数幂式可先取对数。
+
+\begin{method}{导数、微分与复合求导}条件：分式分母、对数真数与反函数导数均须合法。步骤：画复合层次，逐层求导；隐式关系两边求导。易错点：将参数导数与关于$x$的导数混同。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜对数求导}{难度：$\star$}
+\label{ex:2:1}\textbf{题目} 求$x^x$的导数，$x>0$。\par
+\textbf{思路} 底数和指数都变化。\par
+\textbf{解答} 方法一：设$y=x^x$，$\ln y=x\ln x$，得$y\prime=x^x(\ln x+1)$。方法二：写成$\e^{x\ln x}$再用链式法则，得相同结果。\par
+\textbf{方法点评} 对数求导便于多因子，指数表示便于高阶推广。\par
+\textbf{易错点或变式} 不能用常数指数幂法则直接得到$xx^{x-1}$。
+\end{example}
+\begin{example}{考研风格例题｜隐函数}{难度：$\star\star$}
+\label{ex:2:2}\textbf{题目} 在单位圆上$x y\ne0$处求$y\prime,y\prime\prime$。\par
+\textbf{思路} 先求一阶，再对含$y$的表达式求导。\par
+\textbf{解答} 方法一：$x^2+y^2=1$给$y\prime=-\frac{x}{y}$，再求导得$y\prime\prime=-\frac{1}{y}-\frac{x^2}{y^3}=-\frac{1}{y^3}$。方法二：局部分支$y=\pm\sqrt{1-x^2}$，直接求两次导数得到同式。\par
+\textbf{方法点评} 隐式法统一上下分支，显式法便于核对。\par
+\textbf{易错点或变式} 在$y=0$处不能把圆写成局部可导的$y(x)$。
+\end{example}
+\begin{example}{考研风格例题｜参数曲线}{难度：$\star\star$}
+\label{ex:2:3}\textbf{题目} $x=t^2,y=t^3$，$t\ne0$，求二阶导数。\par
+\textbf{思路} 第二次仍要除以$x\prime(t)$。\par
+\textbf{解答} 方法一：$\frac{\dd y}{\dd x}=\frac{3t}{2}$，$\frac{\dd^2y}{\dd x^2}=\frac{\frac{3}{2}}{2t}=\frac{3}{4t}$。方法二：在$t>0$与$t<0$分别写$y=\pm x^{\frac{3}{2}}$，求导后代$x=t^2$。\par
+\textbf{方法点评} 参数法无需分支讨论，消参法检查符号。\par
+\textbf{易错点或变式} $t=0$是奇异参数点，公式不能直接套用。
+\end{example}
+\section{高阶导数与Leibniz公式}\label{sec:2:2}
+
+\begin{theorem}{常用导数公式，标准结论}
+在各自可导的实值区间上，
+\begin{align*}
+(x^\alpha)\prime&=\alpha x^{\alpha-1},& (\ln|x|)\prime&=\dfrac{1}{x},\\
+(a^x)\prime&=a^x\ln a\quad(a>0),& (\e^x)\prime&=\e^x,\\
+(\tan x)\prime&=\sec^2x,&(\cot x)\prime&=-\csc^2x,\\
+(\arcsin x)\prime&=(1-x^2)^{-\frac{1}{2}},&(\arccos x)\prime&=-(1-x^2)^{-\frac{1}{2}},\\
+(\arctan x)\prime&=(1+x^2)^{-1}.&&
+\end{align*}
+\end{theorem}
+\begin{proof}幂、指数和对数公式可由重要极限与导数定义推出；反三角公式由反函数求导获得。例如$y=\arcsin x$时$\sin y=x$且内部$\cos y>0$，所以$y\prime=\frac{1}{\cos y}=\frac{1}{\sqrt{1-x^2}}$。端点$\pm1$不能套内部导数公式。\end{proof}
+
+\subsection{概念、定理与推导}
+
+\begin{theorem}{Leibniz公式}若$u,v$有$n$阶导数，则
+\begin{equation}(uv)^{(n)}=\sum_{k=0}^{n}\binom nk u^{(k)}v^{(n-k)}.\end{equation}
+\end{theorem}
+\begin{proof}对$n$归纳。再求导时相邻两项系数相加，由$\binom nk+\binom n{k-1}=\binom{n+1}k$完成归纳。\end{proof}
+常用结构：$(\e^{ax})^{(n)}=a^n\e^{ax}$，$(\sin ax)^{(n)}=a^n\sin(ax+\frac{n\pi}{2})$，$(\frac{1}{x})^{(n)}=\frac{(-1)^n n!}{x^{n+1}}$。高阶微分一般不具备一阶微分形式不变性，因为$d^2y=f\prime\prime(x)(dx)^2+f\prime(x)d^2x$。
+
+\begin{method}{高阶导数与Leibniz公式}条件：乘积两因子足够光滑。步骤：优先让多项式因子参与高阶导数以截断求和；用部分分式分解有理函数。易错点：阶乘和二项式系数漏写。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜多项式乘指数}{难度：$\star\star$}
+\label{ex:2:4}\textbf{题目} 求$(x^2\e^x)^{(n)}$，$n\ge2$。\par
+\textbf{思路} 多项式三阶导数起为零。\par
+\textbf{解答} 方法一：Leibniz给$\e^x[x^2+2nx+n(n-1)]$。方法二：使用$(D+1)^n x^2$，仅零、一、二阶$D$项非零，得到同式。\par
+\textbf{方法点评} Leibniz透明，移位算子便于重复应用。\par
+\textbf{易错点或变式} 二阶项是$\binom n2\cdot2=n(n-1)$。
+\end{example}
+\begin{example}{考研风格例题｜分式高阶}{难度：$\star\star$}
+\label{ex:2:5}\textbf{题目} 求$f(x)=\frac{1}{x^2-1}$的$n$阶导数。\par
+\textbf{思路} 把分式拆成一次因子的倒数。\par
+\textbf{解答} 方法一：$f=\frac12[(x-1)^{-1}-(x+1)^{-1}]$，故$f^{(n)}=\frac{(-1)^n n!}{2}[(x-1)^{-n-1}-(x+1)^{-n-1}]$。方法二：先求$n=0$式再归纳求导，系数递乘$-(n+1)$，得同式。\par
+\textbf{方法点评} 部分分式找结构，归纳证明对所有阶成立。\par
+\textbf{易错点或变式} 定义域排除$\pm1$。
+\end{example}
+\begin{example}{基础例题｜振荡导数}{难度：$\star$}
+\label{ex:2:6}\textbf{题目} 求$\sin2x$的第十阶导数。\par
+\textbf{思路} 三角函数导数以四为周期。\par
+\textbf{解答} $2^{10}\sin(2x+5\pi)=-1024\sin2x$。可先算二阶为$-4\sin2x$，再重复五次。\par
+\textbf{方法点评} 周期公式减少机械计算。\par
+\textbf{易错点或变式} 内层系数2要出现十次。
+\end{example}
+\section{中值定理与辅助函数}\label{sec:2:3}
+
+\begin{method}{辅助函数构造的三个入口}
+目标含$f\prime-\lambda f$，逆用乘积法则构造$\e^{-\lambda x}f$；目标含端点割线斜率，减去通过两端点的直线；目标涉及二阶导数和两个端点，减去插值直线及待定倍数$(x-a)(x-b)$。这三种入口分别对应一阶线性表达式、弦与切线比较、二阶误差控制。构造后必须核验连续、可导和零点条件。
+\end{method}
+
+\subsection{概念、定理与推导}
+
+\begin{theorem}{Fermat、Rolle与Lagrange}内点可导极值处$f\prime=0$。若$f\in C[a,b]$、在$(a,b)$可导且$f(a)=f(b)$，存在$\xi$使$f\prime(\xi)=0$。去掉端点相等条件，则存在$\xi$使$f(b)-f(a)=f\prime(\xi)(b-a)$。\end{theorem}
+\begin{proof}Fermat由左右差商异号得出。Rolle利用连续函数取最值：若非恒定，至少一项极值在内点。Lagrange对$f(x)-f(a)-\frac{[f(b)-f(a)](x-a)}{b-a}$应用Rolle。\end{proof}
+\begin{theorem}{Cauchy中值定理}若$f,g$连续于$[a,b]$且内部可导，存在$\xi$使$[f(b)-f(a)]g\prime(\xi)=[g(b)-g(a)]f\prime(\xi)$。若要写成比式，须另外保证所除的量非零。\end{theorem}
+\begin{proof}对$[f(b)-f(a)]g(x)-[g(b)-g(a)]f(x)$使用Rolle。\end{proof}
+
+\begin{method}{中值定理与辅助函数}条件：连续闭区间、可导开区间。步骤：目标是$f\prime-\lambda f$时乘$\e^{-\lambda x}$；目标含线性弦斜率时减弦。易错点：不同次中值定理所得中值点通常不同。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜指数辅助}{难度：$\star\star$}
+\label{ex:2:7}\textbf{题目} $f(0)=f(1)=0$，$f$连续且内部可导，证明某$\xi$满足$f\prime(\xi)=f(\xi)$。\par
+\textbf{思路} 寻找导数中出现$f\prime-f$的乘积。\par
+\textbf{解答} 令$F(x)=\e^{-x}f(x)$，两端为零，Rolle给$F\prime(\xi)=\e^{-\xi}[f\prime(\xi)-f(\xi)]=0$。另法：把目标看成一阶线性表达式，用积分因子$\e^{-x}$重建同一辅助函数。\par
+\textbf{方法点评} 积分因子思路解释辅助函数的构造；核心定理仍为Rolle。\par
+\textbf{易错点或变式} 不要求$f\prime$连续。
+\end{example}
+\begin{example}{考研风格例题｜对数不等式}{难度：$\star\star$}
+\label{ex:2:8}\textbf{题目} 证明$\frac{x}{1+x}<\ln(1+x)<x$，$x>0$。\par
+\textbf{思路} 导数、积分或中值定理均可。\par
+\textbf{解答} 方法一：$\ln(1+x)=\frac{x}{1+\xi}$，$0<\xi<x$，直接夹逼。方法二：在$[0,x]$上积分$\frac{1}{1+x}\le\frac{1}{1+t}\le1$，由于非恒定得到严格不等式。方法三：两差函数导数分别为$\frac{x}{(1+x)^2}$与$\frac{x}{1+x}$，从0递增。\par
+\textbf{方法点评} 中值法简洁，积分法显示面积，导数法适合复杂参数。\par
+\textbf{易错点或变式} $x<0$时不可照搬未经分析的不等号方向。
+\end{example}
+\begin{example}{考研风格例题｜零点个数}{难度：$\star\star$}
+\label{ex:2:9}\textbf{题目} 证明$x^3+x-1=0$只有一个实根。\par
+\textbf{思路} 先存在再唯一。\par
+\textbf{解答} $f(0)=-1,f(1)=1$，连续性保证根。$f\prime=3x^2+1>0$，严格递增保证唯一；也可假设有两根，用Rolle推出导数零点而矛盾。\par
+\textbf{方法点评} 单调法与Rolle反证都是全局唯一性工具。\par
+\textbf{易错点或变式} 只有导数为正不能单独保证根存在。
+\end{example}
+\section{Taylor、极值、凹凸与曲率}\label{sec:2:4}
+\subsection{概念、定理与推导}
+
+\begin{definition}{极值与凸性}局部极小值要求定义域内$a$的某邻域中$f(x)\ge f(a)$；若对$x\ne a$均严格大于，称严格局部极小值。设$I$为区间，凸函数满足对任意$x,y\in I$和$0\le t\le1$有$f((1-t)x+ty)\le(1-t)f(x)+tf(y)$；在开区间上二阶可导时，凸等价于$f\prime\prime\ge0$处处成立。凹函数取相反的不等号。函数图像在某连续点两侧的凹凸性改变时，该点称为拐点；涉及竖切线时须说明所采用的约定。\end{definition}
+\begin{warning}本册采用凸分析的命名：凸函数的图像位于弦下，二阶可导时$f\prime\prime\ge0$。部分高等数学教材把这种图形称为“凹弧”或“凹向上”，并把$f\prime\prime\le0$的弧称为“凸弧”。函数的凸性与弧的凹凸称呼可能相反，判断时应以弦的不等式和二阶导数符号为准。\end{warning}
+\begin{theorem}{判别与几何公式}驻点$f\prime(a)=0$处，若$f\prime\prime(a)>0$则严格极小，若小于0则严格极大；等于0须进一步判断。图像曲率
+\begin{equation}\kappa=\dfrac{|f\prime\prime|}{(1+(f\prime)^2)^{\frac{3}{2}}},\qquad \rho=\dfrac{1}{\kappa}\quad(\kappa>0).\end{equation}
+\end{theorem}
+\begin{proof}二阶判别来自$f(a+h)-f(a)=\frac{f\prime\prime(a)h^2}{2}+o(h^2)$。曲率定义为切向角对弧长的变化率，利用$\tan\theta=f\prime$和$\frac{\dd s}{\dd x}=\sqrt{1+(f\prime)^2}$得到公式。\end{proof}
+斜渐近线$y=kx+b$需$k=\lim \frac{f(x)}{x}$及$b=\lim(f(x)-kx)$均存在；竖渐近线由单侧无穷极限判断。
+
+\begin{method}{Taylor、极值、凹凸与曲率}条件：区间内分段光滑。步骤：列驻点、不可导点与端点；用导数符号表判单调和凹凸。易错点：$f\prime\prime=0$只是候选拐点。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜极值}{难度：$\star$}
+\label{ex:2:10}\textbf{题目} 分析$f=x^3-3x$的单调性与极值。\par
+\textbf{思路} 一阶导数符号分区间。\par
+\textbf{解答} $f\prime=3(x^2-1)$，在$(-\infty,-1)$与$(1,\infty)$递增，在$(-1,1)$递减。$f(-1)=2$为极大，$f(1)=-2$为极小。$f\prime\prime=6x$在0变号，原点为拐点。\par
+\textbf{方法点评} 符号表同时呈现局部与全局形状。\par
+\textbf{易错点或变式} 在全实数轴没有最大值和最小值。
+\end{example}
+\begin{example}{考研风格例题｜曲率}{难度：$\star\star$}
+\label{ex:2:11}\textbf{题目} 求抛物线$y=x^2$在原点的曲率半径。\par
+\textbf{思路} 代入曲率公式。\par
+\textbf{解答} $f\prime=2x,f\prime\prime=2$，$\kappa(0)=2$，故$\rho=\frac{1}{2}$。密切圆圆心在法线正向$(0,\frac{1}{2})$。\par
+\textbf{方法点评} 曲率反映切线方向的局部变化速度。\par
+\textbf{易错点或变式} 曲率半径与函数值或切线斜率不是同一量。
+\end{example}
+\begin{example}{考研风格例题｜退化驻点}{难度：$\star\star$}
+\label{ex:2:12}\textbf{题目} 比较$x^4$与$x^3$在0的极值和拐点。\par
+\textbf{思路} 二阶导数在0均为零，必须看符号。\par
+\textbf{解答} $x^4\ge0$，0是严格极小值；其二阶导数$12x^2$不变号，无拐点。$x^3$左右异号，无极值；二阶导数$6x$变号，有拐点。\par
+\textbf{方法点评} 直接比较函数值和二阶符号比高阶公式更稳。\par
+\textbf{易错点或变式} 二阶导数为零不能判定任何一种结论。
+\end{example}
+\section{中值构造与不等式拓展}\label{sec:2:5}
+\subsection{概念、定理与推导}
+
+\begin{lemma}{有界导数的Lipschitz估计}若区间上$|f\prime|\le M$，则$|f(x)-f(y)|\le M|x-y|$。\end{lemma}
+\begin{proof}对两点之间使用Lagrange中值定理再取绝对值。\end{proof}
+\begin{extension}二阶不等式常用“减去二次多项式”，一阶线性导数组合常用积分因子，多个零点常用反复Rolle。寻找辅助函数时可先对目标表达式逆向积分。\end{extension}
+
+\begin{method}{中值构造与不等式拓展}条件：需要的导数存在且端点条件足以应用中值定理。步骤：把结论整理为某函数导数为零或非负，再构造该函数。易错点：只写辅助函数不验证端点与可导性。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{竞赛风格例题｜二阶估计}{难度：$\star\star\star$}
+\label{ex:2:13}\textbf{题目} $f\in C^2[0,1]$，$f(0)=f(1)=0$且$|f\prime\prime|\le M$，证$|f(x)|\le \frac{Mx(1-x)}{2}$。\par
+\textbf{思路} 用二次函数包络。\par
+\textbf{解答} 设$u=f-\frac{Mx(1-x)}{2}$，则$u\prime\prime=f\prime\prime+M\ge0$且两端为零；凸函数在弦下，故$u\le0$。同理$v=f+\frac{Mx(1-x)}{2}$凹且两端零，$v\ge0$。合并得结论。\par
+\textbf{方法点评} 比较曲率可产生全区间估计。\par
+\textbf{易错点或变式} 上包络对应的差函数是凸函数，符号不能反。
+\end{example}
+\begin{example}{竞赛风格例题｜插值余项}{难度：$\star\star\star$}
+\label{ex:2:14}\textbf{题目} $f\in C^2[a,b]$，$\ell$为端点线性插值，证明内点$x$处$f(x)-\ell(x)=\frac{f\prime\prime(\xi)(x-a)(x-b)}{2}$。\par
+\textbf{思路} 添加二次因子制造三个零点。\par
+\textbf{解答} 令$K=\frac{f(x)-\ell(x)}{(x-a)(x-b)}$，$F(t)=f(t)-\ell(t)-K(t-a)(t-b)$在$a,x,b$为零。两次Rolle得某$\xi$使$F\prime\prime(\xi)=f\prime\prime(\xi)-2K=0$，代回即得。\par
+\textbf{方法点评} 待定系数法把误差表示变成零点问题。\par
+\textbf{易错点或变式} $\xi$依赖于所选$x$。
+\end{example}
+\begin{example}{竞赛风格例题｜指数切线}{难度：$\star\star\star$}
+\label{ex:2:15}\textbf{题目} 证明$\e^x\ge1+x$且等号仅在0。\par
+\textbf{思路} 凸性或最小值。\par
+\textbf{解答} 令$g=\e^x-1-x$，$g\prime=\e^x-1$，在负半轴负、正半轴正，唯一最小值$g(0)=0$。另一法：指数严格凸，图像在0处切线$1+x$上方。\par
+\textbf{方法点评} 导数法自足，凸性法适合推广到Jensen不等式。\par
+\textbf{易错点或变式} 不要将局部Taylor近似未经余项控制当成全局证明。
+\end{example}
+\begin{warning}可导推出连续，反向不成立；驻点不一定是极值点；拐点必须检查凹凸是否变号；高阶微分不能直接照搬一阶形式不变性。\end{warning}
+
+
+\input{chapters/materials/differentiation}
+
+
+
+\input{chapters/materials/differential_source_deep}
+\input{chapters/illustrations/ch02}
+\input{chapters/materials/course_differential}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\refstepcounter{exercise}\label{q:2:1}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$\ln(1+x^2)$的导数。\quad\hyperref[a:2:1]{[答案]}\par
+\refstepcounter{exercise}\label{q:2:2}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$x\e^{2x}$的一阶导数。\quad\hyperref[a:2:2]{[答案]}\par
+\refstepcounter{exercise}\label{q:2:3}\par\noindent\textbf{习题\theexercise\quad 基础题} 判断$|x|$在0是否可导。\quad\hyperref[a:2:3]{[答案]}\par
+\refstepcounter{exercise}\label{q:2:4}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$(x\e^x)^{(n)}$，$n\ge1$。\quad\hyperref[a:2:4]{[答案]}\par
+\refstepcounter{exercise}\label{q:2:5}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$x+\frac{1}{x}$在$(0,\infty)$上的最小值。\quad\hyperref[a:2:5]{[答案]}\par
+\refstepcounter{exercise}\label{q:2:6}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$y=\ln x$在$x=1$处曲率。\quad\hyperref[a:2:6]{[答案]}\par
+\refstepcounter{exercise}\label{q:2:7}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 证明$|\sin x-\sin y|\le|x-y|$。\quad\hyperref[a:2:7]{[答案]}\par
+\refstepcounter{exercise}\label{q:2:8}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} $f\in C^2[a,b]$有三个互异零点，证明$f\prime\prime$至少有一个零点。\quad\hyperref[a:2:8]{[答案]}\par
+\refstepcounter{exercise}\label{q:2:9}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 证明$\ln x\le x-1$，$x>0$。\quad\hyperref[a:2:9]{[答案]}\par
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\par\noindent\begin{tabularx}{\textwidth}{p{23mm}XXX}\toprule 方法&适用条件&典型信号&易错点\\\midrule
+链式法则&复合可导&内外函数&漏乘内导\\隐函数&$F_y\ne0$&隐式关系&漏掉$y\prime$\\Rolle&端点同值&导数零点&端点不连续\\Taylor&足够光滑&高阶接触&忽略余项\\
+\bottomrule\end{tabularx}

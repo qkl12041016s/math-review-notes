@@ -1,0 +1,252 @@
+\chapter{线性空间与线性变换初步}\label{ch:spaces}
+\chaptermap{抽象空间}{线性映射与矩阵}{维数、商与对偶}{投影与最小二乘}
+\begin{examtip}
+\textbf{基础提高：}前六章的列向量、齐次解与特征空间都属于线性空间；本章将它们放入同一语言。
+\textbf{竞赛视角：}用基扩充证明维数公式，区分空间对象与其矩阵表示。商空间与对偶空间属于选学提高，投影与最小二乘帮助理解正交结构及其应用。
+\end{examtip}
+\section{线性空间、子空间与抽象向量}
+\subsection{多项式、矩阵与函数也可作向量}
+\begin{definition}{线性空间与子空间}
+非空集合$V$上定义加法$V\times V\to V$和数乘$\F\times V\to V$，若对任意$u,v,w\in V$及$\alpha,\beta\in\F$满足下列公理，称$\F$上的线性空间：
+\[\begin{aligned}
+u+v&=v+u,&(u+v)+w&=u+(v+w),\\
+u+0&=u,&u+(-u)&=0,\\
+\alpha(\beta u)&=(\alpha\beta)u,&1u&=u,\\
+\alpha(u+v)&=\alpha u+\alpha v,&(\alpha+\beta)u&=\alpha u+\beta u.
+\end{aligned}\]
+其中零元$0$存在，且每个$u$都有加法逆元$-u$。$V$的非空子集$W$若在\emph{原加法和数乘}下封闭，称$V$的子空间；它继承这些运算并满足相同公理。零空间$\{0\}$维数为0，空组是它的一组基。
+\end{definition}
+\begin{theorem}{子空间判定与基扩充}
+非空$W\subseteq V$是子空间，当且仅当$\alpha\vu+\beta\vv\in W$对所有$\vu,\vv\in W$及标量成立。有限维空间中，任意无关组都可扩充为基，任意生成组都可删减为基。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch07_p1}
+\end{proof}
+\begin{method}{判子空间先查零元}
+第一步查零元能迅速排除非齐次约束；通过后用任意线性组合验证封闭，不仅试数值。求基则把对象按自然基坐标化；多项式比较系数，矩阵比较独立元素。
+\end{method}
+\worked{齐次与非齐次集合}{基础例题}{\star}{7-1}
+{判断$W_0=\{(x,y):x+y=0\}$与$W_1=\{(x,y):x+y=1\}$是否子空间。}
+{先检查零向量，再查线性组合。}
+{对$W_0$，零向量满足$0+0=0$。任取$u=(x_1,y_1),v=(x_2,y_2)\in W_0$及$\alpha,\beta\in\R$，则$\alpha u+\beta v$的分量和为
+\[\alpha(x_1+y_1)+\beta(x_2+y_2)=0,\]
+故任意线性组合仍在$W_0$中，$W_0$是子空间。由$x+y=0$得$(x,y)=x(1,-1)$，而$(1,-1)\ne0$，所以它构成一组基，维数1。对$W_1$，零向量的分量和为0而非1，故$0\notin W_1$，不是子空间。其点可写为$(1,0)+s(1,-1)$，即前一直线的平移。}
+{零元检查是必要条件，不能替代通过后的封闭性证明。}
+{“直线都是子空间”不对，必须经过原点。}
+\worked{对称矩阵空间}{考研风格}{\star\star}{7-2}
+{求二阶实对称矩阵空间的一组基与维数。}
+{每个独立元素对应一个基方向。}
+{\textbf{方法一（参数基）：}任意对称矩阵唯一写成
+\[\begin{pmatrix}a&b\\b&c\end{pmatrix}
+=a\begin{pmatrix}1&0\\0&0\end{pmatrix}
++b\begin{pmatrix}0&1\\1&0\end{pmatrix}
++c\begin{pmatrix}0&0\\0&1\end{pmatrix}.\]
+故$E_{11},E_{12}+E_{21},E_{22}$生成该空间。若它们以系数$\alpha,\beta,\gamma$线性组合为零，比较$(1,1),(1,2),(2,2)$元素即得$\alpha=\beta=\gamma=0$，所以是基，维数3。
+\textbf{方法二（约束维数）：}全部二阶矩阵空间维数4。线性函数$L(A)=a_{12}-a_{21}$非零且能取任意实值，如$L(tE_{12})=t$；故$\rank L=1$。对称矩阵空间恰为$\ker L$，秩--零化度给维数$4-1=3$。}
+{元素参数化与约束计数互相验证。}
+{非对角项只贡献一个自由度，不能把两个位置分别计数。}
+\worked{带零点约束的多项式}{考研风格}{\star\star}{7-3}
+{在$\mathcal P_2$中求$W=\{p:p(1)=0\}$的基。}
+{按系数约束或因式分解处理。}
+{\textbf{方法一（系数消元）：}设$p(x)=a+bx+cx^2$，则$p(1)=0$等价于$a=-b-c$，从而
+\[p(x)=b(x-1)+c(x^2-1).\]
+若$u(x-1)+v(x^2-1)=0$，比较$x^2$项得$v=0$，再比较$x$项得$u=0$，故$x-1,x^2-1$为基。
+\textbf{方法二（因式定理）：}$p(1)=0$等价于$p=(x-1)(u+vx)$，所以$x-1,x(x-1)$生成$W$。若$(x-1)(u+vx)$为零多项式，非零多项式$x-1$可消去，得$u=v=0$，所以该组也是基。两组间有$x^2-1=x(x-1)+(x-1)$，均给$\dim W=2$。}
+{基不唯一，维数相同，等价关系应能直接写出。}
+{因式分解后剩余次数至多1，不是任意高次多项式。}
+\worked{子空间之并}{竞赛风格}{\star\star}{7-4}
+{设$U,W$是同一线性空间$V$的子空间，证明$U\cup W$为子空间当且仅当$U\subseteq W$或$W\subseteq U$。}
+{不包含时，从两个空间各取一个不属于另一空间的向量。}
+{若$U\subseteq W$，则$U\cup W=W$是子空间；若$W\subseteq U$也同样成立。反过来假设$U\cup W$为子空间，而两者互不包含。存在$u\in U\setminus W$、$w\in W\setminus U$。封闭性要求$u+w\in U\cup W$。若$u+w\in U$，由于$u\in U$，相减得$w=(u+w)-u\in U$，矛盾；若$u+w\in W$，相减得$u=(u+w)-w\in W$，也矛盾。两种可能均排除，因此至少一个包含关系成立。}
+{反例式取向量可转化成完整充要证明。}
+{子空间的交总是子空间，和也是子空间，普通并不总是。}
+\section{线性变换、核像与矩阵表示}
+\subsection{同一个映射可以有不同矩阵}
+\begin{definition}{线性映射与表示矩阵}
+$V,W$为同一数域$\F$上的线性空间。若对全部$u,v\in V$及$\alpha,\beta\in\F$，$T:V\to W$满足$T(\alpha u+\beta v)=\alpha T(u)+\beta T(v)$，称线性映射；$V=W$时也称$V$上的线性变换。核为$\ker T=\{v\in V:T(v)=0\}$，像为$\im T=\{T(v):v\in V\}\subseteq W$，两者分别是相应空间的子空间。若$\dim V=n,\dim W=m$有限，给定有序基$\mathcal B,\mathcal C$，表示矩阵$A\in\F^{m\times n}$的第$j$列为$[T(b_j)]_{\mathcal C}$，故$[T(v)]_{\mathcal C}=A[v]_{\mathcal B}$；$\rank T$指$\dim\im T$。
+\end{definition}
+\begin{theorem}{秩--零化度与换基}
+有限维$V$有$\dim V=\dim\ker T+\dim\im T$。$V$到自身的映射，若新基矩阵关系为$C=BP$，则新表示为$P\inv AP$。两个不同空间分别换基时，则是$Q\inv AP$，不必为相似。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch07_p2}
+\end{proof}
+\begin{method}{求表示矩阵只算基向量的像}
+对每个定义域基向量求像；用值域基展开；按列拼矩阵。核与像可转为矩阵消元。易错：映射方向决定矩阵行列数，$\dim W\times\dim V$，不是反过来。
+\end{method}
+\worked{求导作为线性变换}{考研风格}{\star\star}{7-5}
+{对$D:\mathcal P_2\to\mathcal P_2$，$D(p)=p'$，在$(1,x,x^2)$下求矩阵、核与像。}
+{依次求三个基向量的导数。}
+{依次计算$D(1)=0,D(x)=1,D(x^2)=2x$，它们在$(1,x,x^2)$下的坐标分别为$(0,0,0)\T,(1,0,0)\T,(0,2,0)\T$，按列拼接得到
+\[[D]=\begin{pmatrix}0&1&0\\0&0&2\\0&0&0\end{pmatrix}.\]
+对$p=a+bx+cx^2$有$D(p)=b+2cx$。它为零当且仅当$b=c=0$，故$\ker D=\Span(1)$。导数没有$x^2$项，像包含于$\Span(1,x)$；反过来任意$u+vx=D(ux+\frac{vx^2}{2})$，故像恰为$\Span(1,x)$。核与像维数分别1、2，和为定义域维数3。}
+{不必对任意多项式逐次设未知数，基向量的像已决定全映射。}
+{像中不包含$x^2$，但值域仍是$\mathcal P_2$；像与值域不必相等。}
+\worked{平面交换映射}{基础例题}{\star}{7-6}
+{设$T(x,y)=(y,x)$，求标准基矩阵及和差基下矩阵。}
+{和差方向是映射的不变方向。}
+{\textbf{方法一（基向量的像）：}$T(e_1)=e_2,T(e_2)=e_1$，所以标准基矩阵为$A=\begin{pmatrix}0&1\\1&0\end{pmatrix}$。新基$u=(1,1)\T,v=(1,-1)\T$满足$T(u)=u,T(v)=-v$，故新矩阵两列分别为$(1,0)\T,(0,-1)\T$，即$\diag(1,-1)$。
+\textbf{方法二（相似计算）：}令$P=\begin{pmatrix}1&1\\1&-1\end{pmatrix}$，因$P^2=2I$有$P\inv=\frac{P}{2}$，于是
+\[P\inv AP=\dfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}
+\begin{pmatrix}1&-1\\1&1\end{pmatrix}=\begin{pmatrix}1&0\\0&-1\end{pmatrix}.\]
+映射固定$y=x$方向，反转其垂直方向，因此几何上是关于$y=x$的镜面反射。}
+{几何上这是关于$y=x$的反射，换基后作用成为两个标量。}
+{映射不变，仅表示矩阵改变。}
+\worked{一次完整的相似换基}{考研风格}{\star\star}{7-7}
+{标准基下$A=\diag(1,2)$，新基为$(1,1)\T,(0,1)\T$，求新矩阵。}
+{新基矩阵为$P=\begin{pmatrix}1&0\\1&1\end{pmatrix}$。}
+{\textbf{方法一（矩阵）：}新基列矩阵及其逆为
+\[P=\begin{pmatrix}1&0\\1&1\end{pmatrix},\qquad
+P\inv=\begin{pmatrix}1&0\\-1&1\end{pmatrix}.\]
+先算$AP=\begin{pmatrix}1&0\\2&2\end{pmatrix}$，再左乘得到
+\[P\inv AP=\begin{pmatrix}1&0\\-1&1\end{pmatrix}
+\begin{pmatrix}1&0\\2&2\end{pmatrix}=\begin{pmatrix}1&0\\1&2\end{pmatrix}.\]
+\textbf{方法二（坐标）：}记新基为$u=(1,1)\T,v=(0,1)\T$。$T(u)=(1,2)\T=u+v$，其新坐标为$(1,1)\T$；$T(v)=(0,2)\T=2v$，其新坐标为$(0,2)\T$，按列拼接得到同一矩阵。这也核对了换基矩阵的方向。}
+{基向量像法可独立检查相似公式方向。}
+{不能使用$PAP\inv$代替本题约定下的$P\inv AP$。}
+\worked{投影映射的直和分解}{竞赛风格}{\star\star}{7-8}
+{设$T:V\to V$为线性变换且$T^2=T$，证明$V=\im T\oplus\ker T$。}
+{拆成已投影部分与剩余部分。}
+{任取$v\in V$，恒等分解为$v=T(v)+(v-T(v))$。第一项在$\im T$，第二项满足
+\[T(v-T(v))=T(v)-T^2(v)=0,\]
+故在$\ker T$，于是$V=\im T+\ker T$。若$w\in\im T\cap\ker T$，则可写$w=T(u)$，又$T(w)=0$；幂等性给$T(w)=T^2(u)=T(u)=w$，所以$w=0$。交为零说明分解唯一：若$v=a+b=a'+b'$，则$a-a'=b'-b$属于这个交，只能为零。因此和为直和。此证明只用线性性与幂等性，没有使用内积。}
+{不要求内积，故幂等投影未必为正交投影。}
+{只有再满足对称性，才在标准实内积下得到正交投影。}
+\section{维数公式、直和、商空间与对偶}
+\subsection{选学提高：用基证明计数结论}
+\begin{definition}{和、直和、商与对偶}
+设$U,W$是同一线性空间$V$的子空间。$U+W=\{u+w:u\in U,w\in W\}$；若每个和的表达唯一，记$U\oplus W$，等价于$U\cap W=\{0\}$。
+
+陪集$v+U=\{v+u:u\in U\}$满足$v+U=w+U$当且仅当$v-w\in U$。商空间$V\mathbin{\slash}U$由全部陪集组成，零元为$U$，运算为$(v+U)+(w+U)=(v+w)+U$及$\alpha(v+U)=\alpha v+U$。更换代表元只增加$U$内的向量，故运算良定义。
+
+对偶空间$V^*$由全部线性函数$f:V\to\F$组成，按函数逐点加法与数乘。有限维有序基$b_1,\ldots,b_n$的对偶基是满足$f_i(b_j)=\delta_{ij}$的$n$个线性函数。
+\end{definition}
+\begin{theorem}{三条维数公式}
+设$V$有限维，$U,W$均为$V$的子空间，则
+\begin{equation}\dim(U+W)=\dim U+\dim W-\dim(U\cap W),\quad
+\dim(V\mathbin{\slash}U)=\dim V-\dim U,\quad\dim V^*=\dim V.\end{equation}
+\end{theorem}
+\begin{proof}
+\input{derivations/ch07_p3}
+\end{proof}
+\begin{method}{先找交，再谈直和}
+交空间用联立约束求；和空间用拼接基求；维数公式用来核验。商空间中相差$U$内向量的代表元是同一元素。对偶基可用基矩阵的逆的各行求出。
+\end{method}
+\worked{两个平面的和与交}{考研风格}{\star\star}{7-9}
+{设$U=\{z=0\},W=\{y=0\}\subset\R^3$，求和、交与维数。}
+{两平面共同含$x$轴。}
+{\textbf{方法一（基与维数）：}$U=\Span(e_1,e_2)$，$W=\Span(e_1,e_3)$。交中向量同时满足$y=z=0$，所以$U\cap W=\Span(e_1)$，维数1。和中包含三个标准基向量，因此$U+W=\R^3$，维数3；与$2+2-1=3$一致。
+\textbf{方法二（显式分解）：}任意$(x,y,z)$可写为$(x,y,0)+(0,0,z)$，两项分别在$U,W$，所以和是全空间。所有这类分解也可写成$(x-s,y,0)+(s,0,z)$，其中$s\in\R$任意。它说明分解不唯一，故不是直和；非唯一恰来自共同的$x$轴方向。}
+{存在分解不代表唯一，本题不是直和。}
+{分解中的$x$分量可在两平面之间任意转移。}
+\worked{矩阵空间的对称分解}{竞赛风格}{\star\star}{7-10}
+{证明任意实方阵唯一分解为对称矩阵与反对称矩阵之和。}
+{使用转置的加减平均。}
+{设$S=\frac{A+A\T}{2},K=\frac{A-A\T}{2}$。直接计算
+\[S\T=\dfrac{A\T+A}{2}=S,\qquad K\T=\dfrac{A\T-A}{2}=-K,\qquad S+K=A.\]
+故分解存在。若还有$A=S'+K'$，则$H=S-S'=K'-K$既对称又反对称，满足$H\T=H$与$H\T=-H$，从而$2H=0$，在实数域中得$H=0$，分解唯一。对称矩阵有$n$个对角自由元和$\frac{n(n-1)}{2}$个上三角自由元，维数$\frac{n(n+1)}{2}$；反对称矩阵对角为零，维数$\frac{n(n-1)}{2}$。两维数相加等于$n^2$，与直和结论相符。}
+{显式分解证明生成，交为零证明唯一。}
+{反对称矩阵的对角元均为零，不能误计$n$个自由度。}
+\worked{商空间中的代表元}{竞赛风格}{\star\star\star}{7-11}
+{求$\frac{\mathcal P_2}{\mathcal P_1}$的维数与基，说明$x^2$与$x^2+x+1$的关系。}
+{商空间忽略次数至多1的差。}
+{记$U=\mathcal P_1$。任意$p=a+bx+cx^2$满足$p-cx^2\in U$，因此
+\[p+U=c(x^2+U),\]
+说明$x^2+U$生成商空间。若$c(x^2+U)=U$，则$cx^2\in\mathcal P_1$，比较二次项得$c=0$，故此陪集非零并构成基，商维数1。又
+\[(x^2+x+1)-x^2=x+1\in U,\]
+所以$x^2+x+1+U=x^2+U$，二者是同一商元素的两个代表。也可由维数公式$3-2=1$核验。}
+{商空间的基元素是陪集，写一个代表元时应说明约定。}
+{商空间不是“把低次多项式从集合中删除”。}
+\worked{求对偶基}{竞赛风格}{\star\star\star}{7-12}
+{求$\R^2$的基$((1,1)\T,(1,-1)\T)$的对偶基。}
+{对偶函数就是提取两个坐标的线性函数。}
+{\textbf{方法一（提取坐标）：}解$(x,y)\T=c_1(1,1)\T+c_2(1,-1)\T$，即$c_1+c_2=x,c_1-c_2=y$，得到
+\[f_1(x,y)=c_1=\dfrac{x+y}{2},\qquad f_2(x,y)=c_2=\dfrac{x-y}{2}.\]
+逐个代入：$f_1(1,1)=1,f_1(1,-1)=0,f_2(1,1)=0,f_2(1,-1)=1$，且两函数均满足线性性，所以是所求对偶基。
+\textbf{方法二（逆矩阵）：}基矩阵$B=\begin{pmatrix}1&1\\1&-1\end{pmatrix}$有$B\inv=\frac{B}{2}$。由$[v]_B=B\inv v$，逆矩阵第一、二行分别是提取第一、二坐标的函数，得到同样$f_1,f_2$。其作为函数的线性组合能表示任意线性函数$ax+by=(a+b)f_1+(a-b)f_2$。}
+{对偶基是函数，不是原空间中未经解释的列向量。}
+{标准内积可把行系数和向量联系起来，但概念上仍需区分。}
+\input{enrichment/ch07_a}
+
+\section{正交投影与最小二乘}
+\subsection{从精确相容到最佳逼近}
+\begin{theorem}{正交分解与正规方程}
+有限维实内积空间$V$中，对任一子空间$W$有$V=W\oplus W^\perp$。以下矩阵公式采用$\R^m$的标准内积：实$m\times n$矩阵$A$满列秩时，到$\im A$的正交投影为
+\begin{equation}P=A(A\T A)\inv A\T,\quad P\T=P,\quad P^2=P.\label{eq:projection}\end{equation}
+最小化$\norm{A\vx-\vb}_2$的解满足正规方程$A\T A\vx=A\T\vb$，满列秩时唯一。无论是否满列秩，最佳投影向量$A\vx$唯一，但系数$\vx$未必唯一。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch07_p4}
+\end{proof}
+\begin{method}{残差必须与全部列正交}
+先建立$A\T A$与$A\T\vb$，解正规方程；检查残差内积。若已有$A=QR$的薄QR分解，可解$R\vx=Q\T\vb$，避免显式求逆。最小二乘残差为零当且仅当原系统相容。
+\end{method}
+\worked{投影到和零平面}{考研风格}{\star\star}{7-13}
+{求$\vb=(1,0,0)\T$到$W=\{x+y+z=0\}$的正交投影。}
+{先减去法向分量。}
+{\textbf{方法一（减法向分量）：}令$n=(1,1,1)\T$，则$W^\perp=\Span(n)$。$\vb$沿$n$的分量为$\frac{n\T\vb}{n\T n}\,n=\frac{n}{3}$，所以
+\[p=\vb-\dfrac13n=(\dfrac{2}{3},-\dfrac{1}{3},-\dfrac{1}{3})\T.\]
+检查分量和为零，故$p\in W$；残差$\vb-p=\frac{n}{3}\perp W$，这两点保证它是正交投影。
+\textbf{方法二（正规方程）：}取$a_1=(1,-1,0)\T,a_2=(1,0,-1)\T$，令$B=(a_1,a_2)$。计算$B\T B=\begin{pmatrix}2&1\\1&2\end{pmatrix},B\T\vb=(1,1)\T$。设系数为$u,v$，则$2u+v=1,u+2v=1$；相减得$u=v$，故$u=v=\frac{1}{3}$。于是$p=B(\frac{1}{3},\frac{1}{3})\T=(\frac{2}{3},-\frac{1}{3},-\frac{1}{3})\T$，与前法一致。}
+{法向补空间较小时，投影到补空间更省。}
+{应同时检查$p\in W$与$\vb-p\in W^\perp$。}
+\worked{直线拟合的最小二乘}{考研风格}{\star\star}{7-14}
+{以$y=a+bt$拟合数据$(0,1),(1,2),(2,2)$。}
+{把常数列与时间列组成设计矩阵。}
+{设计矩阵、数据列和未知系数列为
+\[A=\begin{pmatrix}1&0\\1&1\\1&2\end{pmatrix},\quad\vb=(1,2,2)\T,\quad\vx=(a,b)\T.\]
+两列无关，所以$A\T A$可逆，正规方程有唯一解。逐项点积得
+\[A\T A=\begin{pmatrix}3&3\\3&5\end{pmatrix},\quad A\T\vb=(5,6)\T,\quad
+\begin{cases}3a+3b=5,\\3a+5b=6.\end{cases}\]
+两式相减得$2b=1$，故$b=\frac{1}{2}$，代回$a=\frac{5-\frac{3}{2}}{3}=\frac{7}{6}$。拟合值为$(\frac{7}{6},\frac{5}{3},\frac{13}{6})\T$，残差$r=(-\frac{1}{6},\frac{1}{3},-\frac{1}{6})\T$。与常数列点积为$-\frac{1}{6}+\frac{1}{3}-\frac{1}{6}=0$，与时间列点积为$0+\frac{1}{3}-\frac{2}{6}=0$。误差平方为$\frac{1}{36}+\frac{1}{9}+\frac{1}{36}=\frac{1}{6}$；对任意增量$h$，$\norm{r-Ah}^2=\norm r^2+\norm{Ah}^2$，故这确为全局最小。}
+{残差正交是最小二乘的可检验完成条件。}
+{三点不共线，不能把近似拟合称为原方程的精确解。}
+\worked{薄QR与投影}{竞赛风格}{\star\star}{7-15}
+{对$A=((1,1,0)\T,(1,0,1)\T)$写薄QR分解并给投影矩阵的简式。}
+{沿用Schmidt得到的单位向量。}
+{\textbf{方法一（Schmidt）：}令$a_1=(1,1,0)\T,a_2=(1,0,1)\T$。先得$r_{11}=\sqrt2,q_1=\frac{a_1}{\sqrt2}$，再有$r_{12}=q_1\T a_2=\frac{1}{\sqrt2}$，
+\[u_2=a_2-r_{12}q_1=(\dfrac{1}{2},-\dfrac{1}{2},1)\T,\quad
+r_{22}=\norm{u_2}=\sqrt{\frac{3}{2}},\quad q_2=\dfrac{(1,-1,2)\T}{\sqrt6}.\]
+因此$Q=(q_1,q_2)$，$R=\begin{pmatrix}\sqrt2&\frac{1}{\sqrt2}\\0&\sqrt{\frac{3}{2}}\end{pmatrix}$；$q_1\T q_2=\frac{1-1}{\sqrt{12}}=0$且两列长1。两列等式$a_1=r_{11}q_1,a_2=r_{12}q_1+r_{22}q_2$验证$A=QR$。投影为
+\[P=q_1q_1\T+q_2q_2\T=\dfrac13\begin{pmatrix}2&1&1\\1&2&-1\\1&-1&2\end{pmatrix}.\]
+\textbf{方法二（Gram公式）：}$A\T A=R\T R$，故
+\[A(A\T A)\inv A\T=QR(R\T R)\inv R\T Q\T
+=QRR\inv(R\T)\inv R\T Q\T=QQ\T.\]
+也可用法向量$n=(1,-1,-1)\T$写$P=I-\frac{nn\T}{3}$，逐项得到相同矩阵。}
+{薄QR把投影公式中的Gram逆转成单位正交列。}
+{$QQ\T$为三阶秩2投影，绝不是$I_3$。}
+\worked{系数不唯一但投影唯一}{竞赛风格}{\star\star\star}{7-16}
+{令$A=\begin{pmatrix}1&1\\0&0\end{pmatrix},\vb=(2,1)\T$，求全部最小二乘解。}
+{像空间为$x$轴，只能拟合第一分量。}
+{\textbf{方法一（完成平方）：}误差平方为
+\[\norm{A\vx-\vb}^2=(x_1+x_2-2)^2+1.\]
+其最小值1恰当于$x_1+x_2=2$，故全部最小二乘解为$(2-s,s)\T$，$s\in\R$；对应拟合向量恒为$(2,0)\T$。
+\textbf{方法二（正规方程）：}$A\T A=\begin{pmatrix}1&1\\1&1\end{pmatrix},A\T\vb=(2,2)\T$，两行都给$x_1+x_2=2$，所以解集一致。为从中选最小范数者，计算
+\[\norm{(2-s,s)}^2=(2-s)^2+s^2=2(s-1)^2+2.\]
+故$s=1$唯一最优，最小范数系数为$(1,1)\T$。它与核$\Span((1,-1)\T)$正交；其他系数是在它上面叠加核分量。}
+{最佳拟合向量唯一，表示它的系数可因核而不唯一。}
+{不能对奇异$A\T A$直接使用普通逆公式。}
+\input{enrichment/ch07_b}
+
+\begin{warning}
+像空间是实际能达到的向量，值域只是预先指定的目标空间。$T(0)=0$是线性的必要条件而非充分条件，如$T(x)=x^2$。对偶元素是线性函数，商元素是陪集。正规方程总有解，但显式公式$(A\T A)\inv A\T\vb$要求满列秩。
+\end{warning}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\exercise{7-1}{基础}{判断$\{p\in\mathcal P_2:p(0)=0\}$并给基。}
+\exercise{7-2}{基础}{求三阶实反对称矩阵空间的维数和一组基。}
+\exercise{7-3}{基础}{求$T(x,y,z)=(x+y,y+z)$的核与像的维数。}
+\exercise{7-4}{考研风格}{令$U=\Span(e_1,e_2),W=\Span(e_2,e_3)$，求和与交。}
+\exercise{7-5}{考研风格}{求$(2,1)\T$到$\Span((1,1)\T)$的投影与残差。}
+\exercise{7-6}{考研风格}{以常数$c$拟合数据$1,2,6$的最小二乘解是什么？}
+\exercise{7-7}{竞赛拓展}{有限维$V$上的$T$若单射，证明其满射；说明无限维时可失败。}
+\exercise{7-8}{竞赛拓展}{求$\frac{\mathcal P_3}{\mathcal P_1}$的维数和一组基。}
+\exercise{7-9}{竞赛拓展}{证明实矩阵$P$为正交投影当且仅当$P\T=P,P^2=P$。}
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\begin{quicktable}
+子空间判定&非空集合&齐次约束&零元只是第一步\\
+基向量像&线性映射&求表示矩阵&像坐标按列\\
+核像维数&有限维&单射满射判断&定义域维数作总数\\
+交与和&两个子空间&维数计算&交维数减一次\\
+对偶基&有序基已知&求坐标函数&使用逆矩阵的行\\
+最小二乘&超定或有噪声&最佳逼近&核导致系数不唯一\\
+\end{quicktable}

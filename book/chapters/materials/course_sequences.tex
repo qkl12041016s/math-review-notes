@@ -1,0 +1,192 @@
+\section{数列的单侧控制、方程列与隐式迭代}\label{cs:section}
+\begin{examtip}
+递推关系未必直接给出单调性。允许的小幅上升可用尾和补偿；方程定义的项需比较不同指标下的函数；当指数与指标一起变化时，应先给出统一界再取极限。
+\end{examtip}
+
+\subsection{用可和误差补偿单侧漂移}\label{cs:drift}
+\begin{method}{把近似单调转成真正单调}
+\textbf{条件} $x_n$有下界，$\varepsilon_n\ge0$，$\sum\varepsilon_n<\infty$，且$x_{n+1}\le x_n+\varepsilon_n$。
+\par\textbf{步骤} 令$r_n=\sum_{k=n}^{\infty}\varepsilon_k$，研究$y_n=x_n+r_n$。由$r_n-r_{n+1}=\varepsilon_n$得$y_{n+1}\le y_n$；下界和$r_n\to0$给$x_n$收敛。
+\par\textbf{疑难点} 仅有$\varepsilon_n\to0$不够，需要累计误差有限。
+\end{method}
+\begin{example}{考研风格｜不等式递推的补偿项}{难度：$\star\star$}\label{cs:ex:drift}
+\textbf{题目} 正项数列满足
+\[
+x_{n+1}\le x_n+\dfrac{2^n}{(2^{n+1}-1)^2},\qquad n\ge1.
+\]
+证明$x_n$收敛，并给出统一上界。
+\par\textbf{思路} 将误差放大成相邻倒数之差，主动构造补偿量。
+\par\textbf{详细解答} 因$2^n-1<2^{n+1}-1$，
+\[
+\dfrac{2^n}{(2^{n+1}-1)^2}
+\le\dfrac{2^n}{(2^n-1)(2^{n+1}-1)}
+=\dfrac1{2^n-1}-\dfrac1{2^{n+1}-1}.
+\]
+于是$y_n=x_n+\frac{1}{2^n-1}$递减且为正，故$y_n\to L\ge0$，进而$x_n\to L$。
+由$y_n\le y_1=x_1+1$，得到
+\[
+0<x_n\le x_1+1-\dfrac1{2^n-1}<x_1+1.
+\]
+\par\textbf{方法点评} 一般尾和不易写出时，可用更简单的$r_n\downarrow0$满足$r_n-r_{n+1}\ge\varepsilon_n$，证明完全相同。
+\par\textbf{疑难点} 若仅要求$x_{n+1}-x_n\le\frac{1}{n}$，取$x_n=2+\sin(\ln n)$，由$\sin$的Lipschitz估计及$\ln(1+\frac{1}{n})\le\frac{1}{n}$可知条件成立，但沿$n_k=\lfloor\e^{2k\pi+\frac{\pi}{2}}\rfloor$与$m_k=\lfloor\e^{2k\pi+\frac{3\pi}{2}}\rfloor$分别趋3与1，数列不收敛。
+\end{example}
+
+\begin{example}{竞赛风格｜隐式不等式中的强制极限}{难度：$\star\star\star$}\label{cs:ex:forced}
+\textbf{题目} $x_n>0$且$\ln x_n+\frac{1}{x_{n+1}}<1$。证明$x_n\to1$。
+\par\textbf{思路} 从一个全局最小值构造相邻项的次序。
+\par\textbf{详细解答} 设$g(t)=\ln t+\frac{1}{t}$，则$g'(t)=\frac{t-1}{t^2}$，故$g(t)\ge g(1)=1$，等号仅在$t=1$。
+因此
+\[
+\ln x_n<1-\dfrac1{x_{n+1}}\le\ln x_{n+1},
+\]
+所以$x_n<x_{n+1}$。又$\frac{1}{x_{n+1}}>0$给$\ln x_n<1$，即$x_n<\e$。
+数列递增有界，极限$L\ge x_1>0$。原不等式取极限得$\ln L+\frac{1}{L}\le1$，与$g(L)\ge1$合并，得$L=1$。
+\par\textbf{方法点评} 上界可直接由原不等式读出；无需先假设发散再反证。
+\par\textbf{疑难点} 正项极限原本可能为0；这里由递增性和$x_1>0$先排除0，才可代入$\ln L$与$\frac{1}{L}$。
+\end{example}
+
+\subsection{方程列中的统一余项与根的尺度}\label{cs:roots}
+\begin{method}{先定位根，再处理随指标变化的幂}
+\textbf{条件} 每个$n$有连续严格单调函数$F_n$与唯一根$x_n$。
+\par\textbf{步骤} 用端点异号定位；计算$F_{n+1}(x_n)$判断根的移动；找到与$n$无关的$q<1$控制$x_n^n$，再求极限或误差。
+\par\textbf{疑难点} 从$x_n\to1$不能推出$x_n^n\to1$；从每个$x_n<1$也不能直接推出$x_n^n\to0$。
+\end{method}
+\begin{example}{竞赛风格｜几何和方程的指数小误差}{难度：$\star\star\star$}\label{cs:ex:geometricroot}
+\textbf{题目} 对$n\ge2$，设$x_n$为$\sum_{k=1}^{n}x^k=1$在$(0,1)$的根。证明$x_n\downarrow\frac{1}{2}$，并求
+$\lim_{n\to\infty}2^n(x_n-\frac{1}{2})$。
+\par\textbf{思路} 有限和先化闭式，根$x_2$为全部后续项提供统一界。
+\par\textbf{详细解答} 多项式在$(0,1)$严格递增，取$x=\frac{1}{2}$时和为$1-2^{-n}<1$，取$x=1$时和为$n>1$，故唯一根在$(\frac{1}{2},1)$。
+在$x_n$处增加一项后和大于1，所以$x_{n+1}<x_n$。特别地
+\[
+\dfrac12<x_n\le q:=x_2=\dfrac{\sqrt5-1}{2}<1.
+\]
+有限几何和给
+\[
+\dfrac{x_n(1-x_n^n)}{1-x_n}=1
+\quad\Longleftrightarrow\quad 2x_n-1=x_n^{n+1}.
+\]
+右端不超过$q^{n+1}\to0$，故$x_n\to\frac{1}{2}$。
+记$d_n=2x_n-1$，则$0<d_n\le q^{n+1}$，所以$nd_n\to0$，从而
+$(2x_n)^n=\exp(n\ln(1+d_n))\to1$。于是
+\[
+2^n(x_n-\dfrac12)
+=\dfrac{x_n}{2}(2x_n)^n\longrightarrow\dfrac14.
+\]
+\par\textbf{方法点评} 统一的$q<1$不只证明余项趋0，还给出$n$倍余项趋0，使指数尺度的计算合法。
+\par\textbf{疑难点} 直接把“项数为$n$的和”中每一项换成极限，会把有限和变成未经证明的无穷和。
+\end{example}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}
+\begin{axis}[width=.88\textwidth,height=5.8cm,xmin=.45,xmax=.7,ymin=.65,ymax=1.4,
+ axis lines=middle,xlabel={$x$},ylabel={$s_n(x)$},
+ xtick={.5,.618},xticklabels={$\frac12$,$x_2$},ytick={1},
+ legend style={font=\small,at={(.02,.98)},anchor=north west,draw=none},
+ samples=81,domain=.45:.7]
+\addplot[Teal,thick]{x+x^2};\addlegendentry{$n=2$}
+\addplot[Gold,thick]{x+x^2+x^3};\addlegendentry{$n=3$}
+\addplot[Ink,thick]{x+x^2+x^3+x^4+x^5};\addlegendentry{$n=5$}
+\addplot[Rust,dashed]{1};\addlegendentry{$s_n=1$}
+\draw[dashed,gray] (axis cs:.5,.65)--(axis cs:.5,1.4);
+\end{axis}
+\end{tikzpicture}
+\caption{在固定$x\in(0,1)$处，$s_n(x)=\sum_{k=1}^nx^k$随$n$增加而增大，因此与水平线$y=1$的交点向左移动。所有$n\ge2$的交点都在$(\frac{1}{2},x_2]$内；这一几何夹持对应证明中的统一指数控制。}\label{cs:fig:rootfamily}
+\end{figure}
+\begin{method}{从图形识别根列的巧解入口}
+横向看单个函数的单调性，确定根唯一；纵向看指标增加时整条曲线的移动，确定根的次序。几何直观提示结论后，应落实为$F_{n+1}(x_n)$的符号，而不依赖绘图分辨率。若统一界能把根限制在$q<1$以内，它还同时控制全部高次幂，这就是“定位”能够帮助“求尺度”的原因。
+\end{method}
+
+\begin{example}{竞赛拓展｜接近1的根与对数尺度}{难度：$\star\star\star$}\label{cs:ex:logroot}
+\textbf{题目} $x_n\in(0,1)$满足$\ln x_n+x_n^n=0$。证明根唯一，并求
+$\lim_{n\to\infty}\frac{n(1-x_n)}{\ln n}$。
+\par\textbf{思路} 将未知幂转换为指数方程，先估计$-\ln x_n$。
+\par\textbf{详细解答} $\ln x+x^n$在$(0,1)$的导数为$\frac{1}{x}+nx^{n-1}>0$，在左端趋$-\infty$，在1处为1，故根唯一。
+设$y_n=-\ln x_n>0$，则$y_n=\e^{-ny_n}$。记$t_n=ny_n$，得到
+\[
+t_n\e^{t_n}=n,\qquad t_n+\ln t_n=\ln n.
+\]
+当$n$充分大时$t_n>1$，于是
+\[
+\ln n-\ln\ln n\le t_n\le\ln n.
+\]
+故$\frac{t_n}{\ln n}\to1$，$y_n=\frac{t_n}{n}\to0$，且
+\[
+\dfrac{n(1-x_n)}{\ln n}
+=\dfrac{1-\e^{-y_n}}{y_n}\dfrac{t_n}{\ln n}\longrightarrow1.
+\]
+若用Lambert函数表示，精确式为$x_n=\exp[-\frac{W(n)}{n}]$；上面的夹逼已经独立证明所需渐近关系。
+\par\textbf{方法点评} 变量$n(1-x_n)$本身发散，对数归一化才能给出有限非零极限。
+\par\textbf{疑难点} 不能将$x_n^n$写成$(\lim x_n)^n$；应在$y_n\e^{ny_n}=1$中保留$n$。
+\end{example}
+
+\begin{example}{考研风格｜负根的一阶边界层}{难度：$\star\star\star$}\label{cs:ex:negativeroot}
+\textbf{题目} $a>0$，$x_n$为$\e^{ax}+x^{2n+1}=0$在$(-1,0)$的根。求$\lim x_n$及$\lim n(x_n+1)$。
+\par\textbf{思路} 单调性给唯一根，对正量$-x_n$取对数。
+\par\textbf{详细解答} 函数在$-1$处值为$\e^{-a}-1<0$，在0处为1，导数$a\e^{ax}+(2n+1)x^{2n}>0$，故根唯一。
+令$y_n=-x_n\in(0,1)$，方程等价于
+\[
+(2n+1)\ln y_n=-ay_n.
+\]
+右边有界，故$\ln y_n\to0$，$y_n\to1$，即$x_n\to-1$。再由
+$-\ln y_n\sim1-y_n$，得到
+\[
+n(x_n+1)=n(1-y_n)
+ =\dfrac{1-y_n}{-\ln y_n}\dfrac{nay_n}{2n+1}
+ \longrightarrow\dfrac a2.
+\]
+\par\textbf{方法点评} 有界性直接控制归一化对数，求根极限不必先证明整个根列单调。
+\par\textbf{疑难点} 对$x_n$本身取实对数无意义，须先转换为正量$y_n$。
+\end{example}
+
+\subsection{反向递推与正确的几何缩放}\label{cs:inverse}
+\begin{method}{先证明每一步可解，再寻找渐近乘子}
+\textbf{条件} 递推写作$x_n=H(x_{n+1})$，$H$在所用区间连续严格递增。
+\par\textbf{步骤} 确定$H$的值域，确定唯一后继；比较$H(t)$与$t$；若$x_n\to0$且$\frac{H(t)}{t}\to\lambda>1$，则$\frac{x_{n+1}}{x_n}\to\frac{1}{\lambda}$。
+\par\textbf{疑难点} 比值极限只给几何主尺度；证明$\lambda^nx_n$有有限非零极限还需控制比值误差的累加。
+\end{method}
+\begin{example}{竞赛风格｜反向对数递推的缩放常数}{难度：$\star\star\star$}\label{cs:ex:inverselog}
+\textbf{题目} $x_1=1$，对$n\ge1$由
+$x_n=x_{n+1}+2\ln(1+x_{n+1})$定义正项数列。证明$x_n\to0$、$2^nx_n\to0$，并证明$3^nx_n$趋于某个有限正数。
+\par\textbf{思路} 先求线性化比例，再用对数乘积证明精确缩放的收敛。
+\par\textbf{详细解答} $H(t)=t+2\ln(1+t)$在$[0,\infty)$严格递增，$H(0)=0$且趋于无穷，每步有唯一正解，满足$0<x_{n+1}<x_n$。
+极限$L\ge0$满足$2\ln(1+L)=0$，故$L=0$。由
+\[
+\dfrac{x_{n+1}}{x_n}
+=\dfrac{t}{t+2\ln(1+t)}\bigg|_{t=x_{n+1}}\longrightarrow\dfrac13,
+\]
+可选$q\in(\frac{1}{3},\frac{1}{2})$，使充分大的$n$满足$x_{n+1}\le qx_n$。因此$\sum x_n<\infty$，且$2^nx_n\to0$。
+记$z_n=3^nx_n$。由$\ln(1+t)<t$得$\frac{3t}{H(t)}>1$，故$z_n$递增。又Taylor展开给
+\[
+H(t)=3t-t^2+O(t^3),\qquad
+\ln\dfrac{z_{n+1}}{z_n}=\ln\dfrac{3t}{H(t)}
+=\dfrac t3+O(t^2),\quad t=x_{n+1}.
+\]
+因$\sum x_n<\infty$，对数增量之和收敛，故$\ln z_n$趋于有限实数，$z_n\to C\in(0,\infty)$。
+\par\textbf{方法点评} 先用比值法取得粗几何上界，再将其用于更精确的乘积收敛，形成两步估计。
+\par\textbf{疑难点} 不能由$\frac{z_{n+1}}{z_n}\to1$推出$z_n$收敛；$\ln z_n$的可和增量才是关键。
+\end{example}
+
+\begin{example}{竞赛拓展｜高次开方的全局Newton迭代}{难度：$\star\star\star$}\label{cs:ex:newtonpower}
+\textbf{题目} $m\ge2$为整数，$A>0$，$x_1>0$，令
+$x_{n+1}=\frac{(m-1)x_n+\frac{A}{x_n^{m-1}}}{m}$。证明$x_n\to r=A^{\frac{1}{m}}$，并求非恒定情形的二次误差系数。
+\par\textbf{思路} 将$m-1$个$x_n$与一个$\frac{A}{x_n^{m-1}}$作算术几何平均。
+\par\textbf{详细解答} 均值不等式给$x_{n+1}\ge r$。从$n\ge2$起，
+\[
+x_{n+1}-x_n=\dfrac{A-x_n^m}{mx_n^{m-1}}\le0.
+\]
+故从第二项起递减有下界，极限$L\ge r>0$，代入递推得$L^m=A$，即$L=r$。
+设$T(x)=\frac{(m-1)x+Ax^{1-m}}{m}$，计算
+\[
+T'(r)=0,\qquad T''(r)=\dfrac{m-1}{r}.
+\]
+Taylor公式给
+$x_{n+1}-r=\frac{m-1}{2r}(x_n-r)^2+o((x_n-r)^2)$。
+若$x_1\ne r$，均值不等式严格，全部误差在适当指标后为正，故
+\[
+\lim_{n\to\infty}\dfrac{x_{n+1}-r}{(x_n-r)^2}=\dfrac{m-1}{2r}.
+\]
+\par\textbf{方法点评} 同一递推同时具有全局收敛保证与局部二次速度。
+\par\textbf{疑难点} 当$x_1<r$时首步上升，不能声称从第一项起就递减；$x_1=r$时误差比是$\frac{0}{0}$，应单独说明为恒定解。
+\end{example}
+\begin{warning}
+数列题的三个层次应分开：递推是否定义了实数后继、极限是否存在、所选缩放是否给出有限非零极限。先解不动点方程或仅算比值，通常只能处理其中一部分。
+\end{warning}

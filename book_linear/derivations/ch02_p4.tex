@@ -1,0 +1,14 @@
+\label{der:2-4}
+对$AXB=C$，依次左乘$A\inv$、右乘$B\inv$，得到$X=A\inv CB\inv$；代回得$A(A\inv CB\inv)B=C$，说明存在。任何解都必须经同样两步变成此式，说明唯一。
+
+令$M=\begin{pmatrix}A&B\\C&D\end{pmatrix}$及$S=D-CA\inv B$。先作块消元，
+\[LM=U,\quad L=\begin{pmatrix}I&0\\-CA\inv&I\end{pmatrix},\quad U=\begin{pmatrix}A&B\\0&S\end{pmatrix}.\]
+若$A,S$都可逆，设$U\inv=\begin{pmatrix}X&Y\\0&Z\end{pmatrix}$，由$UU\inv=I$逐块得到$AX=I,SZ=I,AY+BZ=0$，因而
+\[U\inv=\begin{pmatrix}A\inv&-A\inv BS\inv\\0&S\inv\end{pmatrix}.\]
+由$LM=U$有$M\inv=U\inv L$。逐块乘开：
+\[\begin{aligned}
+(M\inv)_{11}&=A\inv+(-A\inv BS\inv)(-CA\inv),\\
+(M\inv)_{12}&=-A\inv BS\inv,\\
+(M\inv)_{21}&=-S\inv CA\inv,\qquad (M\inv)_{22}=S\inv.
+\end{aligned}\]
+这就是给出的四块逆式。两个负号产生左上角的加号，因子顺序始终来自块乘法，不能任意交换。

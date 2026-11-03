@@ -1,0 +1,33 @@
+\label{der:8-6}
+\textbf{范数公理与最大值存在性。}向量1范数和无穷范数的三角不等式由$|a+b|\le|a|+|b|$逐项求和或取最大值得到；欧氏范数由Cauchy得到$\norm{x+y}_2^2\le(\norm x_2+\norm y_2)^2$，正性与齐次性都由定义成立。矩阵Frobenius范数是把全部元素排成一个向量后的欧氏范数，因此也满足这三条公理。
+
+对任意有限维向量范数$N$，标准基展开与Cauchy给$N(x)\le\sum_i|x_i|N(e_i)\le C\norm x_2$，其中$C=(\sum_iN(e_i)^2)^{\frac{1}{2}}$。反三角不等式于是给$|N(x)-N(y)|\le C\norm{x-y}_2$，故$N$连续。在欧氏单位球面上，$N$达到严格正的最小值$c$，所以$N(x)\ge c\norm x_2$。由此$N(x)=1$的集合闭且有界，有限维下紧致；连续函数$x\mapsto N_{\rm out}(Ax)$在其上达到最大值，证明诱导范数中的最大值存在。由这个定义逐项使用向量范数公理，可得诱导范数的正性、齐次性与三角不等式；正性中若$A\ne0$，选非零列对应的$e_j$便有正的长度比。
+
+\textbf{先推导各范数公式。}以下$A$为实矩阵。对1范数，
+\[\norm{Ax}_1\le\sum_i\sum_j|a_{ij}||x_j|\le\left(\max_j\sum_i|a_{ij}|\right)\norm x_1.\]
+取最大列对应的$x=e_j$达到上界，所以诱导1范数等于最大列和。对无穷范数，$|(Ax)_i|\le\sum_j|a_{ij}|\norm x_\infty$，故上界为最大行和。取最大行$i_0$，实数域令$x_j=\sgn(a_{i_0j})$（零项任取绝对值1），便有$|(Ax)_{i_0}|=\sum_j|a_{i_0j}|$且$\norm x_\infty=1$，上界达到；复数域取相反相位同样达到。
+
+SVD中令$x=Vy$，正交性保长度，故$\norm{Ax}_2^2=\sum_{i\le r}\sigma_i^2y_i^2\le\sigma_1^2\sum_jy_j^2$。取$y=e_1$达到上界，所以$\norm A_2=\sigma_1$；零矩阵时取0。又
+\[\sum_{ij}|a_{ij}|^2=\tr(A\T A)=\tr(V\Sigma\T\Sigma V\T)=\tr(\Sigma\T\Sigma)=\sum_i\sigma_i^2,\]
+中间使用$\tr(XY)=\tr(YX)$，因此得到Frobenius公式。对相容实矩阵，逐个$(i,j)$位置用Cauchy并求和，得到
+\[\begin{aligned}
+\norm{AB}_F^2&=\sum_{i,j}\left|\sum_k a_{ik}b_{kj}\right|^2\\
+&\le\sum_{i,j}\left(\sum_k|a_{ik}|^2\right)\left(\sum_k|b_{kj}|^2\right)=\norm A_F^2\norm B_F^2.
+\end{aligned}\]
+开平方即Frobenius次乘性；它不要求该范数是诱导范数。非奇异方阵逆的SVD为$V\Sigma\inv U\T$，最大奇异值是$\frac{1}{\sigma_{\min}}$，得到条件数比值公式。
+
+\textbf{次乘性与谱界。}对任意非零$x$，$\norm{ABx}\le\norm A\norm{Bx}\le\norm A\norm B\norm x$，取比值的最大值得次乘性。在复数域定义的向量范数中，对非零特征向量直接得到$|\lambda|\norm z=\norm{Az}\le\norm A\norm z$，除以$\norm z>0$便得谱界。
+
+若原矩阵与向量范数只在实数域定义，而特征向量$z=u+iv$为复数，须说明如何使用它。定义
+\[\mathcal N(z)=\max_{0\le\theta\le2\pi}\norm{\operatorname{Re}(e^{i\theta}z)}.\]
+连续函数在闭区间达到最大值；若$z\ne0$，则$u,v$至少一个非零，取$\theta=0$或$\frac{\pi}{2}$说明$\mathcal N(z)>0$。实范数三角不等式逐个$\theta$成立，再取最大值得$\mathcal N(z+w)\le\mathcal N(z)+\mathcal N(w)$。对$\alpha=re^{i\phi}$，其中$r\ge0$，实范数的齐次性与角度平移给
+\[\mathcal N(\alpha z)=r\max_\theta\norm{\operatorname{Re}(e^{i(\theta+\phi)}z)}=|\alpha|\mathcal N(z).\]
+所以$\mathcal N$确为复向量范数，且对实$z$等于原范数。实矩阵$A$与取实部可交换，因此逐个$\theta$有
+\[\norm{\operatorname{Re}(e^{i\theta}Az)}
+=\norm{A\operatorname{Re}(e^{i\theta}z)}
+\le\norm A\,\norm{\operatorname{Re}(e^{i\theta}z)}.\]
+取最大值得$\mathcal N(Az)\le\norm A\,\mathcal N(z)$。再将$Az=\lambda z$代入并除以$\mathcal N(z)>0$，仍得$|\lambda|\le\norm A$，因而所有实数域诱导范数均满足$\rho(A)\le\norm A$。
+
+\textbf{右端误差。}保持$A$不变，$A(x+\delta x)=b+\delta b$减去$Ax=b$得$\delta x=A\inv\delta b$，所以$\norm{\delta x}\le\norm{A\inv}\norm{\delta b}$。同时$\norm b\le\norm A\norm x$，由于$b\ne0$可除，得到
+\[\dfrac{\norm{\delta x}}{\norm x}\le\norm{A\inv}\norm{\delta b}\dfrac{\norm A}{\norm b}=\kappa(A)\dfrac{\norm{\delta b}}{\norm b}.\]
+取欧氏诱导范数即为正文公式。这里仅扰动右端；若连$A$一起扰动，必须另写误差方程，不能直接沿用此式。

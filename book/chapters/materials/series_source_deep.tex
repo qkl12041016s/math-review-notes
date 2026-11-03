@@ -1,0 +1,71 @@
+\section{判敛逻辑、调和级数多证与求和深化}\label{deep:series_source_deep}
+
+\begin{examtip}同一数学机制的证明合并比较，保留反例、条件与证明差异。以Riemann假设为前提的条件推理不能当作无条件初等证明。\end{examtip}
+
+\subsection{必要条件、括号、乘积与反例}\label{deep:series_source_deep:logic}
+
+\begin{method}{必要条件、括号、乘积与反例}\textbf{适用条件} 先区分数列$a_n$与级数$\sum a_n$，再区分正项与任意项。\par\textbf{步骤与依据} 否定命题时优先尝试调和、交错、稀疏项和配对抵消；对乘积先看一列是否有界。\par\textbf{易错点} 从正项结论删掉正性，往往立刻失效。\end{method}
+
+\begin{example}{考研风格｜括号不可逆}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:block}\textbf{题目} 说明加括号后的级数收敛不能推出原级数收敛，并给充分的补充条件。\par\textbf{思路} 收敛子列的部分和不能控制括号内部的振幅。\par\textbf{详细解答} $1-1+1-1+\cdots$按$(1-1)+(1-1)+\cdots$分组后和为0，原部分和在0与1间跳动。若分组长度统一有界且$a_n\to0$，则从任意部分和到最近分组端点只差有限个尾项，其绝对值$\le K\max_{j\ge n-K}|a_j|\to0$，于是分组和收敛能推出原级数收敛。\par\textbf{方法点评} 反例说明一般不成立，补充条件说明失效发生在何处。\par\textbf{变式与易错点} 若分组长度无界，即使$a_n\to0$也可能在组内累积很大振幅。\end{example}
+
+\begin{example}{考研风格｜逐项乘积与Cauchy乘积}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:product}\textbf{题目} 设$\sum a_n$收敛，$\sum|b_n|$收敛，证明$\sum|a_nb_n|$收敛，并辨析两条件收敛级数的逐项乘积。\par\textbf{思路} 收敛级数的一般项必有界。\par\textbf{详细解答} $a_n\to0$，所以存在$M$使$|a_n|\le M$，从而$\sum|a_nb_n|\le M\sum|b_n|<\infty$。但取$a_n=b_n=\frac{(-1)^{n-1}}{\sqrt n}$，两个级数均由Leibniz收敛，乘积为$\frac{1}{n}$而发散。这里的“逐项乘积”不同于Cauchy乘积$c_n=\sum_{k=0}^na_kb_{n-k}$，不能混用定理。\par\textbf{方法点评} 条件增补与反例构造需要相互配合。\par\textbf{变式与易错点} 绝对收敛性控制的是整个绝对值和，不是只要求$b_n\to0$。\end{example}
+
+\begin{example}{竞赛风格｜收敛不推出$na_n\to0$}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:sparse}\textbf{题目} 构造正项收敛级数，使$na_n$不趋0；再说明单调性如何改变结论。\par\textbf{思路} 将大项放在稀疏指标。\par\textbf{详细解答} 取$a_n=\frac{1}{n^2}$，但当$n=2^k$时改为$a_{2^k}=\frac{1}{2^k}$。总和$\le\sum n^{-2}+\sum2^{-k}<\infty$，而$2^ka_{2^k}=1$。若另有$a_n\downarrow0$，则$\frac n2a_n\le\sum_{k=\lfloor \frac{n}{2}\rfloor}^na_k\to0$，所以$na_n\to0$。\par\textbf{方法点评} 稀疏构造解释正项级数和单调正项级数的差异。\par\textbf{变式与易错点} 比值、根值判别的反命题也可用有稀疏波动的项否定。\end{example}
+
+\subsection{凝聚、Raabe、Dirichlet与Abel}\label{deep:series_source_deep:tests}
+
+\begin{method}{凝聚、Raabe、Dirichlet与Abel}\textbf{适用条件} 正项缓慢变化时考虑凝聚与比值精化；振荡项考虑部分和有界性。\par\textbf{步骤与依据} 先用粗判别，临界值1时展开下一阶；交错结构用分部求和。\par\textbf{易错点} 比值等于1只表示该判别失效，并非级数一定发散。\end{method}
+
+\begin{theorem}{Cauchy凝聚判别}若$a_n\ge0$且递减，则$\sum a_n$与$\sum_{k\ge0}2^ka_{2^k}$同敛散。\end{theorem}\begin{proof}在块$2^k\le n<2^{k+1}$，有$2^ka_{2^{k+1}}\le\sum a_n\le2^ka_{2^k}$。各块相加，左界是凝聚和移位后的一半，右界是凝聚和，故同敛散。\end{proof}
+
+\begin{example}{考研风格｜对数级数的两种判别}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:logseries}\textbf{题目} 判定$\sum_{n\ge2}\frac{1}{n(\ln n)^p}$。\par\textbf{思路} 积分判别或凝聚将对数变成幂。\par\textbf{详细解答} 积分法令$t=\ln x$，$\int_2^\infty\frac{\dd x}{x(\ln x)^p}=\int_{\ln2}^\infty t^{-p}\dd t$，当且仅当$p>1$收敛。凝聚法在项最终递减时，$2^ka_{2^k}=\frac{1}{(k\ln2)^p}$，同样得到$p>1$；若$p\le0$也可直接与调和级数比较发散。\par\textbf{方法点评} 两法揭示相同的尺度变换。\par\textbf{变式与易错点} 从$n=1$开始会遇到$\ln1=0$，必须调整首项。\end{example}
+
+\begin{theorem}{分部求和与Dirichlet判别}若$A_n=\sum_{k=1}^na_k$有界，$b_n$单调趋0，则$\sum a_nb_n$收敛。\end{theorem}\begin{proof}有限分部求和为$\sum_{k=m}^na_kb_k=(A_n-A_{m-1})b_n+\sum_{k=m}^{n-1}(A_k-A_{m-1})(b_k-b_{k+1})$。若$|A_k|\le M$且$b_k\downarrow0$，尾和绝对值$\le2M b_n+2M(b_m-b_n)\le2Mb_m\to0$，由Cauchy准则得收敛。其他单调趋零情形以符号调整。\end{proof}
+
+\begin{example}{竞赛风格｜振荡级数与端点}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:oscillation}\textbf{题目} 判定$\sum_{n\ge1}\frac{\sin(n\theta)}{n}$，并求$0<\theta<2\pi$时的和。\par\textbf{思路} 先用几何和证明部分和有界，再用Abel参数求值。\par\textbf{详细解答} $\sum_{k=1}^n\e^{ik\theta}=\frac{\e^{i\theta}(1-\e^{in\theta})}{1-\e^{i\theta}}$，当$\theta$不是$2\pi$倍数时部分和有界，Dirichlet判别给收敛。对$0<r<1$，$\sum \frac{r^n\e^{in\theta}}{n}=-\log(1-r\e^{i\theta})$。令$r\uparrow1$，Abel定理识别普通和，虚部为$\frac{\pi-\theta}{2}$。$\theta=0,2\pi$时每项为0，和为0，不能代入区间内公式的单侧值。\par\textbf{方法点评} 复数求和给出表达式，端点值还须由收敛定理确认。\par\textbf{变式与易错点} 复对数的辐角必须连续选取；不能把$r=1$直接代进仅对$|z|<1$证明的级数。\end{example}
+
+\subsection{调和级数的证明族：分块、积分与均值}\label{deep:series_source_deep:harmonic}
+
+\begin{method}{调和级数的证明族：分块、积分与均值}\textbf{适用条件} 对正项和可比较有限部分和，并在最后取极限。\par\textbf{步骤与依据} 构造每块统一正下界；或者构造尾和不趋0；避免对发散无穷和直接做代数。\par\textbf{易错点} 写$S>S$须先假设$S$有限并证明严格差保留。\end{method}
+
+\begin{example}{基础到竞赛｜调和级数四证}{难度：$\star\star$}\label{deep:ex:series_source_deep:harmonic4}\textbf{题目} 给出调和级数发散的四种证明。\par\textbf{思路} 采用分块、积分、Cauchy尾和和Cesàro均值。\par\textbf{详细解答} \textbf{分块：}$\sum_{k=2^{j-1}+1}^{2^j}\frac{1}{k}\ge\frac{1}{2}$，所以$H_{2^m}\ge1+\frac{m}{2}$。\par\textbf{积分：}$H_n\ge\int_1^{n+1}\frac{\dd x}{x}=\ln(n+1)\to\infty$。\par\textbf{尾和：}$H_{2n}-H_n\ge\frac{1}{2}$，不满足Cauchy准则。\par\textbf{均值反证：}若$H_n\to S$，则其Cesàro均值也趋$S$；但$n^{-1}\sum_{k=1}^nH_k=(1+\frac{1}{n})H_n-1\to S-1$，矛盾。\par\textbf{方法点评} 分块、积分比较、Cauchy尾和与均值反证给出四种互补的证明思路。\par\textbf{变式与易错点} 最后一个恒等式应先交换有限三角形求和，不涉及发散级数换序。\end{example}
+
+\begin{example}{竞赛风格｜任意底数与Fibonacci分块}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:harmonicblocks}\textbf{题目} 分别按$m^j$和Fibonacci指标分块证明调和级数发散。\par\textbf{思路} 块长除以块末指标给统一下界。\par\textbf{详细解答} 固定整数$m\ge2$，块$(m^{j-1},m^j]$至少贡献$\frac{m^j-m^{j-1}}{m^j}=1-\frac{1}{m}$。对$F_{j+1}=F_j+F_{j-1}$，块$(F_j,F_{j+1}]$贡献至少$\frac{F_{j-1}}{F_{j+1}}\to\phi^{-2}>0$，故两种分块均发散。\par\textbf{方法点评} 两种分块具有同一机制：指数增长块长与终点同阶。\par\textbf{变式与易错点} 分块必须不遗漏尾部且每个整数只计一次。\end{example}
+
+\begin{example}{竞赛风格｜尾和的精确极限与一般分块}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:harmonictail}\textbf{题目} 证明$H_{2n}-H_n\to\ln2$；并解释为何非减块长也能反证调和收敛。\par\textbf{思路} 先积分夹逼，再用块长的单调性。\par\textbf{详细解答} $\int_{n+1}^{2n+1}\frac{\dd x}{x}\le H_{2n}-H_n\le\int_n^{2n}\frac{\dd x}{x}$，两界趋$\ln2$。设正整数块长$i_j$非减且$i_1\ge2$、$I_j=\sum_{\ell\le j}i_\ell$，则$I_j\le ji_j$，第$j$块$\sum_{n=I_{j-1}+1}^{I_j}\frac{1}{n}\ge \frac{i_j}{I_j}\ge\frac{1}{j}$。若原调和和有限，则分块和有限，却支配同一调和和，并且首块因至少含两项而存在固定严格余量；可在有限和层面保留该固定余量后取极限，产生矛盾。\par\textbf{方法点评} 积分夹逼刻画尾和极限，非减分块则给出反证结构。\par\textbf{变式与易错点} 不要把“一个发散和大于另一个发散和”当作矛盾，必须先假设有限。\end{example}
+
+\begin{example}{竞赛拓展｜Erdős素数倒数的计数证明}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:prime}\textbf{题目} 证明$\sum_{p\ {\rm prime}}\frac{1}{p}$发散，从而调和级数发散。\par\textbf{思路} 若大素数倒数尾和小，则大多数整数只含有限个小素数，然而这种整数计数太少。\par\textbf{详细解答} 反设素数倒数和收敛，选小素数$p_1,\ldots,p_K$使其余素数倒数和$<\frac{1}{2}$。$[1,N]$内至少有一个大素因子的整数个数$\le\sum_{p>p_K}\lfloor \frac{N}{p}\rfloor<\frac{N}{2}$。仅含小素数的整数可唯一写为$ab^2$，其中$a$为这些$K$个素数的无平方因子乘积，有至多$2^K$种，且$b\le\sqrt N$，故其数目$\le2^K\sqrt N$。于是$N<\frac{N}{2}+2^K\sqrt N$，当$N>2^{2K+2}$时矛盾。\par\textbf{方法点评} 核心是对两类整数分别计数，无须循环引用调和级数发散。\par\textbf{变式与易错点} 对“有某大素因子”的集合用并集上界即可，不要求互不相交。\end{example}
+
+\begin{example}{竞赛拓展｜Erdős第二种筛除证明}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:primesecond}\textbf{题目} 用无平方因子整数给出另一种素数倒数发散证明。\par\textbf{思路} 去掉被素数平方整除的数，再去掉有大素因子的数。\par\textbf{详细解答} 有$\sum_p\frac{1}{p^2}\le\frac{1}{4}+\sum_{n=3}^\infty\frac{1}{n(n-1)}=\frac{3}{4}$。若$\sum_p\frac{1}{p}$收敛，选$K$使大素数尾和$<\frac{1}{8}$。$[1,N]$中非无平方因子数至多$\frac{3N}{4}$，有大素因子的数少于$\frac{N}{8}$。因此至少$\frac{N}{8}$个整数既无平方因子又只含$K$个小素数，而这样的整数最多$2^K$个。令$N>8\cdot2^K$矛盾。\par\textbf{方法点评} 本证明直接筛除不满足条件的整数，与平方部分分解形成互补。\par\textbf{变式与易错点} 这里的计数只需上界，交叠删除不会损害下界。\end{example}
+
+\begin{example}{竞赛拓展｜控制收敛反证与无界区间}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:dominated}\textbf{题目} 通过函数积分证明调和级数发散，并解释无界区间上一致收敛为何不足以交换积分。\par\textbf{思路} 反设调和和有限可构造可积控制函数。\par\textbf{详细解答} 令$g(x)=\frac{1}{k}$在$k-1\le x<k$上，若调和和有限，则$g$可积。令$f_n(x)=n^{-1}\mathbf1_{[0,n)}(x)$。逐点$f_n\to0$，且当$x\in[k-1,k)$、$x\le n$时$k\le n$，所以$f_n\le\frac{1}{k}=g(x)$。控制收敛会给$\int f_n\to0$，但每个积分均为1，矛盾。又$\|f_n\|_\infty=\frac{1}{n}\to0$，说明在无界区间仅一致收敛不能保证积分收敛。\par\textbf{方法点评} 控制收敛反证同时揭示了无界区间上交换积分与极限所需的额外条件。\par\textbf{变式与易错点} 有限区间的一致收敛积分定理不能直接搬到无限测度区间。\end{example}
+
+\begin{example}{竞赛风格｜均值不等式的有限和反证}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:means}\textbf{题目} 用成对均值不等式证明调和级数发散。\par\textbf{思路} 假设总和有限，比较每对$(2n+1,2n+2)$与压缩后的项。\par\textbf{详细解答} 对$a,b>0$，$\frac{1}{a}+\frac{1}{b}\ge\frac{4}{a+b}$。因此$\frac{1}{2n+1}+\frac{1}{2n+2}>\frac{1}{n+1}$。若总和为$S<\infty$，按对分组后与$\sum_{n\ge0}\frac{1}{n+1}=S$比较；第一对已产生固定严格差，剩余每对差为正，所以$S>S$，矛盾。用$\frac{1}{a}+\frac{1}{b}\ge\frac{2}{\sqrt{ab}}>\frac{2}{b}$（$a<b$）也给同样的逐对严格比较。\par\textbf{方法点评} 成对比较中，严格差来自固定首对，取极限时仍被保留。\par\textbf{变式与易错点} 若不先假设$S$有限，$\infty>\infty$没有意义。\end{example}
+
+\begin{warning}用图像、弧长或非负矩阵表达分组与面积比较时，其严谨核心仍须写为有限和不等式后取极限。埃及分数树的行内互异性质需要额外组合引理，不能仅由$\frac{1}{n}=\frac{1}{n+1}+\frac{1}{n(n+1)}$一句推出。预设Riemann假设的推理仅为条件推理，不能代替无条件证明；调和级数发散已由前面的初等证明建立。\end{warning}
+
+\subsection{幂级数求和的微分、积分与方程法}\label{deep:series_source_deep:summing}
+
+\begin{method}{幂级数求和的微分、积分与方程法}\textbf{适用条件} 在收敛半径内部可逐项运算，端点另证。\par\textbf{步骤与依据} 观察系数中的$n,n+1,2n-1$，分别选择导数、积分、奇偶筛选或ODE。\par\textbf{易错点} 端点值不能只由内部闭式硬代入。\end{method}
+
+\begin{example}{考研风格｜带$n^2$的和三解}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:nsquare}\textbf{题目} 求$\sum_{n=1}^\infty n^2x^n$，$|x|<1$。\par\textbf{思路} 微分几何级数、差分系数或分解$n^2=n(n-1)+n$。\par\textbf{详细解答} \textbf{微分法：}$\sum nx^n=\frac{x}{(1-x)^2}$，再作用$xD$得$\frac{x(1+x)}{(1-x)^3}$。\par\textbf{错位相减：}设$S=\sum n^2x^n$，则$(1-x)S=\sum(2n-1)x^n=\frac{2x}{(1-x)^2}-\frac{x}{1-x}$，解出同式。\par\textbf{组合导数：}$\sum n(n-1)x^n=\frac{2x^2}{(1-x)^3}$，加$\frac{x}{(1-x)^2}$。\par\textbf{方法点评} 微分法系统，错位法可以只用绝对收敛的级数代数。\par\textbf{变式与易错点} $x=\pm1$处级数均不收敛。\end{example}
+
+\begin{example}{考研风格｜分母结构与逐项求导求和}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:jdenominator}\textbf{题目} 求$\sum_{n=1}^\infty\frac{(-1)^{n-1}}{n(2n-1)}$。\par\textbf{思路} 引入$x^{2n}$后求导两次，或用积分表示。\par\textbf{详细解答} 设$S(x)=\sum\frac{(-1)^{n-1}x^{2n}}{n(2n-1)}$，$|x|<1$。则$S''=\frac{2}{1+x^2}$，由$S(0)=S'(0)=0$得$S=2x\arctan x-\ln(1+x^2)$。原级数绝对收敛，故由一致收敛可令$x\uparrow1$，得$\frac{\pi}{2}-\ln2$。另一法$\frac{1}{n(2n-1)}=\frac{2}{2n-1}-\frac{1}{n}$，两交错和分别为$\frac{\pi}{4}$和$\ln2$，线性组合也得结果。\par\textbf{方法点评} 第二法更短，第一法展示“分母变导数”的通用思路。\par\textbf{变式与易错点} 拆分后的两个级数均收敛才可分别求和。\end{example}
+
+\subsection{一致收敛与逐项运算的反例}\label{deep:series_source_deep:uniform}
+
+\begin{method}{一致收敛与逐项运算的反例}\textbf{适用条件} 函数列或函数项级数定义在同一集合上。\par\textbf{步骤与依据} 使用尾和上确界、M判别或一致Cauchy准则；求导需导数级数一致收敛及一点原级数收敛。\par\textbf{易错点} 逐点收敛不能自动保持连续、积分或导数。\end{method}
+
+\begin{example}{考研风格｜一致收敛的域依赖}{难度：$\star\star$}\label{deep:ex:series_source_deep:uniform1}\textbf{题目} 讨论$f_n(x)=x^n$在$[0,1]$和$[0,a]$（$a<1$）上的一致收敛。\par\textbf{思路} 计算误差上确界，比较极限连续性。\par\textbf{详细解答} 在$[0,1]$，极限$f(x)=0$（$x<1$）、$f(1)=1$，不连续，故非一致；直接有$\sup_{x<1}x^n=1$。在$[0,a]$，$\|f_n\|_\infty=a^n\to0$，所以一致。若在$[0,1)$，极限处处0，但上确界仍为1，仍不一致。\par\textbf{方法点评} 删去一个端点不一定改善一致性，关键在是否远离该端点。\par\textbf{变式与易错点} 上确界不一定取得，不能误写最大值必存在。\end{example}
+
+\begin{example}{竞赛风格｜导数极限不可自动交换}{难度：$\star\star\star$}\label{deep:ex:series_source_deep:derivative}\textbf{题目} 构造$f_n\to0$一致而$f_n'$不收敛到0的例子，并陈述正确的充分条件。\par\textbf{思路} 小振幅配高频率。\par\textbf{详细解答} 取$f_n(x)=\frac{\sin(nx)}{n}$，在$\R$上一致趋0，而$f_n'(0)=1$，故导数不趋0。正确条件：若$f_n'$在$[a,b]$上一致趋$g$，且$f_n(x_0)$收敛，则$f_n(x)=f_n(x_0)+\int_{x_0}^xf_n'$一致收敛到$f(x)=c+\int_{x_0}^xg$，若$g$连续则$f'=g$。\par\textbf{方法点评} 由微积分基本定理证明，比单独背交换条件更可靠。\par\textbf{变式与易错点} 仅导数逐点收敛仍不足以给上述统一积分估计。\end{example}
+
+\subsection{Abel端点定理与Raabe临界精化}\label{deep:series_source_deep:abelproof}
+
+\begin{method}{Abel端点定理与Raabe临界精化}\textbf{适用条件} 普通数项级数已收敛，或正项比值具有一阶渐近。\par\textbf{步骤与依据} Abel用部分和表示；Raabe与$p$级数比较，比较时选严格介于1与极限之间的指数。\par\textbf{易错点} 端点定理不能从内部闭式反推原级数一定收敛。\end{method}
+
+\begin{theorem}{Abel端点定理的证明}若$\sum_{n=0}^\infty a_n=S$，则$\lim_{r\uparrow1}\sum_{n=0}^\infty a_nr^n=S$。\end{theorem}\begin{proof}令$S_n=\sum_{k=0}^na_k$，分部求和给$\sum a_nr^n=(1-r)\sum S_nr^n$，其中$S_n$有界保证右边绝对收敛。减去$S=(1-r)\sum Sr^n$，误差为$(1-r)\sum(S_n-S)r^n$。固定$N$，首段有限项乘$1-r$趋0；尾段$|S_n-S|<\varepsilon$，其加权和$\le\varepsilon$。先$r\uparrow1$再$\varepsilon\downarrow0$。\end{proof}
+
+\begin{theorem}{Raabe判别的严格比较证明}$a_n>0$且$n(\frac{a_n}{a_{n+1}}-1)\to r$。若$r>1$则$\sum a_n$收敛；若$r<1$则发散；$r=1$不定。\end{theorem}\begin{proof}若$r>1$，取$1<p<r$。取$\eta=\frac{r-p}{2}>0$，由极限定义，最终$\frac{a_n}{a_{n+1}}\ge1+\frac{p+\eta}{n}$；而$(1+\frac{1}{n})^p=1+\frac{p}{n}+O(n^{-2})\le1+\frac{p+\eta}{n}$最终成立。两者严格比较，得到$a_{n+1}(n+1)^p\le a_nn^p$最终成立，所以$a_n\le Cn^{-p}$，收敛。若$r<1$，取$r<p<1$，反向得到$a_nn^p$最终递增，故$a_n\ge cn^{-p}$，发散。$r=1$的例子$\frac{1}{n}$发散、$\frac{1}{n(\ln n)^2}$收敛。\end{proof}
+
+\begin{example}{竞赛风格｜Abel和存在不等于普通收敛}{难度：$\star\star$}\label{deep:ex:series_source_deep:endpointtrap}\textbf{题目} 解释为什么$\sum_{n\ge0}(-1)^nr^n=\frac{1}{1+r}$在$r\uparrow1$趋$\frac{1}{2}$，却不能说$\sum(-1)^n=\frac{1}{2}$。\par\textbf{思路} Abel定理只有从普通收敛到径向极限的方向。\par\textbf{详细解答} 当$r<1$，几何级数绝对收敛。径向极限$\frac{1}{2}$称为该发散级数的Abel和。原级数部分和在1和0间跳动，没有普通和。Abel端点定理的前提$\sum a_n$已收敛在此不成立，故不能逆用。\par\textbf{方法点评} 复数求和及径向极限都必须补充端点收敛的逻辑。\par\textbf{变式与易错点} 使用广义求和时必须明确标记，不可与普通和混写。\end{example}

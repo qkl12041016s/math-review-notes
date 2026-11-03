@@ -1,0 +1,182 @@
+\section{偏导条件的减弱、曲线信息与变量选择}\label{cmv:section}
+\begin{examtip}
+本节围绕三个判别问题展开：可微的充分条件能减弱到什么程度，沿曲线的信息能恢复多少偏导，以及同一个曲面上“对同一字母求导”为何可能得到不同结果。最后用线性微分算子和弯曲路径处理二阶方程与退化极值。
+\end{examtip}
+
+\subsection{一个偏导连续的可微判据}\label{cmv:onepartial}
+\begin{theorem}{一个邻域偏导连续，另一个点处偏导存在}
+设$f_x$在$P=(a,b)$的一个开矩形邻域内存在，并且$f_x$在$P$连续；若$f_y(P)$存在，则$f$在$P$可微。不要求$f_y$在整个邻域连续。
+\end{theorem}
+\begin{proof}
+记$A=f_x(P),B=f_y(P)$，把增量沿两段坐标方向拆开：
+\[
+\begin{aligned}
+f(a+h,b+k)-f(a,b)
+={}&f(a+h,b+k)-f(a,b+k)\\
+&+f(a,b+k)-f(a,b).
+\end{aligned}
+\]
+第一段由关于$x$的一元中值定理等于
+$h f_x(a+\vartheta h,b+k)$，其中$0<\vartheta<1$；
+当$h=0$时该段为零。由$f_x$在$P$连续，第一段为$Ah+h\,o(1)$。
+第二段由$f_y(P)$的定义等于$Bk+o(|k|)$。于是
+\[
+\Delta f=Ah+Bk+o\!\left(\sqrt{h^2+k^2}\right),
+\]
+因为$|h|,|k|\le\sqrt{h^2+k^2}$，故结论成立。
+\end{proof}
+\begin{method}{按连续的偏导选择拆增量的顺序}
+\textbf{适用条件} 一个偏导在邻域存在且在考察点连续，另一个偏导只需在点处存在。\par
+\textbf{步骤} 把需要使用中值定理的那一段安排给连续偏导；另一段沿过考察点的坐标轴，用导数定义。\par
+\textbf{疑难点} “点处偏导存在”与“邻域内偏导存在”不同，不能把两者同时减弱为只在点处存在。
+\end{method}
+\begin{example}{考研风格｜偏导不连续仍可使用减弱判据}{难度：$\star\star$}
+\label{cmv:ex:onepartial}
+\textbf{题目} 令
+\[
+f(x,y)=
+\begin{cases}
+x^2+y^2\sin(\dfrac{1}{y}),&y\ne0,\\
+x^2,&y=0.
+\end{cases}
+\]
+判断$f$在原点的可微性，以及两个偏导的连续性。\par
+\textbf{思路} 先检查连续的$x$偏导，再用原点处$y$偏导；也可直接估计余项。\par
+\textbf{详细解答} 对所有点都有$f_x=2x$，所以$f_x$连续。原点处
+$f_y(0,0)=\lim_{k\to0}k\sin(\frac{1}{k})=0$，由上述判据可微，$\dd f(0,0)=0$。
+直接法给$|f(h,k)|\le h^2+k^2$，故$\frac{|f(h,k)|}{\sqrt{h^2+k^2}}\to0$，核对了结论。
+当$y\ne0$时
+\[
+f_y(x,y)=2y\sin(\dfrac{1}{y})-\cos(\dfrac{1}{y}).
+\]
+取$y_n=(2\pi n)^{-1}$，有$f_y(0,y_n)=-1$，而$f_y(0,0)=0$，因此$f_y$在原点不连续。\par
+\textbf{方法点评} 减弱判据与余项估计互相验证，并明确可微不要求全部偏导连续。\par
+\textbf{易错点} 不能因一个偏导振荡就否定可微，也不能把充分条件误写为必要条件。
+\end{example}
+
+\subsection{两条曲线迹确定全微分的秩条件}\label{cmv:traces}
+\begin{method}{把曲线切向导数写成线性方程组}
+\textbf{适用条件} $f$在$P$可微，两条可微曲线$\gamma_1,\gamma_2$经过$P$，且切向量线性无关。\par
+\textbf{步骤} 对已知的$f(\gamma_i(t))$求导，建立
+$(f\circ\gamma_i)'=\nabla f(P)\cdot\gamma_i'$；
+切向矩阵满秩时解出梯度。\par
+\textbf{疑难点} 这只恢复点处的一阶信息，不能由两条曲线上的取值断定整个邻域的函数解析式。
+\end{method}
+\begin{example}{考研风格｜两条迹恢复微分，但不唯一恢复函数}{难度：$\star\star\star$}
+\label{cmv:ex:traces}
+\textbf{题目} $f$在$(1,1)$附近可微，且对充分小的$t$满足
+\[
+\begin{aligned}
+f(1+t,\e^t)&=t(1+t)^2,\\
+f(1+t,(1+t)^2)&=2(1+t)^2\ln(1+t).
+\end{aligned}
+\]
+求$\dd f(1,1)$，并判断这些条件能否唯一确定$f$。\par
+\textbf{思路} 两条曲线在该点的切向量分别为$(1,1)$、$(1,2)$。\par
+\textbf{详细解答} 在$t=0$求导，记$A=f_x(1,1),B=f_y(1,1)$，得到
+\[
+A+B=1,\qquad A+2B=2.
+\]
+系数行列式为$1$，所以$A=0,B=1$，即$\dd f(1,1)=\dd y$。
+函数$f_0(u,v)=u^2\ln v$满足两条迹关系。但对任意常数$c$，
+\[
+f_c(u,v)=u^2\ln v+
+c\,[v-\e^{u-1}]\,[v-u^2]
+\]
+在$v>0$的小邻域中也满足相同关系：第一条曲线使第一个方括号为零，第二条曲线使第二个为零。因此函数并不唯一。\par
+\textbf{方法点评} 曲线切向信息给一个有限维线性系统；两条迹不足以控制曲线之间的所有函数值。\par
+\textbf{易错点} 若两条切向量平行，方程组可能只能确定一个方向导数。函数不唯一与全微分唯一并不矛盾。
+\end{example}
+
+\subsection{固定变量不同，偏导算子不同}\label{cmv:coordinates}
+\begin{method}{先写清坐标图，再使用链式法则}
+\textbf{适用条件} 同一约束曲面可以局部解出不同的因变量。\par
+\textbf{步骤} 用下标说明保持不变的自变量；将目标函数拉回相应坐标平面后求导，或沿满足约束的切向量求导。\par
+\textbf{疑难点} 曲面上$\frac{\partial}{\partial y}$必须与“固定$x$还是固定$z$”一起理解。
+\end{method}
+\begin{example}{考研风格｜同一曲面上两个关于$y$的偏导}{难度：$\star\star$}
+\label{cmv:ex:coordinatepartials}
+\textbf{题目} 在曲面
+\[
+x+y+z-4+\e^{-4}=\e^{-(x+y+z)}
+\]
+上考察$H=x^2yz$。在$P=(1,1,2)$，分别求保持$z$不变和保持$x$不变时$H$关于$y$的偏导。\par
+\textbf{思路} 先识别约束只依赖$x+y+z$，再比较两个允许切向。\par
+\textbf{详细解答} 令$s=x+y+z$，函数
+$g(s)=s-4+\e^{-4}-\e^{-s}$满足$g(4)=0$且$g'(s)=1+\e^{-s}>0$。
+所以该曲面恰为平面$x+y+z=4$。保持$z$不变时$x_y=-1$，故
+\[
+\left(\dfrac{\partial H}{\partial y}\right)_z
+=H_y-H_x.
+\]
+保持$x$不变时$z_y=-1$，故
+\[
+\left(\dfrac{\partial H}{\partial y}\right)_x
+=H_y-H_z.
+\]
+在$P$，$(H_x,H_y,H_z)=(4,2,1)$，两结果分别为$-2$和$1$。
+直接代入$x=4-y-z$或$z=4-x-y$再求导，也得到相同结果。\par
+\textbf{方法点评} 两个算子对应切向量$(-1,1,0)$和$(0,1,-1)$，几何方向不同，数值自然可以不同。\par
+\textbf{易错点} 把空间函数$H_y$直接写成受约束的偏导，会漏掉随$y$变化的隐变量。
+\end{example}
+
+\subsection{二阶算子的特征坐标与弯曲路径}\label{cmv:operators}
+\begin{method}{先分解微分算子，再展开二阶链式}
+\textbf{适用条件} 常系数二阶偏微分方程，函数二阶连续可微。\par
+\textbf{步骤} 把二次算子分解为一阶方向算子的乘积；寻找各方向的不变量，验证坐标变换可逆，再化成混合偏导方程。\par
+\textbf{疑难点} 算子分解依赖混合偏导可交换；变换的Jacobian非零才保留二维坐标信息。
+\end{method}
+\begin{example}{竞赛风格｜把二阶方程化为混合偏导为零}{难度：$\star\star\star$}
+\label{cmv:ex:operator}
+\textbf{题目} 设$z\in C^2$满足$6z_{xx}+z_{xy}-z_{yy}=0$。取$u=x-2y,v=x+ay$，选择$a$使方程等价于$z_{uv}=0$，并写出局部通解。\par
+\textbf{思路} 先观察$6D_x^2+D_xD_y-D_y^2=(3D_x-D_y)(2D_x+D_y)$。\par
+\textbf{详细解答} 由链式法则，
+\[
+D_x=D_u+D_v,\qquad D_y=-2D_u+aD_v.
+\]
+于是$2D_x+D_y=(a+2)D_v$，
+$3D_x-D_y=5D_u+(3-a)D_v$。取$a=3$，Jacobian
+$\frac{\partial(u,v)}{\partial(x,y)}=5$非零，原方程化为$25z_{uv}=0$。
+在一个$uv$开矩形上，$z_{uv}=0$使$z_u$与$v$无关，设$z_u=A'(u)$；
+对$u$积分，得
+\[
+z(x,y)=A(x-2y)+B(x+3y),
+\]
+其中$A,B$为任意二阶连续可微的一元函数。代入两方向算子验证每一项分别被一个因子消去。\par
+\textbf{方法点评} 分解法避免逐个展开全部二阶链式项；直接展开则是有效的系数核对。\par
+\textbf{易错点} $a=-2$虽然会使某个系数消失，但此时$u=v$、Jacobian为零，不能当作有效换元。
+\end{example}
+
+\begin{example}{竞赛风格｜每条直线上极小仍不是二元极小}{难度：$\star\star\star$}
+\label{cmv:ex:paraboliccorridor}
+\textbf{题目} 令$f(x,y)=(y-x^2)(y-2x^2)$。证明原点是$f$沿每条过原点直线的严格局部极小点，却不是二元局部极小点。\par
+\textbf{思路} 固定斜率后看最低阶项；否定二元极小则走进两条抛物线之间的窄带。\par
+\textbf{详细解答} 沿$y=kx$，
+\[
+f(x,kx)=x^2(k-x)(k-2x).
+\]
+固定$k\ne0$时，取$0<|x|<\frac{|k|}{3}$，两括号同号，故$f>0$；$k=0$时$f=2x^4>0$。
+竖直线$x=0$上$f=y^2>0$。因此每条固定直线都给严格局部极小。
+但沿$y=\frac32x^2$有$f=-\frac{x^4}{4}<0$，而沿$y=0$有$f=2x^4>0$。
+任意小邻域中都存在正、负函数值，原点为鞍点。\par
+\textbf{方法点评} 固定方向时允许的邻域大小依赖斜率，不能把逐方向的结论升级为对所有方向统一的结论。\par
+\textbf{疑难点} “每条直线”仍只检验了一类路径；此例的负值区宽度为$x^2$量级，直线检查会漏掉它。
+\end{example}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[x=2.7cm,y=2.0cm,>=stealth]
+\fill[Rust!13] plot[domain=-.9:.9,samples=70] (\x,{\x*\x})
+ -- plot[domain=.9:-.9,samples=70] (\x,{2*\x*\x}) -- cycle;
+\draw[->,Ink](-1.03,0)--(1.08,0)node[right]{$x$};
+\draw[->,Ink](0,-.08)--(0,1.84)node[above]{$y$};
+\draw[Teal,thick]plot[domain=-.92:.92,samples=70](\x,{\x*\x});
+\draw[Teal,thick]plot[domain=-.92:.92,samples=70](\x,{2*\x*\x});
+\draw[Rust,dashed,thick]plot[domain=-.88:.88,samples=70](\x,{1.5*\x*\x});
+\node[below left]at(0,0){$O$};
+\node[right]at(.91,.83){$y=x^2$};
+\node[right]at(.91,1.66){$y=2x^2$};
+\node[Ink]at(0,1.43){窄带内$f<0$};
+\node[Ink]at(-.65,.18){$f>0$};
+\end{tikzpicture}
+\caption{两条抛物线之间的负值带向原点收窄。沿中间抛物线趋近能检测到负值；每条固定直线上的局部正性无法替代二元极值定义。}
+\label{cmv:fig:corridor}
+\end{figure}

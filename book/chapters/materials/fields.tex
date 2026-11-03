@@ -1,0 +1,17 @@
+\section{场论恒等式、势与拓扑}\label{mat:fields}
+\begin{examtip}将散度旋度、局部与全局势、通量源点、保守场进一步整理为可计算内容。\end{examtip}
+\subsection{构造势函数的逐变量积分}\label{mat:fields:potential}
+\begin{method}{构造势函数的逐变量积分}\textbf{适用条件} 全空间或适当单连通区域内无旋场。\par\textbf{实施与依据} 先积分一个分量，余函数依次由其他分量确定。\end{method}
+\begin{example}{专题例题｜构造势函数的逐变量积分}{难度：$\star\star$}
+\textbf{题目} 求$\bm F=(2xy+z,x^2, x)$的势。\par\textbf{思路与解答} 由$\varphi_x=2xy+z$得$\varphi=x^2y+xz+h(y,z)$。第二分量给$h_y=0$，第三给$h_z=0$，故$\varphi=x^2y+xz+C$。\par\textbf{方法点评与边界} 先确认交叉偏导相容，且势的全局存在依赖区域。
+\end{example}
+\subsection{Laplacian与径向场}\label{mat:fields:laplacian}
+\begin{method}{Laplacian与径向场}\textbf{适用条件} 二阶可微标量函数或径向势。\par\textbf{实施与依据} $\Delta f=f_{xx}+f_{yy}+f_{zz}$；对$f=u(r)$，三维$\Delta f=u\prime\prime+\frac{2u\prime}{r}$，$r>0$。\end{method}
+\begin{example}{专题例题｜Laplacian与径向场}{难度：$\star\star$}
+\textbf{题目} 验证$\frac{1}{r}$在原点外调和。\par\textbf{思路与解答} $u\prime=-r^{-2},u\prime\prime=2r^{-3}$，合并为0。其梯度为$-\frac{\bm r}{r^3}$，原点是奇点，不能忽略通量源。\par\textbf{方法点评与边界} 原点外调和不等于在整个球内二阶可微。
+\end{example}
+\subsection{向量恒等式与边界形式}\label{mat:fields:curlgrad}
+\begin{method}{向量恒等式与边界形式}\textbf{适用条件} 二阶连续偏导。\par\textbf{实施与依据} $\rot\grad f=0$、$\diver\rot\bm F=0$由混合偏导抵消；$\rot\rot\bm F=\grad\diver\bm F-\Delta\bm F$逐分量验证。\end{method}
+\begin{example}{专题例题｜向量恒等式与边界形式}{难度：$\star\star$}
+\textbf{题目} 若$\bm F=\grad f$，说明闭路做功。\par\textbf{思路与解答} 链式法则给沿任意闭路$\oint\grad f\cdot\dd\bm r=f(\text{终点})-f(\text{起点})=0$；这比仅计算旋度为零更直接地证明全局路径无关。\par\textbf{方法点评与边界} “无旋”反向推出“有势”仍需拓扑条件。
+\end{example}

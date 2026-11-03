@@ -1,0 +1,17 @@
+\section{空间解析几何的坐标与向量互证}\label{deep:geometry_source_deep}
+
+\begin{examtip}向量法、参数法、法向量法在同一问题中对照。\end{examtip}
+
+\subsection{空间距离、夹角与投影}\label{deep:geometry_source_deep:lines}
+
+\begin{method}{空间距离、夹角与投影}\textbf{适用条件} 空间点线面可用方向向量与法向量描述。\par\textbf{步骤与依据} 先检平行或相交，再选叉积、混合积或投影；求最近点可将距离平方极小化。\par\textbf{易错点} 异面线距离公式的分母叉积为0时应改用平行线公式。\end{method}
+
+\begin{example}{考研风格｜异面直线距离双解}{难度：$\star\star$}\label{deep:ex:geometry_source_deep:skew}\textbf{题目} $L_1:(t,0,0)$，$L_2:(0,1,s)$，求距离与最近点。\par\textbf{思路} 方向为$\bm u=(1,0,0),\bm v=(0,0,1)$，连接向量$(0,1,0)$垂直两者。\par\textbf{详细解答} 混合积法$d=\frac{|\bm a\cdot(\bm u\times\bm v)|}{|\bm u\times\bm v|}=1$。极小化法两点距离平方$t^2+1+s^2$，最小在$t=s=0$，最近点$(0,0,0)$与$(0,1,0)$。公垂线为$y$轴。\par\textbf{方法点评} 向量法直接给值，极小化同时给最近点。\par\textbf{变式与易错点} 直线参数相互独立，不能设$t=s$。\end{example}
+
+\begin{example}{考研风格｜点到平面与正交投影}{难度：$\star\star$}\label{deep:ex:geometry_source_deep:projection}\textbf{题目} 求点$P=(1,2,3)$到平面$x+2y+2z=3$的垂足和距离。\par\textbf{思路} 沿法向量投影。\par\textbf{详细解答} 法向量$\bm n=(1,2,2)$，$\bm n\cdot P-3=8$，$|\bm n|^2=9$。垂足$H=P-\frac89\bm n=(\frac{1}{9},\frac{2}{9},\frac{11}{9})$，距离$\frac{8}{3}$。另一法令$H=P-\lambda\bm n$代平面方程得$\lambda=\frac{8}{9}$。\par\textbf{方法点评} 向量公式与参数法给同一计算，代回平面检验可防算术错误。\par\textbf{变式与易错点} 距离用$|\bm n|$，投影系数用$|\bm n|^2$。\end{example}
+
+\subsection{二次曲面、截线与切平面}\label{deep:geometry_source_deep:quadrics}
+
+\begin{method}{二次曲面、截线与切平面}\textbf{适用条件} 二次型可通过正交坐标变换标准化。\par\textbf{步骤与依据} 配方定中心，比较正负号和秩；曲线交点处用两曲面法向量叉积求切向量。\par\textbf{易错点} 切平面要求梯度非零；奇点不适用通常公式。\end{method}
+
+\begin{example}{考研风格｜交线切向量的两法}{难度：$\star\star\star$}\label{deep:ex:geometry_source_deep:intersection}\textbf{题目} 求球$x^2+y^2+z^2=2$与平面$x+y+z=0$在$P=(1,-1,0)$交线的切线。\par\textbf{思路} 切向量同时垂直两个法向量。\par\textbf{详细解答} 球法向量$(2,-2,0)$，平面法向量$(1,1,1)$，叉积$(-2,-2,4)$，可取$(1,1,-2)$，切线$(x,y,z)=(1,-1,0)+t(1,1,-2)$。另一法对约束微分得$\dd x-\dd y=0$、$\dd x+\dd y+\dd z=0$，于是切向比例$1:1:-2$。\par\textbf{方法点评} 叉积与约束微分说明同一正交关系。\par\textbf{变式与易错点} 交线梯度叉积为0时需进一步分析，不能断言切线不存在。\end{example}

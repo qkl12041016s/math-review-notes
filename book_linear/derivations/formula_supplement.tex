@@ -1,0 +1,193 @@
+\section{速查公式的补充推导与证明导航}\label{sec:formula-derivations}
+前八节便于查式，本节把其中需要额外计算的步骤展开。正文已经证明的结论可按末尾导航返回；这里的伪逆与一般惯性分块公式属于\textbf{选学提高}。
+
+\subsection{常系数三对角递推如何得到闭式}\label{der:tri-closed}
+设$T_n$的主对角元为$a$，上、下副对角元分别为$b,c$。沿末行展开时，对角元贡献$aD_{n-1}$；另一项的代数余子式符号为负，再沿其末列展开提出另一个副对角元，剩余为$D_{n-2}$。所以
+\[
+D_0=1,\qquad D_1=a,\qquad D_n=aD_{n-1}-bcD_{n-2}\quad(n\ge2).
+\]
+\textbf{不同特征根。}设$r_1,r_2$是$r^2-ar+bc=0$的两个互异根。每个数列$r_i^n$都满足该递推，且$r_1+r_2=a$。设$D_n=\alpha r_1^n+\beta r_2^n$，由初值解
+\[
+\alpha+\beta=1,\qquad \alpha r_1+\beta r_2=a=r_1+r_2,
+\]
+得到$\alpha=\frac{r_1}{r_1-r_2}$、$\beta=-\frac{r_2}{r_1-r_2}$，因此
+\[
+D_n=\dfrac{r_1^{n+1}-r_2^{n+1}}{r_1-r_2}\quad(n\ge0).
+\]
+也可直接验证：该式在$n=0,1$分别为1与$a$，每个分子幂次都满足原递推。递推及两个初值逐项唯一确定数列，所以该式适用于所有$n$，包含其中一个根为零的情况；此写法不需使用$0^0$。实系数产生共轭复根时，代入同式的结果仍为实数，因为它已被实递推唯一确定。
+
+\textbf{非零重根。}若两根都为$r\ne0$，则$a=2r,bc=r^2$。令$E_n=\frac{D_n}{r^n}$，递推化成
+\[
+E_n=2E_{n-1}-E_{n-2},\qquad E_0=1,\quad E_1=2.
+\]
+移项得$E_n-E_{n-1}=E_{n-1}-E_{n-2}$，故一阶差恒为$E_1-E_0=1$，逐项累加得到$E_n=n+1$，即$D_n=(n+1)r^n$。
+
+\textbf{零重根。}若$r=0$，则$a=bc=0$，不能除以$r^n$。直接用初值$D_0=1,D_1=0$与递推，得到全部$n\ge1$时$D_n=0$。这解释了闭式在零重根处应怎样读取。
+
+\subsection{转置、逆与有限几何和的每一步}\label{der:inverse-identities}
+对相容矩阵$A,B$，比较第$(i,j)$元素，有
+\[
+((AB)\T)_{ij}=(AB)_{ji}=\sum_k a_{jk}b_{ki}
+=\sum_k(B\T)_{ik}(A\T)_{kj}=(B\T A\T)_{ij}.
+\]
+因此$(AB)\T=B\T A\T$，因子次序必须反转。若$A,B$为同阶可逆方阵，则
+\[
+(AB)(B\inv A\inv)=A(BB\inv)A\inv=I,
+\qquad
+(B\inv A\inv)(AB)=B\inv(A\inv A)B=I.
+\]
+左右乘回均为单位矩阵，按逆的唯一性得到$(AB)\inv=B\inv A\inv$。又对$AA\inv=A\inv A=I$转置，得$(A\inv)\T A\T=A\T(A\inv)\T=I$，所以$(A\T)\inv=(A\inv)\T$。若$A\T A=AA\T=I$，则其逆就是$A\T$。
+
+行列式乘积公式给$\det A\det A\inv=\det I=1$，所以$\det A\inv=\frac{1}{\det A}$。整体倍乘$kA$时，将每行的$k$逐行提出，共$n$次，得到$\det(kA)=k^n\det A$；$k=0$时也由零行列式直接成立。
+
+设$N^k=0$，定义$S=I+N+\cdots+N^{k-1}$。有限乘法逐项相减给
+\[
+(I-N)S=(I+N+\cdots+N^{k-1})-(N+N^2+\cdots+N^k)=I-N^k=I.
+\]
+因为$S$是$N$的多项式，$SN=NS$，故$S(I-N)=I$也成立，得到$(I-N)\inv=S$。更一般地，$a\ne0$时先提出$a$，得到
+\[
+(aI-N)\inv=\dfrac1a\left(I+\dfrac Na+\cdots+\dfrac{N^{k-1}}{a^{k-1}}\right).
+\]
+这只是有限代数恒等式，无需任何收敛条件。
+
+\subsection{秩一更新逆的分母为何必不可少}\label{der:rank-one-inverse}
+设$A$可逆，令$w=A\inv u$、$s=v\T w$，则$A+uv\T=A(I+wv\T)$，并有$(wv\T)^2=s\,wv\T$。对待定标量$c$，
+\[
+(I+wv\T)(I-cwv\T)=I+[1-c-cs]wv\T.
+\]
+当$1+s\ne0$，取$c=\frac{1}{1+s}$，括号系数为零；两个因子都是同一矩阵$wv\T$的多项式，反序相乘也为$I$。因此
+\[
+(A+uv\T)\inv
+=\left(I-\dfrac{wv\T}{1+s}\right)A\inv
+=A\inv-\dfrac{A\inv uv\T A\inv}{1+v\T A\inv u}.
+\]
+若$1+s=0$，则$s=-1$使$w\ne0$，但$(I+wv\T)w=(1+s)w=0$。于是$A+uv\T$有非零核向量$w$，不可能可逆。分母非零既充分又必要。取$A=I$就得到速查中的单位矩阵更新公式。
+
+\subsection{Schur补：配方、合同与正定}\label{der:schur-quadratic}
+设$A=A\T$可逆、$D=D\T$，且分块大小相容，记
+\[
+M=\begin{pmatrix}A&B\\B\T&D\end{pmatrix},\qquad S=D-B\T A\inv B.
+\]
+因$A\inv$也对称，逐项展开可得
+\[
+\begin{aligned}
+\begin{pmatrix}x\\y\end{pmatrix}\T M\begin{pmatrix}x\\y\end{pmatrix}
+&=x\T Ax+2x\T By+y\T Dy\\
+&=(x+A\inv By)\T A(x+A\inv By)+y\T Sy.
+\end{aligned}
+\]
+确切地说，平方项展开后的附加项为$y\T B\T A\inv By$，它与$S$中减去的同一项抵消。令$x=u-A\inv Bv,y=v$，代换矩阵
+\[
+P=\begin{pmatrix}I&-A\inv B\\0&I\end{pmatrix},\qquad
+P\inv=\begin{pmatrix}I&A\inv B\\0&I\end{pmatrix}
+\]
+总可逆，配方等价于完整合同恒等式
+\[
+P\T MP=\begin{pmatrix}A&0\\0&S\end{pmatrix}.
+\]
+因此若$p(H),q(H),z(H)$分别表示实对称矩阵$H$的正、负、零指数，惯性定理给
+\[
+\begin{aligned}
+p(M)&=p(A)+p(S),\\
+q(M)&=q(A)+q(S),\\
+z(M)&=z(A)+z(S).
+\end{aligned}
+\]
+理由是分块对角二次型的两个变量组独立，各块先分别合同成规范形，拼接后正、负、零项个数分别相加。特别在$A\succ0$时，$M\succ0$等价于$S\succ0$：若两块都正定，非零$(u,v)$至少一块给严格正；若$M\succ0$，取$u=0,v\ne0$便迫使$v\T Sv>0$。同样有$M\succeq0\Longleftrightarrow S\succeq0$，这里仍保持$A\succ0$这一前提。$A$奇异时不能直接使用含$A\inv$的公式。
+
+\subsection{负定判据怎样从正定判据推出}\label{der:negative-definite}
+实对称$A$负定，按定义是全部$x\ne0$都有$x\T Ax<0$，等价于$x\T(-A)x>0$，即$-A$正定。$-A$的前$k$阶主块是原主块整体乘$-1$，其行列式为$(-1)^k\Delta_k(A)$。对$-A$应用正定顺序主子式判据，就得到
+\[
+A\prec0\quad\Longleftrightarrow\quad(-1)^k\Delta_k(A)>0
+\quad(k=1,\ldots,n).
+\]
+因此顺序主子式须按负、正、负、正交替，且都不能为零。谱法同样给$A\prec0$等价于全部特征值严格负；这来自$-A$的特征值为$-\lambda_i$。半负定则对应全部主子式满足$(-1)^k\det A[I,I]\ge0$，其中$|I|=k$，不能只检查顺序主子式。
+
+\subsection{SVD伪逆及全部最小二乘解}\label{der:general-pseudoinverse}
+\textbf{选学提高。}设实$m\times n$矩阵$A$秩$r$，完整SVD为$A=U\Sigma V\T$。写$D=\diag(\sigma_1,\ldots,\sigma_r)$，每个$\sigma_i>0$，则在输出空间维数分割$r+(m-r)$、输入空间分割$r+(n-r)$下，
+\[
+\Sigma=\begin{pmatrix}D&0\\0&0\end{pmatrix}_{m\times n},\qquad
+\Sigma^+=\begin{pmatrix}D\inv&0\\0&0\end{pmatrix}_{n\times m}.
+\]
+定义$A^+=V\Sigma^+U\T$。矩形方向在取逆奇异值时同时交换，故$A^+$大小为$n\times m$。
+
+\textbf{先把最小化化成独立平方。}令$y=V\T x,c=U\T b$，正交性保欧氏长度，得到
+\[
+\norm{Ax-b}_2^2=\norm{\Sigma y-c}_2^2
+=\sum_{i=1}^r(\sigma_i y_i-c_i)^2+\sum_{i=r+1}^m c_i^2.
+\]
+因此最小值平方为$\sum_{i>r}c_i^2$，全部最小二乘解恰满足$y_i=\frac{c_i}{\sigma_i}$对$i\le r$，其余$n-r$个输入坐标任意。返回原坐标，得到
+\[
+x=A^+b+\sum_{i=r+1}^n\alpha_i v_i
+=A^+b+(I-A^+A)z,\qquad z\in\R^n.
+\]
+这里$v_i$为$V$的列，后$n-r$列张成$\ker A$，因为$Av_i=0$，且它们无关、个数等于核维数。又$A^+b$在前$r$列张成的空间中，与核正交，所以
+\[
+\norm x_2^2=\norm{A^+b}_2^2+\sum_{i=r+1}^n\alpha_i^2.
+\]
+于是$A^+b$是全部最小二乘解中\emph{唯一}最小范数者。若$Ax=b$恰好相容，则$c_i=0$对全部$i>r$，同一表达给出原方程全部精确解及其中唯一最小范数解。
+
+\textbf{投影与四条Penrose恒等式。}由矩形对角乘法，
+\[
+AA^+=U\diag(I_r,0_{m-r})U\T,\qquad
+A^+A=V\diag(I_r,0_{n-r})V\T.
+\]
+它们分别是到$\im A$与$(\ker A)^\perp$的正交投影。因此两者对称，且前者固定$A$的全部列、后者固定$A^+$的全部列，具体乘法给
+\[
+AA^+A=A,\qquad A^+AA^+=A^+,\qquad
+(AA^+)\T=AA^+,\qquad(A^+A)\T=A^+A.
+\]
+例如第一式是$U(\Sigma\Sigma^+\Sigma)V\T=U\Sigma V\T$，第二式是$V(\Sigma^+\Sigma\Sigma^+)U\T=V\Sigma^+U\T$，每个非零对角元分别计算为$\sigma_i\sigma_i^{-1}\sigma_i=\sigma_i$与$\sigma_i^{-1}\sigma_i\sigma_i^{-1}=\sigma_i^{-1}$。
+
+\textbf{为什么这四条恒等式唯一确定伪逆。}设另一个$n\times m$矩阵$X$也满足$AXA=A,XAX=X$及$AX,XA$对称。令$Z=V\T XU$，按上述大小分块写
+\[
+Z=\begin{pmatrix}Z_{11}&Z_{12}\\Z_{21}&Z_{22}\end{pmatrix}.
+\]
+条件$\Sigma Z\Sigma=\Sigma$给$DZ_{11}D=D$，所以$Z_{11}=D\inv$。矩阵$\Sigma Z=\begin{pmatrix}DZ_{11}&DZ_{12}\\0&0\end{pmatrix}$对称，迫使$DZ_{12}=0$，即$Z_{12}=0$。同理$Z\Sigma=\begin{pmatrix}Z_{11}D&0\\Z_{21}D&0\end{pmatrix}$对称，迫使$Z_{21}=0$。最后$Z\Sigma Z=Z$的左边变成$\begin{pmatrix}D\inv&0\\0&0\end{pmatrix}$，故$Z_{22}=0$。于是$Z=\Sigma^+$，$X=V\Sigma^+U\T=A^+$，唯一性得证。若$r=0$，则$A=0$，第二条件$XAX=X$直接给$X=0$；满行秩或满列秩时某些块为空，上述乘法仍成立。
+
+\subsection{正文证明导航}
+下表中正文的编号对应“证明与推导”盒的独立编号；补充推导的编号对应本节小节号。编号与页码均可直接跳转，方便从速查式返回完整推导链。
+\begin{longtable}{@{}p{.54\textwidth}p{.33\textwidth}@{}}
+\toprule 公式或结论&完整推导位置\\\midrule\endhead
+行列式性质、展开与乘积&\ref{der:1-1}，第\pageref{der:1-1}页\\
+三角形与三对角递推&\ref{der:1-2}，第\pageref{der:1-2}页\\
+范德蒙德与秩一行列式&\ref{der:1-3}，第\pageref{der:1-3}页\\
+分块行列式与摄动导数&\ref{der:1-4}，第\pageref{der:1-4}页\\
+运算、逆序、伴随与伴随行列式&\ref{der:2-1}，第\pageref{der:2-1}页\\
+伴随、逆与等价判据&\ref{der:2-2}，第\pageref{der:2-2}页\\
+秩、Gram矩阵与伴随秩&\ref{der:2-3}，第\pageref{der:2-3}页\\
+分块求逆与双侧矩阵方程&\ref{der:2-4}，第\pageref{der:2-4}页\\
+线性相关、表示与独立性判据&\ref{der:3-1}，第\pageref{der:3-1}页\\
+主元列、极大无关组与等价&\ref{der:3-2}，第\pageref{der:3-2}页\\
+换基与坐标方向&\ref{der:3-3}，第\pageref{der:3-3}页\\
+Schmidt与Cauchy不等式&\ref{der:3-4}，第\pageref{der:3-4}页\\
+克拉默法则&\ref{der:4-1}，第\pageref{der:4-1}页\\
+相容判据、自由变量与基础解系&\ref{der:4-2}，第\pageref{der:4-2}页\\
+齐次同解与行空间&\ref{der:4-3}，第\pageref{der:4-3}页\\
+左零空间相容条件与最小范数&\ref{der:4-4}，第\pageref{der:4-4}页\\
+谱映射、迹、行列式与重数&\ref{der:5-1}，第\pageref{der:5-1}页\\
+特征向量独立性与相似对角化&\ref{der:5-2}，第\pageref{der:5-2}页\\
+实对称谱定理与Rayleigh界&\ref{der:5-3}，第\pageref{der:5-3}页\\
+Jordan存在、唯一性与块幂&\ref{der:jordan-full}，第\pageref{der:jordan-full}页\\
+惯性存在与唯一性&\ref{der:6-1}，第\pageref{der:6-1}页\\
+逐项配方与零主元处理&\ref{der:6-2}，第\pageref{der:6-2}页\\
+正定与半正定的各判据&\ref{der:6-3}，第\pageref{der:6-3}页\\
+最大正定子空间、平方根与外积&\ref{der:6-4}，第\pageref{der:6-4}页\\
+子空间、基的扩充与删减&\ref{der:7-1}，第\pageref{der:7-1}页\\
+秩--零化度与换基表示&\ref{der:7-2}，第\pageref{der:7-2}页\\
+和、商与对偶的维数公式&\ref{der:7-3}，第\pageref{der:7-3}页\\
+正交分解、投影与正规方程&\ref{der:7-4}，第\pageref{der:7-4}页\\
+Sylvester与Frobenius秩不等式&\ref{der:8-1}，第\pageref{der:8-1}页\\
+凯莱--哈密顿与多项式降次&\ref{der:8-2}，第\pageref{der:8-2}页\\
+Sylvester矩阵方程唯一可解&\ref{der:sylvester-full}，第\pageref{der:sylvester-full}页\\
+最小多项式与Jordan核差分&\ref{der:8-3}、\ref{der:8-4}，第\pageref{der:8-3}页起\\
+LU、QR、Cholesky与SVD&\ref{der:8-5}，第\pageref{der:8-5}页\\
+矩阵范数、谱半径与扰动界&\ref{der:8-6}，第\pageref{der:8-6}页\\
+三对角闭式与退化根&\ref{der:tri-closed}，第\pageref{der:tri-closed}页\\
+转置、逆与有限几何和&\ref{der:inverse-identities}，第\pageref{der:inverse-identities}页\\
+秩一逆的必要与充分条件&\ref{der:rank-one-inverse}，第\pageref{der:rank-one-inverse}页\\
+Schur配方、正定与惯性&\ref{der:schur-quadratic}，第\pageref{der:schur-quadratic}页\\
+负定与半负定的主子式判据&\ref{der:negative-definite}，第\pageref{der:negative-definite}页\\
+伪逆、全部最小二乘解与唯一性&\ref{der:general-pseudoinverse}，第\pageref{der:general-pseudoinverse}页\\
+\bottomrule
+\end{longtable}

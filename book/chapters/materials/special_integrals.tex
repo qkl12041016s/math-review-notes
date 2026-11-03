@@ -1,0 +1,71 @@
+\section{特殊函数、复变积分与积分变换}\label{mat:special_integrals}
+\begin{examtip}本节给出特殊函数的定义、微分关系、可计算算例与适用边界。\end{examtip}
+\subsection{误差函数与Fresnel积分}\label{mat:special_integrals:erf}
+\begin{method}{误差函数与Fresnel积分}\textbf{适用条件} 平方指数或二次相位振荡。\par\textbf{实施与依据} $\operatorname{erf}x=\frac2{\sqrt\pi}\int_0^x\e^{-t^2}\dd t$；$C(x)=\int_0^x\cos(\frac{\pi t^2}{2})\dd t,S(x)=\int_0^x\sin(\frac{\pi t^2}{2})\dd t$。\end{method}
+\begin{example}{专题例题｜误差函数与Fresnel积分}{难度：$\star\star$}
+\textbf{题目} 表达$\int\e^{-a x^2}\dd x$，$a>0$。\par\textbf{思路与解答} 令$u=\sqrt a\,x$，得到$\frac{\sqrt\pi\operatorname{erf}(\sqrt a\,x)}{2\sqrt a}+C$。导数定义直接检验。\par\textbf{方法点评与边界} 特殊函数的积分上下限可有不同约定，计算时须固定同一组定义。
+\end{example}
+\subsection{指数、正弦与余弦积分}\label{mat:special_integrals:sici}
+\begin{method}{指数、正弦与余弦积分}\textbf{适用条件} 除以自变量的指数三角积分。\par\textbf{实施与依据} $\operatorname{Si}(x)=\int_0^x\frac{\sin t}{t}\dd t$；$\operatorname{Ci}(x)=\gamma+\ln x+\int_0^x\frac{\cos t-1}{t}\dd t$，$x>0$。实$\operatorname{Ei}$需避开或按主值处理0。\end{method}
+\begin{example}{专题例题｜指数、正弦与余弦积分}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{\sin(ax)}{x}\dd x$。\par\textbf{思路与解答} $a\ne0$时为$\operatorname{Si}(ax)+C$，因为链式求导给$\frac{\sin(ax)}{x}$；$a=0$时为常数。\par\textbf{方法点评与边界} 不能把$\int_0^x\frac{\cos t}{t}\dd t$当普通收敛积分。
+\end{example}
+\subsection{多重对数与指对双元}\label{mat:special_integrals:polylog}
+\begin{method}{多重对数与指对双元}\textbf{适用条件} 反复出现$\frac{\ln(1-x)}{x}$。\par\textbf{实施与依据} 定义$\operatorname{Li}_s(z)=\sum_{n\ge1}\frac{z^n}{n^s}$，$|z|<1$；$\frac{\dd\operatorname{Li}_s(z)}{\dd z}=\frac{\operatorname{Li}_{s-1}(z)}{z}$。\end{method}
+\begin{example}{专题例题｜多重对数与指对双元}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{\ln(1-x)\dd x}{x}$，$|x|<1$。\par\textbf{思路与解答} $\operatorname{Li}_1(x)=-\ln(1-x)$，故答案$-\operatorname{Li}_2(x)+C$。从对数幂级数逐项积分也得到此表达。\par\textbf{方法点评与边界} 超出单位圆时需解析延拓及分支信息，不直接沿用实区间公式。
+\end{example}
+\subsection{Lambert W与隐式变量}\label{mat:special_integrals:lambert}
+\begin{method}{Lambert W与隐式变量}\textbf{适用条件} 变量同时在线性因子及指数中。\par\textbf{实施与依据} $W(z)\e^{W(z)}=z$；在所选可微分支且$z\ne0,\,W(z)\ne-1$时，$W\prime=\frac{W}{z(1+W)}$。主实分支在0处由隐函数关系得到$W_0\prime(0)=1$，商式的$\frac{0}{0}$须按可去极限理解。\end{method}
+\begin{example}{专题例题｜Lambert W与隐式变量}{难度：$\star\star$}
+\textbf{题目} 求$\int W(x)\dd x$，在可微实分支区间。\par\textbf{思路与解答} 设$u=W(x)$，$x=u\e^u,\dd x=(u+1)\e^u\dd u$，积分$\e^u(u^2-u+1)+C$。求导回到$u$，再用隐式关系核验。\par\textbf{方法点评与边界} $x=-\frac{1}{\e}$是实分支的关键点；不同实分支需分别讨论。
+\end{example}
+\subsection{Gamma与Beta函数}\label{mat:special_integrals:gamma}
+\begin{method}{Gamma与Beta函数}\textbf{适用条件} 无穷区间指数权、单位区间幂权。\par\textbf{实施与依据} $\Gamma(s)=\int_0^\infty t^{s-1}\e^{-t}\dd t$，$s>0$；$B(p,q)=\int_0^1t^{p-1}(1-t)^{q-1}\dd t$，实参数$p,q>0$；这两个条件分别保证0与1端点可积。\end{method}
+\begin{example}{专题例题｜Gamma与Beta函数}{难度：$\star\star$}
+\textbf{题目} 设$p,q>0$，证明$B(p,q)=\frac{\Gamma(p)\Gamma(q)}{\Gamma(p+q)}$。\par\textbf{思路与解答} 在正象限把Gamma乘积写成二重积分，令$x=ru,y=r(1-u)$，Jacobian为$r$。积分分离成$\Gamma(p+q)B(p,q)$，故结论成立；非负性保证换序合法。\par\textbf{方法点评与边界} 由分部得到$\Gamma(s+1)=s\Gamma(s)$、$\Gamma(\frac{1}{2})=\sqrt\pi$。
+\end{example}
+\subsection{Bessel函数及加权积分}\label{mat:special_integrals:bessel}
+\begin{method}{Bessel函数及加权积分}\textbf{适用条件} 圆对称问题与Bessel方程。\par\textbf{实施与依据} 在$x>0,\nu\ge0$时，第一类Bessel函数由归一化级数
+\[
+J_\nu(x)=\sum_{k=0}^\infty
+\dfrac{(-1)^k(\frac{x}{2})^{2k+\nu}}{k!\,\Gamma(k+\nu+1)}
+\]
+确定，而不仅由二阶方程的名称确定。它满足$x^2y\prime\prime+xy\prime+(x^2-\nu^2)y=0$；常用关系$[x^{\nu+1}J_{\nu+1}(x)]\prime=x^{\nu+1}J_\nu(x)$。\end{method}
+\begin{example}{专题例题｜Bessel函数及加权积分}{难度：$\star\star$}
+\textbf{题目} 求$\int xJ_0(x)\dd x$。\par\textbf{思路与解答} 取$\nu=0$，答案$xJ_1(x)+C$。关系可由$J_0=\sum\frac{(-1)^k(\frac{x}{2})^{2k}}{(k!)^2}$与$J_1$的级数逐项微分核验。\par\textbf{方法点评与边界} 第二类Bessel、虚宗量修正Bessel也由对应ODE与递推处理，不能不加符号调整照搬。
+\end{example}
+\subsection{Airy方程与积分}\label{mat:special_integrals:airy}
+\begin{method}{Airy方程与积分}\textbf{适用条件} 线性转折点模型。\par\textbf{实施与依据} $\operatorname{Ai}$与$\operatorname{Bi}$满足$y\prime\prime-xy=0$，本册用以下初值固定标准归一化：
+\[
+\begin{aligned}
+\operatorname{Ai}(0)&=\dfrac1{3^{\frac{2}{3}}\Gamma(\frac{2}{3})},&
+\operatorname{Ai}'(0)&=-\dfrac1{3^{\frac{1}{3}}\Gamma(\frac{1}{3})},\\
+\operatorname{Bi}(0)&=\sqrt3\,\operatorname{Ai}(0),&
+\operatorname{Bi}'(0)&=-\sqrt3\,\operatorname{Ai}'(0).
+\end{aligned}
+\]
+二阶初值问题唯一性确定这两个函数；仅写共同微分方程不能区分它们。\end{method}
+\begin{example}{专题例题｜Airy方程与积分}{难度：$\star\star$}
+\textbf{题目} 求$\int x\operatorname{Ai}(x)\dd x$。\par\textbf{思路与解答} 由定义方程$\operatorname{Ai}\prime\prime=x\operatorname{Ai}$，原函数为$\operatorname{Ai}\prime(x)+C$。\par\textbf{方法点评与边界} 特殊函数满足的微分方程可直接用于构造其原函数。
+\end{example}
+\subsection{Legendre多项式与正交积分}\label{mat:special_integrals:legendre}
+\begin{method}{Legendre多项式与正交积分}\textbf{适用条件} 区间$[-1,1]$上的多项式谱。\par\textbf{实施与依据} $P_n(x)=\frac1{2^nn!}\frac{\dd^n}{\dd x^n}(x^2-1)^n$。分部$n$次可证明对低次多项式正交。\end{method}
+\begin{example}{专题例题｜Legendre多项式与正交积分}{难度：$\star\star$}
+\textbf{题目} 求$\int_{-1}^1xP_2(x)\dd x$。\par\textbf{思路与解答} $P_2=\frac{3x^2-1}{2}$为偶，乘$x$为奇，因此积分0。一般有$\int_{-1}^1P_nP_m=0$（$m\ne n$）。\par\textbf{方法点评与边界} 等次平方积分为$\frac{2}{2n+1}$，需要归一化时不可漏掉。
+\end{example}
+\subsection{超几何与Mathieu函数}\label{mat:special_integrals:hypergeom}
+\begin{method}{超几何与Mathieu函数}\textbf{适用条件} 参数化二阶ODE及特殊函数积分。\par\textbf{实施与依据} Gauss超几何级数${}_2F_1(a,b;c;z)=\sum_{n=0}^\infty\frac{(a)_n(b)_n z^n}{(c)_nn!}$，先取$|z|<1$、$c$避开非正整数；其中$(a)_0=1$、$(a)_n=a(a+1)\cdots(a+n-1)$是升阶乘。Mathieu方程为$y\prime\prime+(a-2q\cos2x)y=0$。\end{method}
+\begin{example}{专题例题｜超几何与Mathieu函数}{难度：$\star\star$}
+\textbf{题目} 写出$\int(1-x^2)^{-\frac{1}{2}}\dd x$的超几何形式。\par\textbf{思路与解答} 二项式展开后逐项积分得$x\,{}_2F_1(\frac{1}{2},\frac{1}{2};\frac{3}{2};x^2)+C=\arcsin x+C$，$|x|<1$。Mathieu函数在$q=0$退化为常系数三角或指数函数。\par\textbf{方法点评与边界} 不为每个参数强行给初等形式；先定义函数及其微分方程，再利用微分关系积分。
+\end{example}
+\subsection{Cauchy积分与留数法}\label{mat:special_integrals:residue}
+\begin{method}{Cauchy积分与留数法}\textbf{适用条件} 复平面上孤立奇点和可闭合路径。\par\textbf{实施与依据} 若函数在分段光滑简单闭曲线及其内部的一个开邻域内解析，则闭路积分为0；更一般地，在单连通解析区域内任意闭路积分为0。正向围道内部只有有限个孤立极点、边界无奇点时，积分为$2\pi i$乘留数和；还要估计闭合大弧。\end{method}
+\begin{example}{专题例题｜Cauchy积分与留数法}{难度：$\star\star$}
+\textbf{题目} 用留数求$\int_{-\infty}^\infty\frac{\dd x}{1+x^2}$。\par\textbf{思路与解答} 上半平面仅极点$i$，留数$\frac{1}{2i}$，围道积分为$\pi$；大半圆弧上的积分模不超过$\frac{\pi R}{R^2-1}\to0$，故实积分为$\pi$。\par\textbf{方法点评与边界} 弧积分消失必须给估计；路径上的极点需缩进或主值，不能直接套公式。
+\end{example}
+\subsection{Laplace与Fourier积分变换}\label{mat:special_integrals:laplace}
+\begin{method}{Laplace与Fourier积分变换}\textbf{适用条件} 半轴增长可控的函数或全轴可积函数。\par\textbf{实施与依据} $\mathcal Lf(s)=\int_0^\infty\e^{-st}f(t)\dd t$，$\widehat f(\xi)=\int_\R f(x)\e^{-2\pi i x\xi}\dd x$。\end{method}
+\begin{example}{专题例题｜Laplace与Fourier积分变换}{难度：$\star\star$}
+\textbf{题目} 求$\mathcal L(t^n)(s)$，$s>0$、$n$为非负整数。\par\textbf{思路与解答} 令$u=st$，得到$\frac{\Gamma(n+1)}{s^{n+1}}=\frac{n!}{s^{n+1}}$。对变换求$s$导数也可从$\frac{1}{s}$递推得到。\par\textbf{方法点评与边界} 变换公式的收敛半平面是公式的一部分。
+\end{example}

@@ -1,0 +1,54 @@
+\begin{titlepage}\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+  \begin{scope}
+    \clip(current page.north west) rectangle ([yshift=-76mm]current page.north east);
+    \node[inner sep=0pt,anchor=center] at ([yshift=-37mm]current page.north)
+      {\includegraphics[width=\paperwidth]{assets/cover_open_book.jpg}};
+  \end{scope}
+  \fill[CoverTeal]([yshift=-76mm]current page.north west)
+    rectangle ([yshift=-88mm]current page.north east);
+  \node[anchor=north west,inner sep=0pt,text=black] at ([xshift=18mm,yshift=-109mm]current page.north west)
+    {\fontsize{34}{42}\selectfont\sffamily\bfseries 线性代数};
+  \node[anchor=north west,inner sep=0pt,text=black] at ([xshift=19mm,yshift=-129mm]current page.north west)
+    {\fontsize{23}{30}\selectfont\sffamily\bfseries 考研与竞赛复习册};
+  \node[anchor=north west,inner sep=0pt,text=Ink] at ([xshift=20mm,yshift=-151mm]current page.north west)
+    {\fontsize{18}{23}\selectfont\bfseries Linear Algebra Notes};
+  \node[anchor=north west,inner sep=0pt,text=black!58,align=left] at ([xshift=23mm,yshift=-177mm]current page.north west)
+    {\fontsize{12}{24}\selectfont
+      \begin{tabular}{@{}l@{\;}l@{}}
+      作者：&雪落长安无声\\
+      邮箱：&\href{mailto:3547908579@qq.com}{\textcolor{black!58}{3547908579@qq.com}}\\
+      时间：&2026.10.31\\
+      版本：&修订版
+      \end{tabular}};
+  \begin{scope}[shift={([xshift=-40mm,yshift=-204mm]current page.north east)},scale=.78]
+    \foreach \angle in {0,30,60,90,120,150,180,210,240,270,300,330}{
+      \begin{scope}[rotate=\angle]
+        \path[draw=CoverGold,fill=CoverGold!5,line width=.45pt]
+          (0,0)..controls(-.75,1.1)and(-.65,2.05)..(0,2.65)
+          ..controls(.65,2.05)and(.75,1.1)..(0,0);
+      \end{scope}}
+    \foreach \angle in {15,45,75,105,135,165,195,225,255,285,315,345}{
+      \begin{scope}[rotate=\angle,scale=.66]
+        \path[draw=CoverGold!80,fill=white,fill opacity=.38,draw opacity=1,line width=.4pt]
+          (0,0)..controls(-.75,1.1)and(-.65,2.05)..(0,2.65)
+          ..controls(.65,2.05)and(.75,1.1)..(0,0);
+      \end{scope}}
+    \draw[CoverGold!85,line width=.45pt](0,0)circle(.4);
+  \end{scope}
+  \node[anchor=center,text=black,align=center] at ([yshift=37mm]current page.south)
+    {\fontsize{12}{19}\selectfont\itshape 把每一步想清楚，让每一个结论都有来处。};
+\end{tikzpicture}
+\null
+\end{titlepage}
+\thispagestyle{empty}\vspace*{32mm}
+\begin{center}
+{\LARGE\bfseries 线性代数考研与竞赛复习册}\par\vspace{15mm}
+数学考研与竞赛复习册系列\par
+概念、方法、证明与分层训练\par\vspace{22mm}
+{\large 雪落长安无声}\par\vspace{6mm}
+\href{mailto:3547908579@qq.com}{3547908579@qq.com}\par\vspace{18mm}
+几何直觉 · 代数推导 · 易错辨析\par\vspace{12mm}
+2026.10.31\quad 修订版
+\end{center}\vfill
+阅读时可先走考研主线，再按标记进入竞赛拓展。未注明原题出处的训练采用“考研风格”或“竞赛风格”标签；例题与习题解答均包含推导步骤。

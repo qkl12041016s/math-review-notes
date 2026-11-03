@@ -1,0 +1,83 @@
+\section{极限方法的证明、辨析与多解训练}\label{deep:limits_source_deep}
+
+\begin{examtip}本节在35法方法卡之外补充证明、误差阶和方法比较。例题分别标为考研风格或竞赛风格，训练条件辨识与方法选择。\end{examtip}
+
+\subsection{定义、否定命题与子列判别}\label{deep:limits_source_deep:logic}
+
+\begin{method}{定义、否定命题与子列判别}\textbf{适用条件} 先确定自变量趋向方式和函数定义域。\par\textbf{步骤与依据} 把“任意$\varepsilon$”与“存在$\delta$”按次序写出；否定时交换量词；不收敛可构造两个极限不同的子列。\par\textbf{易错点} “某些项接近”只说明存在子列，不能说明整列收敛。\end{method}
+
+\begin{theorem}{Cauchy准则与完备性}实数列收敛当且仅当对每个$\varepsilon>0$存在$N$，使$m,n>N$时$|a_m-a_n|<\varepsilon$。\end{theorem}\begin{proof}必要性由$|a_m-a_n|\le |a_m-a|+|a_n-a|$。充分性：Cauchy列有界，由Bolzano--Weierstrass定理有子列$a_{n_k}\to a$。固定$\varepsilon$，取尾部Cauchy误差小于$\frac{\varepsilon}{2}$，再取$n_k$足够大使$|a_{n_k}-a|<\frac{\varepsilon}{2}$，三角不等式给全部尾项趋于$a$。\end{proof}
+
+\begin{example}{基础例题｜量词与误差估计}{难度：$\star\star$}\label{deep:ex:limits_source_deep:eps}\textbf{题目} 用定义证明$a_n=\frac{2n+1}{3n-2}\to\frac{2}{3}$。\par\textbf{思路} 精确计算与候选极限的差，再从误差反解$n$。\par\textbf{详细解答} $|a_n-\frac{2}{3}|=\frac{7}{3(3n-2)}$。当$n\ge2$，$3n-2\ge2n$，故误差$\le\frac{7}{6n}$。给定$\varepsilon>0$，取整数$N>\max\{2,\frac{7}{6\varepsilon}\}$，则$n>N$时误差小于$\varepsilon$。\par\textbf{方法点评} 先放缩再选$N$可以简化常数。\par\textbf{变式与易错点} 把$n$换为$x\to+\infty$可写成函数极限定义。\end{example}
+
+\begin{example}{竞赛风格｜Heine定理的双向使用}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:heine}\textbf{题目} 证明$\sin(\frac{1}{x})$在$x\to0$时无极限，而$x\sin(\frac{1}{x})\to0$。\par\textbf{思路} 前者选相位相差$\pi$的两列；后者用有界性消除振荡。\par\textbf{详细解答} 取$x_n=(2\pi n+\frac{\pi}{2})^{-1}$和$y_n=(2\pi n+\frac{3\pi}{2})^{-1}$，均趋0，而函数值分别为1、$-1$，由Heine定理极限不存在。又$-|x|\le x\sin(\frac{1}{x})\le|x|$，夹逼得极限0。\par\textbf{方法点评} 子列用于否定极限；有界乘无穷小用于建立极限。\par\textbf{变式与易错点} 振荡函数与趋零函数的积不一定振荡。\end{example}
+
+\subsection{相消、等价无穷小与Taylor余项}\label{deep:limits_source_deep:cancel}
+
+\begin{method}{相消、等价无穷小与Taylor余项}\textbf{适用条件} 分子有相减且首项可能抵消。\par\textbf{步骤与依据} 先估计分母阶数；展开到抵消后第一项，并检验余项除以分母后趋0。\par\textbf{易错点} 在差式里逐项等价替换可能把真正的主项消掉。\end{method}
+
+\begin{example}{考研风格｜同一极限三解}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:sin}\textbf{题目} 求$L=\lim_{x\to0}\frac{x-\sin x}{x^3}$。\par\textbf{思路} 分别用Taylor、L’Hôpital和积分余项。\par\textbf{详细解答} \textbf{方法一：Taylor。}$\sin x=x-\frac{x^3}{6}+o(x^3)$，所以$L=\frac{1}{6}$。\par\textbf{方法二：L’Hôpital。}三次求导后依次得到$\frac{1-\cos x}{3x^2}$、$\frac{\sin x}{6x}$、$\frac{\cos x}{6}$，极限$\frac{1}{6}$；每次在穿孔邻域内导数分母非零。\par\textbf{方法三：积分。}$x-\sin x=x\int_0^1(1-\cos xu)\dd u$，故原商$=\int_0^1\frac{1-\cos xu}{x^2}\dd u$。被积函数趋$\frac{u^2}{2}$，且绝对值$\le \frac{u^2}{2}$，积分趋$\frac{1}{6}$。\par\textbf{方法点评} Taylor最短；积分法容易推广为带权平均。\par\textbf{变式与易错点} 不能将差式里的$\sin x$直接替成$x$。\end{example}
+
+\begin{example}{考研风格｜参数相消与分类}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:log}\textbf{题目} 求$\lim_{x\to0}\frac{\ln(1+ax)-a\ln(1+x)}{x^2}$，$a\in\R$。\par\textbf{思路} 线性项必相消，保留二阶项。\par\textbf{详细解答} \textbf{展开法：}分子$=(-\frac{a^2}{2}+\frac{a}{2})x^2+o(x^2)$，极限$\frac{a(1-a)}{2}$。\par\textbf{积分法：}分子导数为$\frac{a(1-a)x}{(1+ax)(1+x)}$。从0积分，令$t=xu$，原商$=a(1-a)\int_0^1\frac{u}{(1+axu)(1+xu)}\dd u$，得同值。\par\textbf{方法点评} 积分法自动解释$a=0,1$时恒为0。\par\textbf{变式与易错点} 固定$a$后取足够小的$x$保证对数有定义。\end{example}
+
+\begin{example}{考研风格｜指数型的二阶精度}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:exponential}\textbf{题目} 求$\lim_{n\to\infty}n^2[\frac{(1+\frac{1}{n})^n}{\e}-1+\frac{1}{2n}]$。\par\textbf{思路} 先对数展开到$n^{-2}$，再指数回代。\par\textbf{详细解答} $n\ln(1+\frac{1}{n})=1-\frac1{2n}+\frac1{3n^2}+O(n^{-3})$。令$u_n=-\frac{1}{2n}+\frac{1}{3n^2}+O(n^{-3})$，则$\e^{u_n}=1+u_n+\frac{u_n^2}{2}+O(n^{-3})=1-\frac1{2n}+\frac{11}{24n^2}+O(n^{-3})$，答案$\frac{11}{24}$。另一法对$f(t)=\exp(\frac{\ln(1+t)}{t}-1)$在0补值，求其二阶Taylor系数，仍得$\frac{11}{24}$。\par\textbf{方法点评} 外层指数的平方项贡献$\frac{1}{8}$。\par\textbf{变式与易错点} 仅用$\e^{u_n}-1\sim u_n$会丢失二阶余量。\end{example}
+
+\begin{example}{考研风格｜根式的三种组织}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:rationalization}\textbf{题目} 求$\lim_{x\to0}\frac{\sqrt{1+x}-\sqrt{1-x}-x}{x^3}$。\par\textbf{思路} 奇函数结构消去偶次项。\par\textbf{详细解答} \textbf{Taylor法：}两平方根相减为$x+\frac{x^3}{8}+o(x^3)$，答案$\frac{1}{8}$。\par\textbf{有理化法：}设$A=\sqrt{1+x}+\sqrt{1-x}$，原商$=\frac{2-A}{Ax^2}$。又$2-A=\frac{2x^2}{(2+A)(1+\sqrt{1-x^2})}$，代入趋$\frac{1}{8}$。\par\textbf{导数法：}分子$h$满足$h(0)=h'(0)=h''(0)=0,h'''(0)=\frac{3}{4}$，Taylor积分余项给$\frac{h}{x^3}\to \frac{h'''(0)}{6}=\frac{1}{8}$。\par\textbf{方法点评} 有理化显示隐藏的$x^2$因子。\par\textbf{变式与易错点} 第一次有理化后仍有相消，须继续处理。\end{example}
+
+\subsection{Stolz定理、加权平均与求和}\label{deep:limits_source_deep:stolz}
+
+\begin{method}{Stolz定理、加权平均与求和}\textbf{适用条件} $b_n$严格递增且趋$+\infty$，差分比有极限。\par\textbf{步骤与依据} 把$a_n-a_N$拆成增量求和，利用尾部差分比上下界。\par\textbf{易错点} 分母不单调或不无界时，不可套该版本。\end{method}
+
+\begin{theorem}{Stolz--Cesàro定理及证明}若$b_n\uparrow+\infty$且$\frac{a_{n+1}-a_n}{b_{n+1}-b_n}\to L\in\R$，则$\frac{a_n}{b_n}\to L$。\end{theorem}\begin{proof}对$n\ge N$有$(L-\varepsilon)(b_{n+1}-b_n)\le a_{n+1}-a_n\le(L+\varepsilon)(b_{n+1}-b_n)$。相加后除以$b_n$。固定首段趋0，且$\frac{b_n-b_N}{b_n}\to1$，上下极限在$L\pm\varepsilon$之间。令$\varepsilon\downarrow0$。\end{proof}
+
+\begin{example}{竞赛风格｜幂和的三解}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:powersum}\textbf{题目} $p>0$时求$\lim_{n\to\infty}n^{-p-1}\sum_{k=1}^nk^p$。\par\textbf{思路} 差分、积分和、单调积分夹逼。\par\textbf{详细解答} \textbf{Stolz法：}差分比分子$(n+1)^p$，分母$(n+1)^{p+1}-n^{p+1}\sim(p+1)n^p$，答案$\frac{1}{p+1}$。\par\textbf{Riemann和：}原式$=\frac1n\sum(\frac{k}{n})^p\to\int_0^1t^p\dd t$。\par\textbf{夹逼：}$\int_0^nx^p\dd x\le\sum_{k=1}^nk^p\le\int_1^{n+1}x^p\dd x$，同除$n^{p+1}$。\par\textbf{方法点评} 积分和直观；Stolz适合一般增量；夹逼还能估误差。\par\textbf{变式与易错点} $-1<p<0$时端点奇异，需要额外估计。\end{example}
+
+\begin{example}{竞赛风格｜加权平均原理}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:weighted}\textbf{题目} $a_n\to A,w_n>0,W_n=\sum_{k=1}^nw_k\to\infty$，证明$\sum \frac{w_ka_k}{W_n}\to A$。\par\textbf{思路} 有限首段与统一小的尾段分开。\par\textbf{详细解答} 取$N$使$k>N$时$|a_k-A|<\varepsilon$。误差$\le W_n^{-1}\sum_{k=1}^Nw_k|a_k-A|+\varepsilon=o(1)+\varepsilon$。另一法令$S_n=\sum w_ka_k$，增量比$\frac{S_{n+1}-S_n}{W_{n+1}-W_n}=a_{n+1}\to A$，用Stolz。\par\textbf{方法点评} 包含Cesàro均值和调和加权极限。\par\textbf{变式与易错点} 若总权重有限，首段影响一般不会消失。\end{example}
+
+\begin{example}{竞赛风格｜阶乘与对数平均}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:factorial}\textbf{题目} 不调用Stirling公式，求$\lim_{n\to\infty}\frac{(n!)^{\frac{1}{n}}}{n}$。\par\textbf{思路} 取对数并处理$\ln t$在0的奇点。\par\textbf{详细解答} 单调积分比较给$\int_1^n\ln x\dd x\le\ln(n!)\le\int_1^n\ln x\dd x+\ln n$。所以$\frac{\ln(n!)}{n}-\ln n=-1+O(\frac{\ln n}{n})$，原极限$\e^{-1}$。第二法对$\frac{\ln(n!)-n\ln n}{n}$用Stolz，增量$=-n\ln(1+\frac{1}{n})\to-1$。\par\textbf{方法点评} 两法只用初等重要极限。\par\textbf{变式与易错点} $\ln t$不在$[0,1]$连续，积分和须处理端点。\end{example}
+
+\subsection{单调有界、压缩与非线性迭代}\label{deep:limits_source_deep:recurrence}
+
+\begin{method}{单调有界、压缩与非线性迭代}\textbf{适用条件} 递推由连续映射给出，能找到不变区间。\par\textbf{步骤与依据} 先证每项留在区间，再比较相邻项；导数绝对值小于1时给收敛速度。\par\textbf{易错点} 解不动点方程只能列候选值。\end{method}
+
+\begin{example}{考研风格｜迭代极限及误差}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:sqrt}\textbf{题目} $x_1=1,x_{n+1}=\sqrt{2+x_n}$，证明收敛并估计速度。\par\textbf{思路} $[1,2]$不变，比较$x_{n+1}^2$与$x_n^2$。\par\textbf{详细解答} 若$1\le x_n<2$，则$1<x_{n+1}<2$，且$2+x_n-x_n^2=(2-x_n)(1+x_n)>0$，故递增。极限满足$L=\sqrt{2+L}$，区间内为2。又$2-x_{n+1}=\frac{2-x_n}{2+\sqrt{2+x_n}}\le\frac{2-x_n}{3}$，所以$2-x_n\le3^{1-n}$。第二法在区间上$|T'|\le\frac{1}{2\sqrt3}<1$，用压缩。\par\textbf{方法点评} 单调法证明存在，精确误差关系给速度。\par\textbf{变式与易错点} 平方产生的候选$-1$不满足根号非负。\end{example}
+
+\begin{example}{竞赛风格｜Newton迭代的二次收敛}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:newton}\textbf{题目} $a>0,x_1>0,x_{n+1}=\frac{x_n+\frac{a}{x_n}}{2}$，证明$x_n\to\sqrt a$。\par\textbf{思路} 均值不等式给下界，因式分解给误差。\par\textbf{详细解答} $x_{n+1}\ge\sqrt a$。从$n\ge2$，$x_{n+1}-x_n=\frac{a-x_n^2}{2x_n}\le0$，有极限且为$\sqrt a$。精确式$x_{n+1}-\sqrt a=\frac{(x_n-\sqrt a)^2}{2x_n}$给二次速度。另设$r_n=\frac{x_n-\sqrt a}{x_n+\sqrt a}$，化简得$r_{n+1}=r_n^2$，所以$r_n=r_1^{2^{n-1}}$，也证明收敛。\par\textbf{方法点评} 变量变换揭示迭代的闭式结构。\par\textbf{变式与易错点} $x_1=0$无定义；负初值须另作讨论。\end{example}
+
+\subsection{奇异Riemann和与端点集中}\label{deep:limits_source_deep:integral}
+
+\begin{method}{奇异Riemann和与端点集中}\textbf{适用条件} 采样函数端点无界但可积，或权重集中在端点。\par\textbf{步骤与依据} 切分近端与远端，分别用单调积分和一致连续性控制。\par\textbf{易错点} 不能交换未经估计的极限与积分。\end{method}
+
+\begin{example}{竞赛风格｜带可积奇点的和}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:singular}\textbf{题目} $0<\alpha<1$时求$\lim_{n\to\infty}n^{\alpha-1}\sum_{k=1}^nk^{-\alpha}$。\par\textbf{思路} 用单调积分比较将奇异积分和严格化。\par\textbf{详细解答} $\int_1^{n+1}x^{-\alpha}\dd x\le\sum_{k=1}^nk^{-\alpha}\le1+\int_1^nx^{-\alpha}\dd x$。同乘$n^{\alpha-1}$，两界趋$\frac{1}{1-\alpha}$。第二法Stolz对$\sum \frac{k^{-\alpha}}{n^{1-\alpha}}$作差，同样得$\frac{1}{1-\alpha}$。\par\textbf{方法点评} 比较也解释$\alpha=1$时对数增长，$\alpha>1$时和有界。\par\textbf{变式与易错点} 不能把$\alpha\ge1$代入有限积分值。\end{example}
+
+\begin{example}{竞赛风格｜端点集中的积分}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:laplace}\textbf{题目} $f\in C[0,1]$，求$\lim_{n\to\infty}(n+1)\int_0^1x^nf(x)\dd x$。\par\textbf{思路} 归一化权重质量集中在1。\par\textbf{详细解答} 减去$f(1)$。取$\delta$使$x>1-\delta$时$|f(x)-f(1)|<\varepsilon$，该段误差$\le\varepsilon$。其余段误差$\le2\|f\|_\infty(1-\delta)^{n+1}\to0$，故答案$f(1)$。若$f\in C^1$，分部得$(n+1)\int x^nf=f(1)-\int_0^1x^{n+1}f'(x)\dd x$，也得结论。\par\textbf{方法点评} 第一法只需连续，分部法假设更强。\par\textbf{变式与易错点} 无$n+1$因子时积分趋0。\end{example}
+
+\subsection{上下极限、增长阶与经典常数}\label{deep:limits_source_deep:asymptotic}
+
+\begin{method}{上下极限、增长阶与经典常数}\textbf{适用条件} 数列振荡，或只有比值、根式信息。\par\textbf{步骤与依据} 尾部上确界定义$\limsup$；比值界相乘后取$n$次根。\par\textbf{易错点} 比值极限不存在时不能强行写根式极限与它相等。\end{method}
+
+\begin{theorem}{比值控制根式}$a_n>0$时$\liminf \frac{a_{n+1}}{a_n}\le\liminf\sqrt[n]{a_n}\le\limsup\sqrt[n]{a_n}\le\limsup \frac{a_{n+1}}{a_n}$，允许扩展实数。\end{theorem}\begin{proof}若$q>\limsup \frac{a_{n+1}}{a_n}$且$q>0$，尾部$a_{n+1}\le q a_n$，故$a_n\le Cq^n$，得到$\limsup\sqrt[n]{a_n}\le q$，再令$q$下降。下界由$a_{n+1}\ge p a_n$同证；0和无穷情形以任意正$q,p$处理。\end{proof}
+
+\begin{example}{竞赛风格｜Euler常数存在性}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:gamma}\textbf{题目} 证明$H_n-\ln n$收敛，$H_n=\sum_{k=1}^n\frac{1}{k}$。\par\textbf{思路} 对数上下界证明单调有界。\par\textbf{详细解答} $a_{n+1}-a_n=\frac{1}{n+1}-\ln(1+\frac{1}{n})<0$。又$H_n\ge\int_1^{n+1}\frac{\dd x}{x}=\ln(n+1)$，故$a_n>0$。极限记$\gamma$。尾差$0<a_n-\gamma<\frac{1}{n}$由$\ln(1+\frac{1}{k})-\frac{1}{k+1}<\frac{1}{k}-\frac{1}{k+1}$累加后令终点趋无穷得到。\par\textbf{方法点评} “和减积分”把离散求和与连续估计联系起来。\par\textbf{变式与易错点} 此证明不涉及$\gamma$是否无理。\end{example}
+
+\begin{example}{竞赛风格｜Wallis乘积证明链}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:wallis}\textbf{题目} 令$I_n=\int_0^{\frac{\pi}{2}}\sin^nx\dd x$，推导Wallis乘积。\par\textbf{思路} 分部递推后用相邻项夹逼。\par\textbf{详细解答} $I_n=\frac{(n-1)I_{n-2}}{n}$，$I_0=\frac{\pi}{2},I_1=1$，故$I_{2n}=\frac{(\frac{\pi}{2})(2n-1)!!}{(2n)!!}$，$I_{2n+1}=\frac{(2n)!!}{(2n+1)!!}$。又$I_{2n+1}\le I_{2n}\le I_{2n-1}=\frac{2n+1}{2n}I_{2n+1}$，得$\frac{I_{2n}}{I_{2n+1}}\to1$。代入得$\prod_{k=1}^n\frac{(2k)^2}{(2k-1)(2k+1)}\to\frac{\pi}{2}$。\par\textbf{方法点评} 极限由夹逼保证，递推负责化乘积。\par\textbf{变式与易错点} 无限乘积指有限乘积极限。\end{example}
+
+\begin{example}{竞赛风格｜矩阵迭代与主特征值}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:matrix}\textbf{题目} $u_{n+2}=u_{n+1}+u_n,u_0=0,u_1=1$，求$\frac{u_{n+1}}{u_n}$极限。\par\textbf{思路} 比较特征根模长，或改用比值递推。\par\textbf{详细解答} 根为$\phi=\frac{1+\sqrt5}{2},\psi=\frac{1-\sqrt5}{2}$，$u_n=\frac{\phi^n-\psi^n}{\sqrt5}$，因$|\frac{\psi}{\phi}|<1$，答案$\phi$。第二法$r_{n+1}=1+\frac{1}{r_n}$；从$n\ge2$留在$[\frac{3}{2},2]$，映射导数绝对值$\le\frac{4}{9}$，压缩到唯一不动点$\phi$。\par\textbf{方法点评} 矩阵法可推广高阶递推；压缩法无需显式解。\par\textbf{变式与易错点} $u_0=0$不能作分母。\end{example}
+
+\begin{example}{竞赛风格｜Bernstein逼近与概率法}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:probability}\textbf{题目} 对$f\in C[0,1]$证明$B_nf(x)=\sum_{k=0}^nf(\frac{k}{n})\binom nkx^k(1-x)^{n-k}$一致趋$f$。\par\textbf{思路} 用二项分布的方差控制远点误差。\par\textbf{详细解答} 设$X\sim\mathrm{Bin}(n,x)$，$B_nf(x)=\mathbb E f(\frac{X}{n})$，且$\mathbb E(\frac{X}{n})=x$、$\operatorname{Var}(\frac{X}{n})=\frac{x(1-x)}{n}\le\frac{1}{4n}$。近点$|\frac{X}{n}-x|\le\delta$误差$\le\omega_f(\delta)$；远点误差$\le2\|f\|_\infty\Pr(|\frac{X}{n}-x|>\delta)\le\frac{\|f\|_\infty}{2n\delta^2}$。先取$\delta$小，再取$n$大，得到一致收敛。也可不用概率术语，直接用二项式恒等式计算同一二阶矩。\par\textbf{方法点评} 连接概率估计与多项式逼近。\par\textbf{变式与易错点} 一致连续性保证模连续性趋0。\end{example}
+
+\subsection{实数构造与无理逼近}\label{deep:limits_source_deep:real}
+
+\begin{method}{实数构造与无理逼近}\textbf{适用条件} 运用实数完备性与整数格点构造极限和逼近。\par\textbf{步骤与依据} 完备性保证上确界；整数格点给有理逼近；抽屉原理提高逼近精度。\par\textbf{易错点} 最优逼近指数不能从一次小数截断推断。\end{method}
+
+\begin{example}{竞赛拓展｜Dirichlet有理逼近}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:dirichlet}\textbf{题目} 证明每个无理数$\alpha$有无穷多个$\frac{p}{q}$满足$|\alpha-\frac{p}{q}|<\frac{1}{q^2}$。\par\textbf{思路} 将$0,\alpha,\ldots,N\alpha$的小数部分放入$N$个等长区间。\par\textbf{详细解答} 两点落同区间，故有$1\le q\le N$和$p\in\mathbb Z$使$|q\alpha-p|<\frac{1}{N}$，于是$|\alpha-\frac{p}{q}|<\frac{1}{qN}\le\frac{1}{q^2}$。分母必无界：否则有限个$q$对应的非零距离$|q\alpha-p|$有正下界，与$\frac{1}{N}\to0$矛盾。\par\textbf{方法点评} 给出无理数有理逼近的基本构造机制。\par\textbf{变式与易错点} 不能据此确定特定常数的最优无理性指数。\end{example}
+
+\subsection{Stirling公式：存在常数与确定常数}\label{deep:limits_source_deep:stirlingproof}
+
+\begin{method}{Stirling公式：存在常数与确定常数}\textbf{适用条件} 需要阶乘的相对误差，而不只是$n$次根的极限。\par\textbf{步骤与依据} 先构造对数修正项证明收敛，再用Wallis确定常数；两步缺一不可。\par\textbf{易错点} 只用$\ln n!\sim n\ln n$不能推出$n!\sim\sqrt{2\pi n}(\frac{n}{\e})^n$。\end{method}
+
+\begin{theorem}{Stirling等价式的证明}$n!\sim\sqrt{2\pi n}(\frac{n}{\e})^n$。\end{theorem}\begin{proof}令$s_n=\ln(n!)-(n+\frac12)\ln n+n$，则$s_{n+1}-s_n=1-(n+\frac12)\ln(1+\frac{1}{n})=-\frac{1}{12n^2}+O(n^{-3})$。增量绝对可和，故$s_n\to c$，并有$s_n=c+O(\frac{1}{n})$。所以$n!=\e^c n^{n+\frac{1}{2}}\e^{-n}(1+O(\frac{1}{n}))$。\par 由Wallis积分的精确乘积$I_{2n}I_{2n+1}=\frac{\pi}{2(2n+1)}$以及比值$\frac{I_{2n}}{I_{2n+1}}\to1$，得$I_{2n}\sim\frac{\sqrt\pi}{2\sqrt n}$。又$I_{2n}=(\frac{\pi}{2})\binom{2n}n4^{-n}$，因此$\binom{2n}n\sim\frac{4^n}{\sqrt{\pi n}}$。另一方面将含$c$的阶乘式代入二项系数，得$\binom{2n}n\sim\frac{\e^{-c}\sqrt2\,4^n}{\sqrt n}$。比较常数可得$\e^c=\sqrt{2\pi}$，证毕。\end{proof}
+
+\begin{example}{竞赛风格｜阶乘比的三条入口}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:stirlingcase}\textbf{题目} 求$\lim_{n\to\infty}\frac{\sqrt n\,\binom{2n}n}{4^n}$。\par\textbf{思路} 可用Stirling、Wallis，或中心二项系数的积分表示。\par\textbf{详细解答} Stirling直接给$\frac{1}{\sqrt\pi}$。第二法由上证$I_{2n}\sim\frac{\sqrt\pi}{2\sqrt n}$且$\frac{\binom{2n}n}{4^n}=\frac{2I_{2n}}{\pi}$，同得$\frac{1}{\sqrt\pi}$。第三条解释是$\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\cos^{2n}t\dd t$在0附近集中，缩放$t=\frac{u}{\sqrt n}$后趋Gaussian积分$\int_\R\e^{-u^2}\dd u=\sqrt\pi$；要把这条解释变为证明，还需用$\cos t\le\e^{-ct^2}$控制尾部。\par\textbf{方法点评} 前两条是本册已完成的证明；第三条给出可进一步独立练习的积分渐近路线。\par\textbf{变式与易错点} 中央二项系数的$4^n$尺度和$n^{-\frac{1}{2}}$因子都不可漏。\end{example}
+
+\begin{example}{竞赛拓展｜阶乘尾项与e的无理性}{难度：$\star\star\star$}\label{deep:ex:limits_source_deep:eirrat}\textbf{题目} 证明$\e$不是有理数。\par\textbf{思路} 若$\e=\frac{p}{q}$，乘$q!$后级数首段为整数，而尾段严格在0与1之间。\par\textbf{详细解答} 可取$q\ge2$。若$\e=\frac{p}{q}$，则$N=q!\e-\sum_{k=0}^q\frac{q!}{k!}$是整数。另一方面$N=\sum_{j\ge1}\frac{q!}{(q+j)!}>0$，且每项$\le(q+1)^{-j}$，并至少从$j=2$起严格，故$N<\sum_{j\ge1}(q+1)^{-j}=\frac{1}{q}<1$，矛盾。\par\textbf{方法点评} 关键是“整数却在$(0,1)$”，尾项的几何控制来自阶乘增长。\par\textbf{变式与易错点} 不能仅说$\e$的小数无限不循环而不证明。\end{example}

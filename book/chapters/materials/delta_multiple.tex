@@ -1,0 +1,24 @@
+\section{重积分的轮换配对与齐次边界}\label{ic:delta_multiple}
+
+\begin{examtip}本节在奇偶性、换序、柱面与球面坐标的基础上，讨论函数配对、区域构型和计算方法比较。\end{examtip}
+
+\subsection{轮换后配成径向函数}\label{ic:delta_multiple:permutationpair}\begin{method}{轮换后配成径向函数}\textbf{识别信号} 区域在$x,y$互换下不变，被积函数互换后可用三角恒等式合并。\par \textbf{操作步骤} 先写$I=\iint f(y,x)$，两式相加除以2，再选极坐标。\par \textbf{疑难点与条件} 区域对称与被积函数配对是两项独立条件。\end{method}
+
+\begin{example}{竞赛风格｜非径向被积式的对称化}{难度：$\star\star\star$}\label{ic:ex:delta_multiple:sinepair}\textbf{题目} 求单位圆盘上$\iint\sin(x^2)\cos(y^2)\dd A$。\par \textbf{思路} 交换$x,y$后用正弦和角公式。\par \textbf{详细解答} $2I=\iint[\sin x^2\cos y^2+\sin y^2\cos x^2]\dd A=\iint\sin(x^2+y^2)\dd A$。极坐标给$I=\pi\int_0^1r\sin(r^2)\dd r=\frac{\pi(1-\cos1)}{2}$。\par \textbf{验算与条件复核} 令$u=r^2$核对径向系数$\frac{1}{2}$。\par \textbf{疑难点与方法比较} 原式本身不是径向函数，不能不作轮换就直接把$x^2$写成$r^2$。\end{example}
+
+\subsection{齐次边界的径向解析}\label{ic:delta_multiple:homogeneousboundary}\begin{method}{齐次边界的径向解析}\textbf{识别信号} $F(x,y)$是$d$次齐次函数，边界为$F=C$。\par \textbf{操作步骤} 代$x=r\cos\theta,y=r\sin\theta$，由$r^dF(\cos\theta,\sin\theta)=C$解径向上界；先确定右端为正的角区间，再积分。\par \textbf{疑难点与条件} 在角度分母为0或变号处必须分区；不可把负径向上界当成区域。\end{method}
+
+\begin{example}{竞赛风格｜双叶区域的面积}{难度：$\star\star\star$}\label{ic:ex:delta_multiple:lemniscate}\textbf{题目} 求$(x^2+y^2)^2\le a^2(x^2-y^2)$的面积，$a>0$。\par \textbf{思路} 四次与二次齐次项使$r^2$可解。\par \textbf{详细解答} 极坐标给$0\le r^2\le a^2\cos2\theta$，只在$\cos2\theta\ge0$的角域存在非零点。右叶$\theta\in[-\frac{\pi}{4},\frac{\pi}{4}]$，面积$\frac{a^2}2\int_{-\frac{\pi}{4}}^{\frac{\pi}{4}}\cos2\theta\dd\theta=\frac{a^2}{2}$。左叶同面积，总面积$a^2$。\par \textbf{验算与条件复核} 极径上界在两端为0，且两叶只在原点接触，面积可相加。\par \textbf{疑难点与方法比较} 若误积分全角$[0,2\pi]$，正负抵消会错误得到0。\end{example}
+
+\begin{example}{竞赛风格｜球内非径向矩的多坐标比较}{难度：$\star\star\star$}\label{ic:ex:delta_multiple:triplefourways}\textbf{题目} 求单位球内$\iiint(x^2+y^2)\dd V$。\par \textbf{思路} 可用轮换、柱坐标或截面。\par \textbf{详细解答} 轮换对称性给
+\[\begin{aligned}
+ I&=\dfrac23\iiint r^2\dd V\\
+  &=\dfrac23\cdot\dfrac{4\pi}{5}=\dfrac{8\pi}{15}.
+\end{aligned}\]
+柱坐标独立计算为
+\[\begin{aligned}
+ I&=\int_0^{2\pi}\int_0^1\int_{-\sqrt{1-\rho^2}}^{\sqrt{1-\rho^2}}
+       \rho^3\dd z\dd\rho\dd\theta\\
+  &=4\pi\int_0^1\rho^3\sqrt{1-\rho^2}\dd\rho
+   =\dfrac{8\pi}{15}.
+\end{aligned}\]\par \textbf{验算与条件复核} 令$u=1-\rho^2$，末积分为$\frac12\int_0^1(1-u)u^{\frac{1}{2}}\dd u=\frac{2}{15}$。\par \textbf{疑难点与方法比较} 球坐标半径$r$和柱坐标半径$\rho$不同，不在同一式中混用。\end{example}

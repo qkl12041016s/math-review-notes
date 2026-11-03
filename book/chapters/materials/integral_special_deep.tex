@@ -1,0 +1,61 @@
+\section{特殊函数积分与含参方法的细化}\label{deep:integral_special_deep}
+
+\begin{examtip}定义与归一化在本册内固定，公式由微分、级数或微分方程推导。\end{examtip}
+
+\subsection{含参积分求导的可检验条件}\label{deep:integral_special_deep:parameter}
+
+\begin{method}{含参积分求导的可检验条件}\textbf{适用条件} 有限区间连续可微，或无穷区间有与参数无关的可积控制。\par\textbf{步骤与依据} 先给参数范围，再估计$\frac{\partial f}{\partial a}$；计算参数导数，最后用初值确定常数。\par\textbf{易错点} 仅被积函数逐点可微不足以换序。\end{method}
+
+\begin{theorem}{含参积分求导的控制条件}设$f(x,a)$对$a$可微，在$a_0$邻域有$|\partial_af(x,a)|\le g(x)$，$g$可积，且$f(\cdot,a_0)$可积。则$F(a)=\int f(x,a)\dd x$可微，$F'(a)=\int\partial_af(x,a)\dd x$。\end{theorem}\begin{proof}差商由一元中值定理受$g(x)$控制，并逐点趋$\partial_af(x,a)$，控制收敛给差商积分的极限。有限区间连续偏导情形可取$g$为常数。\end{proof}
+
+\begin{example}{竞赛风格｜Feynman参数法双解}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:arctanparam}\textbf{题目} 求$I(a)=\int_0^\infty\frac{\e^{-x}\sin(ax)\dd x}{x}$，$a\in\R$。\par\textbf{思路} 参数求导后变成指数三角积分。\par\textbf{详细解答} $|\partial_a(\frac{\e^{-x}\sin ax}{x})|=|\e^{-x}\cos ax|\le\e^{-x}$，可换序。故$I'(a)=\int_0^\infty\e^{-x}\cos ax\dd x=\frac{1}{1+a^2}$，$I(0)=0$，得$I(a)=\arctan a$。第二法$\frac{\sin(ax)}{x}=\int_0^a\cos(tx)\dd t$，用绝对可积换序，积分$\int_0^a\frac{\dd t}{1+t^2}$。\par\textbf{方法点评} 两法共同依赖可积控制，但第二法不需显式微分。\par\textbf{变式与易错点} 去掉$\e^{-x}$后必须按反常积分另证收敛，不能照搬同一控制函数。\end{example}
+
+\begin{example}{竞赛风格｜Frullani公式的严格版本}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:frullani}\textbf{题目} 设$a,b>0$，求$\int_0^\infty\frac{(\e^{-ax}-\e^{-bx})\dd x}{x}$。\par\textbf{思路} 把分子写成对参数的积分，再换序。\par\textbf{详细解答} 假设$b>a$，$\e^{-ax}-\e^{-bx}=\int_a^b x\e^{-tx}\dd t$。被积函数非负，Tonelli换序得$\int_a^b\int_0^\infty\e^{-tx}\dd x\dd t=\int_a^b\frac{\dd t}{t}=\ln(\frac{b}{a})$。$b<a$由交换符号得到同式。另一法固定$a$对$b$求导得$\frac{1}{b}$，再用$b=a$为零。\par\textbf{方法点评} 差的整体可积；两个单独的$x^{-1}\e^{-ax}$在0都发散。\par\textbf{变式与易错点} 一般Frullani公式还需端点值和适当收敛条件，不能任意套用。\end{example}
+
+\begin{example}{竞赛风格｜对数正弦积分双解}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:logsin}\textbf{题目} 求$\int_0^{\frac{\pi}{2}}\ln\sin x\dd x$。\par\textbf{思路} 对称性与倍角形成同一积分的线性方程。\par\textbf{详细解答} 记$I$，换$x\mapsto\frac{\pi}{2}-x$得$I=\int\ln\cos x$。相加$2I=\int\ln(\sin2x)\dd x-(\frac{\pi}{2})\ln2$。令$u=2x$并利用关于$\frac{\pi}{2}$的对称性，第一项为$I$，故$I=-(\frac{\pi}{2})\ln2$。第二法从$J(a)=\int_0^{\frac{\pi}{2}}\sin^ax\dd x=\frac{\sqrt\pi\Gamma(\frac{a+1}{2})}{2\Gamma(\frac{a+2}{2})}$在$a=0$求导，再用Gamma倍增公式的对数导数，也得同值。\par\textbf{方法点评} 第一法初等且短；Gamma法可系统给高阶对数矩。\par\textbf{变式与易错点} 端点$\ln x$可积，必须先确认反常积分存在。\end{example}
+
+\subsection{多重对数、对数乘积与分支}\label{deep:integral_special_deep:polylog}
+
+\begin{method}{多重对数、对数乘积与分支}\textbf{适用条件} $|x|<1$内幂级数可逐项求导积分，实延拓另记区间。\par\textbf{步骤与依据} 将$\ln(1-x)$与$\frac{1}{x}$配对；用反射恒等式转换自变量。\par\textbf{易错点} 同名特殊函数的归一化与复分支可能不同。\end{method}
+
+\begin{example}{竞赛风格｜二重对数反射式}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:dilog}\textbf{题目} 证明$0<x<1$时$\operatorname{Li}_2(x)+\operatorname{Li}_2(1-x)=\frac{\pi^2}{6}-\ln x\ln(1-x)$。\par\textbf{思路} 两边求导后检查为常数，再由端点确定常数。\par\textbf{详细解答} 由$\operatorname{Li}_2'(x)=-\frac{\ln(1-x)}{x}$，左边导数$=-\frac{\ln(1-x)}{x}+\frac{\ln x}{1-x}$，恰等于$-\ln x\ln(1-x)$的导数。故和加$\ln x\ln(1-x)$为常数。令$x\downarrow0$，$\operatorname{Li}_2(0)=0,\operatorname{Li}_2(1)=\sum n^{-2}=\frac{\pi^2}{6}$，乘积对数趋0，结论成立。\par\textbf{方法点评} 同一方法可验证许多指对双元恒等式；常数由一个方便点确定。\par\textbf{变式与易错点} 把恒等式直接用于$x>1$时须处理复对数分支。\end{example}
+
+\begin{example}{竞赛风格｜对数乘积的完整原函数}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:logproduct}\textbf{题目} 求$\int\ln x\ln(1-x)\dd x$，$0<x<1$。\par\textbf{思路} 分部一次，把剩余项拆成初等项和二重对数。\par\textbf{详细解答} 取$u=\ln x\ln(1-x),\dd v=\dd x$，得到$x\ln x\ln(1-x)-\int\ln(1-x)\dd x+\int \frac{x\ln x}{1-x}\dd x$。利用$\frac{x}{1-x}=-1+\frac{1}{1-x}$，以及$\int\frac{\ln x}{1-x}\dd x=-\ln x\ln(1-x)-\operatorname{Li}_2(x)$，整理为$(x-1)\ln x\ln(1-x)+(1-x)\ln(1-x)-x\ln x+2x-1-\operatorname{Li}_2(x)+C$。\par\textbf{方法点评} 每个非初等项都来自已定义的导数关系，可以逐项验算。\par\textbf{变式与易错点} 积分常数可吸收末尾$-1$；不能把$\operatorname{Li}_2$漏掉。\end{example}
+
+\subsection{椭圆积分的标准形与退化}\label{deep:integral_special_deep:elliptic}
+
+\begin{method}{椭圆积分的标准形与退化}\textbf{适用条件} 平方根下有不能消去的四次结构。\par\textbf{步骤与依据} 用$x=\sin\theta$化为Legendre标准形；识别参数$k=0$或$1$的初等退化。\par\textbf{易错点} 写出特殊函数名称后仍需给定义、参数和回代。\end{method}
+
+\begin{definition}{Legendre三类不完全椭圆积分}$F(\phi,k)=\int_0^\phi(1-k^2\sin^2t)^{-\frac{1}{2}}\dd t$，$E(\phi,k)=\int_0^\phi(1-k^2\sin^2t)^{\frac{1}{2}}\dd t$，$\Pi(n;\phi,k)=\int_0^\phi[(1-n\sin^2t)\sqrt{1-k^2\sin^2t}]^{-1}\dd t$。先在$|k|<1$、实$\phi$及分母不为0的区间定义。\end{definition}
+
+\begin{example}{竞赛风格｜三类椭圆标准积分}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:elliptic3}\textbf{题目} 把$\int\frac{\dd x}{\sqrt{(1-x^2)(1-k^2x^2)}}$、$\int\frac{\sqrt{1-k^2x^2}\dd x}{\sqrt{1-x^2}}$和带额外因子$(1-nx^2)^{-1}$的第一式化为标准函数，$|x|<1$。\par\textbf{思路} 共同代换$x=\sin\phi$。\par\textbf{详细解答} 在$\phi\in(-\frac{\pi}{2},\frac{\pi}{2})$，$\dd x=\cos\phi\dd\phi,\sqrt{1-x^2}=\cos\phi$，三式分别是$F(\arcsin x,k)+C$、$E(\arcsin x,k)+C$、$\Pi(n;\arcsin x,k)+C$。$k=0$时前两式退化为$\arcsin x$，第三式退化为三角有理式；$k=1$时第一式在$|x|<1$变为$\operatorname{artanh}x$。\par\textbf{方法点评} 把三元根式转成同一角变量，可统一三类椭圆积分的标准形式。\par\textbf{变式与易错点} 第三类须避开$1-nx^2=0$；完全积分对应$\phi=\frac{\pi}{2}$，要另检端点。\end{example}
+
+\subsection{Bessel、修正Bessel与乘积积分}\label{deep:integral_special_deep:bessel}
+
+\begin{method}{Bessel、修正Bessel与乘积积分}\textbf{适用条件} 函数满足相应二阶方程，参数使表达有定义。\par\textbf{步骤与依据} 利用递推或两个方程相减得到Lagrange恒等式。\par\textbf{易错点} 修正Bessel方程的势项符号不同，公式不能机械照搬。\end{method}
+
+\begin{theorem}{Bessel乘积的Lagrange恒等式}设$u(x)=J_\nu(ax),v(x)=J_\nu(bx)$，则$[x(u'v-uv')]'=(b^2-a^2)xuv$。当$a^2\ne b^2$，据此可积出$\int xJ_\nu(ax)J_\nu(bx)\dd x$。\end{theorem}\begin{proof}两方程为$(xu')'+(a^2x-\frac{\nu^2}{x})u=0$与$v$的对应式。前式乘$v$，后式乘$u$相减，$\frac{\nu^2}{x}$项抵消，得导数恒等式。\end{proof}
+
+\begin{example}{竞赛拓展｜双Bessel积分与正交}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:besselpair}\textbf{题目} 推导上式积分，并说明不同零点参数时在$[0,1]$的正交性。\par\textbf{思路} 积分边界项决定是否为零。\par\textbf{详细解答} $\int xJ_\nu(ax)J_\nu(bx)\dd x=\frac{x[u'v-uv']}{b^2-a^2}+C$。若$\nu\ge0$、$a,b$是$J_\nu$不同的正零点，则$x=1$处$u=v=0$；$x\downarrow0$时由$J_\nu(cx)=O(x^\nu)$及级数首项抵消，边界项趋0，故$\int_0^1xJ_\nu(ax)J_\nu(bx)\dd x=0$。\par\textbf{方法点评} 不用背乘积积分表，方程相减即可推导。\par\textbf{变式与易错点} $a=b$不能把分母0直接代入，应取参数极限或另用平方积分公式。\end{example}
+
+\begin{example}{竞赛拓展｜修正Bessel与Airy积分}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:modified}\textbf{题目} 证明$\int xI_0(x)\dd x=xI_1(x)+C$，并求$\int x\operatorname{Ai}(x)^2\dd x$。\par\textbf{思路} 前者用递推，后者由Airy方程构造能量差。\par\textbf{详细解答} 级数$I_0=\sum\frac{(\frac{x}{2})^{2k}}{(k!)^2}$和$I_1=\sum\frac{(\frac{x}{2})^{2k+1}}{k!(k+1)!}$逐项微分给$(xI_1)'=xI_0$。对$y=\operatorname{Ai}$，$y''=xy$，故$(xy^2-y'^2)'=y^2$，先得到$\int y^2=xy^2-y'^2+C$；而$\int xy^2=\int yy''=yy'-\int y'^2$。为直接闭合，计算$[x^2y^2-xy'^2+yy']'=3xy^2$，所以所求为$\frac{x^2y^2-xy'^2+yy'}{3}+C$。\par\textbf{方法点评} 由方程构造组合导数比单独分部更系统。\par\textbf{变式与易错点} 最后组合的每项都须求导，不能将$\int y^2$误当$\int xy^2$。\end{example}
+
+\subsection{Legendre、超几何与Mathieu积分}\label{deep:integral_special_deep:orthogonal}
+
+\begin{method}{Legendre、超几何与Mathieu积分}\textbf{适用条件} 特殊函数由级数或自伴微分方程定义。\par\textbf{步骤与依据} 先确定归一化，再由自伴形式导出正交；超几何积分可从逐项积分识别。\par\textbf{易错点} 参数奇点、端点条件和正交权函数均属于结论条件。\end{method}
+
+\begin{example}{竞赛拓展｜Legendre正交的证明}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:legendreproof}\textbf{题目} 用Rodrigues公式证明$m<n$时$\int_{-1}^1x^mP_n(x)\dd x=0$。\par\textbf{思路} 分部$n$次，边界项由$(x^2-1)^n$的高阶零点消失。\par\textbf{详细解答} $P_n=\frac{(2^nn!)^{-1}\dd^n(x^2-1)^n}{\dd x^n}$。将$n$阶导数逐次移到$x^m$上，每一步边界只涉及$(x^2-1)^n$的低于$n$阶导数，在$\pm1$皆0。最终$x^m$的$n$阶导数为0，积分为0。因$P_m$次数$m$，得到$\int P_mP_n=0$。归一化平方积分为$\frac{2}{2n+1}$，可用首项系数和同一分部法算出。\par\textbf{方法点评} 正交来自高阶零点和降阶，不只是奇偶性。\par\textbf{变式与易错点} 只有$m<n$时最后导数为0，不能由此断言平方积分也是0。\end{example}
+
+\begin{example}{竞赛拓展｜二项式积分的超几何式}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:hypergeneral}\textbf{题目} 求$\int x^{\mu-1}(1-zx^\nu)^{-\alpha}\dd x$的级数表达，$x>0,\mu,\nu>0,|zx^\nu|<1$。\par\textbf{思路} 二项式展开，再把$\mu+\nu k$写成Pochhammer比值。\par\textbf{详细解答} 展开后积分$\sum_{k\ge0}\frac{(\alpha)_kz^kx^{\mu+\nu k}}{k!(\mu+\nu k)}$。用$\frac{(\frac{\mu}{\nu})_k}{(1+\frac{\mu}{\nu})_k}=\frac{\mu}{\mu+\nu k}$，得到$\frac{x^\mu}{\mu}{}_2F_1(\alpha,\frac{\mu}{\nu};1+\frac{\mu}{\nu};zx^\nu)+C$。一致收敛保证紧子区间内逐项积分。\par\textbf{方法点评} 许多特殊函数积分可由此通式特化，但每次须检查参数。\par\textbf{变式与易错点} 超出收敛圆需解析延拓；不能把级数证明无条件扩大到全实轴。\end{example}
+
+\begin{example}{竞赛拓展｜Mathieu函数的积分恒等式}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:mathieu}\textbf{题目} 设$y_a,y_b$分别满足$y''+(a-2q\cos2x)y=0$与参数$b$的方程，$a\ne b$。求$\int y_ay_b\dd x$。\par\textbf{思路} 两式交叉相减，公共势函数抵消。\par\textbf{详细解答} $[y_a'y_b-y_ay_b']'=(b-a)y_ay_b$，所以原函数$\frac{y_a'y_b-y_ay_b'}{b-a}+C$。若两函数满足同一自伴周期或分离边界条件使端点Wronskian相同，则区间积分为0，得到不同特征值的正交性。\par\textbf{方法点评} 此Wronskian恒等式给出Mathieu函数乘积积分的统一构造。\par\textbf{变式与易错点} $a=b$时须另作极限；边界条件不同不保证正交。\end{example}
+
+\subsection{不完全Beta、Fresnel与非初等边界}\label{deep:integral_special_deep:betaextra}
+
+\begin{method}{不完全Beta、Fresnel与非初等边界}\textbf{适用条件} 保留参数取值和积分路径，先定义再求导核验。\par\textbf{步骤与依据} 有限区间幂权可化不完全Beta；二次相位用Fresnel；对数核用多重对数。\par\textbf{易错点} 命名特殊函数并不取消定义域和分支检查。\end{method}
+
+\begin{example}{竞赛拓展｜无穷区间幂权的统一代换}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:incompletebeta}\textbf{题目} 把$\int x^{p-1}(1+x)^{-q}\dd x$化为不完全Beta形式，$x>0,p>0$。\par\textbf{思路} 令$t=\frac{x}{1+x}$，把半轴映成$(0,1)$。\par\textbf{详细解答} $x=\frac{t}{1-t}$、$\dd x=\frac{\dd t}{(1-t)^2}$，所以被积式$=t^{p-1}(1-t)^{q-p-1}\dd t$。定义$B_z(a,b)=\int_0^zt^{a-1}(1-t)^{b-1}\dd t$，得到$B_{\frac{x}{1+x}}(p,q-p)+C$；对$z<1$，第二参数可为负而不遇端点1。若求$0$到$\infty$的定积分，则需要$q>p>0$，结果$B(p,q-p)$。\par\textbf{方法点评} 同一代换同时给原函数和收敛条件。\par\textbf{变式与易错点} 不完全积分的参数条件比完全Beta积分宽，不能混写。\end{example}
+
+\begin{example}{竞赛风格｜二重对数的另一类原函数}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:logplus}\textbf{题目} 求$\int\frac{\ln x\dd x}{1+x}$，$x>0$。\par\textbf{思路} 分部使$\frac{\ln(1+x)}{x}$出现。\par\textbf{详细解答} 取$u=\ln x,\dd v=\frac{\dd x}{1+x}$，得$\ln x\ln(1+x)-\int\frac{\ln(1+x)\dd x}{x}$。由$\frac{\dd}{\dd x}\operatorname{Li}_2(-x)=-\frac{\ln(1+x)}{x}$，结果$\ln x\ln(1+x)+\operatorname{Li}_2(-x)+C$。在$0<x<1$也可展开$\frac{1}{1+x}$逐项积分，并整理成同式；到$x>1$用实积分定义延拓。\par\textbf{方法点评} 符号由链式法则决定，不要仅靠背$\operatorname{Li}_2'$。\par\textbf{变式与易错点} 采用实轴负参数的连续实分支，不额外引入虚常数。\end{example}
+
+\begin{example}{竞赛拓展｜Fresnel的尺度与乘积}{难度：$\star\star\star$}\label{deep:ex:integral_special_deep:fresnelprimitive}\textbf{题目} 求$\int\cos(ax^2)\dd x$，$a>0$，并求$\int x\cos(ax^2)\dd x$。\par\textbf{思路} 第一式是Fresnel定义，第二式有内层导数而初等。\par\textbf{详细解答} 固定$C(z)=\int_0^z\cos(\frac{\pi t^2}{2})\dd t$。令$t=\sqrt{\frac{2a}{\pi}}\,x$，第一式为$\sqrt{\frac{\pi}{2a}}\,C(\sqrt{\frac{2a}{\pi}}\,x)+C_0$。第二式令$u=ax^2$，得到$\frac{\sin(ax^2)}{2a}+C_0$。相同相位下，分子是否含$x$决定积分的初等性。\par\textbf{方法点评} 区别特殊函数定义和可用简单换元的邻近题。\par\textbf{变式与易错点} $a<0$时余弦偶性可用$|a|$；正弦情形还需保留符号。\end{example}

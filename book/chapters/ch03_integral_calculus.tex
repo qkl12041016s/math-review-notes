@@ -1,0 +1,208 @@
+\chapter{一元函数积分学}\label{ch:3}
+\begin{tcolorbox}[title=章首知识地图,colframe=Ink]
+原函数 $\to$ 换元与分部 $\to$ 有理化 $\to$ 定积分与反常积分 $\to$ 对称、递推、含参求导及不等式。
+\end{tcolorbox}
+\begin{examtip}考研主线：换元、分部、定积分性质、反常积分与几何应用。常见题型：凑微分、部分分式、区间再现及变限求导。竞赛拓展：双元代换、Wallis递推、含参求导和积分不等式。上述为学习任务分层，具体范围以所报考科目的当年大纲为准。\end{examtip}
+\section{原函数与第一、第二换元}\label{sec:3:1}
+\subsection{概念、定理与推导}
+
+\begin{definition}{原函数与不定积分}区间$I$上$F\prime=f$时称$F$为$f$的原函数，$\int f\dd x=F+C$。同一区间内两原函数之差为常数；不连通定义域上的常数可分支选择。连续函数有原函数。\end{definition}
+\begin{theorem}{换元公式}设$F\prime=f$，$\varphi$在所用区间可导且值落在$F$的定义区间。第一换元为$\int f(\varphi(x))\varphi\prime(x)\dd x=F(\varphi(x))+C$。第二换元$x=\psi(t)$后积分为$\int f(\psi(t))\psi\prime(t)\dd t$，回代需选定可逆分支。\end{theorem}
+\begin{proof}第一换元来自链式法则；第二换元对所得原函数作复合求导验证。定积分换元时同时变上下限，可避免回代。\end{proof}
+常见原函数：$\int x^\alpha\dd x=\frac{x^{\alpha+1}}{\alpha+1}+C$（$\alpha\ne-1$且在实值可导区间），$\int\frac{\dd x}{x}=\ln|x|+C$，$\int\frac{\dd x}{1+x^2}=\arctan x+C$。
+
+\begin{method}{原函数与第一、第二换元}条件：代换可导且回代分支明确。步骤：先凑微分，不能凑时用根式或三角代换；最后求导验算。易错点：忘记$\dd x$的比例因子。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜凑微分}{难度：$\star$}
+\label{ex:3:1}\textbf{题目} 求$\int2x\cos(x^2)\dd x$。\par
+\textbf{思路} 外层余弦的内层导数已经出现。\par
+\textbf{解答} 方法一：令$u=x^2$，得$\int\cos u\dd u=\sin(x^2)+C$。方法二：直接识别$[\sin(x^2)]\prime=2x\cos(x^2)$。\par
+\textbf{方法点评} 换元显示步骤，逆链式法则适合熟练计算。\par
+\textbf{易错点或变式} 不能把$\cos(x^2)$写成$\cos^2x$。
+\end{example}
+\begin{example}{考研风格例题｜根式}{难度：$\star\star$}
+\label{ex:3:2}\textbf{题目} 求$\int\frac{\dd x}{\sqrt{a^2-x^2}}$，$a>0,|x|<a$。\par
+\textbf{思路} 用三角参数化圆。\par
+\textbf{解答} 方法一：$x=a\sin t$，取$|t|<\frac{\pi}{2}$，根式为$a\cos t$，积分$t+C=\arcsin(\frac{x}{a})+C$。方法二：直接对$\arcsin(\frac{x}{a})$求导验证。\par
+\textbf{方法点评} 代换说明反三角函数如何出现。\par
+\textbf{易错点或变式} $\sqrt{\cos^2t}=|\cos t|$，分支选择不能省去。
+\end{example}
+\begin{example}{考研风格例题｜双元代换}{难度：$\star\star$}
+\label{ex:3:3}\textbf{题目} 求$\int\frac{\dd x}{\sqrt{x^2+a^2}}$，$a>0$。\par
+\textbf{思路} 利用两个相关量$x$与根式的和。\par
+\textbf{解答} 方法一：令$u=x+\sqrt{x^2+a^2}>0$，则$\frac{\dd u}{u}=\frac{\dd x}{\sqrt{x^2+a^2}}$，答案$\ln(x+\sqrt{x^2+a^2})+C$。方法二：$x=a\sinh t$，积分变为$t+C=\operatorname{arsinh}(\frac{x}{a})+C$，与前式只差常数$\ln a$。\par
+\textbf{方法点评} 双元思路利用共轭乘积恒定；双曲代换系统地消去平方和。\par
+\textbf{易错点或变式} 使用“双元法”时，必须写出实际代换等式。
+\end{example}
+\section{分部积分与有理函数}\label{sec:3:2}
+
+\begin{method}{部分分式的完整模板}
+多项式除法后，对线性因子$(x-a)^m$配置$\sum_{k=1}^m \frac{A_k}{(x-a)^k}$；对不可约二次因子$(x^2+px+q)^m$配置$\sum_{k=1}^m\frac{B_kx+C_k}{(x^2+px+q)^k}$。比较多项式系数求未知数。二次分子的线性项先拆为分母导数的倍数与常数，分别产生对数与反正切；高次幂可用递推。
+\end{method}
+
+\subsection{概念、定理与推导}
+
+\begin{theorem}{分部与部分分式}$\int u\dd v=uv-\int v\dd u$。有理函数先作多项式除法，真分式按实数域线性因子和不可约二次因子的幂分解，分子次数低于相应因子次数。\end{theorem}
+\begin{proof}分部积分是乘积求导公式的积分。部分分式由多项式恒等式配系数，重根必须包含从一次到最高次的全部分母幂。\end{proof}
+递推型积分应先定义$I_n$与初值，再由分部积分把阶数降低；循环型积分须把重新出现的原积分移至左侧。
+
+\begin{method}{分部积分与有理函数}条件：分部两因子可导，分式远离极点。步骤：多项式乘指数三角通常让多项式求导；对数通常作$u$。易错点：重复不可约二次因子的分子仍须一次式。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜分部}{难度：$\star\star$}
+\label{ex:3:4}\textbf{题目} 求$\int x\e^x\dd x$。\par
+\textbf{思路} 多项式求导后次数下降。\par
+\textbf{解答} 方法一：$u=x,\dd v=\e^x\dd x$，得$x\e^x-\e^x+C$。方法二：设原函数为$(Ax+B)\e^x$，比较导数$(Ax+A+B)\e^x=x\e^x$，得$A=1,B=-1$。\par
+\textbf{方法点评} 分部通用，待定系数利用封闭函数族。\par
+\textbf{易错点或变式} 减号来自分部公式。
+\end{example}
+\begin{example}{考研风格例题｜部分分式}{难度：$\star\star$}
+\label{ex:3:5}\textbf{题目} 求$\int\frac{\dd x}{x(x+1)}$。\par
+\textbf{思路} 分母两个一次因子。\par
+\textbf{解答} 方法一：$\frac{1}{x(x+1)}=\frac{1}{x}-\frac{1}{x+1}$，答案$\ln|x|-\ln|x+1|+C$。方法二：令$u=\frac{x}{x+1}$，则$\frac{\dd u}{u}=\frac{\dd x}{x(x+1)}$，得$\ln|u|+C$。\par
+\textbf{方法点评} 部分分式机械可靠；比值代换揭示对数导数。\par
+\textbf{易错点或变式} 每个避开$0,-1$的区间分别讨论常数。
+\end{example}
+\begin{example}{考研风格例题｜循环分部}{难度：$\star\star$}
+\label{ex:3:6}\textbf{题目} 求$\int\e^x\cos x\dd x$。\par
+\textbf{思路} 分部两次产生原积分。\par
+\textbf{解答} 记$I$为该积分。一次分部得$I=\e^x\cos x+\int\e^x\sin x\dd x$；第二项等于$\e^x\sin x-I$。因此$2I=\e^x(\sin x+\cos x)$，$I=\frac{\e^x(\sin x+\cos x)}{2}+C$。另设$\e^x(A\cos x+B\sin x)$求导比较可得$A=B=\frac{1}{2}$。\par
+\textbf{方法点评} 循环分部是解线性方程，待定系数更快。\par
+\textbf{易错点或变式} 第二次分部的负号决定左边是$2I$。
+\end{example}
+\section{三角有理式与简单无理式}\label{sec:3:3}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{万能代换与根式有理化}令$t=\tan(\frac{x}{2})$，则
+\begin{equation}\sin x=\dfrac{2t}{1+t^2},\quad\cos x=\dfrac{1-t^2}{1+t^2},\quad\dd x=\dfrac{2\dd t}{1+t^2}.\end{equation}
+故$R(\sin x,\cos x)$化为$t$的有理函数。对$R(x,\sqrt[m]{ax+b})$，当$a\ne0$、$m$为正整数时，可在所选实支设$t=\sqrt[m]{ax+b}$；$a=0$时根式为常量，另行简化。\end{theorem}
+\begin{proof}半角公式由$\sin2u,\cos2u$除以$\cos^2u$得到，微分来自正切导数。根式代换给$x=\frac{t^m-b}{a}$，直接消去根式。\end{proof}
+万能代换不是最短代换。若含单独的$\sin x\dd x$或$\cos x\dd x$，先考虑$u=\cos x$或$u=\sin x$。
+
+\begin{method}{三角有理式与简单无理式}条件：半角坐标避开$\tan(\frac{x}{2})$极点。步骤：先找奇偶三角幂结构，再考虑万能代换；无理式选共同根次。易错点：跨越代换极点时要分段。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜三角有理式}{难度：$\star\star$}
+\label{ex:3:7}\textbf{题目} 求$\int\frac{\dd x}{2+\cos x}$。\par
+\textbf{思路} 分母为正，半角化为二次有理式。\par
+\textbf{解答} $t=\tan(\frac{x}{2})$给$\int\frac{2\dd t}{t^2+3}=\frac2{\sqrt3}\arctan(\frac{t}{\sqrt3})+C$。在任一避开半角极点的区间回代即可。跨越极点需调整积分常数以保持原函数连续。另一方法：令$u=\frac{x}{2}$，原积分为$2\int\frac{\dd u}{3\cos^2u+\sin^2u}$；把分子分母同除以$\cos^2u$，直接配成$\dd(\tan u)$并得到同一原函数。此法从倍角公式导出代换，而非直接套表。\par
+\textbf{方法点评} 万能代换稳定，但反正切分支必须跟踪。\par
+\textbf{易错点或变式} 原函数公式不应未经分段宣称在整个实轴单一分支成立。
+\end{example}
+\begin{example}{基础例题｜根式有理化}{难度：$\star$}
+\label{ex:3:8}\textbf{题目} 求$\int\frac{\dd x}{1+\sqrt x}$，$x>0$。\par
+\textbf{思路} 令根式成为新变量。\par
+\textbf{解答} $t=\sqrt x$，$\dd x=2t\dd t$，积分$=2\int[1-\frac{1}{1+t}]\dd t=2\sqrt x-2\ln(1+\sqrt x)+C$。另一方法：设原函数形如$A\sqrt x+B\ln(1+\sqrt x)$，求导通分后分子为$A(1+\sqrt x)+B$，分母$2\sqrt x(1+\sqrt x)$。比较常数与$\sqrt x$系数得$A=2,B=-2$。\par
+\textbf{方法点评} 换元后先做除法再积分。\par
+\textbf{易错点或变式} 只代分母不代微分会丢失$2t$。
+\end{example}
+\begin{example}{考研风格例题｜三角幂}{难度：$\star\star$}
+\label{ex:3:9}\textbf{题目} 求$\int\sin^3x\cos^2x\dd x$。\par
+\textbf{思路} 留一个$\sin x$，其余化成余弦。\par
+\textbf{解答} 令$u=\cos x$，$\dd u=-\sin x\dd x$，得$-\int(1-u^2)u^2\dd u=-\frac{u^3}{3}+\frac{u^5}{5}+C$。回代为$-\frac{\cos^3x}{3}+\frac{\cos^5x}{5}+C$。第二种方法：用积化和差写$\sin^3x\cos^2x=\frac{\sin x}{8}+\frac{\sin3x}{16}-\frac{\sin5x}{16}$，逐项积分得$-\frac{\cos x}{8}-\frac{\cos3x}{48}+\frac{\cos5x}{80}+C$。通过三倍角、五倍角展开可验证两原函数仅差常数。\par
+\textbf{方法点评} 奇次三角幂通常比半角代换省算。\par
+\textbf{易错点或变式} 变式：若两幂均偶，优先降幂公式。
+\end{example}
+\section{定积分、反常积分与应用}\label{sec:3:4}
+
+\begin{theorem}{积分中值与变限求导}若$f$在$[a,b]$连续、$w$可积且不变号，则存在$\xi\in[a,b]$使$\int_a^bfw=f(\xi)\int_a^bw$。若$f$连续且上下限可导，则
+\[\dfrac\dd{\dd x}\int_{u(x)}^{v(x)}f(t)\dd t=f(v(x))v\prime(x)-f(u(x))u\prime(x).\]
+\end{theorem}
+\begin{proof}当$w\ge0$时，用$f$的最小最大值夹住加权积分；若权积分为正，介值性提供相应$\xi$，为零时两边同为零。变限公式将积分写成两个变上限积分之差再用链式法则。\end{proof}
+
+\subsection{概念、定理与推导}
+
+\begin{definition}{Riemann积分与反常积分}有界函数的带标记分割和在网格趋零时趋于同一数，称该数为定积分。连续函数与有限间断点的有界函数可积。$\int_a^\infty f=\lim_{R\to\infty}\int_a^R f$；内点奇性须两侧积分分别收敛。\end{definition}
+\begin{theorem}{微积分基本定理}连续$f$的变上限积分$F(x)=\int_a^x f(t)\dd t$满足$F\prime=f$；若$G\prime=f$，则$\int_a^bf=G(b)-G(a)$。\end{theorem}
+\begin{proof}差商为$\frac1h\int_x^{x+h}f(t)\dd t$，连续性使其趋于$f(x)$；再用原函数只差常数得到Newton--Leibniz公式。\end{proof}
+几何量：平面面积$\int|f-g|\dd x$，绕$x$轴的圆盘体积$\pi\int f^2\dd x$，弧长$\int\sqrt{1+(f\prime)^2}\dd x$，旋转曲面面积$2\pi\int|f|\sqrt{1+(f\prime)^2}\dd x$。正函数反常积分可用比较；$\int_1^\infty x^{-p}\dd x$当且仅当$p>1$收敛，$\int_0^1x^{-p}\dd x$当且仅当$p<1$收敛。
+
+\begin{method}{定积分、反常积分与应用}条件：先判断普通或反常积分。步骤：有对称区间先做$x\mapsto a+b-x$；应用题先画截面。易错点：主值抵消不等于反常积分收敛。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜区间再现}{难度：$\star\star$}
+\label{ex:3:10}\textbf{题目} 求$I=\int_0^\pi x\sin x\dd x$。\par
+\textbf{思路} 对称变换将$x$变成$\pi-x$。\par
+\textbf{解答} 方法一：替换$x=\pi-t$得$I=\int_0^\pi(\pi-t)\sin t\dd t$，相加$2I=\pi\int_0^\pi\sin t\dd t=2\pi$，故$I=\pi$。方法二：分部得$[-x\cos x+\sin x]_0^\pi=\pi$。\par
+\textbf{方法点评} 对称法可推广到任意关于中点对称的权函数。\par
+\textbf{易错点或变式} 再现后积分限与微分负号要同步处理。
+\end{example}
+\begin{example}{考研风格例题｜反常判敛}{难度：$\star\star$}
+\label{ex:3:11}\textbf{题目} 判断$\int_0^\infty\frac{\dd x}{\sqrt{x}(1+x)}$并计算。\par
+\textbf{思路} 两端分别比较，再令$x=t^2$。\par
+\textbf{解答} 在0附近像$x^{-\frac{1}{2}}$，无穷远像$x^{-\frac{3}{2}}$，均可积。设$x=t^2$，积分$2\int_0^\infty\frac{\dd t}{1+t^2}=\pi$。第二种方法：令$x=\tan^2u$，$u\in(0,\frac{\pi}{2})$，原积分直接变成$2\int_0^{\frac{\pi}{2}}\dd u=\pi$。前者化有理式，后者利用三角恒等式消去整个分母。\par
+\textbf{方法点评} 先判敛保证变换的是合法极限。\par
+\textbf{易错点或变式} 括号明确表示分母为$\sqrt x(1+x)$。
+\end{example}
+\begin{example}{基础例题｜旋转体}{难度：$\star$}
+\label{ex:3:12}\textbf{题目} 区域$0\le y\le x,0\le x\le1$绕$x$轴旋转，求体积。\par
+\textbf{思路} 圆盘或柱壳均可。\par
+\textbf{解答} 圆盘法$V=\pi\int_0^1x^2\dd x=\frac{\pi}{3}$。柱壳法按$y$切片：半径$y$，壳长$1-y$，$V=2\pi\int_0^1y(1-y)\dd y=\frac{\pi}{3}$。\par
+\textbf{方法点评} 两种切片方向验证同一几何体。\par
+\textbf{易错点或变式} 壳长不是$y$。
+\end{example}
+\section{Wallis、含参积分与积分不等式}\label{sec:3:5}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{Wallis递推}令$I_n=\int_0^{\frac{\pi}{2}}\sin^n x\dd x$。$I_0=\frac{\pi}{2},I_1=1$，$n\ge2$时$I_n=\frac{(n-1)I_{n-2}}{n}$。因此$I_{2m}=\frac{(2m-1)!!}{(2m)!!}\frac\pi2$，$I_{2m+1}=\frac{(2m)!!}{(2m+1)!!}$。\end{theorem}
+\begin{proof}对$\sin^{n-1}x\sin x$分部，边界项为零，得到$I_n=(n-1)(I_{n-2}-I_n)$，移项即得。\end{proof}
+\begin{theorem}{含参求导与Cauchy--Schwarz}若$f,\partial_tf$在紧矩形上连续，则$\frac{\dd}{\dd t}\int_a^bf(x,t)\dd x=\int_a^b\partial_tf(x,t)\dd x$。变限时另加$f(b(t),t)b\prime(t)-f(a(t),t)a\prime(t)$。若$f,g$在$[a,b]$上平方可积，则\[\left(\int_a^b f(x)g(x)\dd x\right)^2\le\left(\int_a^b f(x)^2\dd x\right)\left(\int_a^b g(x)^2\dd x\right).\]\end{theorem}
+\begin{proof}连续偏导给差商在紧区间一致趋近，可交换积分与极限。Cauchy--Schwarz由$\int(f-\lambda g)^2\ge0$对$\lambda$的二次式判别式不正得到。反常含参积分还需可积支配等额外条件。\end{proof}
+
+\begin{method}{Wallis、含参积分与积分不等式}条件：含参运算须验证一致控制，递推须有初值。步骤：对参数求导使被积式变简单，再积分并用特殊参数定常数。易错点：反常端点不能套紧矩形条件。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{竞赛风格例题｜Wallis应用}{难度：$\star\star\star$}
+\label{ex:3:13}\textbf{题目} 求$\int_0^{\frac{\pi}{2}}\sin^6x\dd x$。\par
+\textbf{思路} 连续降二阶。\par
+\textbf{解答} $I_6=\frac56\frac34\frac12\frac\pi2=\frac{5\pi}{32}$。另一法：降幂展开$\sin^6x=\frac{10-15\cos2x+6\cos4x-\cos6x}{32}$，余弦项积分均为零。\par
+\textbf{方法点评} 递推适合任意整数幂，降幂适合小次数。\par
+\textbf{易错点或变式} 偶数幂的初值是$\frac{\pi}{2}$。
+\end{example}
+\begin{example}{竞赛风格例题｜含参求导}{难度：$\star\star\star$}
+\label{ex:3:14}\textbf{题目} $a>-1$，求$F(a)=\int_0^1\frac{x^a-1}{\ln x}\dd x$。\par
+\textbf{思路} 对$a$求导消去对数分母。\par
+\textbf{解答} 固定任意紧参数区间$[\alpha,\beta]\subset(-1,\infty)$，导数$x^a$被可积的$x^\alpha$控制；在$x=1$原式取连续极限$a$。因此$F\prime(a)=\int_0^1x^a\dd x=\frac{1}{a+1}$。$F(0)=0$给$F(a)=\ln(a+1)$。\par
+\textbf{方法点评} 支配条件使反常含参求导严格成立。\par
+\textbf{易错点或变式} 参数$a=-1$不在收敛范围。
+\end{example}
+\begin{example}{竞赛风格例题｜积分估计}{难度：$\star\star\star$}
+\label{ex:3:15}\textbf{题目} 若$f$在$[0,1]$连续且$\int_0^1f=1$，证明$\int_0^1f^2\ge1$并判等。\par
+\textbf{思路} 均值约束下常函数平方积分最小。\par
+\textbf{解答} 方法一：Cauchy--Schwarz，$1=(\int f\cdot1)^2\le\int f^2$。方法二：$\int(f-1)^2=\int f^2-1\ge0$。等号要求连续非负函数$(f-1)^2$积分为零，即$f\equiv1$。\par
+\textbf{方法点评} 平方配凑给出误差的精确表达。\par
+\textbf{易错点或变式} 不需假设$f\ge0$。
+\end{example}
+\begin{warning}原函数不是所有函数都有的初等表达式；$\int\e^{-x^2}\dd x$不能强求初等形式。反常积分须分别处理每个奇点；两侧发散不能靠抵消定义为普通积分。\end{warning}
+
+
+\input{chapters/materials/integrals_methods}
+\input{chapters/materials/special_integrals}
+\input{chapters/materials/advanced_integral_algebra}
+\input{chapters/materials/integral_analysis}
+
+
+
+\input{chapters/materials/integral_source_deep}
+\input{chapters/materials/integral_special_deep}
+\input{chapters/materials/integral_complex_deep}
+
+\input{chapters/materials/indefinite_atlas}
+\input{chapters/materials/indefinite_classical_complete}
+\input{chapters/materials/indefinite_dual_complete}
+\input{chapters/materials/indefinite_algebra_complete}
+\input{chapters/materials/indefinite_special_complete}
+\input{chapters/materials/indefinite_training}
+\input{chapters/materials/delta_integral}
+\input{chapters/illustrations/ch03}
+\input{chapters/materials/course_integrals}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\refstepcounter{exercise}\label{q:3:1}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$\int \frac{x}{1+x^2}\dd x$。\quad\hyperref[a:3:1]{[答案]}\par
+\refstepcounter{exercise}\label{q:3:2}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$\int\ln x\dd x$，$x>0$。\quad\hyperref[a:3:2]{[答案]}\par
+\refstepcounter{exercise}\label{q:3:3}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$\int_0^1x^3\dd x$。\quad\hyperref[a:3:3]{[答案]}\par
+\refstepcounter{exercise}\label{q:3:4}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$\int_0^\pi x\sin^2x\dd x$。\quad\hyperref[a:3:4]{[答案]}\par
+\refstepcounter{exercise}\label{q:3:5}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$\int\frac{\dd x}{x^2+4}$。\quad\hyperref[a:3:5]{[答案]}\par
+\refstepcounter{exercise}\label{q:3:6}\par\noindent\textbf{习题\theexercise\quad 考研风格} 判定$\int_0^1x^{-\frac{2}{3}}\dd x$。\quad\hyperref[a:3:6]{[答案]}\par
+\refstepcounter{exercise}\label{q:3:7}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 求$\int_0^{\frac{\pi}{2}}\sin^5x\dd x$。\quad\hyperref[a:3:7]{[答案]}\par
+\refstepcounter{exercise}\label{q:3:8}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 求$\int_0^1\ln x\dd x$。\quad\hyperref[a:3:8]{[答案]}\par
+\refstepcounter{exercise}\label{q:3:9}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 设$a<b,f\in C[a,b]$，证明$(\int_a^bf)^2\le(b-a)\int_a^bf^2$。\quad\hyperref[a:3:9]{[答案]}\par
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\par\noindent\begin{tabularx}{\textwidth}{p{23mm}XXX}\toprule 方法&适用条件&典型信号&易错点\\\midrule
+换元&链式结构&内层导数&漏微分因子\\分部&乘积&多项式降阶&循环移项符号\\对称&区间与权重对称&$a+b-x$&变限负号\\含参求导&可积支配&参数消分母&未查一致控制\\
+\bottomrule\end{tabularx}

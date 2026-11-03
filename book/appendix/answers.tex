@@ -1,0 +1,183 @@
+\chapter{分层习题完整解答}\label{app:answers}
+
+每题给出使用条件、关键公式与推导。简单题保留必要步骤，证明题写清适用定理及逻辑顺序。
+
+\section{第1章习题详解}
+
+\subsection*{习题\ref{q:1:1}}\phantomsection\label{a:1:1}\textbf{完整推导} 令$t=5x$。$x\to0$时$t\to0$，且$\frac{\sin5x}{x}=\frac{5\sin t}{t}$。由重要极限$\lim_{t\to0}\frac{\sin t}{t}=1$，答案为5。这里仅使用乘法极限法则，未把分子和分母分别代成0。\quad\hyperref[q:1:1]{返回题目}
+
+\subsection*{习题\ref{q:1:2}}\phantomsection\label{a:1:2}\textbf{完整推导} 当$x>0$时$\frac{|x|}{x}=1$，当$x<0$时等于$-1$。所以右极限为1，左极限为$-1$。两者不相等，双侧极限不存在。函数有界并不保证在该点有极限。\quad\hyperref[q:1:2]{返回题目}
+
+\subsection*{习题\ref{q:1:3}}\phantomsection\label{a:1:3}\textbf{完整推导} 分子分母同除以$n$，得$\frac{3+\frac{1}{n}}{2-\frac{1}{n}}$。分母趋2且最终非零，商法则适用，因此极限为$\frac{3}{2}$。必须先确认极限分母非零。\quad\hyperref[q:1:3]{返回题目}
+
+\subsection*{习题\ref{q:1:4}}\phantomsection\label{a:1:4}\textbf{完整推导} 在0处用四阶Taylor展开$\cos x=1-\frac{x^2}{2}+\frac{x^4}{24}+o(x^4)$。代入后常数项与二次项相消，分子为$\frac{x^4}{24}+o(x^4)$。除以$x^4$得到$\frac{1}{24}+o(1)$，故极限$\frac{1}{24}$。只展开到二阶不能确定该值。\quad\hyperref[q:1:4]{返回题目}
+
+\subsection*{习题\ref{q:1:5}}\phantomsection\label{a:1:5}\textbf{完整推导} 有限和$\sum_{k=1}^nk=\frac{n(n+1)}{2}$，故原式$=\frac{n(n+1)}{2n^2}=\frac{1+\frac{1}{n}}{2}\to\frac{1}{2}$。也可写成$\frac1n\sum_{k=1}^n(\frac{k}{n})$，作为$\int_0^1t\dd t$的Riemann和，结果相同。\quad\hyperref[q:1:5]{返回题目}
+
+\subsection*{习题\ref{q:1:6}}\phantomsection\label{a:1:6}\textbf{完整推导} 连续补值必须等于穿孔极限。因$\lim_{x\to0}\frac{\sin x}{x}=1$，定义$f(0)=1$后有$\lim_{x\to0}f(x)=f(0)$。若补成其他数，左右极限仍为1但与点值不等，所以补值唯一。\quad\hyperref[q:1:6]{返回题目}
+
+\subsection*{习题\ref{q:1:7}}\phantomsection\label{a:1:7}\textbf{完整推导} 令$t=\frac{1}{n}$，则$n\ln(1+\frac{1}{n})=\frac{\ln(1+t)}{t}$。由$\ln(1+t)\sim t$得到极限1。也可由$\frac{t}{1+t}\le\ln(1+t)\le t$（$t>0$）夹逼，原式位于$\frac{n}{n+1}$与1之间。\quad\hyperref[q:1:7]{返回题目}
+
+\subsection*{习题\ref{q:1:8}}\phantomsection\label{a:1:8}\textbf{完整推导} 先算$a_2=\frac{3}{2}$。对任意正$a_n$，均值不等式给$a_{n+1}\ge\sqrt2$，所以从第2项起有下界。若$a_n\ge\sqrt2$，则$a_{n+1}-a_n=\frac{2-a_n^2}{2a_n}\le0$。因此尾列单调有界，存在正极限$L$。连续性给$L=\frac{L+\frac{2}{L}}{2}$，所以$L^2=2$，由正性取$L=\sqrt2$。先证收敛才能代极限。\quad\hyperref[q:1:8]{返回题目}
+
+\subsection*{习题\ref{q:1:9}}\phantomsection\label{a:1:9}\textbf{完整推导} 函数$f(t)=\sqrt t$在$[0,1]$连续。取等分步长$\Delta t=\frac{1}{n}$与右端点$t_k=\frac{k}{n}$，原式正是$\sum f(t_k)\Delta t$。故极限为$\int_0^1t^{\frac{1}{2}}\dd t=[\frac{2t^{\frac{3}{2}}}{3}]_0^1=\frac{2}{3}$。项数随$n$增大，不能把每一项的趋零相加。\quad\hyperref[q:1:9]{返回题目}
+
+\section{第2章习题详解}
+
+\subsection*{习题\ref{q:2:1}}\phantomsection\label{a:2:1}\textbf{完整推导} 令$u=1+x^2>0$，外层$\ln u$的导数为$\frac{1}{u}$，内层导数为$2x$。链式法则给$[\ln(1+x^2)]'=\frac{2x}{1+x^2}$。定义域是全实轴。\quad\hyperref[q:2:1]{返回题目}
+
+\subsection*{习题\ref{q:2:2}}\phantomsection\label{a:2:2}\textbf{完整推导} 乘积法则给$[x\e^{2x}]'=1\cdot\e^{2x}+x\cdot2\e^{2x}=\e^{2x}(1+2x)$。外层指数求导还须乘内层导数2。\quad\hyperref[q:2:2]{返回题目}
+
+\subsection*{习题\ref{q:2:3}}\phantomsection\label{a:2:3}\textbf{完整推导} 差商为$\frac{|h|-0}{h}$。$h>0$时等于1，$h<0$时等于$-1$，所以左右导数不相等，在0不可导。但$||x|-|0||=|x|\to0$，故在0连续。可导蕴含连续的逆命题不成立。\quad\hyperref[q:2:3]{返回题目}
+
+\subsection*{习题\ref{q:2:4}}\phantomsection\label{a:2:4}\textbf{完整推导} 由Leibniz公式，$(x\e^x)^{(n)}=\sum_{k=0}^n\binom nkx^{(k)}(\e^x)^{(n-k)}$。$x^{(k)}=0$对$k\ge2$，只剩$k=0,1$两项，结果$x\e^x+n\e^x=\e^x(x+n)$。公式对$n\ge1$成立。\quad\hyperref[q:2:4]{返回题目}
+
+\subsection*{习题\ref{q:2:5}}\phantomsection\label{a:2:5}\textbf{完整推导} 设$f=x+\frac{1}{x}$，$f'=1-\frac{1}{x^2}$。在$(0,1)$导数负，在$(1,\infty)$导数正，所以$x=1$为全局最小点，值2。另由$(\sqrt x-\frac{1}{\sqrt x})^2\ge0$得$x+\frac{1}{x}\ge2$，等号同样在$x=1$取得。\quad\hyperref[q:2:5]{返回题目}
+
+\subsection*{习题\ref{q:2:6}}\phantomsection\label{a:2:6}\textbf{完整推导} 平面图形曲率$\kappa=\frac{|y''|}{[1+(y')^2]^{\frac{3}{2}}}$。$y'=\frac{1}{x},y''=-\frac{1}{x^2}$，在$x=1$有$y'=1,|y''|=1$，所以$\kappa=\frac{1}{2^{\frac{3}{2}}}=\frac{1}{2\sqrt2}$。二阶导数取绝对值。\quad\hyperref[q:2:6]{返回题目}
+
+\subsection*{习题\ref{q:2:7}}\phantomsection\label{a:2:7}\textbf{完整推导} 若$x=y$，两边均为零。否则在以$x,y$为端点的闭区间上，正弦连续且内部可微，由Lagrange中值定理存在$\xi$介于两者，使$\sin x-\sin y=\cos\xi(x-y)$。取绝对值并用$|\cos\xi|\le1$，即得结论。\quad\hyperref[q:2:7]{返回题目}
+
+\subsection*{习题\ref{q:2:8}}\phantomsection\label{a:2:8}\textbf{完整推导} 将三个零点排列为$x_1<x_2<x_3$。在$[x_1,x_2]$和$[x_2,x_3]$分别用Rolle，得到$c_1\in(x_1,x_2),c_2\in(x_2,x_3)$使$f'(c_1)=f'(c_2)=0$。再对$f'$在$[c_1,c_2]$用Rolle，存在$d$使$f''(d)=0$。三次使用都满足连续和可微条件。\quad\hyperref[q:2:8]{返回题目}
+
+\subsection*{习题\ref{q:2:9}}\phantomsection\label{a:2:9}\textbf{完整推导} 令$g(x)=x-1-\ln x$。$g'(x)=1-\frac{1}{x}$在$(0,1)$为负、$(1,\infty)$为正，故$g$在1取得全局最小值$g(1)=0$。所以$\ln x\le x-1$，且等号当且仅当$x=1$。定义域$x>0$不可省略。\quad\hyperref[q:2:9]{返回题目}
+
+\section{第3章习题详解}
+
+\subsection*{习题\ref{q:3:1}}\phantomsection\label{a:3:1}\textbf{完整推导} 令$u=1+x^2$，有$\dd u=2x\dd x$，故积分$\frac12\int\frac{\dd u}{u}=\frac12\ln(1+x^2)+C$。真数恒正，不需要绝对值。对答案求导得$\frac{x}{1+x^2}$，完成回验。\quad\hyperref[q:3:1]{返回题目}
+
+\subsection*{习题\ref{q:3:2}}\phantomsection\label{a:3:2}\textbf{完整推导} 取$u=\ln x,\dd v=\dd x$，则$\dd u=\frac{\dd x}{x},v=x$。分部给$\int\ln x\dd x=x\ln x-\int1\dd x=x\ln x-x+C$。导数$\ln x+1-1=\ln x$，在$x>0$有效。\quad\hyperref[q:3:2]{返回题目}
+
+\subsection*{习题\ref{q:3:3}}\phantomsection\label{a:3:3}\textbf{完整推导} 被积函数在$[0,1]$连续，基本定理适用。原函数$\frac{x^4}{4}$，故积分$[\frac{x^4}{4}]_0^1=\frac{1}{4}$。这里是定积分，不再保留任意常数。\quad\hyperref[q:3:3]{返回题目}
+
+\subsection*{习题\ref{q:3:4}}\phantomsection\label{a:3:4}\textbf{完整推导} 记$I=\int_0^\pi x\sin^2x\dd x$。换$t=\pi-x$得$I=\int_0^\pi(\pi-t)\sin^2t\dd t$。两式相加，$2I=\pi\int_0^\pi\sin^2t\dd t$。再用$\sin^2t=\frac{1-\cos2t}{2}$，积分为$\frac{\pi}{2}$，故$I=\frac{\pi^2}{4}$。区间再现依赖权重$\sin^2(\pi-t)=\sin^2t$。\quad\hyperref[q:3:4]{返回题目}
+
+\subsection*{习题\ref{q:3:5}}\phantomsection\label{a:3:5}\textbf{完整推导} 令$t=\frac{x}{2}$，$\dd x=2\dd t$，分母$4(1+t^2)$。积分$\frac12\int\frac{\dd t}{1+t^2}=\frac12\arctan(\frac{x}{2})+C$。链式求导为$\frac{1}{x^2+4}$。\quad\hyperref[q:3:5]{返回题目}
+
+\subsection*{习题\ref{q:3:6}}\phantomsection\label{a:3:6}\textbf{完整推导} 0为反常端点，按定义$\int_0^1x^{-\frac{2}{3}}\dd x=\lim_{\varepsilon\downarrow0}\int_\varepsilon^1x^{-\frac{2}{3}}\dd x$。原函数为$3x^{\frac{1}{3}}$，因此极限$3(1-\varepsilon^{\frac{1}{3}})\to3$，积分收敛。判断依据是极限存在，不能直接忽略端点。\quad\hyperref[q:3:6]{返回题目}
+
+\subsection*{习题\ref{q:3:7}}\phantomsection\label{a:3:7}\textbf{完整推导} 令$I_n=\int_0^{\frac{\pi}{2}}\sin^nx\dd x$。分部且端点项为0给$I_n=\frac{(n-1)I_{n-2}}{n}$，$I_1=1$。于是$I_5=(\frac{4}{5})(\frac{2}{3})I_1=\frac{8}{15}$。或留$\sin x$后换$u=\cos x$，得到$\int_0^1(1-u^2)^2\dd u=1-\frac{2}{3}+\frac{1}{5}=\frac{8}{15}$。\quad\hyperref[q:3:7]{返回题目}
+
+\subsection*{习题\ref{q:3:8}}\phantomsection\label{a:3:8}\textbf{完整推导} 按反常定义，$\int_0^1\ln x\dd x=\lim_{\varepsilon\downarrow0}[x\ln x-x]_\varepsilon^1$。因$\varepsilon\ln\varepsilon\to0$，下端项趋0，上端项为$-1$，故积分收敛且值$-1$。原函数在端点不直接代入$\ln0$。\quad\hyperref[q:3:8]{返回题目}
+
+\subsection*{习题\ref{q:3:9}}\phantomsection\label{a:3:9}\textbf{完整推导} 对平方可积的$f$与常函数1使用积分Cauchy--Schwarz：$(\int_a^bf\cdot1)^2\le(\int_a^bf^2)(\int_a^b1^2)=(b-a)\int_a^bf^2$。也可令均值$m=(b-a)^{-1}\int f$，展开$0\le\int(f-m)^2=\int f^2-\frac{(\int f)^2}{b-a}$。假设$a<b$；连续时等号当且仅当$f$为常数。\quad\hyperref[q:3:9]{返回题目}
+
+\section{第4章习题详解}
+
+\subsection*{习题\ref{q:4:1}}\phantomsection\label{a:4:1}\textbf{完整推导} 方程是一阶齐次线性式，乘$\e^{-3x}$得$(\e^{-3x}y)'=0$，故$y=C\e^{3x}$。初值$y(0)=2$给$C=2$。代回$y'=6\e^{3x}=3y$且初值成立，所以$y=2\e^{3x}$。该法不会除掉$y=0$支路。\quad\hyperref[q:4:1]{返回题目}
+
+\subsection*{习题\ref{q:4:2}}\phantomsection\label{a:4:2}\textbf{完整推导} 由$y'=-x$直接积分，得到$y=-\frac{x^2}{2}+C$。求导为$-x$，代入$y'+x=0$。没有初值时保留一个任意常数，定义在任意实区间。\quad\hyperref[q:4:2]{返回题目}
+
+\subsection*{习题\ref{q:4:3}}\phantomsection\label{a:4:3}\textbf{完整推导} 乘积分因子$\e^x$，有$(\e^xy)'=\e^x$。积分$\e^xy=\e^x+C$，故$y=1+C\e^{-x}$。求导加原函数等于$-C\e^{-x}+1+C\e^{-x}=1$。\quad\hyperref[q:4:3]{返回题目}
+
+\subsection*{习题\ref{q:4:4}}\phantomsection\label{a:4:4}\textbf{完整推导} 特征方程$r^2+4=0$，根$\pm2i$。实基本解为$\cos2x,\sin2x$，Wronskian为2非零，因此通解$C_1\cos2x+C_2\sin2x$。两者二阶导数均为自身的$-4$倍，代回验证成立。\quad\hyperref[q:4:4]{返回题目}
+
+\subsection*{习题\ref{q:4:5}}\phantomsection\label{a:4:5}\textbf{完整推导} 特征多项式$r^2-2r+1=(r-1)^2$有二重根1，基解为$\e^x,x\e^x$。故$y=(C_1+C_2x)\e^x$。也可令$y=\e^xv$，代回得$\e^xv''=0$，积分两次得到$v=C_1+C_2x$。\quad\hyperref[q:4:5]{返回题目}
+
+\subsection*{习题\ref{q:4:6}}\phantomsection\label{a:4:6}\textbf{完整推导} 对应齐次方程$y''+y=0$的通解为$C_1\cos x+C_2\sin x$。设一次特解$y_p=ax+b$，代入左侧$ax+b$，与右侧$x$比较得$a=1,b=0$。故通解$x+C_1\cos x+C_2\sin x$。特解加齐次解给全部解。\quad\hyperref[q:4:6]{返回题目}
+
+\subsection*{习题\ref{q:4:7}}\phantomsection\label{a:4:7}\textbf{完整推导} Euler方程在$x>0$可设$y=x^m$，代入得$[m(m-1)+m-1]x^m=(m^2-1)x^m=0$。根$m=1,-1$，故$y=C_1x+\frac{C_2}{x}$。亦可$x=\e^t$，方程变为$v''-v=0$。0是奇点，不将解区间跨过0。\quad\hyperref[q:4:7]{返回题目}
+
+\subsection*{习题\ref{q:4:8}}\phantomsection\label{a:4:8}\textbf{完整推导} 原式右端连续，解若连续便由基本定理可微，并满足$y'=y,y(0)=2$。解得$y=2\e^x$。回代$2+\int_0^x2\e^t\dd t=2+2(\e^x-1)=2\e^x$，所以不仅满足微分后的方程，也满足原积分方程。\quad\hyperref[q:4:8]{返回题目}
+
+\subsection*{习题\ref{q:4:9}}\phantomsection\label{a:4:9}\textbf{完整推导} 设$y=\sum_{n\ge0}a_nx^n$。比较$x^n$系数得$(n+2)(n+1)a_{n+2}+a_n=0$。初值给$a_0=0,a_1=1$，所以所有偶系数为0，$a_{2k+1}=\frac{(-1)^k}{(2k+1)!}$。故$y=\sum_{k\ge0}\frac{(-1)^kx^{2k+1}}{(2k+1)!}=\sin x$。比值判别给全实轴收敛，逐项求导可回验方程和初值。\quad\hyperref[q:4:9]{返回题目}
+
+\section{第5章习题详解}
+
+\subsection*{习题\ref{q:5:1}}\phantomsection\label{a:5:1}\textbf{完整推导} 欧氏模按平方和开方：$|\bm v|=\sqrt{\bm v\cdot\bm v}=\sqrt{1^2+2^2+3^2}=\sqrt{14}$。模非负，不能取负平方根。\quad\hyperref[q:5:1]{返回题目}
+
+\subsection*{习题\ref{q:5:2}}\phantomsection\label{a:5:2}\textbf{完整推导} 按分量公式$\bm u\times\bm v=(u_2v_3-u_3v_2,u_3v_1-u_1v_3,u_1v_2-u_2v_1)$。代入$(1,0,0),(0,1,0)$得$(0,0,1)$。交换次序会变为$(0,0,-1)$。\quad\hyperref[q:5:2]{返回题目}
+
+\subsection*{习题\ref{q:5:3}}\phantomsection\label{a:5:3}\textbf{完整推导} 平面上任一点$(x,y,z)$与基点原点的位移必须垂直法向量$(1,2,3)$，即$(1,2,3)\cdot(x,y,z)=0$。所以方程$x+2y+3z=0$。法向量非零，确实定义一个平面。\quad\hyperref[q:5:3]{返回题目}
+
+\subsection*{习题\ref{q:5:4}}\phantomsection\label{a:5:4}\textbf{完整推导} 平面$z=0$的单位法向量为$(0,0,1)$。点$P=(1,2,3)$到平面的有向距离为$P\cdot(0,0,1)=3$，距离取绝对值仍为3，垂足$(1,2,0)$。也可用点面距离公式$\frac{|Ax_0+By_0+Cz_0+D|}{\sqrt{A^2+B^2+C^2}}$。\quad\hyperref[q:5:4]{返回题目}
+
+\subsection*{习题\ref{q:5:5}}\phantomsection\label{a:5:5}\textbf{完整推导} 设基点$\bm r_0=(1,1,1)$，方向$\bm v=(1,0,-1)$。直线参数式$\bm r=\bm r_0+t\bm v$，即$(x,y,z)=(1+t,1,1-t)$。方向分量含0，不能写成含$y-1$除以0的对称式，应保留$y=1$。\quad\hyperref[q:5:5]{返回题目}
+
+\subsection*{习题\ref{q:5:6}}\phantomsection\label{a:5:6}\textbf{完整推导} 方程可写为$x^2+y^2=1+z^2$。每个固定$z$的截面都是半径$\sqrt{1+z^2}$的圆，$z=0$处半径最小但不为0，曲面连通。因此是绕$z$轴的单叶双曲面。若右端改成$-1$，几何类型才改变。\quad\hyperref[q:5:6]{返回题目}
+
+\subsection*{习题\ref{q:5:7}}\phantomsection\label{a:5:7}\textbf{完整推导} 在单位球面上，Cauchy不等式给$|x+y+z|\le\sqrt{x^2+y^2+z^2}\sqrt3=\sqrt3$。同向点$\frac{1}{\sqrt3}(1,1,1)$取上界，反向点取下界。球面是连通集，连续函数将连通集映为实区间，故两端点之间全部值均可取得，所以范围$[-\sqrt3,\sqrt3]$。若是实心单位球，范围仍相同。\quad\hyperref[q:5:7]{返回题目}
+
+\subsection*{习题\ref{q:5:8}}\phantomsection\label{a:5:8}\textbf{完整推导} 直线上点为$H=(t,t,0)$，方向$\bm v=(1,1,0)$。垂足条件$(P-H)\cdot\bm v=(1-t)+(1-t)=0$，得$t=1$，故$H=(1,1,0)$。另一法距离平方$2(t-1)^2+1$在$t=1$最小。\quad\hyperref[q:5:8]{返回题目}
+
+\subsection*{习题\ref{q:5:9}}\phantomsection\label{a:5:9}\textbf{完整推导} 设两给定边长度为$a,b$，夹角$\theta\in[0,\pi]$。叉积给面积$S=\frac12|\bm u\times\bm v|=\frac{ab\sin\theta}{2}$。由$0\le\sin\theta\le1$得$S\le \frac{ab}{2}$，非退化时等号当且仅当夹角$\frac{\pi}{2}$。\quad\hyperref[q:5:9]{返回题目}
+
+\section{第6章习题详解}
+
+\subsection*{习题\ref{q:6:1}}\phantomsection\label{a:6:1}\textbf{完整推导} 求$f_x$时将$y$固定，$x^2y$对$x$求导为$2xy$；求$f_y$时将$x$固定，结果$x^2$。因此$f_x=2xy,f_y=x^2$。偏导的“其余变量不变”是计算依据。\quad\hyperref[q:6:1]{返回题目}
+
+\subsection*{习题\ref{q:6:2}}\phantomsection\label{a:6:2}\textbf{完整推导} 原点的一阶偏导均0，所以候选全微分为0。检查余项：$f(h,k)-f(0,0)-0=h^2+k^2$，除以$\rho=\sqrt{h^2+k^2}$后为$\rho\to0$，故确实可微，$\dd f|_{(0,0)}=0$。只列偏导不能在一般题中自动推出可微。\quad\hyperref[q:6:2]{返回题目}
+
+\subsection*{习题\ref{q:6:3}}\phantomsection\label{a:6:3}\textbf{完整推导} 梯度按各坐标偏导排列。对$x,y,z$分别求导得$yz,xz,xy$，故$\nabla(xyz)=(yz,xz,xy)$。它是向量，不是三个偏导的和。\quad\hyperref[q:6:3]{返回题目}
+
+\subsection*{习题\ref{q:6:4}}\phantomsection\label{a:6:4}\textbf{完整推导} 先对$x$偏导，$z_x=\e^{x+y}$；再保持$x$不变对$y$求导，$z_{xy}=\e^{x+y}$。反向次序也给同值，因为二阶偏导连续。\quad\hyperref[q:6:4]{返回题目}
+
+\subsection*{习题\ref{q:6:5}}\phantomsection\label{a:6:5}\textbf{完整推导} 函数$f=x^2+4y^2\ge0$，且仅在$(0,0)$等于0，所以原点是严格全局极小点，最小值0。二阶检验也成立：Hessian为$\operatorname{diag}(2,8)$正定。无最大值，因为沿$x$轴趋无穷。\quad\hyperref[q:6:5]{返回题目}
+
+\subsection*{习题\ref{q:6:6}}\phantomsection\label{a:6:6}\textbf{完整推导} 单位方向$\bm e=\frac{1}{\sqrt2}(1,1)$，梯度$\nabla f=(1,1)$。方向导数$D_{\bm e}f=\nabla f\cdot\bm e=\frac{2}{\sqrt2}=\sqrt2$。不能直接与未单位化的$(1,1)$点乘得到2。\quad\hyperref[q:6:6]{返回题目}
+
+\subsection*{习题\ref{q:6:7}}\phantomsection\label{a:6:7}\textbf{完整推导} 约束给$\sqrt{x^2+y^2}=2$。Cauchy不等式$x+2y\le\sqrt{x^2+y^2}\sqrt{1^2+2^2}=2\sqrt5$。等号需要$(x,y)$与$(1,2)$同向，故极大点$(\frac{2}{\sqrt5},\frac{4}{\sqrt5})$，最大值$2\sqrt5$。反向点给最小值$-2\sqrt5$。\quad\hyperref[q:6:7]{返回题目}
+
+\subsection*{习题\ref{q:6:8}}\phantomsection\label{a:6:8}\textbf{完整推导} 对任意$(x,y)$有$x^2y^2\ge0=f(0,0)$，所以原点是极小点。但沿$x$轴和$y$轴有无穷多个非原点也使函数为0，因此任意邻域内都有取相同值的点，故不是严格极小。Hessian退化时应回到实际函数符号。\quad\hyperref[q:6:8]{返回题目}
+
+\subsection*{习题\ref{q:6:9}}\phantomsection\label{a:6:9}\textbf{完整推导} 设内部局部极值点为$\bm a$。固定除第$i$坐标外的所有变量，定义一元函数$\phi_i(t)=f(\bm a+t\bm e_i)$。内部性保证$t=0$两侧都允许，且$\phi_i$在0也有局部极值。由一元Fermat定理$\phi_i'(0)=\partial_i f(\bm a)=0$。所有$i$成立，故$\nabla f(\bm a)=0$。边界极值不能直接套此结论。\quad\hyperref[q:6:9]{返回题目}
+
+\section{第7章习题详解}
+
+\subsection*{习题\ref{q:7:1}}\phantomsection\label{a:7:1}\textbf{完整推导} 在单位正方形上被积函数连续，Fubini适用。$\int_0^1\int_0^1xy\dd x\dd y=(\int_0^1x\dd x)(\int_0^1y\dd y)=(\frac{1}{2})^2=\frac{1}{4}$。乘积拆分依赖矩形区域及可分离被积式。\quad\hyperref[q:7:1]{返回题目}
+
+\subsection*{习题\ref{q:7:2}}\phantomsection\label{a:7:2}\textbf{完整推导} 取极坐标$0\le r\le2,0\le\theta\le2\pi$，面积元$r\dd r\dd\theta$。面积$\int_0^{2\pi}\int_0^2r\dd r\dd\theta=2\pi\cdot2=4\pi$。Jacobian中的$r$不可漏。\quad\hyperref[q:7:2]{返回题目}
+
+\subsection*{习题\ref{q:7:3}}\phantomsection\label{a:7:3}\textbf{完整推导} 采用$x=\rho\sin\phi\cos\theta,y=\rho\sin\phi\sin\theta,z=\rho\cos\phi$。Jacobian行列式绝对值为$\rho^2\sin\phi$，其中$\rho\ge0,0\le\phi\le\pi$。故$\dd V=\rho^2\sin\phi\,\dd\rho\dd\phi\dd\theta$。$\phi$是从正$z$轴量起的极角。\quad\hyperref[q:7:3]{返回题目}
+
+\subsection*{习题\ref{q:7:4}}\phantomsection\label{a:7:4}\textbf{完整推导} 区域关于$y$轴对称，变换$(x,y)\mapsto(-x,y)$保持面积而使被积式$x$变号，所以$I=-I$，得$I=0$。也可用极坐标$x=r\cos\theta$，角积分$\int_0^{2\pi}\cos\theta\dd\theta=0$。\quad\hyperref[q:7:4]{返回题目}
+
+\subsection*{习题\ref{q:7:5}}\phantomsection\label{a:7:5}\textbf{完整推导} 球坐标中被积式为$\rho^2$，体元为$\rho^2\sin\phi$。因此积分$\int_0^1\rho^4\dd\rho\int_0^\pi\sin\phi\dd\phi\int_0^{2\pi}\dd\theta=(\frac{1}{5})\cdot2\cdot2\pi=\frac{4\pi}{5}$。径向幂是4而不是2。\quad\hyperref[q:7:5]{返回题目}
+
+\subsection*{习题\ref{q:7:6}}\phantomsection\label{a:7:6}\textbf{完整推导} 原区域$D=\{0\le x\le1,\ x^2\le y\le1\}$。固定$y$时，由$x\ge0$及$x^2\le y$得$0\le x\le\sqrt y$，而$0\le y\le1$。所以换序为$\int_0^1\dd y\int_0^{\sqrt y}f(x,y)\dd x$。换序需$f$在区域上可积，不能只交换微分符号。\quad\hyperref[q:7:6]{返回题目}
+
+\subsection*{习题\ref{q:7:7}}\phantomsection\label{a:7:7}\textbf{完整推导} 非负函数可按Tonelli及极坐标积分。结果$2\pi\int_0^\infty r\e^{-2r^2}\dd r$。令$u=2r^2,\dd u=4r\dd r$，得到$(\frac{\pi}{2})\int_0^\infty\e^{-u}\dd u=\frac{\pi}{2}$。反常上限按非负极限理解。\quad\hyperref[q:7:7]{返回题目}
+
+\subsection*{习题\ref{q:7:8}}\phantomsection\label{a:7:8}\textbf{完整推导} 设$a,b,c>0$为半轴，取$x=au,y=bv,z=cw$，Jacobian为$abc$，区域变为单位球$u^2+v^2+w^2\le1$。所以体积$\frac{abc\cdot4\pi}{3}=\frac{4\pi abc}{3}$。若参数仅要求非零而未约定为正，应写$\frac{4\pi|abc|}{3}$。\quad\hyperref[q:7:8]{返回题目}
+
+\subsection*{习题\ref{q:7:9}}\phantomsection\label{a:7:9}\textbf{完整推导} 在单位圆盘$D$上对$f$与1用积分Cauchy：$(\iint_Df)^2\le(\iint_Df^2)(\iint_D1)=\pi\iint_Df^2$。移项得到结论。平方可积时等号要求$f$几乎处处为常数，连续时提升为处处常数。\quad\hyperref[q:7:9]{返回题目}
+
+\section{第8章习题详解}
+
+\subsection*{习题\ref{q:8:1}}\phantomsection\label{a:8:1}\textbf{完整推导} 第一类曲线积分$\int_L1\dd s$等于曲线长度。参数$x=2\cos t,y=2\sin t$，$0\le t\le2\pi$，速度模为2，故积分$\int_0^{2\pi}2\dd t=4\pi$。第一类积分不随方向反转变号。\quad\hyperref[q:8:1]{返回题目}
+
+\subsection*{习题\ref{q:8:2}}\phantomsection\label{a:8:2}\textbf{完整推导} 散度为$\partial_xx+\partial_yy+\partial_zz=1+1+1=3$。结果是标量。它描述局部体积通量密度，不是向量各分量相乘。\quad\hyperref[q:8:2]{返回题目}
+
+\subsection*{习题\ref{q:8:3}}\phantomsection\label{a:8:3}\textbf{完整推导} 按旋度公式$\nabla\times(P,Q,R)=(R_y-Q_z,P_z-R_x,Q_x-P_y)$。$P=-y,Q=x,R=0$，所以旋度$(0,0,1-(-1))=(0,0,2)$。最后一个分量的减号是常见错误。\quad\hyperref[q:8:3]{返回题目}
+
+\subsection*{习题\ref{q:8:4}}\phantomsection\label{a:8:4}\textbf{完整推导} 顺时针参数$x=\cos t,y=-\sin t$，$0\le t\le2\pi$，所以$\oint x\dd y=-\int_0^{2\pi}\cos^2t\dd t=-\pi$。也可逆时针Green公式给面积$\pi$，再因方向相反取负。\quad\hyperref[q:8:4]{返回题目}
+
+\subsection*{习题\ref{q:8:5}}\phantomsection\label{a:8:5}\textbf{完整推导} $\dd(xy)$是全微分，沿任意分段光滑路径积分只依赖端点。结果$(xy)_{\rm end}-(xy)_{\rm start}=3\cdot4-1\cdot2=10$。无需知道中间路径，前提是势函数$xy$在路径邻域定义。\quad\hyperref[q:8:5]{返回题目}
+
+\subsection*{习题\ref{q:8:6}}\phantomsection\label{a:8:6}\textbf{完整推导} 圆盘上侧的单位法向量为$(0,0,1)$，恒场点乘法向为2。通量$\iint_D2\dd A=2\pi$。如果取下侧法向，结果应为$-2\pi$；第二类曲面积分依赖方向。\quad\hyperref[q:8:6]{返回题目}
+
+\subsection*{习题\ref{q:8:7}}\phantomsection\label{a:8:7}\textbf{完整推导} 场在单位球内部及边界光滑，可用Gauss。散度为$3(x^2+y^2+z^2)$，所以外通量$3\iiint_B\rho^2\dd V=3\cdot4\pi\int_0^1\rho^4\dd\rho=\frac{12\pi}{5}$。这里径向函数与球坐标直接配合。\quad\hyperref[q:8:7]{返回题目}
+
+\subsection*{习题\ref{q:8:8}}\phantomsection\label{a:8:8}\textbf{完整推导} 将$L$参数化为$\bm r(t),a\le t\le b$，闭合给$\bm r(a)=\bm r(b)$。链式法则$\nabla f(\bm r(t))\cdot\bm r'(t)=\frac{\dd}{\dd t}f(\bm r(t))$。积分为$f(\bm r(b))-f(\bm r(a))=0$。对分段光滑曲线分段求和，内部端点相消。\quad\hyperref[q:8:8]{返回题目}
+
+\subsection*{习题\ref{q:8:9}}\phantomsection\label{a:8:9}\textbf{完整推导} 取$F=(-\frac{y}{x^2+y^2},\frac{x}{x^2+y^2})$，在穿孔平面上有$Q_x-P_y=0$。但沿逆时针单位圆$x=\cos t,y=\sin t$，$P\dd x+Q\dd y=\dd t$，环路积分$2\pi\ne0$。若存在全域单值势函数，闭路积分应为0，矛盾。问题出在定义域有洞，不能把局部无旋直接提升为全局路径无关。\quad\hyperref[q:8:9]{返回题目}
+
+\section{第9章习题详解}
+
+\subsection*{习题\ref{q:9:1}}\phantomsection\label{a:9:1}\textbf{完整推导} 这是$p=2>1$的正项$p$级数。可由积分判别严格证明：$x^{-2}$正且递减，$\int_1^\infty x^{-2}\dd x=1<\infty$，所以$\sum_{n\ge1}n^{-2}$收敛，且为绝对收敛。判敛无需先知道精确和。\quad\hyperref[q:9:1]{返回题目}
+
+\subsection*{习题\ref{q:9:2}}\phantomsection\label{a:9:2}\textbf{完整推导} 一般项$\frac{n}{n+1}\to1\ne0$。级数收敛的必要条件是一般项趋0，故本级数发散。也可从$n\ge1$每项至少$\frac{1}{2}$，部分和无界得到正无穷发散。\quad\hyperref[q:9:2]{返回题目}
+
+\subsection*{习题\ref{q:9:3}}\phantomsection\label{a:9:3}\textbf{完整推导} 有限几何和$S_N=\sum_{n=0}^N(\frac{1}{3})^n=\frac{1-(\frac{1}{3})^{N+1}}{1-\frac{1}{3}}$。因$|(\frac{1}{3})|<1$，余项幂趋0，所以无穷和$\frac{1}{1-\frac{1}{3}}=\frac{3}{2}$。首项指标0不能漏掉。\quad\hyperref[q:9:3]{返回题目}
+
+\subsection*{习题\ref{q:9:4}}\phantomsection\label{a:9:4}\textbf{完整推导} 取绝对值后为$\sum\frac{1}{n^2}$，该级数由$p$判别收敛。因此原级数绝对收敛，当然也普通收敛。仅用Leibniz只能给普通收敛，不能据此判为条件收敛。\quad\hyperref[q:9:4]{返回题目}
+
+\subsection*{习题\ref{q:9:5}}\phantomsection\label{a:9:5}\textbf{完整推导} 比值$\left|\frac{\frac{x^{n+1}}{(n+1)^2}}{\frac{x^n}{n^2}}\right|\to|x|$，所以半径为1。$|x|<1$绝对收敛，$|x|>1$一般项不趋0。$x=1$为$\sum\frac{1}{n^2}$，$x=-1$的绝对值仍是该收敛级数，因此两个端点都收敛，实收敛域$[-1,1]$。\quad\hyperref[q:9:5]{返回题目}
+
+\subsection*{习题\ref{q:9:6}}\phantomsection\label{a:9:6}\textbf{完整推导} 在$|x|<1$，几何级数$\sum_{n\ge0}x^n=\frac{1}{1-x}$可逐项求导，得$\sum_{n\ge1}nx^{n-1}=\frac{1}{(1-x)^2}$。乘$x$后代$x=\frac{1}{3}$，得到$\sum \frac{n}{3^n}=\frac{\frac{1}{3}}{(\frac{2}{3})^2}=\frac{3}{4}$。代入点在收敛半径内部，交换合法。\quad\hyperref[q:9:6]{返回题目}
+
+\subsection*{习题\ref{q:9:7}}\phantomsection\label{a:9:7}\textbf{完整推导} 对全部$x\in[-1,1]$，有$|\frac{x^n}{n^2}|\le\frac{1}{n^2}$。控制级数$\sum\frac{1}{n^2}$收敛，故由Weierstrass M判别法得到原函数项级数在整个闭区间上一致且绝对收敛。端点也被同一控制包含。\quad\hyperref[q:9:7]{返回题目}
+
+\subsection*{习题\ref{q:9:8}}\phantomsection\label{a:9:8}\textbf{完整推导} 由本章Fourier求和所得$\sum_{n\ge1}\frac{1}{n^2}=\frac{\pi^2}{6}$。将绝对收敛级数分成奇、偶指标，偶项和$\sum\frac{1}{(2n)^2}=\frac14(\frac{\pi^2}{6})=\frac{\pi^2}{24}$。所以奇项和$\frac{\pi^2}{6}-\frac{\pi^2}{24}=\frac{\pi^2}{8}$。拆分合法依据绝对收敛。\quad\hyperref[q:9:8]{返回题目}
+
+\subsection*{习题\ref{q:9:9}}\phantomsection\label{a:9:9}\textbf{完整推导} 裂项$\frac{1}{n(n+2)}=\frac12(\frac{1}{n}-\frac{1}{n+2})$。有限部分和$S_N=\frac12(1+\frac{1}{2}-\frac{1}{N+1}-\frac{1}{N+2})$。令$N\to\infty$得和$\frac{3}{4}$。应先写有限和抵消，再取极限，而不是直接对发散调和和相减。\quad\hyperref[q:9:9]{返回题目}

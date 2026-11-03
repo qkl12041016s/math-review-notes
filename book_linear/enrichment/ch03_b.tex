@@ -1,0 +1,22 @@
+\begin{insight}{Schmidt是在提取“新增的方向”}
+把$\va_2$沿$\va_1$的部分减掉，剩余$\vu_2$才是第二个向量带来的新信息。若减完为零，表示$\va_2$没有新增方向；若非零，把它单位化，便得到一条与第一方向垂直的坐标轴。正交化改变基，却保留每一步已生成的空间。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.5]
+\draw[laaxis](-.4,0)--(3.1,0);\draw[laaxis](0,-.25)--(0,2.4);
+\draw[lavec,Ink](0,0)--(2.5,0)node[right]{$\va_1$};
+\draw[lavec,Gold](0,0)--(1.2,1.7)node[above]{$\va_2$};
+\draw[lavec,Teal](0,0)--(0,1.7)node[above left]{$\vu_2$};
+\draw[lavec,Teal!70](0,0)--(1.2,0)node[midway,below]{$p$};
+\draw[dashed,Teal](1.2,0)--(1.2,1.7)--(0,1.7);
+\draw[Ink!60](1.02,0)--(1.02,.18)--(1.2,.18);
+\node[lanote]at(3.3,1.3){$p=\frac{\va_1\T\va_2}{\va_1\T\va_1}\va_1$\\[3pt]$\vu_2=\va_2-p$};
+\end{tikzpicture}
+\caption{投影部分$p$属于旧方向，余量$\vu_2$与旧方向正交。}\label{fig:gs-geometry}
+\end{figure}
+\begin{clevertrick}{先减投影，再放大去分母}
+例\ref{ex:3-13}中$u_1=(1,1,0)\T$，第二条减投影得到$u_2=(\frac{1}{2},-\frac{1}{2},1)\T$。先取$w_2=2u_2=(1,-1,2)\T$，则
+\[u_1\T w_2=1-1+0=0,\qquad\norm{w_2}^2=1+1+4=6.\]
+故单位化结果$\frac{w_2}{\sqrt6}=\frac{(1,-1,2)\T}{\sqrt6}$。若直接单位化$u_2$，其长度为$\sqrt{\frac{1}{4}+\frac{1}{4}+1}=\frac{\sqrt6}{2}$，也得到同一向量。原方向与生成空间没有改变，因为$w_2=2u_2$与$u_2=\frac{w_2}{2}$可以互相表示。一般非零倍乘保持正交方向，能减少后续分数；若乘数为负，单位向量只反向，不影响单位正交基的合法性。
+\textbf{易错提示：}单位化可以最后做，但下一次投影若使用尚未单位化的$\vu_j$，分母$\vu_j\T\vu_j$绝不能省略。
+\end{clevertrick}

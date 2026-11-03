@@ -1,0 +1,15 @@
+\section{微分方程的换元与退化分支}\label{ic:delta_ode}
+
+\begin{examtip}本节逐步演示倒置自变量、仿射齐次化、高阶Euler方程及非常系数坐标变换。\end{examtip}
+
+\subsection{将自变量与因变量交换}\label{ic:delta_ode:invert}\begin{method}{将自变量与因变量交换}\textbf{识别信号} $y'(x)$的倒数作为$x(y)$方程更简单。\par \textbf{操作步骤} 先单列$y'=0$的候选支路，再在可逆段写$\frac{\dd x}{\dd y}=\frac{1}{y'}$，解新方程，最后代回原式。\par \textbf{疑难点与条件} 不是全局每个解都可反函数化；常值解可能被倒置丢掉。\end{method}
+
+\begin{example}{竞赛风格｜倒置后变一阶线性}{难度：$\star\star\star$}\label{ic:ex:delta_ode:invertcase}\textbf{题目} 解$y'=\frac{y}{2x+y}$。\par \textbf{思路} 非零支路看作$x(y)$。\par \textbf{详细解答} 当$y\ne0$时，$\frac{\dd x}{\dd y}-\frac{2x}{y}=1$，积分因子$y^{-2}$给$(\frac{x}{y^2})'=y^{-2}$，所以$x=Cy^2-y$，即$x+y=Cy^2$。另有$y\equiv0$，它在不含$x=0$的区间满足原式。\par \textbf{验算与条件复核} 隐式式求导得$1+y'=2Cyy'$，结合$2Cy=\frac{2x+2y}{y}$可还原原方程；还须排除$2x+y=0$。\par \textbf{疑难点与方法比较} 补零解并检查原分母，是倒置法的两个关键。\end{example}
+
+\subsection{仿射分式的平移齐次化}\label{ic:delta_ode:affine}\begin{method}{仿射分式的平移齐次化}\textbf{识别信号} $y'=\frac{a_1x+b_1y+c_1}{a_2x+b_2y+c_2}$。\par \textbf{操作步骤} 若两行线性系数不成比例，先解两条分子分母零线的交点，再平移消常数并设$v=\frac{Y}{X}$；若成比例，取公共线性组合为变量，转成可分离式。\par \textbf{疑难点与条件} 换元中除掉$v$或$1-v$时单列特殊直线解；最终解可在原方程正则处延拓。\end{method}
+
+\begin{example}{竞赛风格｜平移、比值与特殊解}{难度：$\star\star\star$}\label{ic:ex:delta_ode:affinecase}\textbf{题目} 解$y'=\frac{2y+4}{x+y-1}$。\par \textbf{思路} 两零线交于$(3,-2)$。\par \textbf{详细解答} 取$X=x-3,Y=y+2$，得$Y'=\frac{2Y}{X+Y}$。在$X\ne0$令$v=\frac{Y}{X}$，则$Xv'=\frac{v(1-v)}{1+v}$，分离积分$\ln|v|-2\ln|1-v|=\ln|X|+C$。还原得$(x-y-5)^2=C_1(y+2)$。特殊支$v=1$为$y=x-5$，已在$C_1=0$中；被除掉的$v=0$给额外解$y=-2$。\par \textbf{验算与条件复核} 对隐式式求导并用该式消$C_1$，得到$y'=\frac{2(y+2)}{x+y-1}$。所有解均只在原分母非零的正则区间取用。\par \textbf{疑难点与方法比较} 隐式常数改写可能丢常值支路，不能只给一个形式就停止检查。\end{example}
+
+\begin{example}{竞赛风格｜三阶Euler的算子展开}{难度：$\star\star\star$}\label{ic:ex:delta_ode:eulerthirdorder}\textbf{题目} 解$x^3y'''+x^2y''-4xy'=3x^2$，$x>0$。\par \textbf{思路} 令$t=\ln x$，逐阶保留$D(D-1)$结构。\par \textbf{详细解答} 有$xy'=Dv,x^2y''=D(D-1)v,x^3y'''=D(D-1)(D-2)v$。方程化为$D(D-3)(D+1)v=3\e^{2t}$。齐次解$C_1+C_2\e^{-t}+C_3\e^{3t}$；因$P(2)=-6$，特解$-\frac{\e^{2t}}{2}$。所以$y=C_1+\frac{C_2}{x}+C_3x^3-\frac{x^2}{2}$。\par \textbf{验算与条件复核} 原算子作用于$x^r$给$r(r-3)(r+1)x^r$，对$r=2$给$-6x^2$，验证全部分量。\par \textbf{疑难点与方法比较} 不能把$x^3y'''$误写为单纯$D^3v$。\end{example}
+
+\begin{example}{竞赛风格｜非常系数方程的坐标拉直}{难度：$\star\star\star$}\label{ic:ex:delta_ode:tangentcoordinate}\textbf{题目} 解$\cos^2x\,y''-(\sin2x-2)y'+\sec^2x\,y=\tan^3x+\tan x$，在$\cos x\ne0$区间。\par \textbf{思路} 设$t=\tan x,y=v(t)$，最高阶系数与$t'$相配。\par \textbf{详细解答} $y'=(1+t^2)v'$、$y''=(1+t^2)^2v''+2t(1+t^2)v'$。代入后全部方程除以$1+t^2$，得到$v''+2v'+v=t$。齐次解$(C_1+C_2t)\e^{-t}$，一次特解$t-2$。答案$y=(C_1+C_2\tan x)\e^{-\tan x}+\tan x-2$。\par \textbf{验算与条件复核} 链式导数代入显示$v'$中的$2t$项先相消，余下常系数式；$v=t-2$代入为$t$。\par \textbf{疑难点与方法比较} 必须计算二阶链式的附加项，不能只平方一阶变换系数。\end{example}

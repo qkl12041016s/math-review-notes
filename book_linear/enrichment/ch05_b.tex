@@ -1,0 +1,20 @@
+\begin{insight}{同一个特征值也可能藏着剪切}
+矩阵$J=\begin{pmatrix}1&1\\0&1\end{pmatrix}$所有特征值都是1，但它并非恒等变换。它只在水平轴上保持向量不变；对$e_2$连续作用，每一步都沿水平轴多走一格。特征多项式没有记录下这条“传递链”，Jordan结构补上了它。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.25]
+\draw[laaxis](-.3,0)--(4.4,0)node[right]{$x$};\draw[laaxis](0,-.2)--(0,1.8)node[above]{$y$};
+\draw[dashed,Teal!50](-.1,1)--(3.6,1);
+\foreach \m in {0,1,2,3}{\draw[lavec,Teal!75](0,0)--(\m,1);\node[lapt]at(\m,1){};\node[font=\small,above]at(\m,1.08){$m=\m$};}
+\draw[-{Stealth},Gold,thick](.2,1.45)--(2.8,1.45)node[midway,above]{每次增加$e_1$};
+\node[lanote]at(5,1){$J^m e_2=(m,1)\T$\\[3pt]$E_1=\Span(e_1)$};
+\end{tikzpicture}
+\caption{特征值相同仍可产生剪切；一次项$m$反映长度2的Jordan链。}\label{fig:jordan-shear}
+\end{figure}
+\begin{clevertrick}{唯一特征值时，先看是否为标量阵}
+在特征多项式分裂的数域中，若$n$阶矩阵只有特征值$\lambda$，它可对角化当且仅当$A=\lambda I$。必要性：若$A=PDP\inv$且$D$对角，所有对角元均只能是$\lambda$，故
+\[A=P(\lambda I)P\inv=\lambda PP\inv=\lambda I.\]
+充分性：若$A=\lambda I$，任意一组基的每个向量都被乘$\lambda$，其表示本来就是对角矩阵。例\ref{ex:5-6}只有根2而非$2I$，所以立即排除对角化。
+图中的$J=I+N$满足$N^2=0,Ne_2=e_1$，因此$J^me_2=e_2+m e_1=(m,1)\T$，长度$\sqrt{m^2+1}$随$m\to\infty$无界。这个显式计算说明“全部特征值模不超过1”本身不足以保证矩阵幂有界。
+\textbf{易错提示：}图中所有特征值的模均为1，并不能推出幂保持有界；$J^m e_2$的长度仍随$m$增大。谱相同也不能推出动力学行为相同。
+\end{clevertrick}

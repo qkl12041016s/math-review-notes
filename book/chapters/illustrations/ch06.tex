@@ -1,0 +1,7 @@
+\section{图解：鞍点不是极值}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.8\textwidth,height=6.5cm,view={45}{25},xlabel=$x$,ylabel=$y$,zlabel=$z$,domain=-1.2:1.2,y domain=-1.2:1.2,samples=17]
+\addplot3[surf,shader=flat,draw=Ink!35,fill=Teal!35]{x^2-y^2};
+\end{axis}\end{tikzpicture}
+\caption{$f=x^2-y^2$在原点梯度为0，但沿$x$轴取正值、沿$y$轴取负值。Hessian为$\operatorname{diag}(2,-2)$，二次型不定，故原点是鞍点。可视化用于显示符号方向，严格判定依赖这两条截线或二次型。}\label{fig:review:saddle}
+\end{figure}

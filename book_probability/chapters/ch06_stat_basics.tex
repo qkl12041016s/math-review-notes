@@ -1,0 +1,273 @@
+\chapter{数理统计的基本概念与抽样分布}\label{ch:06}
+\chaptermap{总体与样本\\统计量}{均值与方差\\经验分布}{卡方、t、F\\正态正交分解}{两样本与次序\\枢轴量准备}
+\begin{examtip}
+\textbf{考研核心：}统计量、样本矩、三大抽样分布、正态样本均值与方差的独立性。
+\textbf{竞赛视角：}正交投影、Beta比值、极值枢轴。
+\textbf{测度关联：}统计量是样本的可测函数，参数固定时其分布来自抽样随机性。
+\end{examtip}
+\section{总体、样本与经验分布}\label{sec:61}
+\src{李东风, §6.1、§6.3；统计笔记, §4}
+\begin{definition}{统计量与样本矩}
+总体由分布族$\{F_\theta:\theta\in\Theta\}$描述；简单随机样本指iid $X_1,\ldots,X_n$。
+统计量$T=t(X_1,\ldots,X_n)$的表达式不含未知参数。
+记$\bar X=n^{-1}\sum X_i$、$A_k=n^{-1}\sum X_i^k$、$S^2=(n-1)^{-1}\sum(X_i-\bar X)^2$（$n\ge2$）。
+经验CDF为$F_n(x)=n^{-1}\sum_i\ind_{\{X_i\le x\}}$。
+\end{definition}
+\begin{theorem}{无偏方差与经验分布的点态性质}
+总体方差有限时$\E S^2=\sigma^2$。
+固定$x$时$\E F_n(x)=F(x)$，$\Var F_n(x)=\frac{F(x)(1-F(x))}{n}$，因此$F_n(x)\pto F(x)$。
+\end{theorem}
+\begin{proof}
+由平方和分解
+\[\sum(X_i-\bar X)^2=\sum(X_i-\mu)^2-n(\bar X-\mu)^2,\]
+取期望得$n\sigma^2-\sigma^2=(n-1)\sigma^2$。
+经验CDF是iid Bernoulli$(F(x))$的平均，均值方差及点态收敛直接由前章结果。
+\end{proof}
+\begin{method}{区分样本表达式与参数枢轴}
+适用：判断统计量、计算样本矩。先检查表达式是否含未知参数；枢轴量允许含参数，但其分布不含未知量。
+经验CDF在样本点处采用“$\le$”，所以右连续；样本方差的分母按所需目标选$n$或$n-1$。
+\end{method}
+\worked{样本方差的两种计算}{基础例题}{\star}{6-1}
+{样本为$1,2,3,4$，求$\bar x,s^2$。}
+{直接离差与原点平方和互证。}
+{$\bar x=\frac{5}{2}$。
+方法一：离差平方和$\frac{9}{4}+\frac{1}{4}+\frac{1}{4}+\frac{9}{4}=5$，所以$s^2=\frac{5}{3}$。
+方法二：$\sum x_i^2-n\bar x^2=30-\frac{4\cdot25}{4}=5$，仍除以$n-1=3$。
+分母$n$的二阶样本中心矩则为$\frac{5}{4}$。}
+{原点平方和公式便于手算，离差法便于直观检查。}
+{描述性样本中心矩与无偏样本方差不是同一数值。}
+\worked{哪些是统计量}{考研风格}{\star}{6-2}
+{总体均值$\mu$、方差$\sigma^2$未知，判断$\bar X,S^2,\frac{\sqrt n(\bar X-\mu)}{\sigma}$是否为统计量。}
+{看表达式是否可仅由观测值算出。}
+{$\bar X,S^2$是统计量；第三个表达式含两个未知参数，不是统计量。
+在正态模型下它服从标准正态，是构造区间的枢轴量。
+将$\mu$替换成原假设指定的常数$\mu_0$并用$S$学生化后，$\frac{\sqrt n(\bar X-\mu_0)}{S}$是可计算的检验统计量。}
+{同一代数形式在参数被假设指定后，角色可能改变。}
+{“分布已知”与“表达式不含参数”是两种不同要求。}
+\worked{经验分位数的概率事件}{竞赛风格}{\star\star}{6-3}
+{连续总体CDF为$F$，证明$\Pp(X_{(k)}\le x)=\sum_{j=k}^n\binom njF(x)^j(1-F(x))^{n-j}$。}
+{次序阈值转换成计数阈值。}
+{$X_{(k)}\le x$当且仅当至少$k$个样本不超过$x$。
+计数$N_x=\sum_i\ind_{\{X_i\le x\}}\sim\Bin(n,F(x))$，对其从$k$到$n$求和即得。
+此CDF表达式不要求密度存在；连续性只是避免讨论并列次序的直觉歧义。}
+{二项计数统一处理全部次序统计量。}
+{若求$X_{(k)}>x$，对应的是最多$k-1$个不超过$x$。}
+
+\section{卡方、t与F分布}\label{sec:62}
+\src{李东风, §7.3；统计笔记, §4}
+\begin{definition}{三大分布的构造}
+正整数$\nu$时，独立$Z_j\sim\Normal(0,1)$的平方和$U=\sum_{j=1}^\nu Z_j^2$定义卡方分布$\chi_\nu^2$。
+一般$\nu>0$时定义$\chi_\nu^2=\Ga(\frac{\nu}{2},\frac{1}{2})$，与整数构造一致。下述$t$与$F$构造允许$\nu,a,b$为任意正实数。
+若独立$Z\sim\Normal(0,1),U\sim\chi_\nu^2$，则$T=\frac{Z}{\sqrt{\frac{U}{\nu}}}\sim t_\nu$。
+若独立$U\sim\chi_a^2,V\sim\chi_b^2$，则$\frac{\frac{U}{a}}{\frac{V}{b}}\sim F_{a,b}$。
+\end{definition}
+\begin{theorem}{密度与基本关系}
+\begin{align*}
+f_{\chi_\nu^2}(u)&=\dfrac{u^{\frac{\nu}{2}-1}e^{-\frac{u}{2}}}{2^{\frac{\nu}{2}}\Gamma(\frac{\nu}{2})},\quad u>0,\\
+f_{t_\nu}(t)&=\dfrac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\nu\pi}\Gamma(\frac{\nu}{2})}(1+\dfrac{t^2}{\nu})^{-\frac{\nu+1}{2}},\\
+f_{F_{a,b}}(w)&=\dfrac{\Gamma(\frac{a+b}{2})(\frac{a}{b})^{\frac{a}{2}}}{\Gamma(\frac{a}{2})\Gamma(\frac{b}{2})}
+w^{\frac{a}{2}-1}(1+\dfrac{aw}{b})^{-\frac{a+b}{2}},\quad w>0.
+\end{align*}
+$\chi_\nu^2=\Ga(\frac{\nu}{2},\frac{1}{2})$，$T^2\sim F_{1,\nu}$，$\frac{1}{F_{a,b}}\sim F_{b,a}$。
+\end{theorem}
+\begin{proof}
+$Z^2$有两个逆像，密度为$\frac{u^{-\frac{1}{2}}e^{-\frac{u}{2}}}{\sqrt{2\pi}}$；独立和的Gamma卷积使形状相加，得到卡方密度。
+对$t$分布令$z=t\sqrt{\frac{u}{\nu}}$，雅可比$\sqrt{\frac{u}{\nu}}$。密度乘积对$u$积分，核心Gamma积分为
+\[\int_0^\infty u^{\frac{\nu+1}{2}-1}e^{-\frac{(1+\frac{t^2}{\nu})u}{2}}\dd u
+=\dfrac{\Gamma(\frac{\nu+1}{2})}{[\frac{1+\frac{t^2}{\nu}}{2}]^{\frac{\nu+1}{2}}},\]
+配合常数即得$t$密度。
+对$F$令$u=(\frac{a}{b})wv$，雅可比$(\frac{a}{b})v$；两个卡方密度乘积对$v$积分，形状为$\frac{a+b}{2}$、率为$\frac{1+\frac{aw}{b}}{2}$，化简得第三式。
+平方与倒数关系直接由定义，独立性沿用原构造。
+\end{proof}
+\begin{method}{把随机式配成定义的标准形}
+适用：含平方和、标准正态除随机尺度、两个方差比。逐项核对分布、自由度、缩放和独立性。
+$\frac{U}{V}$本身不是标准$F$，必须除各自自由度。
+\end{method}
+\worked{平方和与正交方向}{基础例题}{\star\star}{6-4}
+{独立标准正态$Z_1,Z_2$，求$U=Z_1^2+Z_2^2$的分布。}
+{直接定义与极坐标两法。}
+{方法一：卡方定义给$U\sim\chi_2^2=\Exp(\frac{1}{2})$。
+方法二：由极坐标，半径平方$U$的尾概率为$\Pp(R>\sqrt u)=e^{-\frac{u}{2}}$，因此密度$\frac12e^{-\frac{u}{2}}$。
+均值2、方差4也可由独立正态平方的矩相加验证。}
+{定义法最短，几何法说明指数尾的来源。}
+{把$Z_1+Z_2$再平方不等于两个平方之和。}
+\worked{t平方与F}{考研风格}{\star\star}{6-5}
+{$T\sim t_{10}$，把$\Pp(|T|>c)$写成$F$分布尾概率。}
+{把双侧对称事件平方。}
+{由定义$T=\frac{Z}{\sqrt{\frac{U}{10}}}$，其中$Z^2\sim\chi_1^2$且与$U$独立。
+所以$T^2=\frac{\frac{Z^2}{1}}{\frac{U}{10}}\sim F_{1,10}$，$\Pp(|T|>c)=\Pp(F_{1,10}>c^2)$（$c\ge0$）。
+特别有$F_{1,10;1-\alpha}=t_{10,1-\frac{\alpha}{2}}^2$。}
+{对称双侧$t$检验与一自由度$F$检验等价。}
+{平方后尾概率不再额外乘2，双侧已包含在平方事件中。}
+\worked{F的倒数分位数}{考研风格}{\star\star}{6-6}
+{证明$F_{a,b;u}=\frac{1}{F_{b,a;1-u}}$。}
+{倒数交换自由度，并逆转不等号。}
+{若$W\sim F_{a,b}$，则$\frac{1}{W}\sim F_{b,a}$。
+对连续分布，$\Pp(W\le w)=\Pp(\frac{1}{W}\ge\frac{1}{w})=1-F_{b,a}(\frac{1}{w})$。
+令左边为$u$，得$\frac{1}{w}=F_{b,a;1-u}$，即所需关系。}
+{下侧分位数约定能系统处理倒数与尾部变化。}
+{只倒数不交换$a,b$，或者不改$u$为$1-u$，均不正确。}
+
+\section{正态总体的抽样分布}\label{sec:63}
+\src{李东风, §7.3；统计笔记, §4}
+\begin{theorem}{均值、方差及其独立性}\label{thm:normal-sample}
+若$X_i\iid\Normal(\mu,\sigma^2)$，$n\ge2$且$\sigma^2>0$，则
+\[\bar X\sim\Normal(\mu,\dfrac{\sigma^2}{n}),\quad\dfrac{(n-1)S^2}{\sigma^2}\sim\chi_{n-1}^2,
+\quad\bar X\indep S^2.\]
+因此$\frac{\sqrt n(\bar X-\mu)}{S}\sim t_{n-1}$。
+\end{theorem}
+\begin{proof}
+令$Z_i=\frac{X_i-\mu}{\sigma}$，取正交矩阵$Q$首行为$\frac{\ind^\mathsf T}{\sqrt n}$，其中$\ind$为全1向量。
+$U=QZ$的密度保持为$(2\pi)^{-\frac{n}{2}}e^{-\sum \frac{u_i^2}{2}}$，各坐标独立标准正态。
+首坐标$U_1=\frac{\sqrt n(\bar X-\mu)}{\sigma}$，其余平方和
+\[\sum_{j=2}^nU_j^2=\sum_iZ_i^2-U_1^2=\sigma^{-2}\sum_i(X_i-\bar X)^2.\]
+独立坐标块给出卡方与均值独立；最后配$t$定义。
+\end{proof}
+\begin{method}{估计一个均值，损失一个自由度}
+适用：正态样本标准化。先把总平方和拆成均值方向的一维与残差方向的$n-1$维。
+自由度是独立正态平方项的个数，不是凭分母外观猜测。一般总体中均值和方差不必独立。
+\end{method}
+\worked{两观测值的样本方差}{考研风格}{\star\star}{6-7}
+{$X_1,X_2$ iid $\Normal(\mu,\sigma^2)$，求$\frac{S^2}{\sigma^2}$分布，并证明与$\bar X$独立。}
+{直接构造和差与一般定理对照。}
+{方法一：$S^2=\frac{(X_1-X_2)^2}{2}$；标准化变量$\frac{X_1-X_2}{\sqrt2\sigma}$服从标准正态，故$\frac{S^2}{\sigma^2}\sim\chi_1^2$。
+和差联合正态且协方差为0，因而独立，平方后仍与和独立。
+方法二：定理\ref{thm:normal-sample}取$n=2$，直接得自由度1及独立性。}
+{小样本直接和差展示一般正交分解的具体形状。}
+{样本方差中$S$与$S^2$不能在学生化分母中互换。}
+\worked{真均值与样本均值中心化的平方和}{考研风格}{\star\star}{6-8}
+{正态样本中，比较$\sum\frac{(X_i-\mu)^2}{\sigma^2}$与$\sum\frac{(X_i-\bar X)^2}{\sigma^2}$。}
+{均值是否已知决定是否删去均值方向。}
+{第一项是$n$个独立标准正态平方和，服从$\chi_n^2$；第二项服从$\chi_{n-1}^2$。
+两者差为$\frac{n(\bar X-\mu)^2}{\sigma^2}\sim\chi_1^2$，且与第二项独立，因此自由度$1+(n-1)=n$。
+这也从分布上验证了平方和分解。}
+{以真均值中心化不估计参数，以样本均值中心化投掉一维。}
+{不应把已知$\mu$的问题仍机械使用$n-1$。}
+\worked{Beta比值结构}{竞赛风格}{\star\star\star}{6-9}
+{独立$U\sim\chi_a^2,V\sim\chi_b^2$，求$R=\frac{U}{U+V}$的分布。}
+{两者都是同率Gamma，使用和比变换。}
+{令$s=u+v,r=\frac{u}{s}$，逆变换$u=sr,v=s(1-r)$，雅可比$s$。
+联合密度分解为$\Ga(\frac{a+b}{2},\frac{1}{2})$的$s$密度乘
+$\frac{\Gamma(\frac{a+b}{2})}{\Gamma(\frac{a}{2})\Gamma(\frac{b}{2})}r^{\frac{a}{2}-1}(1-r)^{\frac{b}{2}-1}$。
+故$R\sim\Beta(\frac{a}{2},\frac{b}{2})$且与总和独立。}
+{同率Gamma和比独立是指数例题的普遍化。}
+{Beta的参数是自由度的一半，不是自由度本身。}
+
+\section{两独立正态样本}\label{sec:64}
+\src{李东风, §7.4；统计笔记, §4}
+\begin{theorem}{方差比与合并尺度}
+两独立正态样本容量$m,n\ge2$，均值$\mu_X,\mu_Y$，方差$\sigma_X^2,\sigma_Y^2>0$，有
+$\frac{\frac{S_X^2}{\sigma_X^2}}{\frac{S_Y^2}{\sigma_Y^2}}\sim F_{m-1,n-1}$。
+若方差共同为$\sigma^2$，令
+\[S_p^2=\dfrac{(m-1)S_X^2+(n-1)S_Y^2}{m+n-2},\]
+则$\frac{(\bar X-\bar Y)-(\mu_X-\mu_Y)}{S_p\sqrt{\frac{1}{m}+\frac{1}{n}}}\sim t_{m+n-2}$。
+\end{theorem}
+\begin{proof}
+两个标准化方差为独立卡方，按自由度相除得$F$。
+方差相等时两卡方可相加，$\frac{(m+n-2)S_p^2}{\sigma^2}\sim\chi_{m+n-2}^2$；均值差标准化为独立标准正态，配成$t$即得。
+\end{proof}
+\begin{method}{先问等方差，再选合并尺度}
+适用：比较两均值或两方差。独立样本可相加方差；配对数据应先作差，不可假装两组独立。
+Welch统计量在不等方差时一般采用近似自由度，不能冠以精确$t$。
+\end{method}
+\worked{两样本均值差的方差}{基础例题}{\star\star}{6-10}
+{两独立正态样本容量4和9，共同方差$\sigma^2$，求$\bar X-\bar Y$方差及标准化分布。}
+{标量方差相加与向量线性组合两法。}
+{方法一：方差$\frac{\sigma^2}{4}+\frac{\sigma^2}{9}=\frac{13\sigma^2}{36}$，所以$\frac{6[(\bar X-\bar Y)-(\mu_X-\mu_Y)]}{\sqrt{13}\sigma}$为标准正态。
+方法二：把13个观测放入一向量，系数前4个为$\frac{1}{4}$、后9个为$-\frac{1}{9}$；协方差$\sigma^2I$，方差为$\sigma^2\|a\|^2=\frac{13\sigma^2}{36}$。}
+{向量法把所有线性统计量统一为系数平方和。}
+{均值相减时方差仍相加，负号被平方吸收。}
+\worked{合并样本方差}{考研风格}{\star\star}{6-11}
+{独立等方差正态样本，$m=5,n=7,S_X^2=3,S_Y^2=5$，求合并方差和$t$自由度。}
+{按残差自由度加权。}
+{$S_p^2=\frac{4\cdot3+6\cdot5}{10}=4.2$，自由度为$5+7-2=10$。
+均值差的估计标准误为$\sqrt{4.2(\frac{1}{5}+\frac{1}{7})}=\sqrt{1.44}=1.2$。
+两组容量不等时，不能用两个样本方差的简单算术平均。}
+{每组先估计一个均值，所以各损失一维残差自由度。}
+{合并公式只在共同方差模型中用于精确推断。}
+\worked{经验CDF的可测性}{测度论选学}{\star\star}{6-12}
+{说明固定$x$时$F_n(x)$为什么是统计量；对任意有界可测$g$，解释$\int g\dd F_n=n^{-1}\sum_i g(X_i)$。}
+{经验分布在每个样本点放置质量$\frac{1}{n}$。}
+{$F_n(x)$是指标函数的有限和，因此对样本可测，表达式不含未知参数。
+经验概率为$\Pp_n=n^{-1}\sum_i\delta_{X_i}$，积分线性给$\int g\dd\Pp_n=n^{-1}\sum_i g(X_i)$。
+重复样本值的质量相加，所以经验分布仍是总质量1的离散概率。}
+{样本矩是经验分布的矩，使描述统计与积分语言接通。}
+{经验CDF是随机函数，固定样本后才成为一条确定阶梯线。}
+
+\section{次序样本、极值与分布无关变换}\label{sec:65}
+\src{李东风, §3.5、§6.4；次序样本枢轴}
+\begin{theorem}{连续总体的均匀化与极值枢轴}
+连续CDF$F$下，$F(X_i)$为iid $U(0,1)$，所以$F(X_{(k)})\sim\Beta(k,n+1-k)$。
+若$X_i\iid U(0,\theta)$，则$\frac{M}{\theta}$的CDF为$u^n$（$0<u<1$），$M=X_{(n)}$。
+\end{theorem}
+\begin{proof}
+概率积分变换使样本均匀化；$F$非严格递增的平坦区间本身概率为零，不影响次序变换。
+均匀次序密度代入前章公式即得Beta；最大值式由所有$X_i\le\theta u$的独立事件相乘。
+\end{proof}
+\begin{method}{参数进入支撑时优先看极值}
+适用：均匀端点、截断边界。最大值决定可行参数集合；用$\frac{M}{\theta}$、最小值平移等构造分布无参数的枢轴。
+此类模型不宜无检查套用正则Fisher信息下界。
+\end{method}
+\worked{均匀最大值的期望}{考研风格}{\star\star}{6-13}
+{$X_i\iid U(0,\theta)$，求$M=X_{(n)}$的均值。}
+{密度积分与尾积分互证。}
+{方法一：$f_M(m)=\frac{nm^{n-1}}{\theta^n}$，$0<m<\theta$，故$\E M=\frac{n\theta}{n+1}$。
+方法二：$\E M=\int_0^\theta[1-(\frac{t}{\theta})^n]\dd t=\theta-\frac{\theta}{n+1}$。
+所以$\frac{(n+1)M}{n}$是$\theta$的无偏估计。}
+{尾积分对极值特别简便，密度法可同时求更高矩。}
+{最大值均值小于端点，但这不妨碍其随着$n$一致逼近端点。}
+\worked{最大值的一侧置信界}{考研风格}{\star\star}{6-14}
+{在上一模型中，构造覆盖率$1-\alpha$的区间$[M,cM]$。}
+{利用$M\le\theta$几乎必然，只需控制上端覆盖。}
+{$\Pp(\theta\le cM)=\Pp(\frac{M}{\theta}\ge\frac{1}{c})=1-c^{-n}$，$c\ge1$。
+令$c^{-n}=\alpha$，得区间$[M,\frac{M}{\alpha^{\frac{1}{n}}}]$，覆盖率恰为$1-\alpha$。
+它不是以估计量为中心的对称区间，端点约束决定了合理形状。}
+{枢轴区间无需正态或对称。}
+{把$1-\alpha$放到根号内将产生错误的覆盖概率。}
+\worked{样本中位数的分布无关事件}{竞赛风格}{\star\star}{6-15}
+{总体CDF连续，$m$为其中任一中位数，独立同分布抽5个样本，求样本中位数大于$m$的概率。}
+{把次序比较变成成功率$\frac{1}{2}$的二项计数。}
+{$X_{(3)}>m$当且仅当至少3个样本大于$m$。
+因此概率$2^{-5}[\binom53+\binom54+\binom55]=\frac{16}{32}=\frac{1}{2}$。
+另一法由$F(X_{(3)})\sim\Beta(3,3)$关于$\frac{1}{2}$对称得到同值。
+总体形状可以偏斜，结论只用$F(m)=\frac{1}{2}$。}
+{分布无关结论来自秩与计数，而非总体正态。}
+{连续CDF即使有多个中位数，上述结论仍对每个中位数成立。有原子时可能$F(m)>\frac{1}{2}$，必须重新计算大于$m$的概率，不能直接套用$\frac{1}{2}$。}
+\begin{warning}
+卡方、$t$、$F$的构造均须独立。两个样本独立不代表组内中心化残差各自独立；残差总和为0，但正交坐标可独立。
+把样本方差标准化时使用真实总体方差，不能直接说$S^2$本身是标准卡方。
+\end{warning}
+
+\section*{图解、理解与巧解复盘}
+\begin{insight}{样本方差的自由度是几何维数}
+中心化残差满足$\sum_i(X_i-\bar X)=0$，因此落在与全1向量正交的$n-1$维超平面。
+残差坐标在原坐标系中并不独立；正交基下才是$n-1$个独立标准正态方向。
+这解释了“残差之间有关联”与“残差平方和服从卡方”何以同时成立。
+\end{insight}
+\begin{clevertrick}{对称两观测先作和差旋转}
+$n=2$时，$\frac{X_1+X_2-2\mu}{\sqrt2\sigma}$与$\frac{X_1-X_2}{\sqrt2\sigma}$是两个正交方向，独立标准正态。
+前者控制均值，后者的平方等于$\frac{S^2}{\sigma^2}$，不必使用复杂矩阵就能重建$t_1$构造。
+\end{clevertrick}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.8\textwidth,height=4.7cm,axis lines=left,xlabel={$t$},ylabel={密度},xmin=-4,xmax=4,ymin=0,ytick=\empty,legend style={draw=none,font=\small}]
+\addplot[Ink,thick,domain=-4:4,samples=100]{exp(-x*x/2)/sqrt(2*pi)};\addlegendentry{标准正态}
+\addplot[Gold,thick,domain=-4:4,samples=100]{1/(pi*(1+x*x))};\addlegendentry{$t_1$}
+\addplot[Teal,thick,domain=-4:4,samples=100]{2/(pi*sqrt(3))*(1+x*x/3)^(-2)};\addlegendentry{$t_3$}
+\end{axis}\end{tikzpicture}\caption{t分布因随机尺度而具有更厚尾部；自由度增加时接近正态}\label{fig:t-tails}\end{figure}
+
+\section*{章末分层习题}
+\exercise{6-a}{基础}{样本$2,4,6$，求均值、二阶原点样本矩与无偏样本方差。}
+\exercise{6-b}{基础}{独立标准正态$Z_1,Z_2,Z_3$，求$\frac{Z_1^2+Z_2^2}{2Z_3^2}$的分布。}
+\exercise{6-c}{考研风格}{正态样本量16，写$\frac{4(\bar X-\mu)}{S}$和$\frac{15S^2}{\sigma^2}$的分布。}
+\exercise{6-d}{考研风格}{独立同方差正态样本容量6和8，写合并方差及均值差$t$统计量的自由度。}
+\exercise{6-e}{竞赛拓展}{求iid $U(0,1)$样本$n$个最小值的均值与方差。}
+\exercise{6-f}{竞赛拓展}{独立$U\sim\chi_2^2,V\sim\chi_4^2$，求$\frac{U}{U+V}$的密度及均值。}
+\exercise{6-g}{测度论选学}{固定$x$，推导$F_n(x)$的均值方差，并用Chebyshev证明对每个固定$x$的依概率收敛。}
+\exercise{6-h}{测度论选学}{解释为什么任意总体下$\bar X$与$S^2$独立不成立，可用样本量2的Bernoulli反例。}
+\section*{章末方法速查}
+\begin{quicktable}
+平方和分解&有限二阶矩&无偏方差&分母$n-1$来源不清\\
+正交变换&正态样本&均值与残差独立&把一般总体当正态\\
+配分布定义&独立标准构件&卡方、t、F&自由度及缩放漏项\\
+秩与极值&连续iid或端点模型&中位数、均匀端点&并列值与非正则支撑\\
+\end{quicktable}

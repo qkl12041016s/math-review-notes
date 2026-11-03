@@ -1,0 +1,33 @@
+\label{der:jordan-full}
+\textbf{一、把不同特征值分离。}在分裂数域中写$\chi_A(t)=\prod_{i=1}^r f_i(t)$，$f_i(t)=(t-\lambda_i)^{a_i}$，根$\lambda_i$互异，令$F_i=\frac{\chi_A}{f_i}$。$f_i,F_i$互素，欧几里得算法得到多项式$u_i,v_i$使$u_iF_i+v_if_i=1$。其依据是反复带余除法求出最大公因式1，再逆序回代表示为两个原多项式的组合。
+
+令$E_i=u_i(A)F_i(A)$。对每个$j$，多项式$\sum_i u_iF_i-1$模$f_j$的余数为零：当$i\ne j$，$F_i$含$f_j$；当$i=j$，由Bezout等式余数为1。两两互素的$f_j$之积因此整除它。凯莱--哈密顿定理（证明见推导\ref{der:8-2}）给
+\[\sum_iE_i=I,\qquad f_i(A)E_i=u_i(A)\chi_A(A)=0.\]
+于是每个$x$均为$\sum_i E_ix$，其中$E_ix\in V_i:=\ker f_i(A)$。在$V_i$上，$E_i=I$；在$V_j,j\ne i$上，$E_i=0$。若$\sum_i x_i=0,x_i\in V_i$，作用$E_j$得$x_j=0$，所以$V=\bigoplus_iV_i$。限制$N_i=(A-\lambda_iI)|_{V_i}$满足$N_i^{a_i}=0$。
+
+\textbf{二、为任意幂零映射构造链基。}设$N^s=0$且$s$最小，令$K_k=\ker N^k,d_k=\dim K_k$，其中$K_0=0,K_s=K_{s+1}=V$。对$k=1,\ldots,s$选补空间$H_k$使
+\[K_k=(K_{k-1}+NK_{k+1})\oplus H_k.\]
+这是在有限维空间中把子空间基扩充成$K_k$的基。对$H_k$的每个基向量$h$，列出
+\[N^{k-1}h,\ N^{k-2}h,\ \ldots,\ h.\]
+因为$h\notin K_{k-1}$，首向量非零；又$N^kh=0$，所以这确为长度$k$的链。
+
+记全部链向量的生成空间为$S$，则$NS\subseteq S$。由$NK_{s+1}=NV\subseteq K_{s-1}$得$K_s\subseteq S+K_{s-1}$。若已经有$K_{k+1}\subseteq S+K_k$，则
+\[K_k=K_{k-1}+NK_{k+1}+H_k\subseteq K_{k-1}+NS+NK_k+S\subseteq K_{k-1}+S.\]
+从$s$向下归纳，再逐级代入，得到$V=K_s\subseteq S$，所以链向量生成全空间。
+
+还须证明没有冗余。因为$NK_{k+1}\cap K_{k-1}=NK_k$：若$Nv\in K_{k-1},v\in K_{k+1}$，则$N^kv=0$，所以$v\in K_k$；反向包含立即成立。又$\dim NK_j=d_j-d_1$，故
+\[\begin{aligned}
+\dim H_k&=d_k-\dim(K_{k-1}+NK_{k+1})\\
+&=d_k-\{d_{k-1}+(d_{k+1}-d_1)-(d_k-d_1)\}\\
+&=2d_k-d_{k-1}-d_{k+1}.
+\end{aligned}\]
+令$\delta_k=d_k-d_{k-1},\delta_{s+1}=0$，全部链向量数为
+\[\sum_{k=1}^s k\dim H_k=\sum_{k=1}^s k(\delta_k-\delta_{k+1})=\sum_{k=1}^s\delta_k=d_s=\dim V.\]
+已生成全空间且向量数等于维数，故它们无关，构成链基。
+
+\textbf{三、得到Jordan形并证明唯一。}在链序$N^{k-1}h,\ldots,h$下，$N$的矩阵是超对角为1的$J_k(0)$，加回$\lambda_i I$便是$J_k(\lambda_i)$。不同广义特征空间的链基拼接成全空间基，因此得到Jordan标准形。任一长度$k$的块对$\dim\ker N^j$贡献$\min(j,k)$，其相邻差贡献1恰在$j\le k$时成立。所以长度至少$j$的块数被$d_j-d_{j-1}$唯一决定，恰为$j$的块数再取差得$2d_j-d_{j-1}-d_{j+1}$。这些维数由原映射决定，故块大小仅能重排，不能改变。
+
+\textbf{四、幂公式。}$\lambda I$与$N_k$可交换，有限二项式展开给
+\[J_k(\lambda)^m=\sum_{j=0}^m\binom mj\lambda^{m-j}N_k^j.
+\]
+因$N_k^j=0$对$j\ge k$，和截断到$\min(m,k-1)$。$m=0$时矩阵零次幂为$I$。$\lambda=0$时原矩阵就是$N_k$，故幂直接为$N_k^m$，按这个结果读取显示公式，避免另行计算标量$0^0$。

@@ -1,0 +1,40 @@
+\section{图解：方向场、平衡解与增长}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.8\textwidth,height=6cm,axis lines=middle,xmin=-2,xmax=4,ymin=-.15,ymax=1.5,xlabel=$x$,ylabel=$y$,samples=120]
+\addplot[Teal,thick,domain=-2:4]{1/(1+3*exp(-x))};
+\addplot[dashed,Ink,domain=-2:4]{1};\addplot[dashed,Ink,domain=-2:4]{0};
+\draw[Gold] (axis cs:-1.6300,0.1792)--(axis cs:-1.3700,0.2208);
+\draw[Gold] (axis cs:-0.6300,0.1792)--(axis cs:-0.3700,0.2208);
+\draw[Gold] (axis cs:0.3700,0.1792)--(axis cs:0.6300,0.2208);
+\draw[Gold] (axis cs:1.3700,0.1792)--(axis cs:1.6300,0.2208);
+\draw[Gold] (axis cs:2.3700,0.1792)--(axis cs:2.6300,0.2208);
+\draw[Gold] (axis cs:3.3700,0.1792)--(axis cs:3.6300,0.2208);
+\draw[Gold] (axis cs:-1.6300,0.4675)--(axis cs:-1.3700,0.5325);
+\draw[Gold] (axis cs:-0.6300,0.4675)--(axis cs:-0.3700,0.5325);
+\draw[Gold] (axis cs:0.3700,0.4675)--(axis cs:0.6300,0.5325);
+\draw[Gold] (axis cs:1.3700,0.4675)--(axis cs:1.6300,0.5325);
+\draw[Gold] (axis cs:2.3700,0.4675)--(axis cs:2.6300,0.5325);
+\draw[Gold] (axis cs:3.3700,0.4675)--(axis cs:3.6300,0.5325);
+\draw[Gold] (axis cs:-1.6300,0.7792)--(axis cs:-1.3700,0.8208);
+\draw[Gold] (axis cs:-0.6300,0.7792)--(axis cs:-0.3700,0.8208);
+\draw[Gold] (axis cs:0.3700,0.7792)--(axis cs:0.6300,0.8208);
+\draw[Gold] (axis cs:1.3700,0.7792)--(axis cs:1.6300,0.8208);
+\draw[Gold] (axis cs:2.3700,0.7792)--(axis cs:2.6300,0.8208);
+\draw[Gold] (axis cs:3.3700,0.7792)--(axis cs:3.6300,0.8208);
+\draw[Gold] (axis cs:-1.6300,1.2312)--(axis cs:-1.3700,1.1688);
+\draw[Gold] (axis cs:-0.6300,1.2312)--(axis cs:-0.3700,1.1688);
+\draw[Gold] (axis cs:0.3700,1.2312)--(axis cs:0.6300,1.1688);
+\draw[Gold] (axis cs:1.3700,1.2312)--(axis cs:1.6300,1.1688);
+\draw[Gold] (axis cs:2.3700,1.2312)--(axis cs:2.6300,1.1688);
+\draw[Gold] (axis cs:3.3700,1.2312)--(axis cs:3.6300,1.1688);
+\draw[Gold] (axis cs:-1.6300,1.4728)--(axis cs:-1.3700,1.3272);
+\draw[Gold] (axis cs:-0.6300,1.4728)--(axis cs:-0.3700,1.3272);
+\draw[Gold] (axis cs:0.3700,1.4728)--(axis cs:0.6300,1.3272);
+\draw[Gold] (axis cs:1.3700,1.4728)--(axis cs:1.6300,1.3272);
+\draw[Gold] (axis cs:2.3700,1.4728)--(axis cs:2.6300,1.3272);
+\draw[Gold] (axis cs:3.3700,1.4728)--(axis cs:3.6300,1.3272);
+\node[anchor=west]at(axis cs:2.5,1.12){$y=1$};
+\node[anchor=west]at(axis cs:.2,.24){$y(0)=\frac{1}{4}$};
+\end{axis}\end{tikzpicture}
+\caption{$y'=y(1-y)$的方向场。$0<y<1$时斜率正，$y>1$时斜率负；$y=0,1$是平衡解。实线是$y=\frac{1}{1+3\e^{-x}}$，它始终在$(0,1)$内并趋向1。短线段只表示斜率方向，未表示固定时间长度。}\label{fig:review:ode}
+\end{figure}

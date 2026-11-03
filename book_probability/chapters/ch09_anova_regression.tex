@@ -1,0 +1,274 @@
+\chapter{方差分析与一元线性回归}\label{ch:09}
+\chaptermap{组间与组内\\平方和分解}{投影与自由度\\ANOVA的F}{最小二乘\\公式、矩阵、几何}{回归推断\\均值与新值预测}
+\begin{examtip}
+本章标为\textbf{考研拓展与常见选学}，是否属于具体考试范围应以所报科目为准。
+\textbf{核心计算：}单因素ANOVA表、一元最小二乘、斜率检验、置信与预测区间。
+\textbf{竞赛视角：}正交投影与平方和几何；\textbf{测度关联：}$L^2$投影与条件均值的联系。
+\end{examtip}
+\section{单因素模型与平方和分解}\label{sec:91}
+\src{单因素ANOVA；统计笔记, §6}
+\begin{definition}{单因素独立正态模型}
+第$i$组观测$Y_{ij}=\mu_i+\varepsilon_{ij}$，组数$g\ge2$，各容量$n_i\ge1$均为整数，$i=1,\ldots,g$，$j=1,\ldots,n_i$。
+误差独立同分布为$\Normal(0,\sigma^2)$，$\sigma^2>0$，且总容量$N=\sum n_i>g$。
+组均值$\bar Y_i$，总均值$\bar Y=N^{-1}\sum n_i\bar Y_i$。
+记$SS_T=\sum_{i,j}(Y_{ij}-\bar Y)^2$、$SS_B=\sum_i n_i(\bar Y_i-\bar Y)^2$、$SS_W=\sum_{i,j}(Y_{ij}-\bar Y_i)^2$。
+\end{definition}
+\begin{theorem}{平方和分解}
+$SS_T=SS_B+SS_W$。分解本身是代数恒等式，不依赖正态性；正态同方差独立假设用于精确抽样分布。
+\end{theorem}
+\begin{proof}
+对每个观测写$Y_{ij}-\bar Y=(Y_{ij}-\bar Y_i)+(\bar Y_i-\bar Y)$。
+平方求和的交叉项为$2\sum_i(\bar Y_i-\bar Y)\sum_j(Y_{ij}-\bar Y_i)=0$，剩余两项正是$SS_W,SS_B$。
+\end{proof}
+\begin{method}{先组内中心化，再看组均值偏离}
+适用：多组均值比较。列$n_i,\bar y_i$和组内平方和；总均值按容量加权。把组间和组内分开算，最后用$SS_T=SS_B+SS_W$核对。
+不等容量时不可直接平均组均值。
+\end{method}
+\worked{三组平方和的两法}{基础例题}{\star\star}{9-1}
+{三组数据分别为$(1,3),(3,5),(5,7)$，求三种平方和。}
+{公式计算与向量正交分解对照。}
+{方法一：组均值为2、4、6，总均值4。
+$SS_W=2+2+2=6$，$SS_B=2[(2-4)^2+0+(6-4)^2]=16$，故$SS_T=22$。
+方法二：中心化数据向量为$(-3,-1,-1,1,1,3)$，拆成组内残差$(-1,1,-1,1,-1,1)$与组间分量$(-2,-2,0,0,2,2)$。内积为0，平方范数分别6和16，总范数22。}
+{向量法直接显示平方和可加源于正交。}
+{组间平方和必须乘各组容量。}
+\worked{不等容量的总均值}{考研风格}{\star}{9-2}
+{两组容量2、4，均值1、4，组内平方和分别2、6，求总均值与平方和。}
+{先按观测数加权。}
+{$\bar y=\frac{2\cdot1+4\cdot4}{6}=3$。
+$SS_B=2(1-3)^2+4(4-3)^2=12$，$SS_W=8$，$SS_T=20$。
+若误用组均值平均$2.5$，将导致组间分量不再与总均值方向正确正交，平方和核对失效。}
+{容量不同的组贡献不同，权重源于每组内重复的观测数。}
+{容量权重与逆方差权重在这里因共同方差而有关，但不是任意通用公式。}
+\worked{加权离差最小化}{竞赛风格}{\star\star}{9-3}
+{证明$\sum_i n_i(\bar y_i-a)^2$在$a=\bar y$最小，并给两组时$SS_B$的简式。}
+{作中心化平方展开。}
+{$\sum_i n_i(\bar y_i-a)^2=SS_B+N(\bar y-a)^2$，因为$\sum_i n_i(\bar y_i-\bar y)=0$。
+故最小点为加权均值。
+两组时$\bar y_1-\bar y=\frac{n_2}{N}(\bar y_1-\bar y_2)$，另一组差为$-\frac{n_1}{N}(\bar y_1-\bar y_2)$，代入得到$SS_B=\frac{n_1n_2}{N}(\bar y_1-\bar y_2)^2$。}
+{最小二乘的中心化技巧贯穿ANOVA与回归。}
+{只比较组均值差还不够，样本容量决定同一差异的组间平方和。}
+
+\section{ANOVA的F检验与投影}\label{sec:92}
+\src{正态投影的ANOVA检验}
+\begin{theorem}{单因素ANOVA}
+在模型成立且$H_0:\mu_1=\cdots=\mu_g$下，
+$\frac{SS_B}{\sigma^2}\sim\chi_{g-1}^2$，$\frac{SS_W}{\sigma^2}\sim\chi_{N-g}^2$，且独立。
+所以$F=\frac{\frac{SS_B}{g-1}}{\frac{SS_W}{N-g}}\sim F_{g-1,N-g}$，大值拒绝。
+\end{theorem}
+\begin{proof}
+令$P_G$投影到组内常数向量空间（维数$g$），$P_0=\frac{\ind\ind^\mathsf T}{N}$投影到总常数方向。
+则$SS_B=y^\mathsf T(P_G-P_0)y$、$SS_W=y^\mathsf T(I-P_G)y$。
+两个矩阵对称幂等、秩分别$g-1,N-g$，乘积为0。
+零假设均值在总常数空间中，被两个矩阵消去；把各正交子空间选作正交基，独立标准正态坐标的平方和给两卡方及独立性，相除即得$F$。
+\end{proof}
+\begin{method}{ANOVA表按来源与自由度核对}
+适用：多组均值检验。组间df $g-1$，组内df $N-g$，总df $N-1$；均方是平方和除各自df，$F$用组间均方除组内均方。
+显著仅说明至少一组均值不同，不直接说明哪些组不同。
+\end{method}
+\worked{两组ANOVA的公式与矩阵}{考研风格}{\star\star}{9-4}
+{两组数据$(1,2,3),(3,4,5)$，计算ANOVA统计量。}
+{用组均值公式与投影结构互证。}
+{方法一：组均值2、4，总均值3，$SS_B=3+3=6$，$SS_W=2+2=4$。
+自由度1、4，所以$F=\frac{6}{\frac{4}{4}}=6$。
+方法二：$P_G=\operatorname{diag}(\frac{J_3}{3},\frac{J_3}{3})$，$P_0=\frac{J_6}{6}$，代入二次型给6和4，两个投影秩为1、4。
+拒绝$p$值为$1-F_{F_{1,4}}(6)$。}
+{公式便于手算，矩阵法解释自由度与独立性。}
+{总平方和10不是$F$分子，分子只取组间平方和。}
+\worked{ANOVA表补全}{考研风格}{\star}{9-5}
+{4组共20个观测，$SS_T=100,SS_W=60$，补全ANOVA表并写检验量。}
+{平方和和自由度都可加。}
+{$SS_B=40$，组间df3，组内df16，总df19。
+组间均方$\frac{40}{3}$，组内均方$\frac{60}{16}=\frac{15}{4}$，因此$F=\frac{32}{9}$。
+零假设下参考$F_{3,16}$，水平$\alpha$拒绝若$\frac{32}{9}>F_{3,16;1-\alpha}$。
+把结果留成分位数形式即可得到完整检验规则，无需捏造查表值。}
+{先完成加法核对，再做比值，减少自由度错配。}
+{总均方不是ANOVA检验的分母。}
+\worked{两组F与t的等价}{考研风格}{\star\star}{9-6}
+{证明两组同方差正态ANOVA统计量等于合并方差$t$统计量平方。}
+{用例\ref{ex:9-3}的组间简式。}
+{$SS_B=\frac{mn}{m+n}(\bar X-\bar Y)^2$，$\frac{SS_W}{m+n-2}=S_p^2$。
+因组间df为1，
+$F=\frac{(\bar X-\bar Y)^2}{S_p^2(\frac{1}{m}+\frac{1}{n})}=T^2$。
+因此双侧$t$与两组ANOVA在同一水平下等价，自由度关系为$F_{1,m+n-2}$。}
+{ANOVA是两样本比较向多组比较的自然推广。}
+{右侧单侧$t$与平方后的$F$不等价，平方丢失方向。}
+
+\section{一元最小二乘：公式、矩阵与几何}\label{sec:93}
+\src{李东风, §9.2—9.3；统计笔记, §6}
+\begin{definition}{一元线性模型}
+固定设计$x_i$，$Y_i=a+bx_i+\varepsilon_i$。最小二乘使$Q(a,b)=\sum_i(y_i-a-bx_i)^2$最小。
+令$S_{xx}=\sum(x_i-\bar x)^2>0$、$S_{xy}=\sum(x_i-\bar x)(y_i-\bar y)$、$S_{yy}=\sum(y_i-\bar y)^2$。
+\end{definition}
+\begin{theorem}{最小二乘的三种表达}
+$\hat b=\frac{S_{xy}}{S_{xx}}$，$\hat a=\bar y-\hat b\bar x$。
+设设计矩阵$D=[\ind,x]$满列秩，$\hat\beta=(D^\mathsf TD)^{-1}D^\mathsf Ty$，$\hat y=Py$，$P=D(D^\mathsf TD)^{-1}D^\mathsf T$。
+残差$e=(I-P)y$与设计空间正交，所以$\sum e_i=\sum x_ie_i=0$。
+\end{theorem}
+\begin{proof}
+对$a,b$求导给$\sum(y_i-a-bx_i)=0$、$\sum x_i(y_i-a-bx_i)=0$。
+第一式给$a=\bar y-b\bar x$，代入第二式得$bS_{xx}=S_{xy}$。
+矩阵式是同一正规方程$D^\mathsf T(y-D\beta)=0$。
+$D^\mathsf TD$正定，驻点唯一且为全局最小；正交性由正规方程直接得到。
+\end{proof}
+\begin{method}{先中心化，截距自动消去}
+适用：手算拟合。先算$\bar x,\bar y,S_{xx},S_{xy}$，再求斜率截距；以残差和及加权残差和为0检查。
+没有截距时公式与平方和分解都需改变，不能沿用带截距结论。
+\end{method}
+\worked{三点拟合的三法}{基础例题}{\star\star}{9-7}
+{对$(0,1),(1,2),(2,2)$求最小二乘直线。}
+{公式、正规方程和投影互证。}
+{方法一：$\bar x=1,\bar y=\frac{5}{3},S_{xx}=2,S_{xy}=1$，故$\hat b=\frac{1}{2},\hat a=\frac{7}{6}$。
+方法二：$D^\mathsf TD=\begin{pmatrix}3&3\\3&5\end{pmatrix}$，$D^\mathsf Ty=(5,6)^\mathsf T$，解得同值。
+方法三：残差$(-\frac{1}{6},\frac{1}{3},-\frac{1}{6})$与$(1,1,1)$及$(0,1,2)$内积都为0，因此拟合点是设计平面的正交投影，唯一最小。}
+{公式最省算，矩阵法可推广多元，正交性提供无需重算的检查。}
+{拟合线必过$(\bar x,\bar y)$，可作第一项核验。}
+\worked{回归平方和分解}{考研风格}{\star\star}{9-8}
+{推导$S_{yy}=SSR+SSE$并计算上一例$R^2$。}
+{将中心化响应拆成拟合与残差两个正交部分。}
+{$y_i-\bar y=(\hat y_i-\bar y)+e_i$，交叉和为$\hat b\sum(x_i-\bar x)e_i=0$，故$S_{yy}=SSR+SSE$。
+$SSR=\hat b^2S_{xx}=\frac{S_{xy}^2}{S_{xx}}$，$SSE=S_{yy}-\frac{S_{xy}^2}{S_{xx}}$。
+上一例$S_{yy}=\frac{2}{3}$、$SSR=\frac{1}{2}$、$SSE=\frac{1}{6}$，所以$R^2=\frac{SSR}{S_{yy}}=\frac{3}{4}$。}
+{解释平方和来源比只记$1-\frac{SSE}{SST}$更稳固。}
+{$R^2$描述样本内线性拟合比例，不证明因果关系。}
+\worked{平移与尺度改变}{竞赛风格}{\star\star}{9-9}
+{把自变量改成$x_i'=c+dx_i$（$d\ne0$），说明斜率、截距、拟合值如何改变。}
+{同一条预测关系换坐标表示。}
+{$x=\frac{x'-c}{d}$，所以$a+bx=(a-\frac{bc}{d})+(\frac{b}{d})x'$。
+因此新拟合斜率$\hat b'=\frac{\hat b}{d}$、截距$\hat a'=\hat a-\frac{\hat bc}{d}$，每个样本的拟合值和残差均不变。
+也可由$S_{x'x'}=d^2S_{xx}$、$S_{x'y}=dS_{xy}$推出斜率缩放。
+当$d<0$时斜率方向反转，但拟合优度不变。}
+{坐标变换不改变设计空间，只改变基。}
+{斜率数值依赖计量单位，不能脱离单位比较大小。}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.78\textwidth,height=5cm,axis lines=left,xlabel={$x$},ylabel={$y$},xmin=-.2,xmax=2.3,ymin=.7,ymax=2.5,xtick={0,1,2}]
+\addplot[Teal,thick,domain=0:2.2]{7/6+x/2};
+\addplot[only marks,mark=*,Ink]coordinates{(0,1)(1,2)(2,2)};
+\draw[Gold,thick](axis cs:0,1)--(axis cs:0,1.16667);\draw[Gold,thick](axis cs:1,2)--(axis cs:1,1.66667);\draw[Gold,thick](axis cs:2,2)--(axis cs:2,2.16667);
+\end{axis}\end{tikzpicture}\caption{竖直残差的平方和最小；残差不要求垂直于图中的拟合直线}\label{fig:regression}\end{figure}
+
+\section{回归系数的分布与显著性}\label{sec:94}
+\src{李东风, §9.3；统计笔记, §6}
+\begin{theorem}{正态回归精确推断}
+若误差独立$\Normal(0,\sigma^2)$且$n>2$，则
+\[\hat b\sim\Normal(b,\dfrac{\sigma^2}{S_{xx}}),\quad\hat a\sim\Normal(a,\sigma^2(\dfrac{1}{n}+\dfrac{\bar x^2}{S_{xx}})),
+\quad \dfrac{SSE}{\sigma^2}\sim\chi_{n-2}^2.\]
+系数估计与$SSE$独立。记$s^2=\frac{SSE}{n-2}$，则$\frac{\hat b-b_0}{\frac{s}{\sqrt{S_{xx}}}}$在$b=b_0$下服从$t_{n-2}$。
+\end{theorem}
+\begin{proof}
+$\hat b=b+\sum\frac{(x_i-\bar x)\varepsilon_i}{S_{xx}}$，其方差为$\frac{\sigma^2}{S_{xx}}$。
+$\hat a-a=\bar\varepsilon-\bar x(\hat b-b)$，两项协方差0，得截距方差；二者均为正态线性组合。
+投影矩阵$P$秩2，残差矩阵$I-P$秩$n-2$，正交变换给残差卡方和与系数独立，学生化后得$t$。
+\end{proof}
+\begin{method}{斜率t与整体F共享同一信号}
+适用：带截距的一元回归显著性。检验$b=0$的双侧$t$与$F=\frac{\frac{SSR}{1}}{\frac{SSE}{n-2}}$满足$F=T^2$。
+系数区间用相应标准误；未假定正态时，最小二乘仍可计算，但精确$t\text{与}F$结论需替换成有条件的渐近推断。
+\end{method}
+\worked{斜率显著性的t与F两法}{考研风格}{\star\star}{9-10}
+{$n=12,S_{xx}=20,\hat b=0.8,SSE=8$，检验$b=0$对双侧。}
+{先估计误差方差。}
+{$s^2=\frac{8}{10}=0.8$，斜率标准误$\sqrt{\frac{0.8}{20}}=0.2$。
+方法一：$t=\frac{0.8}{0.2}=4$，自由度10，双侧$p=2[1-F_{t_{10}}(4)]$。
+方法二：$SSR=\hat b^2S_{xx}=12.8$，$F=\frac{12.8}{0.8}=16$，参考$F_{1,10}$；因$F=t^2$，两法$p$值相同。
+在0.05水平显著。}
+{由$SSR$与斜率系数可相互核对统计量。}
+{检验非零$b_0$时普通$SSR$的整体F不能不加修改地使用。}
+\worked{斜率置信区间}{考研风格}{\star\star}{9-11}
+{沿用上一例，写$b$的95\%区间并解释。}
+{用$t$枢轴反解。}
+{区间$0.8\pm t_{10,.975}\cdot0.2$，$t_{10,.975}\approx2.228$，约为$[0.3544,1.2456]$。
+不含0与双侧检验显著相对应。
+区间的单位是“响应单位/自变量单位”；缩放自变量后区间按同一比例缩放。}
+{标准误表达的是斜率估计的抽样波动，不是观测误差的标准差。}
+{不要用$s=\sqrt{0.8}$直接作斜率标准误。}
+\worked{有限维投影与条件期望}{测度论选学}{\star\star\star}{9-12}
+{设$X,Y\in L^2$且$\Var X>0$，比较总体最佳仿射预测与$\E(Y\given X)$的最佳预测性质。}
+{两者最小化平方损失，但可选函数空间不同。}
+{总体最佳仿射预测使$\E(Y-a-bX)^2$最小，正规方程为$\E e=\E Xe=0$，得到$b=\frac{\Cov(X,Y)}{\Var X}$、$a=\E Y-b\E X$。
+条件期望则在所有平方可积$g(X)$中最优。
+若$\E(Y\given X)$本身为仿射，两者重合；例如联合正态。若$Y=X^2$且$X$对称，最佳仿射斜率可为0，但条件均值是$X^2$。}
+{样本最小二乘是经验内积下的投影，不能自动保证模型真实线性。}
+{残差与$X$不相关不代表残差与$X$独立。}
+
+\section{均值响应、预测与综合辨析}\label{sec:95}
+\src{李东风, §9.3；统计笔记, §6}
+\begin{theorem}{均值与新观测的区间}
+沿用独立正态同方差误差模型，要求$n>2$、$S_{xx}>0$，$x_*$为固定设计点。
+记$\hat m_* =\hat a+\hat bx_*$，$h_*=\frac{1}{n}+\frac{(x_*-\bar x)^2}{S_{xx}}$。
+均值响应$m_*=a+bx_*$的$1-\alpha$区间为$\hat m_*\pm t_{n-2,1-\frac{\alpha}{2}}s\sqrt{h_*}$。
+独立新观测$Y_*=m_*+\varepsilon_*$的预测区间为$\hat m_*\pm t_{n-2,1-\frac{\alpha}{2}}s\sqrt{1+h_*}$。
+\end{theorem}
+\begin{proof}
+由$\hat m_*-m_*=\bar\varepsilon+(x_*-\bar x)(\hat b-b)$，两项不相关，得方差$\sigma^2h_*$。
+新观测误差与训练样本独立，所以$\Var(Y_*-\hat m_*)=\sigma^2(1+h_*)$。
+相应正态误差都与训练残差方差$s^2$独立，除以$s$后得到$t_{n-2}$，反解即得区间。
+\end{proof}
+\begin{method}{先问预测的是均值还是个体}
+适用：回归区间题。均值只含参数估计误差；新个体另加观测噪声，所以平方根内多1。
+$x_*$离$\bar x$越远，杠杆$h_*$越大；超出设计范围的外推还依赖线性模型能否延续。
+\end{method}
+\worked{预测区间的公式与矩阵两法}{考研风格}{\star\star}{9-13}
+{$n=10,\bar x=2,S_{xx}=20,s=1,\hat a=1,\hat b=2$，在$x_*=3$处求95\%均值区间和预测区间。}
+{点预测为7，杠杆为$0.15$。}
+{方法一：$h_*=\frac{1}{10}+\frac{1}{20}=0.15$，均值区间$7\pm t_{8,.975}\sqrt{0.15}$；预测区间$7\pm t_{8,.975}\sqrt{1.15}$。
+方法二：设$d_*=(1,3)^\mathsf T$，系数协方差为$\sigma^2(D^\mathsf TD)^{-1}$，直接算$d_*^\mathsf T(D^\mathsf TD)^{-1}d_*=0.15$，再对新噪声加1。
+两者使用同一自由度8。}
+{中心化公式快捷，矩阵法能直接推广到多元回归。}
+{两种区间中心相同、宽度不同，不能互相替代。}
+\worked{中心处的精度}{考研风格}{\star\star}{9-14}
+{证明均值响应区间在$x_*=\bar x$最窄，并说明增加样本量与增加设计跨度的区别。}
+{观察杠杆的非负平方项。}
+{$h_*=\frac{1}{n}+\frac{(x_*-\bar x)^2}{S_{xx}}\ge\frac{1}{n}$，等号恰在中心。
+增大$n$降低中心项，增大$S_{xx}$降低远离中心处斜率不确定性；两者不是同一作用。
+若所有$x_i$相同，则$S_{xx}=0$，斜率不可识别；重复同一点再多次也不能恢复斜率。}
+{实验设计的跨度控制斜率精度，样本数并不能替代设计秩。}
+{预测新个体仍保留噪声项1，参数估计很准也不会使预测区间必然趋0。}
+\worked{相关、R平方与F的一体化}{竞赛风格}{\star\star\star}{9-15}
+{带截距一元回归，$S_{xx},S_{yy}>0$，证明$R^2=r^2$及$F=\frac{(n-2)R^2}{1-R^2}$。}
+{把三者都写成中心化平方和。}
+{样本相关$r=\frac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}$，而$SSR=\frac{S_{xy}^2}{S_{xx}}$，故$R^2=\frac{SSR}{S_{yy}}=r^2$。
+再由$SSE=(1-R^2)S_{yy}$，$F=\frac{SSR}{\frac{SSE}{n-2}}=\frac{(n-2)R^2}{1-R^2}$（$R^2<1$）。
+若$R^2=1$，残差方差为0，常规$t\text{与}F$分母退化，需单独处理。
+同样的$r$在更大$n$下可产生更强的显著性。}
+{统计显著性同时依赖拟合比例与样本容量。}
+{该等式需要带截距的一元模型，不能直接推广到任意无截距或多元相关。}
+\begin{warning}
+代数拟合与概率推断的假设不同。正态、独立、同方差支撑精确的$t$与$F$分布结论；ANOVA显著不定位具体组对。
+图上的最小二乘残差沿纵向，数据向量的残差才在高维设计空间中正交。
+\end{warning}
+
+\section*{图解、理解与巧解复盘}
+\begin{insight}{解释力、显著性与预测精度不是同一指标}
+$R^2$用样本响应总变异作分母；$t\text{与}F$将信号与估计噪声比较并结合自由度；预测区间另包含新观测误差。
+所以高$R^2$不保证样本外预测窄，小$p$也不保证效应在应用中足够大。先明确目标，再选择要报告的量。
+\end{insight}
+\begin{clevertrick}{用设计空间的嵌套统一ANOVA与回归}
+ANOVA把总常数空间扩展为各组常数空间；回归把总常数空间扩展为截距与$x$张成的平面。
+每次扩展得到的拟合平方和，都是两个嵌套正交投影之差的二次型。投影秩之差给分子自由度，残差正交补的秩给分母自由度。
+\end{clevertrick}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[>=Stealth,scale=1.2]
+\coordinate(O)at(0,0);\coordinate(F)at(3,0);\coordinate(Y)at(3,2);
+\draw[->,Ink,very thick](O)--(Y)node[above]{$y-\bar y\ind$};
+\draw[->,Teal,very thick](O)--(F)node[below]{$\hat y-\bar y\ind$};
+\draw[->,Gold,very thick](F)--(Y)node[midway,right]{$e$};
+\draw[Ink](2.8,0)--(2.8,.2)--(3,.2);
+\node at(1.7,-.8){$SST=SSR+SSE$};\node at(1.7,-1.3){$\|y-\bar y\ind\|^2=\|\hat y-\bar y\ind\|^2+\|e\|^2$};
+\end{tikzpicture}\caption{响应向量的平方和是投影勾股关系，区别于二维散点图中的斜线距离}\label{fig:regression-pythagoras}\end{figure}
+
+\section*{章末分层习题}
+\exercise{9-a}{基础}{三组容量均3、均值1、2、3，组内平方和总计6，求ANOVA的$F$。}
+\exercise{9-b}{基础}{对$(0,0),(1,1),(2,3)$求最小二乘直线。}
+\exercise{9-c}{考研风格}{回归$n=10,S_{xx}=8,\hat b=2,SSE=16$，求斜率标准误及检验$b=0$的$t$。}
+\exercise{9-d}{考研风格}{$n=20,R^2=0.4$，求带截距一元回归整体$F$及自由度。}
+\exercise{9-e}{竞赛拓展}{两组容量$m,n$，证明$SS_B=\frac{mn(\bar X-\bar Y)^2}{m+n}$。}
+\exercise{9-f}{竞赛拓展}{证明带截距最小二乘残差和为0、拟合线经过样本重心。}
+\exercise{9-g}{测度论选学}{设$X,Y\in L^2$、$\Var X>0$，若$\E(Y\given X)=a+bX$，证明总体最佳仿射预测就是条件期望。}
+\exercise{9-h}{测度论选学}{在正态回归中，解释$I-P$的秩为何等于$n-2$，并说明它与残差自由度的关系。}
+\section*{章末方法速查}
+\begin{quicktable}
+ANOVA分解&组别明确&多均值比较&容量权重与总均值错\\
+投影与F&正态同方差独立&平方和独立、自由度&把代数恒等式当分布结论\\
+中心化最小二乘&$S_{xx}>0$、带截距&手算直线&忘记检查残差正交\\
+均值与新值区间&模型与独立新误差&回归预测&平方根内多1漏掉\\
+\end{quicktable}

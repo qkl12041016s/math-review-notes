@@ -1,0 +1,10 @@
+\label{der:7-4}
+有限维性保证可取$W$的单位正交基$q_1,\ldots,q_r$并补成$V$的单位正交基。对任意$b$，定义$p=\sum_{i\le r}\langle b,q_i\rangle q_i$，则$p\in W$；与任一$q_j$取内积得到$\langle b-p,q_j\rangle=0$，所以$e=b-p\in W^\perp$。若还有$b=p'+e'$为同样分解，相减使$p-p'$同时在$W$与$W^\perp$，其长度平方为零，故分解唯一。对任意$w\in W$，
+\[\norm{b-w}^2=\norm{e+(p-w)}^2=\norm e^2+\norm{p-w}^2,\]
+交叉项因正交为零，所以$p$是唯一最近点。
+
+回到$\R^m$标准内积，令$W=\im A$，某个$\widehat x$给$p=A\widehat x$。残差与列空间正交等价于与每列正交，即
+\[A\T(b-A\widehat x)=0\quad\Longleftrightarrow\quad A\T A\widehat x=A\T b.\]
+因此正规方程既必要又充分。满列秩使$G=A\T A$正定可逆，故$\widehat x=G\inv A\T b$唯一，$p=A G\inv A\T b$，得投影矩阵$P$。因$G\T=G$，$G\inv$也对称，故$P\T=P$；并且
+\[P^2=AG\inv A\T AG\inv A\T=AG\inv GG\inv A\T=P.\]
+若$A$不满列秩，最近点$p$仍由上面的空间论证唯一，至少有一组系数$x$表示它；两组系数之差恰在$\ker A$中，所以参数可不唯一，而不能再使用普通逆公式。

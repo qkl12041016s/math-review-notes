@@ -1,0 +1,24 @@
+\begin{insight}{最小二乘的核心是残差垂直于可达到的空间}
+寻找$\im A$中离$\vb$最近的点$p$，可以把误差分成两个互相垂直的部分。对任意另一个$q\in\im A$，$\vb-q=(\vb-p)+(p-q)$，故距离平方等于两平方和。只要残差垂直于整个列空间，最近性就已经证明，无需再次对每个坐标求导。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.6]
+\draw[laaxis](-.4,0)--(3.4,0);\draw[laaxis](0,-.25)--(0,2.5);
+\draw[Teal,thick](-.3,-.15)--(3,1.5)node[right]{$W=\Span(\va)$};
+\draw[lavec,Ink](0,0)--(1,2)node[above]{$\vb$};
+\draw[lavec,Teal](0,0)--(1.6,.8)node[below right]{$p$};
+\draw[lavec,Gold](1.6,.8)--(1,2)node[midway,right]{$e=\vb-p$};
+\draw[Ink!65](1.5,.75)--(1.45,.85)--(1.55,.9);
+\node[lapt]at(1.6,.8){};\node[lanote,anchor=west]at(3.6,.65){$e\perp W$\\[3pt]$\norm{\vb-q}^2$\\[1pt]$=\norm e^2+\norm{p-q}^2$};
+\end{tikzpicture}
+\caption{最近点的充分条件是正交残差；正规方程正是它的代数表达。}\label{fig:projection-triangle}
+\end{figure}
+\begin{clevertrick}{投影一算，镜面反射也得到}
+设$\va\ne0$，向直线$W=\Span(\va)$的投影为$p=\frac{\va(\va\T\vb)}{\va\T\va}$。因为
+\[\va\T(\vb-p)=\va\T\vb-\dfrac{\va\T\vb}{\va\T\va}\va\T\va=0,\]
+有正交分解$\vb=p+e$，$p\in W,e\perp W$。镜面反射保留$p$、反向$e$，故反射向量为$p-e=2p-\vb$；又$\norm{p-e}^2=\norm p^2+\norm e^2=\norm\vb^2$，长度确实不变。
+取$\va=(2,1)\T,\vb=(1,2)\T$，$\va\T\vb=4,\va\T\va=5$，所以$p=(\frac{4}{5})\va=(\frac{8}{5},\frac{4}{5})\T$，$e=\vb-p=(-\frac{3}{5},\frac{6}{5})\T$。反射点为
+\[2p-\vb=(\dfrac{16}{5}-1,\dfrac{8}{5}-2)\T=(\dfrac{11}{5},-\dfrac{2}{5})\T.\]
+原长度平方$1^2+2^2=5$，反射后为$\frac{121}{25}+\frac{4}{25}=5$。若$P$为正交投影，$H=2P-I$满足$H\T H=(2P-I)^2=4P^2-4P+I=I$，所以反射矩阵正交。
+\textbf{易错提示：}投影一般缩短长度，反射保持长度；两个运算不能混同。若$P$为正交投影，则$2P-I$是反射矩阵。
+\end{clevertrick}

@@ -1,0 +1,348 @@
+\section{微分中的反推、分割与几何辨析}\label{cd:differential}
+\begin{examtip}
+本节集中训练容易被一般公式掩盖的结构：用伸缩差商反推可导性、按函数值分割区间、构造自动抵消的辅助函数、控制中值点位置，以及区分一点导数信息与整个邻域的几何性质。
+\end{examtip}
+
+\subsection{非对称伸缩差商反推可导}
+\begin{method}{伸缩差商的几何迭代}
+\textbf{适用条件} 已知$f$在$a$连续，且$f(a+\alpha t)-f(a+\beta t)$的差商有有限极限，$|\alpha|\ne|\beta|$。\par
+\textbf{步骤} 先将较大尺度记为$h$，把较小尺度写成$rh$，其中$|r|<1$；反复缩放并望远镜求和；用连续性消去最终的函数增量。\par
+\textbf{疑难点} 对称尺度$\beta=-\alpha$只检测奇部，可能完全漏掉尖点。
+\end{method}
+\begin{theorem}{非等模尺度的可导判据}\label{cd:dilation-test}
+设$f$在$a$的邻域内有定义并在$a$连续，$\alpha,\beta\in\R$且$|\alpha|\ne|\beta|$。若
+\[
+ \lim_{t\to0}\dfrac{f(a+\alpha t)-f(a+\beta t)}{t}=L,
+\]
+则$f'(a)$存在，且$f'(a)=\frac{L}{\alpha-\beta}$。
+\end{theorem}
+\begin{proof}
+交换$\alpha,\beta$只使$L$变号，可设$|\alpha|>|\beta|$。记$r=\frac{\beta}{\alpha}$，$F(h)=f(a+h)-f(a)$，则$|r|<1$。若$r=0$，结论就是导数定义。以下设$r\ne0$，令
+\[
+ D(h)=\dfrac{F(h)-F(rh)}{h},\qquad D(h)\to\ell=\dfrac L\alpha.
+\]
+对固定充分小的$h\ne0$，望远镜恒等式给
+\[
+ \dfrac{F(h)}h
+ =\sum_{k=0}^{N-1}r^kD(r^kh)+\dfrac{F(r^Nh)}h.
+\]
+由$f$在$a$连续，最后一项随$N\to\infty$趋0。给定$\varepsilon>0$，取$\delta>0$使$0<|u|<\delta$时$|D(u)-\ell|<\varepsilon$。若$0<|h|<\delta$，所有$r^kh$都在该范围，故级数绝对收敛，而且
+\[
+ \left|\dfrac{F(h)}h-\dfrac{\ell}{1-r}\right|
+ \le\sum_{k=0}^{\infty}|r|^k\varepsilon
+ =\dfrac{\varepsilon}{1-|r|}.
+\]
+令$\varepsilon\downarrow0$得到导数极限，$\frac{\ell}{1-r}=\frac{L}{\alpha-\beta}$。
+\end{proof}
+\begin{example}{竞赛风格｜两个尺度能否确定导数}{难度：$\star\star\star$}\label{cd:ex:dilation}
+\textbf{题目} 已知$f$在0连续，且$\lim_{h\to0}\frac{f(3h)-f(-h)}{h}=8$，求$f'(0)$。若只知$\lim_{h\to0}\frac{f(h)-f(-h)}{2h}$存在，结论是否仍成立？\par
+\textbf{思路} 第一问尺度模不同，第二问尺度模相同。\par
+\textbf{详细解答} 由定理\ref{cd:dilation-test}，第一问$f'(0)=\frac{8}{3-(-1)}=2$。也可直接取$r=-\frac{1}{3}$，将$f(h)-f(0)$拆为几何尺度上的连续差，得到极限2。第二问取$f(x)=|x|$，则每个对称差商都为0，但右导数为1、左导数为$-1$，所以$f'(0)$不存在。\par
+\textbf{方法点评} 第一问并未预先知道$f$可导，因此不能先把两个增量各自替换成$f'(0)$乘增量；缩放迭代正是反推可导性的关键。\par
+\textbf{疑难点与变式} 若取消$f$在0连续，改变单独一个点值不影响伸缩差在充分小非零$h$处的值，却能破坏可导性。
+\end{example}
+
+\subsection{零点因子对尖点的消除}
+\begin{method}{判断乘积是否消除不可导}
+\textbf{适用条件} $u$在$a$可导，$v$在$a$连续而不可导。\par
+\textbf{步骤} 若$u(a)=0$，直接用差商证明$uv$可导；若$u(a)\ne0$，用商$\frac{uv}{u}$反证。\par
+\textbf{疑难点} “连续而不可导”与“无界振荡”不同；没有连续性，乘以一个零点未必能保证所需可导阶数。
+\end{method}
+\begin{theorem}{连续尖点的乘积判据}
+在上述条件下，$uv$在$a$可导当且仅当$u(a)=0$；此时$(uv)'(a)=u'(a)v(a)$。
+\end{theorem}
+\begin{proof}
+若$u(a)=0$，则
+\[
+ \dfrac{u(a+h)v(a+h)-u(a)v(a)}h
+ =\dfrac{u(a+h)-u(a)}h\,v(a+h)\to u'(a)v(a).
+\]
+若$u(a)\ne0$而$uv$可导，由连续性$u$在$a$附近非零，可导函数之商$v=\frac{uv}{u}$在$a$可导，与假设矛盾。
+\end{proof}
+\begin{example}{考研风格｜多项式因子消去部分尖点}{难度：$\star\star$}\label{cd:ex:kinks}
+\textbf{题目} 求$F(x)=(x^2+x-2)|x^3-x|$的全部不可导点。\par
+\textbf{思路} 绝对值内部非零时光滑；只需检查$x=-1,0,1$。\par
+\textbf{详细解答} $p(x)=x^3-x$在这三点都是简单零点，因为$p'(\pm1)=2$、$p'(0)=-1$。因此$|p|$在每个零点连续而不可导，其左右导数为一对相反的非零数。另一方面
+\[
+ x^2+x-2=(x+2)(x-1)
+\]
+只在$x=1$同时消去尖点。由乘积判据，$F$在1可导，且$F'(1)=0$；在$-1,0$不可导。其余各点绝对值符号在局部固定，$F$光滑。\par
+\textbf{方法点评} 先列绝对值的简单零点，再检查外因子是否同时为零，远比展开四个分段多项式简洁。\par
+\textbf{疑难点与变式} 若绝对值内部有偶重零点，绝对值本身可能光滑，应先看局部零点重数，不能把所有根都列成尖点。
+\end{example}
+
+\subsection{按函数值分割产生多个中值点}
+\begin{method}{先规定增量，再寻找分割点}
+\textbf{适用条件} 要构造多个不同点的导数关系，已知$f(0)=0,f(1)=1$且$f$连续可导。\par
+\textbf{步骤} 根据目标权重规定一串严格递增的函数值；依次用介值定理选出有序分割点；在相邻小区间分别用Lagrange中值定理。\par
+\textbf{疑难点} 不能随意选横坐标再要求函数值按比例变化；本方法先分函数值，并不要求$f$单调。
+\end{method}
+\begin{example}{竞赛风格｜倒数导数的加权和}{难度：$\star\star\star$}\label{cd:ex:weighted-reciprocal}
+\textbf{题目} 设$f\in C[0,1]$且在$(0,1)$可导，$f(0)=0,f(1)=1$。给定正数$w_1,\ldots,w_m$，证明存在互异$\xi_1,\ldots,\xi_m\in(0,1)$，且$f'(\xi_j)>0$，满足
+\[
+ \sum_{j=1}^m\dfrac{w_j}{f'(\xi_j)}
+ =\sum_{j=1}^mw_j.
+\]
+\textbf{思路} 让第$j$段的函数增量恰等于权重在总权重中的比例。\par
+\textbf{详细解答} 记$W=\sum w_j$，$c_j=\frac{w_1+\cdots+w_j}{W}$，$c_0=0,c_m=1$。从$t_0=0$开始，对$j=1,\ldots,m-1$依次选点：若已选$t_{j-1}<1$且$f(t_{j-1})=c_{j-1}$，由于$c_{j-1}<c_j<1=f(1)$，介值定理在$(t_{j-1},1)$中给出$t_j$使$f(t_j)=c_j$；最后置$t_m=1$。于是
+\[
+ 0=t_0<t_1<\cdots<t_m=1.
+\]
+对每段应用Lagrange定理，存在$\xi_j\in(t_{j-1},t_j)$使
+\[
+ f'(\xi_j)=\dfrac{f(t_j)-f(t_{j-1})}{t_j-t_{j-1}}
+ =\dfrac{w_j}{W(t_j-t_{j-1})}>0.
+\]
+所以$\frac{w_j}{f'(\xi_j)}=W(t_j-t_{j-1})$。求和后区间长度望远镜相消，结果为$W$。各$\xi_j$位于不相交的开区间，故互异。\par
+\textbf{方法点评} 中值点的互异性来自分段，而导数非零来自严格增加的目标函数值；这两项都应在除法前说明。\par
+\textbf{疑难点与变式} $w_j=1$时得到$\sum\frac{1}{f'(\xi_j)}=m$。若$f$振荡，同一函数值可能有多个逆像，只需按上述顺序逐次选取，不需要全局反函数。
+\end{example}
+
+\subsection{利用变上限积分自动抵消}
+\begin{method}{让乘积求导的中间项相消}
+\textbf{适用条件} 目标包含$f'(\xi)\int_\xi^bg$与$g'(\xi)\int_a^\xi f$。\par
+\textbf{步骤} 同时构造$f(x)\int_x^bg$和$g(x)\int_a^xf$；利用积分上下限求导的相反符号消掉$fg$；由边界条件制造两个零点。\par
+\textbf{疑难点} 下限为$x$时导数带负号；遗漏该负号会使两项相加而无法抵消。
+\end{method}
+\begin{example}{竞赛风格｜交叉积分的Rolle构造}{难度：$\star\star\star$}\label{cd:ex:cross-integral}
+\textbf{题目} 设$f,g\in C[a,b]$，在$(a,b)$可导，且$f(a)=g(b)=0$。证明存在$\xi\in(a,b)$，使
+\[
+ f'(\xi)\int_\xi^bg(t)\dd t
+ +g'(\xi)\int_a^\xi f(t)\dd t=0.
+\]
+\textbf{思路} 将目标看成一个乘积和的导数，补出的两项应恰好相消。\par
+\textbf{详细解答} 定义
+\[
+ F(x)=f(x)\int_x^bg(t)\dd t
+      +g(x)\int_a^xf(t)\dd t.
+\]
+$F$在$[a,b]$连续、在$(a,b)$可导，$F(a)=F(b)=0$。由乘积法则和微积分基本定理，
+\begin{align*}
+ F'(x)
+ &=f'(x)\int_x^bg(t)\dd t-f(x)g(x)\\
+ &\quad+g'(x)\int_a^xf(t)\dd t+g(x)f(x)\\
+ &=f'(x)\int_x^bg(t)\dd t+g'(x)\int_a^xf(t)\dd t.
+\end{align*}
+Rolle定理给$F'(\xi)=0$，即结论。\par
+\textbf{方法点评} 构造的目标不是把所有项分别积分，而是使求导产生的额外项互相抵消。\par
+\textbf{疑难点与变式} 没有假设$f',g'$连续，直接对$F$使用Rolle即可；不应额外假设目标表达式连续后再用介值定理。
+\end{example}
+
+\subsection{能量辅助函数与退化因子的排除}
+\begin{method}{先迫使辅助函数取内点极值}
+\textbf{适用条件} 目标含$f+f''$，且已知$f$的全局界及某点$f^2+(f')^2$较大。\par
+\textbf{步骤} 构造$E=f^2+(f')^2$；用两侧中值定理找出$E$较小的端点；对内点最大值求导；用最大值大小排除$f'=0$。\par
+\textbf{疑难点} 从$E'=2f'(f+f'')=0$不能直接删除$f'$，必须证明所取极值点处$f'$非零。
+\end{method}
+\begin{example}{竞赛风格｜有界振幅迫使二阶组合为零}{难度：$\star\star\star$}\label{cd:ex:energy}
+\textbf{题目} 设$f\in C^2[-2,2]$，$|f(x)|\le1$，且$f(0)^2+f'(0)^2=4$。证明某$\xi\in(-2,2)$满足$f(\xi)+f''(\xi)=0$。\par
+\textbf{思路} 在0两侧先找斜率较小的点，再比较能量的最大值。\par
+\textbf{详细解答} 在$[-2,0]$应用Lagrange定理，存在$u\in(-2,0)$使
+\[
+ |f'(u)|=\dfrac{|f(0)-f(-2)|}{2}\le1.
+\]
+同理存在$v\in(0,2)$使$|f'(v)|\le1$。令$E(x)=f(x)^2+f'(x)^2$，则$E(u),E(v)\le2$，而$E(0)=4$。连续函数$E$在$[u,v]$取得最大值，其最大点$\xi$必在$(u,v)$。Fermat定理给
+\[
+ 0=E'(\xi)=2f'(\xi)\bigl(f(\xi)+f''(\xi)\bigr).
+\]
+若$f'(\xi)=0$，则$E(\xi)=f(\xi)^2\le1$，与$E(\xi)\ge E(0)=4$矛盾。因此$f'(\xi)\ne0$，从而$f(\xi)+f''(\xi)=0$。\par
+\textbf{方法点评} 数值4同时承担“能量大于边界值”和“排除退化因子”的作用。\par
+\textbf{疑难点与变式} 辅助函数有极值不够，必须确保极值在内部。若只知$E(0)=1$，排除$f'(\xi)=0$的论证便不能照用。
+\end{example}
+
+\subsection{参数竖切线处的凹凸改变}
+\begin{method}{参数导数失效点返回几何定义}
+\textbf{适用条件} 参数曲线$\bm r(t)$正规，但$x'(t_0)=0$。\par
+\textbf{步骤} 检查$y'(t_0)$判断竖切线；核对$x(t)$在附近是否严格单调；在$t_0$两侧分别计算$y_{xx}$并比较凹凸，必要时用切线两侧的位置核对。\par
+\textbf{疑难点} $x'=0$使$y_x=\frac{y'}{x'}$失效，却不意味着曲线一定是尖点；正规性要求$(x',y')\ne(0,0)$。
+\end{method}
+\begin{example}{考研风格｜二阶导数不存在的凹凸转折}{难度：$\star\star\star$}\label{cd:ex:vertical-inflection}
+\textbf{题目} 曲线由$x=t^3,\ y=t+t^2$给出。分析$t=0$处切线及两侧凹凸。\par
+\textbf{思路} $x(t)$严格递增，所以$t$两侧与$x$两侧对应；在非零$t$处用参数求导。\par
+\textbf{详细解答} $x'=3t^2,y'=1+2t$，在$t=0$速度向量为$(0,1)$，故曲线正规，切线为$x=0$。当$t\ne0$，
+\[
+ y_x=\dfrac{1+2t}{3t^2},\qquad
+ y_{xx}=\dfrac{-2(1+t)}{9t^5}.
+\]
+取$0<|t|<\frac{1}{2}$，则$1+t>0$：左侧$t<0$时$y_{xx}>0$，右侧$t>0$时$y_{xx}<0$。因此两侧凹凸改变，且曲线穿过竖切线。若将有竖切线且两侧凹凸改变的点纳入几何拐点定义，则原点为拐点。\par
+\textbf{方法点评} 凹凸判别在两侧分别进行，不要求二阶导数在转折点存在。这里显式函数为$y=x^{\frac{1}{3}}+x^{\frac{2}{3}}$，可独立核对两侧符号。\par
+\textbf{疑难点与变式} 有些课程只将具有有限切线斜率的转折点称为拐点。遇到这种约定，应报告“原点具有竖切线且两侧凹凸改变”，避免混淆定义。
+\end{example}
+\begin{center}
+\begin{tikzpicture}[x=3.0cm,y=1.8cm]
+ \draw[->,gray] (-1.15,0)--(1.2,0) node[right] {$x$};
+ \draw[->,gray] (0,-.45)--(0,2.35) node[above] {$y$};
+ \draw[very thick,Teal,domain=-1:1,samples=100,variable=\t]
+   plot ({\t*\t*\t},{\t+\t*\t});
+ \draw[dashed,Rust] (0,-.4)--(0,2.2);
+ \fill[Ink] (0,0) circle (1.5pt);
+ \node[below right] at (0,0) {$O$};
+ \node[align=left,font=\small] at (-.65,.65) {$t<0$\\$y_{xx}>0$};
+ \node[align=left,font=\small] at (.65,1.25) {$t>0$\\$y_{xx}<0$};
+ \node[align=left,font=\small,anchor=west] at (1.3,1.6)
+   {切线为$x=0$\\速度$(0,1)\ne(0,0)$\\原点处曲线正规};
+\end{tikzpicture}
+\par\small 图：参数$t$从左向右增加。虚线是原点处的竖切线；左右两支的凹凸符号相反。图示用于区分竖切线与速度为零的尖点。
+\end{center}
+
+\subsection{Taylor展开中值点本身}
+\begin{method}{把未知中值点写成相对位置}
+\textbf{适用条件} $f\in C^n$，在$a$处第2至$n-1$阶导数为0，第$n$阶导数非零。\par
+\textbf{步骤} 写中值点为$a+\theta_hh$，$0<\theta_h<1$；分别展开$f(a+h)$和$f'(a+\theta_hh)$；比较首个非零的高阶项。\par
+\textbf{疑难点} $\theta_h$随$h$变化，不能先假设它收敛。应先由等式推出$\theta_h^{n-1}$的极限。
+\end{method}
+\begin{theorem}{Lagrange中值点的高阶定位}\label{cd:mvt-position}
+设$n\ge2$，$f$在$a$附近属于$C^n$，$f^{(k)}(a)=0$对$2\le k\le n-1$成立，且$f^{(n)}(a)\ne0$。对每个充分小的$h\ne0$，任取满足
+\[
+ f(a+h)-f(a)=h f'(a+\theta_hh),\qquad0<\theta_h<1
+\]
+的中值点，则$\theta_h\to n^{-\frac{1}{n-1}}$。
+\end{theorem}
+\begin{proof}
+记$c=f^{(n)}(a)\ne0$。Taylor展开得
+\[
+ f(a+h)-f(a)=f'(a)h+\dfrac{c}{n!}h^n+o(h^n),
+\]
+而
+\[
+ f'(a+\theta_hh)
+ =f'(a)+\dfrac{c}{(n-1)!}(\theta_hh)^{n-1}+o(h^{n-1}).
+\]
+第二式的余项可统一写成$o(h^{n-1})$：将点余项写为$\eta(s)s^{n-1}$，其中$\eta(s)\to0$，再用$|s|=|\theta_hh|\le|h|$即可。代入中值等式并除以$h^n$，得
+\[
+ \dfrac{c}{n!}+o(1)
+ =\dfrac{c}{(n-1)!}\theta_h^{\,n-1}+o(1).
+\]
+故$\theta_h^{n-1}\to\frac{1}{n}$。因$\theta_h>0$，取正的$(n-1)$次根即得结论。
+\end{proof}
+\begin{example}{竞赛风格｜反正切中值点的位置}{难度：$\star\star\star$}\label{cd:ex:mvt-position}
+\textbf{题目} 对$x\ne0$，设$\xi_x$介于0与$x$之间且$\arctan x=\frac{x}{1+\xi_x^2}$。求$\lim_{x\to0}\frac{\xi_x}{x}$。\par
+\textbf{思路} 可用高阶定位定理，也可从等式直接解出平方比。\par
+\textbf{详细解答} $f(x)=\arctan x$满足$f'(0)=1,f''(0)=0,f'''(0)=-2\ne0$。由定理\ref{cd:mvt-position}，取$n=3$，得$\frac{\xi_x}{x}\to\frac{1}{\sqrt3}$。独立计算：题设等式给
+\[
+ \dfrac{\xi_x^2}{x^2}
+ =\dfrac{x-\arctan x}{x^2\arctan x}
+ \to\dfrac13,
+\]
+其中$\arctan x=x-\frac{x^3}{3}+o(x^3)$。由于$\xi_x$与$x$同号，$\frac{\xi_x}{x}>0$，故仍得$\frac{1}{\sqrt3}$。\par
+\textbf{方法点评} 平方比的极限只确定绝对值，正号来自中值点所在区间。\par
+\textbf{疑难点与变式} 不能仅从$|\xi_x|<|x|$推出$\frac{\xi_x}{x}$有极限；夹在0和1之间只表示有界。
+\end{example}
+
+\subsection{用所有小区间的积分平均反推凸性}
+\begin{method}{对称小区间检测二阶项}
+\textbf{适用条件} $f\in C^2(I)$，给出对每个子区间成立的积分平均不等式。\par
+\textbf{步骤} 取以任意$c$为中心的小区间$[c-h,c+h]$；展开后积分，奇次项抵消；二阶项系数的符号给出$f''(c)$。\par
+\textbf{疑难点} 单独一个区间的不等式不能控制所有点的凹凸性；“每个子区间”是反推的关键。
+\end{method}
+\begin{theorem}{中点积分平均的凸性判据}\label{cd:mean-convex}
+设$I$为开区间、$f\in C^2(I)$。以下两条件等价：
+\[
+ f''(x)\ge0\quad(x\in I);
+ \qquad
+ f\!\left(\dfrac{a+b}{2}\right)
+ \le\dfrac1{b-a}\int_a^bf(x)\dd x
+ \quad([a,b]\subset I).
+\]
+\end{theorem}
+\begin{proof}
+若$f''\ge0$，则$f$在每点$c$的切线位于图像下方，
+$f(x)\ge f(c)+f'(c)(x-c)$。取$c=\frac{a+b}{2}$并积分，线性项积分为0，得到右侧条件。反向固定$c\in I$，由Taylor公式，
+\[
+ f(c+t)=f(c)+f'(c)t+\dfrac{f''(c)}2t^2+r(t),
+ \qquad r(t)=o(t^2).
+\]
+对$[-h,h]$积分并除以$2h$，余项满足
+$\left|(2h)^{-1}\int_{-h}^hr(t)\dd t\right|=o(h^2)$，所以
+\[
+ \dfrac1{2h}\int_{c-h}^{c+h}f(x)\dd x-f(c)
+ =\dfrac{f''(c)}6h^2+o(h^2).
+\]
+左边非负，除以$h^2$后令$h\to0^+$得$f''(c)\ge0$。$c$任意，结论成立。
+\end{proof}
+\begin{example}{竞赛风格｜积分平均判据的必要范围}{难度：$\star\star\star$}\label{cd:ex:mean-convex}
+\textbf{题目} 设$f(x)=x^4-\lambda x^2$。求使定理\ref{cd:mean-convex}中的积分平均不等式在每个实数子区间上成立的全部$\lambda$。若只在$[-1,1]$检查，条件有何变化？\par
+\textbf{思路} 全部区间用二阶导数，单个区间直接积分。\par
+\textbf{详细解答} $f''(x)=12x^2-2\lambda$，对所有$x$非负当且仅当$\lambda\le0$。因此全部子区间的条件是$\lambda\le0$。若只检查$[-1,1]$，中点值$f(0)=0$，而平均值为
+\[
+ \dfrac12\int_{-1}^1(x^4-\lambda x^2)\dd x
+ =\dfrac15-\dfrac{\lambda}{3}.
+\]
+只须$\lambda\le\frac{3}{5}$；例如$\lambda=\frac{1}{2}$通过这一个区间的检验，却有$f''(0)=-1<0$。\par
+\textbf{方法点评} 局部二阶项可由任意小区间的平均提取，单个大区间则可能由其他位置的正贡献掩盖局部负曲率。\par
+\textbf{疑难点与变式} “积分非负”一般不推出被积函数逐点非负；只有对足够丰富的小区间都成立，才可利用连续性反推逐点信息。
+\end{example}
+
+\subsection{指数因子化简截断多项式的零点}
+\begin{method}{消去相邻阶数，只留下最高次项}
+\textbf{适用条件} $P_n(x)=\sum_{k=0}^n\frac{x^k}{k!}$，有$P_n'=P_{n-1}$。\par
+\textbf{步骤} 构造$\e^{-x}P_n$，求导后只剩$-\frac{\e^{-x}x^n}{n!}$；按$n$的奇偶分区间判断单调和端点极限。\par
+\textbf{疑难点} $P_n$本身的导数符号未必容易判断，乘以处处为正的指数因子既不改变零点，又使求导大幅简化。
+\end{method}
+\begin{example}{竞赛风格｜指数部分和的实根个数}{难度：$\star\star\star$}\label{cd:ex:exp-polynomial}
+\textbf{题目} 对整数$n\ge1$，判断$P_n(x)=1+x+\cdots+\frac{x^n}{n!}$的实根个数。\par
+\textbf{思路} 保留零点，改变用于判断单调的函数。\par
+\textbf{详细解答} 令$F_n(x)=\e^{-x}P_n(x)$。因$\e^{-x}>0$，两者实根完全相同，且
+\[
+ F_n'(x)=\e^{-x}(P_n'-P_n)
+ =-\dfrac{x^n}{n!}\e^{-x}.
+\]
+若$n$为偶数，$F_n$在$\R$严格递减，$\lim_{x\to+\infty}F_n(x)=0$，故每个有限$x$处$F_n(x)>0$，没有实根。若$n$为奇数，则$F_n$在$(-\infty,0)$严格递增、在$(0,\infty)$严格递减，$F_n(0)=1$。当$x\to-\infty$时，$P_n$的最高次项为负而$\e^{-x}\to+\infty$，故$F_n(x)\to-\infty$。介值定理及严格单调性给负半轴恰有一个根。正半轴上$P_n$的每项均正，所以没有根。\par
+\textbf{方法点评} 根的存在性由两端符号给出，唯一性由变换后的单调性给出；不必求解高次多项式。\par
+\textbf{疑难点与变式} 偶数情形“递减且趋0”给的是严格正值，不能把极限0算成一个有限实根。
+\end{example}
+
+\subsection{一点的二阶导数不能替代邻域条件}
+\begin{method}{反例中分开控制低阶极限与高阶振荡}
+\textbf{适用条件} 需要辨析$f''(a)>0$与邻域内$f''>0$的差异。\par
+\textbf{步骤} 以$x^2$固定原点的二阶导数，再叠加高次小量与快速振荡；计算一点的导数时用差商，在非零点才套求导法则。\par
+\textbf{疑难点} 在一点$f''(a)>0$足以配合$f'(a)=0$判严格极小，却不足以保证整个邻域凸。
+\end{method}
+\begin{example}{考研风格｜有严格极小却没有凸邻域}{难度：$\star\star\star$}\label{cd:ex:point-convex}
+\textbf{题目} 令$f(0)=0$，$x\ne0$时$f(x)=x^2+x^5\sin(\frac{1}{x^2})$。证明$f''(0)=2$、原点为严格极小点，但$f$在原点任一邻域内都不是凸函数。\par
+\textbf{思路} 极小值用函数值估计，二阶导数的连续性失败用振荡子列展示。\par
+\textbf{详细解答} 由定义，$f'(0)=\lim_{h\to0}[h+h^4\sin(\frac{1}{h^2})]=0$。对$x\ne0$，
+\[
+ f'(x)=2x+5x^4\sin(\dfrac{1}{x^2})-2x^2\cos(\dfrac{1}{x^2}).
+\]
+故$f''(0)=\lim_{h\to0}\frac{f'(h)}{h}=2$。同时$0<|x|<1$时
+\[
+ f(x)\ge x^2-|x|^5=x^2(1-|x|^3)>0=f(0),
+\]
+所以0是严格极小点。在非零点继续求导，
+\[
+ f''(x)=2+20x^3\sin(\dfrac{1}{x^2})
+          -14x\cos(\dfrac{1}{x^2})-\dfrac4x\sin(\dfrac{1}{x^2}).
+\]
+取$x_k=(\frac{\pi}{2}+2k\pi)^{-\frac{1}{2}}\to0^+$，则$f''(x_k)=2+20x_k^3-\frac{4}{x_k}\to-\infty$。任意原点邻域内都出现$f''<0$的点，因二阶可导凸函数必满足$f''\ge0$，故不存在凸邻域。\par
+\textbf{方法点评} 原点的低阶差商与邻近点的高阶振荡可以同时成立，不应把一点导数值自动推广为整个邻域的导数符号。\par
+\textbf{疑难点与变式} 若再假设$f''$在0连续，则$f''(0)>0$可由保号性推出一个邻域内$f''>0$；连续性正是缺少的桥梁。
+\end{example}
+
+\subsection{从端点水平切线推出二阶变化下界}
+\begin{method}{同一中点作两端Taylor展开}
+\textbf{适用条件} $f\in C^2[a,b]$且$f'(a)=f'(b)=0$。\par
+\textbf{步骤} 在$a,b$分别向同一个中点展开；相减消去中点函数值；把两处二阶导数绝对值之和换为其中较大者的两倍。\par
+\textbf{疑难点} 两次展开的余项点不同；可以比较它们的最大值，却不能将两点直接写为同一点。
+\end{method}
+\begin{example}{竞赛风格｜端点平坦仍须有足够的弯曲}{难度：$\star\star\star$}\label{cd:ex:endpoint-bound}
+\textbf{题目} 设$f\in C^2[a,b]$，$a<b$，$f'(a)=f'(b)=0$。证明存在$\xi\in(a,b)$，使
+\[
+ |f''(\xi)|\ge\dfrac{4|f(b)-f(a)|}{(b-a)^2}.
+\]
+\textbf{思路} 中点到两端距离相等，使两个二阶余项拥有相同系数。\par
+\textbf{详细解答} 记$m=\frac{a+b}{2}$，$L=b-a$。Taylor公式分别给出$u\in(a,m)$、$v\in(m,b)$，使
+\[
+ f(m)=f(a)+\dfrac{L^2}{8}f''(u),\qquad
+ f(m)=f(b)+\dfrac{L^2}{8}f''(v).
+\]
+相减得$f(b)-f(a)=\frac{L^2[f''(u)-f''(v)]}{8}$。因此
+\[
+ |f(b)-f(a)|
+ \le\dfrac{L^2}{8}\bigl(|f''(u)|+|f''(v)|\bigr)
+ \le\dfrac{L^2}{4}\max\{|f''(u)|,|f''(v)|\}.
+\]
+从$u,v$中取绝对值较大的一点作为$\xi$即可。\par
+\textbf{方法点评} 与先在整个区间只用一次Taylor相比，两端向中点展开把距离平方减小到$\frac{L^2}{4}$，得到更强系数。\par
+\textbf{疑难点与变式} 若$f(a)=f(b)$，右端为0，结论仍成立；若取消端点导数为0，线性函数就能使右端正而$f''$恒为0。
+\end{example}

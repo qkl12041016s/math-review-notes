@@ -1,0 +1,16 @@
+\label{der:1-1}
+\textbf{第一步：由排列定义得到行运算性质。}固定除第$i$行外的全部行。排列和中每项恰含一个第$i$行元素，所以把该行写成$\alpha r+\beta s$后逐项展开，得到对应两个行列式的线性组合。交换第$i,j$行，相当于把每个排列再复合一次对换，符号乘$-1$；因此相同行时$D=-D$，在实数或复数域得$D=0$。将第$i$行加上第$j$行的$c$倍，利用行线性展开为原式加$c$倍的重复行行列式，后者为零。
+
+\textbf{第二步：转置与单行展开。}在$\det A\T$的排列和中，令$\pi=\sigma^{-1}$。因为$\sgn\pi=\sgn\sigma$，且
+\[\prod_i a_{\sigma(i),i}=\prod_j a_{j,\pi(j)},\]
+全部项与$\det A$一一对应，故转置不改变行列式，列运算性质也随之成立。固定$\sigma(i)=j$，将第$i$行、第$j$列分别移到首位，共作$(i-1)+(j-1)$次交换；剩下的排列正是删去该行列后的排列。因此该类项的和为$a_{ij}(-1)^{i+j}M_{ij}$，对$j$求和得单行展开。把第$j$行改成第$i$行时，沿被替换的行展开，其余子式仍是原来的$C_{jk}$；当$i\ne j$出现重复行，所以$\sum_k a_{ik}C_{jk}=0$；$i=j$时等于$\det A$。
+
+\textbf{第三步：乘积公式。}记$A$的列为$a_1,\ldots,a_n$，则$AB$第$j$列为$\sum_k b_{kj}a_k$。按列多线性，
+\[\det(AB)=\sum_{k_1,\ldots,k_n}\left(\prod_{j=1}^n b_{k_jj}\right)\det(a_{k_1},\ldots,a_{k_n}).\]
+指标有重复时行列式为零；无重复时$(k_1,\ldots,k_n)$为排列$\sigma$，对应行列式为$\sgn\sigma\det A$。所以
+\[\det(AB)=\det A\sum_{\sigma\in S_n}\sgn\sigma\prod_j b_{\sigma(j),j}=\det A\det B.\]
+最后一个和是$B$按列写出的排列定义。
+
+\textbf{第四步：多行展开。}令选定行$I=\{i_1<\cdots<i_k\}$，每一排列把这些行对应到唯一的$k$列集合$J=\{j_1<\cdots<j_k\}$。将$I,J$分别移到前$k$个位置，交换次数分别为$\sum_{\ell}(i_\ell-\ell)$与$\sum_{\ell}(j_\ell-\ell)$；其和与$\sum I+\sum J$同奇偶，因为$k(k+1)$为偶数。固定$J$后，前$k$行列内的排列与余下的排列独立求和，得到
+\[\det A=\sum_{|J|=k}(-1)^{\sum I+\sum J}\det A[I,J]\det A[I^c,J^c].\]
+这也覆盖$k=1$的单行展开。

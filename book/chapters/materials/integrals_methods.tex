@@ -1,0 +1,157 @@
+\section{不定积分的完整方法库}\label{mat:integrals_methods}
+\begin{examtip}本节用可执行的代换、恒等式与递推组织积分技巧。每个原函数都在指定区间内理解；最后以求导核验。\end{examtip}
+\subsection{原函数、常数与分支修正}\label{mat:integrals_methods:i01}
+\begin{method}{原函数、常数与分支修正}\textbf{适用条件} 定义域可能不连通。\par\textbf{实施与依据} 每个连通区间保留独立常数；绝对值与反函数分支单独处理。\end{method}
+\begin{example}{专题例题｜原函数、常数与分支修正}{难度：$\star\star$}
+\textbf{题目} 说明$\int\frac{\dd x}{x}$在$\R\setminus\{0\}$上的全部原函数。\par\textbf{思路与解答} $x>0$为$\ln x+C_+$，$x<0$为$\ln(-x)+C_-$，$C_+,C_-$相互独立。不能因写一个$+C$就强迫跨越奇点的常数一致。\par\textbf{方法点评与边界} 考试书写应显式保留定义域、参数与分支条件，不把条件修正交给读者猜测。
+\end{example}
+\subsection{分项、重组与凑微分}\label{mat:integrals_methods:i02}
+\begin{method}{分项、重组与凑微分}\textbf{适用条件} 分子可拆成分母导数与余项。\par\textbf{实施与依据} 先进行代数分解，再应用逆链式法则。\end{method}
+\begin{example}{专题例题｜分项、重组与凑微分}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{2x+3}{x^2+1}\dd x$。\par\textbf{思路与解答} 拆为$\ln(x^2+1)+3\arctan x+C$。求导后分子恢复$2x+3$。\par\textbf{方法点评与边界} 拆分依据线性，不允许把商的积分拆成两个积分的商。
+\end{example}
+\subsection{第一换元：内层导数}\label{mat:integrals_methods:i03}
+\begin{method}{第一换元：内层导数}\textbf{适用条件} 有$f(g(x))g\prime(x)$。\par\textbf{实施与依据} 用$u=g(x)$连同微分整体替换。\end{method}
+\begin{example}{专题例题｜第一换元：内层导数}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{\ln x\,\dd x}{x}$，$x>0$。\par\textbf{思路与解答} $u=\ln x$，积分$\int u\dd u=\frac{u^2}{2}+C$。也可逆识别$\frac12(\ln x)^2$的导数。\par\textbf{方法点评与边界} 对数真数与换元后的区间同时记录。
+\end{example}
+\subsection{第二换元：主动参数化}\label{mat:integrals_methods:i04}
+\begin{method}{第二换元：主动参数化}\textbf{适用条件} 根式可被三角或双曲恒等式消去。\par\textbf{实施与依据} 选择$x=a\sin t,a\tan t,a\sinh t$等适当分支。\end{method}
+\begin{example}{专题例题｜第二换元：主动参数化}{难度：$\star\star$}
+\textbf{题目} 求$\int\sqrt{a^2-x^2}\dd x$，$a>0,|x|<a$。\par\textbf{思路与解答} 令$x=a\sin t$，得$a^2\int\cos^2t\dd t$，结果$\frac12[x\sqrt{a^2-x^2}+a^2\arcsin(\frac{x}{a})]+C$。\par\textbf{方法点评与边界} 回代后求导可检验两个项的抵消。
+\end{example}
+\subsection{分部积分的选择}\label{mat:integrals_methods:i05}
+\begin{method}{分部积分的选择}\textbf{适用条件} 乘积中有可降低复杂度的因子。\par\textbf{实施与依据} 对数或反三角常作求导因子，多项式反复降阶。\end{method}
+\begin{example}{专题例题｜分部积分的选择}{难度：$\star\star$}
+\textbf{题目} 求$\int\arctan x\dd x$。\par\textbf{思路与解答} 取$u=\arctan x,\dd v=\dd x$，得$x\arctan x-\int \frac{x}{1+x^2}\dd x=x\arctan x-\frac12\ln(1+x^2)+C$。\par\textbf{方法点评与边界} 经验顺序不能代替实际检查剩余积分是否更简单。
+\end{example}
+\subsection{多次分部与表格法}\label{mat:integrals_methods:i06}
+\begin{method}{多次分部与表格法}\textbf{适用条件} 多项式乘指数、三角函数。\par\textbf{实施与依据} 交替符号排列多项式导数与另一因子的连续原函数。\end{method}
+\begin{example}{专题例题｜多次分部与表格法}{难度：$\star\star$}
+\textbf{题目} 求$\int x^2\e^{ax}\dd x$，$a\ne0$。\par\textbf{思路与解答} 两次分部给$\e^{ax}(\frac{x^2}{a}-\frac{2x}{a^2}+\frac{2}{a^3})+C$。对$a=0$另为$\frac{x^3}{3}+C$。\par\textbf{方法点评与边界} 常参数为零时必须回到未约化的表达式分类。
+\end{example}
+\subsection{循环积分与待定原函数}\label{mat:integrals_methods:i07}
+\begin{method}{循环积分与待定原函数}\textbf{适用条件} 导数封闭的指数三角族。\par\textbf{实施与依据} 循环两次后解关于原积分的线性方程，或设同类试解。\end{method}
+\begin{example}{专题例题｜循环积分与待定原函数}{难度：$\star\star$}
+\textbf{题目} 求$\int\e^{ax}\sin bx\dd x$，$a^2+b^2>0$。\par\textbf{思路与解答} 设原函数$\e^{ax}(A\sin bx+B\cos bx)$，比较系数得$A=\frac{a}{a^2+b^2},B=-\frac{b}{a^2+b^2}$。\par\textbf{方法点评与边界} 该公式也由循环分部获得，两法都应回代验算。
+\end{example}
+\subsection{部分分式：一次与重因子}\label{mat:integrals_methods:i08}
+\begin{method}{部分分式：一次与重因子}\textbf{适用条件} 真有理分式。\par\textbf{实施与依据} 一次重因子逐幂配置常数分子，通分比较系数。\end{method}
+\begin{example}{专题例题｜部分分式：一次与重因子}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{\dd x}{x(x-1)^2}$。\par\textbf{思路与解答} $\frac{1}{x(x-1)^2}=\frac{1}{x}-\frac{1}{x-1}+\frac{1}{(x-1)^2}$，故原函数$\ln|x|-\ln|x-1|-\frac{1}{x-1}+C$。\par\textbf{方法点评与边界} 重根不只保留最高次项。
+\end{example}
+\subsection{不可约二次因子}\label{mat:integrals_methods:i09}
+\begin{method}{不可约二次因子}\textbf{适用条件} 分母为正定二次或其幂。\par\textbf{实施与依据} 配方，分子拆成分母导数与常数。\end{method}
+\begin{example}{专题例题｜不可约二次因子}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{x+1}{x^2+2x+5}\dd x$。\par\textbf{思路与解答} 分子恰为分母导数一半，结果$\frac12\ln(x^2+2x+5)+C$。若分子改成$x+2$，再加$\frac12\arctan(\frac{x+1}{2})$。\par\textbf{方法点评与边界} 二次分式的分子一般必须保留一次项。
+\end{example}
+\subsection{三角奇偶幂}\label{mat:integrals_methods:i10}
+\begin{method}{三角奇偶幂}\textbf{适用条件} $\sin^mx\cos^nx$的某个指数为奇数。\par\textbf{实施与依据} 留一个奇函数微分，其余利用平方和改写。\end{method}
+\begin{example}{专题例题｜三角奇偶幂}{难度：$\star\star$}
+\textbf{题目} 求$\int\sin^2x\cos^3x\dd x$。\par\textbf{思路与解答} 令$u=\sin x$，积分为$\int u^2(1-u^2)\dd u=\frac{\sin^3x}{3}-\frac{\sin^5x}{5}+C$。\par\textbf{方法点评与边界} 若两指数均偶数，改用降幂公式。
+\end{example}
+\subsection{倍角、降幂与积化和差}\label{mat:integrals_methods:i11}
+\begin{method}{倍角、降幂与积化和差}\textbf{适用条件} 偶次三角幂或不同频率乘积。\par\textbf{实施与依据} 用倍角与积化和差把乘积变为有限和。\end{method}
+\begin{example}{专题例题｜倍角、降幂与积化和差}{难度：$\star\star$}
+\textbf{题目} 求$\int\sin2x\cos3x\dd x$。\par\textbf{思路与解答} $\sin2x\cos3x=\frac{\sin5x-\sin x}{2}$，结果$-\frac{\cos5x}{10}+\frac{\cos x}{2}+C$。\par\textbf{方法点评与边界} 负频率项的奇偶性决定符号。
+\end{example}
+\subsection{三角万能代换}\label{mat:integrals_methods:i12}
+\begin{method}{三角万能代换}\textbf{适用条件} 一般三角有理式。\par\textbf{实施与依据} $t=\tan(\frac{x}{2})$，将$\sin x,\cos x,\dd x$同时替换成有理式。\end{method}
+\begin{example}{专题例题｜三角万能代换}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{\dd x}{1+\sin x}$。\par\textbf{思路与解答} 可直接乘$1-\sin x$，化为$\sec^2x-\sec x\tan x$，原函数$\tan x-\sec x+C$。万能代换也给$2\int\frac{\dd t}{(t+1)^2}=-\frac{2}{t+1}+C$，在共同定义的连通区间上两式只差常数。为覆盖$\cos x=0,\sin x=1$这些原函数连续的点，应将$\tan x-\sec x$改写为$-\frac{\cos x}{1+\sin x}$；它在原分母非零的整个区间内可用。\par\textbf{方法点评与边界} 万能法系统，但恒等式法更短；均须避开原分母零点。
+\end{example}
+\subsection{正割、余割与递推}\label{mat:integrals_methods:i13}
+\begin{method}{正割、余割与递推}\textbf{适用条件} 高次$\sec,\csc,\tan,\cot$。\par\textbf{实施与依据} 分部或$\tan^2x=\sec^2x-1$降低幂次。\end{method}
+\begin{example}{专题例题｜正割、余割与递推}{难度：$\star\star$}
+\textbf{题目} 求$J_n=\int\sec^nx\dd x$的递推。\par\textbf{思路与解答} 对$\sec^{n-2}x\cdot\sec^2x$分部，整理得$J_n=\frac{\sec^{n-2}x\tan x}{n-1}+\frac{(n-2)J_{n-2}}{n-1}$，$n>1$；初值$J_0=x,J_1=\ln|\sec x+\tan x|$。\par\textbf{方法点评与边界} 不定积分递推中的常数统一吸收到最终$C$。
+\end{example}
+\subsection{双曲函数有理式}\label{mat:integrals_methods:i14}
+\begin{method}{双曲函数有理式}\textbf{适用条件} 平方差或指数成对出现。\par\textbf{实施与依据} 用$\cosh^2t-\sinh^2t=1$或$t=\e^x$。\end{method}
+\begin{example}{专题例题｜双曲函数有理式}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{\dd x}{\cosh x}$。\par\textbf{思路与解答} $t=\e^x>0$，$\cosh x=\frac{t+t^{-1}}{2}$，积分$2\arctan t+C=2\arctan\e^x+C$。\par\textbf{方法点评与边界} 双曲函数可统一还原为指数有理式。
+\end{example}
+\subsection{二次双元：圆型}\label{mat:integrals_methods:i15}
+\begin{method}{二次双元：圆型}\textbf{适用条件} 两变量满足$u^2+v^2=c^2$。\par\textbf{实施与依据} 利用角变量或比值的微分，把两变量的微分关系闭合。\end{method}
+\begin{example}{专题例题｜二次双元：圆型}{难度：$\star\star$}
+\textbf{题目} 设$u^2+v^2=1,v>0$，积分$\int\frac{\dd u}{v}$。\par\textbf{思路与解答} 由$u=\sin t,v=\cos t$得到$t+C=\arcsin u+C$。若以$\frac{u}{v}$作参数，则$\dd(\frac{u}{v})=\frac{\dd u}{v^3}$，可反推其他双元积分。\par\textbf{方法点评与边界} “双元”是利用代数关系的组织方式，不是无条件公式。
+\end{example}
+\subsection{二次双元：双曲型}\label{mat:integrals_methods:i16}
+\begin{method}{二次双元：双曲型}\textbf{适用条件} $v^2-u^2=a^2>0$。\par\textbf{实施与依据} 利用$(v+u)(v-u)=a^2$和对数微分。\end{method}
+\begin{example}{专题例题｜二次双元：双曲型}{难度：$\star\star$}
+\textbf{题目} 在$v=\sqrt{u^2+a^2}$下求$\int\frac{\dd u}{v}$。\par\textbf{思路与解答} $\dd\ln(u+v)=\frac{\dd u}{v}$，答案$\ln(u+v)+C$；$u=a\sinh t$给同一表达式加常数。\par\textbf{方法点评与边界} 平方根取正分支，因此$u+v>0$。
+\end{example}
+\subsection{双元降次与递推}\label{mat:integrals_methods:i17}
+\begin{method}{双元降次与递推}\textbf{适用条件} $I_n=\int(x^2+a^2)^{-n}\dd x$。\par\textbf{实施与依据} 对$x(x^2+a^2)^{1-n}$求导，解出$I_n$。\end{method}
+\begin{example}{专题例题｜双元降次与递推}{难度：$\star\star$}
+\textbf{题目} 推导$I_n$递推，$a>0,n\ge2$。\par\textbf{思路与解答} 直接求导得$[\frac{x}{(x^2+a^2)^{n-1}}]\prime=\frac{3-2n}{(x^2+a^2)^{n-1}}+\frac{2(n-1)a^2}{(x^2+a^2)^n}$，故$I_n=\frac{x}{2(n-1)a^2(x^2+a^2)^{n-1}}+\frac{(2n-3)I_{n-1}}{2(n-1)a^2}$。\par\textbf{方法点评与边界} 用$n=2$可快速检验系数。
+\end{example}
+\subsection{分式构型与齐次比值}\label{mat:integrals_methods:i18}
+\begin{method}{分式构型与齐次比值}\textbf{适用条件} 分子分母关于两元同次齐次。\par\textbf{实施与依据} 选$\frac{u}{v}$或$\frac{v}{u}$消除一个变量，微分由商法则推导。\end{method}
+\begin{example}{专题例题｜分式构型与齐次比值}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{\dd x}{x\sqrt{x^2-1}}$，$x>1$。\par\textbf{思路与解答} 令$t=\frac{\sqrt{x^2-1}}{x}$，$t\prime=\frac{1}{x^2\sqrt{x^2-1}}$，或更直接设$x=\sec\theta$，积分$\dd\theta$，得$\arccos(\frac{1}{x})+C$。\par\textbf{方法点评与边界} 先算换元微分，不能凭齐次外形省掉额外$x$因子。
+\end{example}
+\subsection{恒等式诱导与Möbius变换}\label{mat:integrals_methods:i19}
+\begin{method}{恒等式诱导与Möbius变换}\textbf{适用条件} 互为共轭的和差，或分式线性变换。\par\textbf{实施与依据} 用$t=\frac{ax+b}{cx+d}$并反解，行列式$ad-bc\ne0$。\end{method}
+\begin{example}{专题例题｜恒等式诱导与Möbius变换}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{\dd x}{x^2-1}$。\par\textbf{思路与解答} 令$t=\frac{x-1}{x+1}$，有$\frac{\dd t}{t}=\frac{2\dd x}{x^2-1}$，故结果$\frac12\ln|t|+C$。部分分式得到同式。\par\textbf{方法点评与边界} 非零行列式和分母非零保证局部代换合法。
+\end{example}
+\subsection{双元化单元与共同根次}\label{mat:integrals_methods:i20}
+\begin{method}{双元化单元与共同根次}\textbf{适用条件} 多重根号具有共同基底。\par\textbf{实施与依据} 用最小公倍根次一次消除多个分数指数。\end{method}
+\begin{example}{专题例题｜双元化单元与共同根次}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{\dd x}{\sqrt x+\sqrt[3]x}$，$x>0$。\par\textbf{思路与解答} 设$x=t^6$，积分$6\int \frac{t^3}{1+t}\dd t=6\int(t^2-t+1-\frac{1}{1+t})\dd t$。结果$2t^3-3t^2+6t-6\ln(1+t)+C$，回代$t=x^{\frac{1}{6}}$。\par\textbf{方法点评与边界} 统一根次比先分两次换元简洁。
+\end{example}
+\subsection{多重根号：和差参数}\label{mat:integrals_methods:i21}
+\begin{method}{多重根号：和差参数}\textbf{适用条件} 出现$\sqrt{x+a}\pm\sqrt{x+b}$。\par\textbf{实施与依据} 利用两者和差的乘积为常数。\end{method}
+\begin{example}{专题例题｜多重根号：和差参数}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{\dd x}{\sqrt{x+1}+\sqrt x}$，$x>0$。\par\textbf{思路与解答} 乘共轭后 被积式为$\sqrt{x+1}-\sqrt x$，答案$\frac23[(x+1)^{\frac{3}{2}}-x^{\frac{3}{2}}]+C$。\par\textbf{方法点评与边界} 先做代数消根，通常优于引入复杂新变量。
+\end{example}
+\subsection{Euler根式替换}\label{mat:integrals_methods:i22}
+\begin{method}{Euler根式替换}\textbf{适用条件} 一般$R(x,\sqrt{ax^2+bx+c})$。\par\textbf{实施与依据} $a>0$时令根式$=t+\sqrt a\,x$；$c>0$时也可令根式$=tx+\sqrt c$。平方后反解$x$。\end{method}
+\begin{example}{专题例题｜Euler根式替换}{难度：$\star\star$}
+\textbf{题目} 将$\sqrt{x^2+x+1}$有理化。\par\textbf{思路与解答} 设$\sqrt{x^2+x+1}=t+x$，平方得$x(1-2t)=t^2-1$，故$x=\frac{t^2-1}{1-2t}$，根式与$\dd x$均成为$t$的有理函数。\par\textbf{方法点评与边界} 平方可能引入分支，回代须确认原根式非负。
+\end{example}
+\subsection{指数单元法}\label{mat:integrals_methods:i23}
+\begin{method}{指数单元法}\textbf{适用条件} $R(\e^{ax})$且$\dd x$可转成$\frac{\dd t}{t}$。\par\textbf{实施与依据} 取$t=\e^{ax}$，化有理积分。\end{method}
+\begin{example}{专题例题｜指数单元法}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{\dd x}{1+\e^x}$。\par\textbf{思路与解答} $t=\e^x$后$\int\frac{\dd t}{t(1+t)}=\ln t-\ln(1+t)+C=x-\ln(1+\e^x)+C$。\par\textbf{方法点评与边界} 若同时含$x$，换元后$x=\ln t$未必仍是有理式。
+\end{example}
+\subsection{有理积分中的倒数对称}\label{mat:integrals_methods:i24}
+\begin{method}{有理积分中的倒数对称}\textbf{适用条件} 分母回文，多项式满足倒数对称。\par\textbf{实施与依据} 按$x\pm\frac{1}{x}$组合及其微分选变量。\end{method}
+\begin{example}{专题例题｜有理积分中的倒数对称}{难度：$\star\star$}
+\textbf{题目} 求$\int\frac{1-x^{-2}}{1+(x+x^{-1})^2}\dd x$，$x\ne0$。\par\textbf{思路与解答} 设$u=x+\frac{1}{x}$，$\dd u=(1-x^{-2})\dd x$，得$\arctan(x+\frac{1}{x})+C$。\par\textbf{方法点评与边界} 并非所有回文分式都直接可用，需要微分结构匹配。
+\end{example}
+\subsection{隐函数积分与微分方程}\label{mat:integrals_methods:i25}
+\begin{method}{隐函数积分与微分方程}\textbf{适用条件} 曲线关系可给$x,y$参数式或导数。\par\textbf{实施与依据} 对约束求微分，将$y\dd x$与$\dd(xy)$结合。\end{method}
+\begin{example}{专题例题｜隐函数积分与微分方程}{难度：$\star\star$}
+\textbf{题目} 单位圆第一象限上求$\int y\dd x$。\par\textbf{思路与解答} $x=\cos t,y=\sin t$，$y\dd x=-\sin^2t\dd t$，积分$-\frac{t}{2}+\frac{\sin2t}{4}+C$，可回代成$\frac12[x\sqrt{1-x^2}+\arcsin x]+C$。\par\textbf{方法点评与边界} 不同参数方向产生的符号要与$\dd x$一致。
+\end{example}
+\subsection{配对与组合积分}\label{mat:integrals_methods:i26}
+\begin{method}{配对与组合积分}\textbf{适用条件} 两式相加后出现可积结构。\par\textbf{实施与依据} 把未知积分与同族积分建立线性关系。\end{method}
+\begin{example}{专题例题｜配对与组合积分}{难度：$\star\star$}
+\textbf{题目} 令$I=\int\frac{\sin x}{\sin x+\cos x}\dd x$，求原函数。\par\textbf{思路与解答} 用$\sin x=\frac12[(\sin x+\cos x)-(\cos x-\sin x)]$，得$I=\frac{x}{2}-\frac12\ln|\sin x+\cos x|+C$。\par\textbf{方法点评与边界} 配对实际上是把分子拆成分母与分母导数。
+\end{example}
+\subsection{含参构造消去对数}\label{mat:integrals_methods:i27}
+\begin{method}{含参构造消去对数}\textbf{适用条件} 对数幂可由参数导数产生。\par\textbf{实施与依据} 先求简单含参积分，再在有控制的参数区间求导。\end{method}
+\begin{example}{专题例题｜含参构造消去对数}{难度：$\star\star$}
+\textbf{题目} 求$\int_0^1x^a\ln x\dd x$，$a>-1$。\par\textbf{思路与解答} 从$F(a)=\frac{1}{a+1}$求导得$-\frac{1}{(a+1)^2}$；直接分部并取0端极限也得同值。\par\textbf{方法点评与边界} 反常端点处要有$x^\alpha|\ln x|$等可积控制。
+\end{example}
+\subsection{复数分解与取实部}\label{mat:integrals_methods:i28}
+\begin{method}{复数分解与取实部}\textbf{适用条件} 指数三角组合或实不可约二次因子。\par\textbf{实施与依据} 先在复数域简化，再取实部虚部；对数须说明分支。\end{method}
+\begin{example}{专题例题｜复数分解与取实部}{难度：$\star\star$}
+\textbf{题目} 求$\int\e^x\cos2x\dd x$。\par\textbf{思路与解答} 取$\int\e^{(1+2i)x}\dd x$的实部，结果$\frac{\e^x(\cos2x+2\sin2x)}{5}+C$；待定系数亦可验证。\par\textbf{方法点评与边界} 复数技巧是实积分的简化工具，最终答案需实值且分支一致。
+\end{example}
+\subsection{伪椭圆构型与恰当代换}\label{mat:integrals_methods:i29}
+\begin{method}{伪椭圆构型与恰当代换}\textbf{适用条件} 看似高次根式，但可化二次结构。\par\textbf{实施与依据} 先查$x^m$及其微分，避免仅凭四次根式认定非初等。\end{method}
+\begin{example}{专题例题｜伪椭圆构型与恰当代换}{难度：$\star\star$}
+\textbf{题目} 求$\int \frac{x\dd x}{\sqrt{1+x^4}}$。\par\textbf{思路与解答} 设$u=x^2$，得$\frac12\int\frac{\dd u}{\sqrt{1+u^2}}=\frac12\operatorname{arsinh}(x^2)+C$。真正的$\int\frac{\dd x}{\sqrt{1+x^4}}$一般属于椭圆积分。\par\textbf{方法点评与边界} 被积式的微分因子决定是否能降为初等积分。
+\end{example}
+\subsection{三元与椭圆积分}\label{mat:integrals_methods:i30}
+\begin{method}{三元与椭圆积分}\textbf{适用条件} 根式对应不可降的三次或四次多项式。\par\textbf{实施与依据} 区分Legendre标准型的第一、第二类，不把特殊函数伪装为初等函数。\end{method}
+\begin{example}{专题例题｜三元与椭圆积分}{难度：$\star\star$}
+\textbf{题目} 写出$\int\frac{\dd x}{\sqrt{(1-x^2)(1-k^2x^2)}}$的标准表达，$0<k<1,|x|<1$。\par\textbf{思路与解答} 令$x=\sin\phi$，得到$F(\phi,k)=\int_0^\phi(1-k^2\sin^2t)^{-\frac{1}{2}}\dd t$，答案$F(\arcsin x,k)+C$。$k=0$退化为反正弦。\par\textbf{方法点评与边界} 这是完整的特殊函数表达，并不是省略计算。
+\end{example}
+\subsection{微分方程识别原函数}\label{mat:integrals_methods:i31}
+\begin{method}{微分方程识别原函数}\textbf{适用条件} 原函数属于有限维函数族或其逆函数。\par\textbf{实施与依据} 令未知原函数满足$F\prime=f$，用函数族的微分关系解系数或降阶。\end{method}
+\begin{example}{专题例题｜微分方程识别原函数}{难度：$\star\star$}
+\textbf{题目} 求$\int\e^{x^2}(1+2x^2)\dd x$。\par\textbf{思路与解答} 注意$[x\e^{x^2}]\prime=\e^{x^2}(1+2x^2)$，故答案$x\e^{x^2}+C$。虽然$\int\e^{x^2}\dd x$非初等，当前组合却初等。\par\textbf{方法点评与边界} 不能从一个因子的非初等原函数推出乘积也非初等。
+\end{example}

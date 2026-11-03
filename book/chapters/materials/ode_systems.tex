@@ -1,0 +1,42 @@
+\section{高阶方程、线性系统与稳定性}\label{mat:ode_systems}
+\begin{examtip}本节讨论高阶理论、Laplace变换、振动、矩阵解法、相平面与Lyapunov稳定性。\end{examtip}
+\subsection{Wronskian与Abel公式}\label{mat:ode_systems:wronskian}
+\begin{method}{Wronskian与Abel公式}\textbf{适用条件} 线性$n$阶方程最高阶系数非零，系数连续。\par\textbf{实施与依据} 基本解的Wronskian非零；标准型中$W\prime=-a_{n-1}W$。\end{method}
+\begin{example}{专题例题｜Wronskian与Abel公式}{难度：$\star\star$}
+\textbf{题目} 验证$y_1=\e^x,y_2=x\e^x$为$(D-1)^2y=0$的基本解。\par\textbf{思路与解答} $W=\e^{2x}\ne0$。方程$y\prime\prime-2y\prime+y=0$的Abel公式给$W\prime=2W$，与实际值一致。\par\textbf{方法点评与边界} 对任意函数组，Wronskian为零不总等价于线性相关；线性ODE解族的条件不能省。
+\end{example}
+\subsection{Laplace解初值问题}\label{mat:ode_systems:laplaceode}
+\begin{method}{Laplace解初值问题}\textbf{适用条件} 半轴函数指数阶，变换存在。\par\textbf{实施与依据} $\mathcal L(y\prime)=sY-y(0)$，二阶再减初始导数；把ODE化为代数式再逆变换。\end{method}
+\begin{example}{专题例题｜Laplace解初值问题}{难度：$\star\star$}
+\textbf{题目} 解$y\prime\prime+y=1,y(0)=y\prime(0)=0$。\par\textbf{思路与解答} 变换得$(s^2+1)Y=\frac{1}{s}$，$Y=\frac{1}{s}-\frac{s}{s^2+1}$，故$y=1-\cos t$。代回初值与方程均成立。\par\textbf{方法点评与边界} 不连续激励可用阶跃函数移位，冲激需分布框架另行解释。
+\end{example}
+\subsection{阻尼、共振与强迫振动}\label{mat:ode_systems:oscillation}
+\begin{method}{阻尼、共振与强迫振动}\textbf{适用条件} $my\prime\prime+cy\prime+ky=F_0\cos\omega t$，$m,k>0,c\ge0,\omega\ge0$。\par\textbf{实施与依据} 由特征根分欠阻尼、临界与过阻尼。当$(k-m\omega^2)^2+c^2\omega^2>0$时，周期特解的幅值为$\frac{|F_0|}{\sqrt{(k-m\omega^2)^2+c^2\omega^2}}$；若$c=0,\omega=\sqrt{k/m},F_0\ne0$，发生无阻尼共振，不存在有限幅值的周期特解。\end{method}
+\begin{example}{专题例题｜阻尼、共振与强迫振动}{难度：$\star\star$}
+\textbf{题目} 解释无阻尼共振。\par\textbf{思路与解答} $c=0,\omega=\sqrt{\frac{k}{m}}$时激励频率是齐次特征频率，特解含$t\sin\omega t$，振幅线性增长；待定系数不能只取常幅三角式。\par\textbf{方法点评与边界} 有阻尼时幅值公式分母不为零，峰值频率不必恰等于固有频率。
+\end{example}
+\subsection{基本解矩阵与常数变易}\label{mat:ode_systems:fundamental}
+\begin{method}{基本解矩阵与常数变易}\textbf{适用条件} $\bm x\prime=A(t)\bm x+\bm f(t)$。\par\textbf{实施与依据} 若$\Phi\prime=A\Phi,\det\Phi\ne0$，则$\bm x=\Phi[\bm c+\int\Phi^{-1}\bm f]$。\end{method}
+\begin{example}{专题例题｜基本解矩阵与常数变易}{难度：$\star\star$}
+\textbf{题目} 解$\bm x\prime=\operatorname{diag}(1,-1)\bm x$。\par\textbf{思路与解答} $\Phi=\operatorname{diag}(\e^t,\e^{-t})$，故$x=C_1\e^t,y=C_2\e^{-t}$。行列式1与$\exp\int\operatorname{tr}A=1$一致。\par\textbf{方法点评与边界} 矩阵乘法顺序不能交换，变系数矩阵一般也不在不同时刻对易。
+\end{example}
+\subsection{矩阵指数与Jordan块}\label{mat:ode_systems:jordan}
+\begin{method}{矩阵指数与Jordan块}\textbf{适用条件} 常系数线性系统。\par\textbf{实施与依据} $\e^{At}=\sum \frac{A^nt^n}{n!}$；若$A=\lambda I+N$、$N$幂零，指数拆成有限多项式乘指数。\end{method}
+\begin{example}{专题例题｜矩阵指数与Jordan块}{难度：$\star\star$}
+\textbf{题目} 求$A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$的矩阵指数。\par\textbf{思路与解答} $N^2=0$，故$\e^{At}=\e^t(I+tN)=\e^t\begin{pmatrix}1&t\\0&1\end{pmatrix}$。\par\textbf{方法点评与边界} 重特征值不能一律按可对角化处理。
+\end{example}
+\subsection{相平面、节点、鞍点与焦点}\label{mat:ode_systems:phase}
+\begin{method}{相平面、节点、鞍点与焦点}\textbf{适用条件} 二维自治系统在平衡点附近。\par\textbf{实施与依据} 线性系统按特征值实部与实虚性分类；非线性在双曲平衡点可用线性化判断局部稳定类型。\end{method}
+\begin{example}{专题例题｜相平面、节点、鞍点与焦点}{难度：$\star\star$}
+\textbf{题目} 分析$x\prime=x,y\prime=-y$。\par\textbf{思路与解答} 轨道满足$xy=C$，一方向指数增、一方向指数减，原点为不稳定鞍点；$x=0$为稳定方向，$y=0$为不稳定方向。\par\textbf{方法点评与边界} 零实部特征值属于临界情形，线性化不能直接定稳定性。
+\end{example}
+\subsection{Lyapunov稳定与渐近稳定}\label{mat:ode_systems:lyapunov}
+\begin{method}{Lyapunov稳定与渐近稳定}\textbf{适用条件} 平衡点附近有正定可微函数$V$。\par\textbf{实施与依据} $\dot V=\nabla V\cdot\bm f\le0$给出稳定性的常用充分条件；严格负定并有适当局部条件给渐近稳定。\end{method}
+\begin{example}{专题例题｜Lyapunov稳定与渐近稳定}{难度：$\star\star$}
+\textbf{题目} 分析$x\prime=-x-y,y\prime=x-y$的原点。\par\textbf{思路与解答} 取$V=\frac{x^2+y^2}{2}$，则$\dot V=x(-x-y)+y(x-y)=-x^2-y^2=-2V$，所以$V(t)=V(0)\e^{-2t}$，所有解趋向原点，且初始小扰动始终保持小。因此原点全局渐近稳定。\par\textbf{方法点评与边界} 候选函数的符号、沿解导数及适用邻域必须逐项验证。
+\end{example}
+\subsection{极限环与径向方程}\label{mat:ode_systems:cycle}
+\begin{method}{极限环与径向方程}\textbf{适用条件} 平面自治系统可转极坐标。\par\textbf{实施与依据} 由$r\prime=\frac{xx\prime+yy\prime}{r}$和$\theta\prime=\frac{xy\prime-yx\prime}{r^2}$分析。\end{method}
+\begin{example}{专题例题｜极限环与径向方程}{难度：$\star\star$}
+\textbf{题目} $x\prime=x(1-r^2)-y,y\prime=y(1-r^2)+x$，分析轨道。\par\textbf{思路与解答} $r\prime=r(1-r^2),\theta\prime=1$。$0<r<1$时半径增，$r>1$时减，故$r=1$为稳定周期轨道即稳定极限环；原点不稳定。\par\textbf{方法点评与边界} 周期轨道不一定孤立；中心附近一族闭轨道不是极限环。
+\end{example}

@@ -1,0 +1,252 @@
+\chapter{提高专题：秩、多项式与矩阵分解}\label{ch:advanced}
+\chaptermap{秩不等式}{CH与矩阵幂}{最小多项式}{分解与范数}
+\begin{examtip}
+\textbf{竞赛拓展：}Sylvester与Frobenius不等式、矩阵幂与多项式降次、最小多项式、Jordan块计数。
+\textbf{选学提高：}LU、QR、Cholesky、SVD及矩阵范数。考研复习可先掌握CH求逆和秩估计，再按需要进入其余内容。学习时先把握结论的条件，再通过核、像与不变子空间理解证明。
+\end{examtip}
+\section{Sylvester与Frobenius秩不等式}
+\subsection{把乘积看作限制映射}
+\begin{theorem}{秩不等式工具箱}
+同型矩阵满足$\abs{\rank A-\rank B}\le\rank(A+B)\le\rank A+\rank B$。若$A$有$n$列、$B$有$n$行，则
+\begin{equation}\rank A+\rank B-n\le\rank(AB)\le\min(\rank A,\rank B).\label{eq:sylvester}\end{equation}
+对相容的$A,B,C$，Frobenius不等式为
+\begin{equation}\rank(AB)+\rank(BC)\le\rank B+\rank(ABC).\label{eq:frobenius}\end{equation}
+\end{theorem}
+\begin{proof}
+\input{derivations/ch08_p1}
+\end{proof}
+\begin{method}{先写中间维数}
+乘积下界中的减数是相乘处的公共维数，不能随便取矩阵阶数。若$AB=0$，立即用$\im B\subseteq\ker A$。若有三因子且想比较两侧乘积，优先尝试Frobenius。下界为负时以零作有效下界。
+\end{method}
+\worked{Sylvester界可取等}{竞赛风格}{\star\star}{8-1}
+{给三阶秩均为2的$A,B$，使$\rank AB=1$。}
+{让两个像方向只保留一个重合方向。}
+{\textbf{方法一（直接构造）：}取$A=\diag(1,1,0)$、$B=\diag(0,1,1)$，每个各有两个非零对角元，故秩均为2。乘积$AB=\diag(0,1,0)$秩为1，达到Sylvester下界$2+2-3=1$。
+\textbf{方法二（限制映射）：}$\im B=\Span(e_2,e_3)$、$\ker A=\Span(e_3)$，交维数1，所以$\rank AB=\dim\im B-\dim(\im B\cap\ker A)=2-1=1$。几何上$B$留下的两个方向，恰有一个又被$A$消去。若改取$B=A$则$AB=A$秩2，说明仅有因子秩并不能确定乘积秩。}
+{构造法说明不等式下界无法普遍提高。}
+{仅知道两因子秩2，乘积秩也可能为2，不能断言恒等1。}
+\worked{平方秩的下界}{竞赛风格}{\star\star}{8-2}
+{证明$n$阶矩阵$\rank A^2\ge2\rank A-n$，并用$J_4(0)$验证取等。}
+{把Sylvester中两个因子取相同。}
+{\textbf{方法一（Sylvester）：}以两个因子都取$A$，中间维数为$n$，立即得$\rank A^2\ge\rank A+\rank A-n$。
+\textbf{方法二（秩损失）：}把$A$限制到$\im A$，其像为$\im A^2$、核为$\im A\cap\ker A$，所以
+\[\rank A^2=\rank A-\dim(\im A\cap\ker A)
+\ge\rank A-\dim\ker A=2\rank A-n.\]
+验证取等：$N=J_4(0)$把$e_2,e_3,e_4$分别送到$e_1,e_2,e_3$，故秩3；$N^2$把$e_3,e_4$送到$e_1,e_2$，其余送零，故秩2。下界$2\cdot3-4=2$恰好取到。}
+{核像交的维数刻画了平方损失的秩。}
+{$\rank A^2$不一定等于$\rank A$，幂等与一般矩阵要区分。}
+\worked{Frobenius中的中间矩阵}{竞赛风格}{\star\star}{8-3}
+{取$A=(1,0),B=I_2,C=(0,1)\T$，核验Frobenius并解释为何不能省掉$\rank B$。}
+{分别计算四个秩。}
+{逐项乘出$AB=(1,0)$，秩1；$BC=(0,1)\T$，秩1；$ABC=(1,0)(0,1)\T=0$，秩0；而$B=I_2$秩2。因此
+\[\rank AB+\rank BC=1+1=2=\rank B+\rank ABC.\]
+若把右端的$\rank B$直接删去，就会要求$2\le0$，与本例矛盾，所以该项不可省。
+从核像角度，$X=\im B=\R^2$，$Y=\im BC=\Span(e_2)$，且$\ker A=\Span(e_2)$。于是$\dim X-\dim Y=1$，$\dim(X\cap\ker A)-\dim(Y\cap\ker A)=0$，故$\rank AB-\rank ABC=1$。这正对应Frobenius证明中没有损失的取等情形。}
+{中间空间本身携带维数，不能在乘积比较时忽略。}
+{所有矩阵可为长方阵，需先核对三个乘积均有定义。}
+\worked{幂等矩阵的秩分解}{竞赛风格}{\star\star\star}{8-4}
+{若$P^2=P$，证明$\rank P+\rank(I-P)=n$及$\tr P=\rank P$。}
+{利用互补投影的零乘积与和为单位阵。}
+{\textbf{方法一（核像分解）：}$P^2=P$给$V=\im P\oplus\ker P$。令$r=\rank P$，在两空间各选一组基，拼接后$P$的矩阵为$\diag(I_r,0)$。所以$\tr P=r$，而$I-P$在像上为零、在核上恒等，故$\rank(I-P)=n-r$，两秩之和为$n$。
+\textbf{方法二（谱与秩）：}特征值满足$\lambda^2=\lambda$，故为0或1；零化多项式$t(t-1)$无重根，所以$P$可对角化。设1出现$r$次，则对角形的秩与迹都为$r$，$I-P$的秩为$n-r$。两种证明均不要求$P$对称。}
+{零乘积上界与和矩阵下界配对，是常用夹逼套路。}
+{该迹秩等式只在幂等结构等特定条件下成立。}
+\input{enrichment/ch08_a}
+
+\section{凯莱--哈密顿、幂与矩阵方程}
+\subsection{标准结论：将高次降到低次}
+\begin{theorem}{凯莱--哈密顿定理与求逆}
+若$\chi_A(t)=t^n+c_{n-1}t^{n-1}+\cdots+c_0$，则
+\begin{equation}\chi_A(A)=A^n+c_{n-1}A^{n-1}+\cdots+c_0I=0.\label{eq:CH}\end{equation}
+约定$c_n=1$。若$c_0\ne0$，则$A\inv=-c_0^{-1}\sum_{j=1}^n c_j A^{j-1}$，此求和式也直接包含$n=1$。任意多项式$p$对$\chi_A$作带余除法，$p=q\chi_A+r$，便有$p(A)=r(A)$。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch08_p2}
+\end{proof}
+\begin{theorem}{Sylvester矩阵方程（标准结论）}
+若$A\in\C^{m\times m},B\in\C^{n\times n}$的谱不交，则$AX-XB=C$对任意$C$唯一可解。若二者已对角化，进入各自特征基后逐元素有$(\lambda_i-\mu_j)y_{ij}=d_{ij}$。一般情形分别上三角化，按列递增、行递减的顺序解三角方程，系数仍为非零$\lambda_i-\mu_j$。
+\end{theorem}
+\begin{proof}
+\input{derivations/sylvester_full}
+\end{proof}
+\begin{method}{先求余式再算矩阵}
+若有低次零化关系，优先模该关系降次；求幂可在根上插值，重根时还需导数条件。矩阵方程若两侧分别可对角化，允许定义域和值域用不同基。易错：$AX-XB$不能一般地写成$(A-B)X$。
+\end{method}
+\worked{用CH求幂和逆}{考研风格}{\star\star}{8-5}
+{设$A=\begin{pmatrix}1&1\\0&2\end{pmatrix}$，对非负整数$m$求$A^m$，并求$A\inv$。}
+{特征多项式为$(t-1)(t-2)$，余式至多一次。}
+{\textbf{方法一（CH降次）：}$\chi_A(t)=(t-1)(t-2)=t^2-3t+2$，故$A^2=3A-2I$。求$t^m$除以$(t-1)(t-2)$的余式$u_mt+v_m$，代入$t=1,2$得$u_m+v_m=1,2u_m+v_m=2^m$，所以$u_m=2^m-1,v_m=2-2^m$。于是对$m\ge0$，
+\[A^m=(2^m-1)A+(2-2^m)I=\begin{pmatrix}1&2^m-1\\0&2^m\end{pmatrix}.\]
+又$A(3I-A)=2I$，显式构造给$A\inv=\frac{3I-A}{2}=\begin{pmatrix}1&-\frac{1}{2}\\0&\frac{1}{2}\end{pmatrix}$。
+\textbf{方法二（对角化）：}特征向量取$(1,0)\T,(1,1)\T$，令$P=\begin{pmatrix}1&1\\0&1\end{pmatrix}$，$P\inv=\begin{pmatrix}1&-1\\0&1\end{pmatrix}$。则$A=P\diag(1,2)P\inv$，把对角元分别取$m$次幂或倒数，再相乘即得上述矩阵。}
+{余式法无需计算相似矩阵，特征基法更直观。}
+{本题插值在互异根上即可；重根需要更多条件。}
+\worked{Fibonacci矩阵}{竞赛风格}{\star\star\star}{8-6}
+{令$F=\begin{pmatrix}1&1\\1&0\end{pmatrix}$，对非负整数$m$求$F^m$，并给出两条推导路线。}
+{矩阵关系$F^2=F+I$与数列递推一致。}
+{令$F=\begin{pmatrix}1&1\\1&0\end{pmatrix}$，Fibonacci数列满足$f_0=0,f_1=1,f_{m+1}=f_m+f_{m-1}$。
+\textbf{方法一（递推归纳）：}$m=1$时$F=\begin{pmatrix}f_2&f_1\\f_1&f_0\end{pmatrix}$。若$m$时成立，右乘$F$得到
+\[F^{m+1}=\begin{pmatrix}f_{m+1}+f_m&f_{m+1}\\f_m+f_{m-1}&f_m\end{pmatrix}
+=\begin{pmatrix}f_{m+2}&f_{m+1}\\f_{m+1}&f_m\end{pmatrix}.\]
+故所有$m\ge1$成立，$m=0$另取$I$。
+\textbf{方法二（特征根）：}$\chi_F=t^2-t-1$，根$\alpha=\frac{1+\sqrt5}{2},\beta=\frac{1-\sqrt5}{2}$互异。标量递推的通解为$c\alpha^m+d\beta^m$，由$f_0=0,f_1=1$得$c+d=0,c(\alpha-\beta)=1$，故
+\[f_m=\dfrac{\alpha^m-\beta^m}{\sqrt5}.\]
+此数列满足同一递推与初值，归纳唯一性证明它就是$f_m$，代入矩阵公式即得显式幂。}
+{CH给整数递推最简洁，谱法给闭式与增长率。}
+{$m=0$应单独取$I$，不必引入未经定义的$f_{-1}$。}
+\worked{幂零扰动的全部整数幂}{竞赛风格}{\star\star}{8-7}
+{若$N^2=0$，求$(I+N)^m$，$m\in\mathbb Z$。}
+{负整数幂先证明逆存在。}
+{当$m\ge0$，因$I$与$N$可交换且$N^2=0$，二项式展开仅余常数项和一次项，得$(I+N)^m=I+mN$。当$m=-k<0$，先算$(I+N)(I-N)=I-N^2=I$，所以$(I+N)^{-1}=I-N$；再展开$(I-N)^k=I-kN=I+mN$。因此公式对所有整数成立。
+另一条验证是直接设$G(m)=I+mN$，计算
+\[G(m)G(\ell)=I+(m+\ell)N+m\ell N^2=G(m+\ell),\quad G(0)=I.\]
+于是$G(m)^{-1}=G(-m)$，且$G(1)=I+N$，这也从乘法规律证明了整数幂公式。}
+{有限多项式避免收敛问题，群关系更概括。}
+{$N^3=0$时需保留$\binom m2N^2$，不能沿用只有一次项的式子。}
+\worked{逐元素解Sylvester方程}{竞赛风格}{\star\star\star}{8-8}
+{解$AX-XB=C$，其中$A=\diag(1,2),B=\diag(3,4)$，$C$全为1。}
+{每个未知元素独立，系数为两特征值之差。}
+{设$X=(x_{ij})$。左乘对角矩阵$A=\diag(1,2)$使第$i$行乘$a_i$，右乘$B=\diag(3,4)$使第$j$列乘$b_j$，故
+\[(AX-XB)_{ij}=(a_i-b_j)x_{ij}.\]
+四个标量方程依次为$-2x_{11}=1,-3x_{12}=1,-x_{21}=1,-2x_{22}=1$，所以
+\[X=\begin{pmatrix}-\dfrac{1}{2}&-\dfrac{1}{3}\\-1&-\dfrac{1}{2}\end{pmatrix}.\]
+将四项分别乘回差值均得1，验证原式。由于四个差均非零，每个标量未知数唯一，故矩阵解唯一。若某个$a_i=b_j$，该位置方程要么矛盾，要么留下自由元，唯一性就不再有保证。}
+{两侧对角时无需建立四元大方程组。}
+{若某个$a_i=b_j$，相应右端非零则无解，右端为零则可能不唯一。}
+\section{最小多项式与Jordan块计数}
+\subsection{选学提高：更小的降次依据}
+\begin{definition}{零化多项式与最小多项式}
+对$n$阶矩阵$A$，在$\F[t]$中取非零多项式$p$，代入时常数项按同阶单位矩阵解释。若$p(A)=0$，称$p$为$A$的零化多项式；其中次数最低的首一多项式记$m_A$。CH保证它存在。最小多项式唯一，且整除每一个零化多项式，特别整除$\chi_A$。
+\end{definition}
+\begin{proof}
+\input{derivations/ch08_p3}
+\end{proof}
+\begin{theorem}{最小多项式与结构（标准结论）}
+在分裂数域上，$A$可对角化当且仅当$m_A$为互异一次因子之积。$m_A$中$(t-\lambda)$的指数等于对应最大Jordan块长度。设$d_k=\dim\ker(A-\lambda I)^k,d_0=0$，则属于$\lambda$、大小至少$k$的块数为$d_k-d_{k-1}$；恰为$k$的块数为$2d_k-d_{k-1}-d_{k+1}$。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch08_p4}
+\end{proof}
+\begin{method}{从核增长重建块}
+先求$d_1,d_2$直到稳定，差分数列应非负且不增；由每个增量确定长链数，再做二阶差分得精确块数。若$m_A$已知，可先限制最大块长。不能把任意零化多项式直接当成最小多项式。
+\end{method}
+\worked{相同特征多项式，不同最小多项式}{竞赛风格}{\star\star}{8-9}
+{求$A=I_2$与$B=\begin{pmatrix}1&1\\0&1\end{pmatrix}$的最小多项式。}
+{先试一次因子是否已零化。}
+{\textbf{方法一（最低次数）：}$A=I_2$满足$A-I=0$，而非零常数多项式不可能零化单位阶矩阵，故$m_A(t)=t-1$。对$B=J_2(1)$，令$N=B-I$，则$N\ne0,N^2=0$，说明$(t-1)^2$零化$B$。若有一次首一零化式$t-c$，则$B=cI$，与其非零上三角元素矛盾，因此$m_B=(t-1)^2$。
+\textbf{方法二（块）：}$A$由两个大小1的根1块组成，$B$是一个大小2的根1块，最小多项式取最大块长，分别得$t-1,(t-1)^2$。它们的特征多项式同为$(t-1)^2$，说明代数重数不能替代最大块长。}
+{最小多项式比特征多项式更敏感于非对角结构。}
+{最小多项式次数未必等于矩阵阶数。}
+\worked{多个特征值的最小多项式}{竞赛风格}{\star\star}{8-10}
+{求$A=\diag(0,J_2(1))$的特征多项式和最小多项式。}
+{不同根取因子之积，相同根取最大块长。}
+{分块行列式给$\chi_A(t)=t\det(tI_2-J_2(1))=t(t-1)^2$。设$p(A)=0$。根0块要求$p(0)=0$。根1块写成$I+N$、$N^2=0,N\ne0$，Taylor有限展开给$p(I+N)=p(1)I+p'(1)N$；比较对角和上三角元素得$p(1)=p'(1)=0$。因此$t$与$(t-1)^2$都整除$p$，两者互素，乘积$t(t-1)^2$整除$p$。这个三次首一多项式本身确能零化各块，所以最小多项式恰为$t(t-1)^2$。}
+{分块对角的最小多项式是各块最小多项式的最小公倍式。}
+{若再增加一个$[1]$块，特征多项式变次，最小多项式不变。}
+\worked{零化关系能告诉什么}{考研风格}{\star\star}{8-11}
+{设$N^2=0,N\ne0$，求$m_N$并判断能否对角化。}
+{最小次数只能在1与2之间。}
+{\textbf{方法一（最小多项式）：}$N^2=0$给$m_N\mid t^2$。若$m_N=t$则$N=0$，不符条件；常数1也不能零化矩阵，因此$m_N=t^2$。它有重因子，按对角化判据不可对角化。
+\textbf{方法二（反证）：}任意特征对$Nv=\lambda v$满足$0=N^2v=\lambda^2v$，而$v\ne0$，故$\lambda=0$。若$N=PDP\inv$可对角化，则$D$对角全为0，导致$N=0$，矛盾。此法不用求最小多项式，也直接证明结论。}
+{低次关系可直接限制结构，通常不需行列式计算。}
+{$N=0$时最小多项式为$t$，非零条件必须保留。}
+\worked{六阶幂零矩阵的块}{竞赛风格}{\star\star\star}{8-12}
+{幂零$N$满足$d_1=3,d_2=5,d_3=6,d_4=6$，求Jordan形与最小多项式。}
+{差分为链数，最后稳定说明最大链长。}
+{置$d_0=0$，令$b_k=d_k-d_{k-1}$表示大小至少$k$的Jordan块数。逐项相减得
+\[(b_1,b_2,b_3,b_4)=(3,2,1,0).\]
+恰为大小$k$的块数为$b_k-b_{k+1}$，所以大小1、2、3各有一个，大小至少4没有。于是
+\[N\sim J_3(0)\oplus J_2(0)\oplus J_1(0),\qquad m_N(t)=t^3.\]
+核验：此块形的核维数为$1+1+1=3$；平方的核维数为$2+2+1=5$；立方为$3+2+1=6$，与全部数据相符。最小多项式指数取最长块3。}
+{同时检查块数总和、大小总和与核维数，可避免差分误读。}
+{$d_k$在最大块长度后稳定，不一定要算到$n$次幂。}
+\section{矩阵分解与范数初步}
+\subsection{选学提高：结构、计算与误差}
+\begin{theorem}{四种基本分解}
+非奇异$n$阶矩阵经必要行置换可写$PA=LU$，其中$P$为置换矩阵，$L$为$n$阶单位下三角、$U$为$n$阶可逆上三角；若所有顺序主子式非零，可取$P=I$。满列秩实$m\times n$矩阵有薄分解$A=QR$，其中$m\ge n$、$Q\in\R^{m\times n}$满足$Q\T Q=I_n$，$R\in\R^{n\times n}$可逆上三角，可约定其对角元全正。实对称正定矩阵有唯一对角元正的Cholesky分解$A=LL\T$。任意实$m\times n$矩阵有
+\begin{equation}A=U\Sigma V\T,\qquad U\T U=I_m,\quad V\T V=I_n,\label{eq:svd}\end{equation}
+其中$U$、$V$分别是$m$阶、$n$阶正交矩阵；$\Sigma$为$m\times n$矩形对角矩阵，其$\min(m,n)$个对角元按$\sigma_1\ge\cdots\ge\sigma_{\min(m,n)}\ge0$排列，称奇异值。前$r=\rank A$个严格正，其余为0。
+\end{theorem}
+\begin{proof}
+\input{derivations/ch08_p5}
+\end{proof}
+\begin{definition}{矩阵范数、谱半径与条件数}
+向量范数满足：$\norm x\ge0$且等号仅当$x=0$；$\norm{cx}=|c|\norm x$；$\norm{x+y}\le\norm x+\norm y$。常用$\norm x_1=\sum_i|x_i|$、$\norm x_2=(\sum_i|x_i|^2)^{\frac{1}{2}}$、$\norm x_\infty=\max_i|x_i|$。
+
+矩阵空间上的范数也满足这三条公理；方阵范数若另满足$\norm{AB}\le\norm A\norm B$，称次乘。对$A\in\R^{m\times n}$，输入、输出空间各指定向量范数后，诱导（算子）范数定义为$\norm A=\max_{x\ne0}\frac{\norm{Ax}_{\rm out}}{\norm x_{\rm in}}$。有限维下最大值存在，等价于在输入单位球面上取最大值。相乘时中间空间必须使用同一向量范数；方阵谱半径界还要求其输入输出使用同一范数。
+
+以下$1,2,\infty$下标表示输入输出均采用相应的向量范数；Frobenius范数则按元素定义：
+\begin{equation}\begin{aligned}
+\norm A_1&=\max_j\sum_i|a_{ij}|,&\norm A_\infty&=\max_i\sum_j|a_{ij}|,\\
+\norm A_2&=\sigma_1,&\norm A_F&=\sqrt{\sum_{ij}|a_{ij}|^2}=\sqrt{\sum_i\sigma_i^2}.
+\end{aligned}\end{equation}
+零矩阵的2范数为0；一般可把最大奇异值记作$\sigma_{\max}$，其中允许为零。Frobenius范数满足三条范数公理和次乘性，但一般不是诱导范数：$n\ge2$时$\norm{I_n}_F=\sqrt n$，而任一由同一向量范数诱导的$\norm{I_n}=1$。方阵的谱半径$\rho(A)=\max_i|\lambda_i|$，在复数域列出全部特征值；非奇异方阵条件数$\kappa_2(A)=\norm A_2\norm{A\inv}_2=\frac{\sigma_{\max}}{\sigma_{\min}}$。
+\end{definition}
+\begin{theorem}{范数与误差的基本界}
+采用上述兼容的诱导范数，有$\norm{AB}\le\norm A\norm B$；对方阵及同一输入输出范数，有$\rho(A)\le\norm A$；一般$\rho(A)$不等于$\norm A_2$。非奇异$A$的$A\vx=\vb\ne0$在右端扰动下满足
+\begin{equation}\dfrac{\norm{\delta\vx}_2}{\norm\vx_2}\le\kappa_2(A)\dfrac{\norm{\delta\vb}_2}{\norm\vb_2}.\end{equation}
+\end{theorem}
+\begin{proof}
+\input{derivations/ch08_p6}
+\end{proof}
+\begin{method}{分解服务于目标}
+解多右端线性系统优先LU；最小二乘优先QR；正定系统用Cholesky；秩、最小范数与几何压缩用SVD。估计误差时先选范数与尺度。范数小不代表可逆，行列式小也不单独代表条件数大。
+\end{method}
+\worked{LU与Cholesky比较}{考研风格}{\star\star}{8-13}
+{分解$A=\begin{pmatrix}2&1\\1&2\end{pmatrix}$，给LU与Cholesky。}
+{消元主元为2与$\frac{3}{2}$。}
+{\textbf{方法一（LU）：}对第二行减去第一行的$\frac{1}{2}$，得到$U=\begin{pmatrix}2&1\\0&\frac{3}{2}\end{pmatrix}$。消元矩阵$E=\begin{pmatrix}1&0\\-\frac{1}{2}&1\end{pmatrix}$满足$EA=U$，故$A=E\inv U=LU$，其中$L=\begin{pmatrix}1&0\\\frac{1}{2}&1\end{pmatrix}$。相乘第二行得$(1,\frac{1}{2}+\frac{3}{2})=(1,2)$，验证成立。
+\textbf{方法二（Cholesky）：}设$G=\begin{pmatrix}a&0\\b&c\end{pmatrix}$，约定$a,c>0$。比较$GG\T=A$得到$a^2=2,ab=1,b^2+c^2=2$，依次解为$a=\sqrt2,b=\frac{1}{\sqrt2},c=\sqrt{\frac{3}{2}}$。正主子式$2,3$保证正定和根号合法；正对角约定使三个数逐项唯一。}
+{Cholesky利用对称正定，存储与运算更简洁；LU适用范围更广。}
+{Cholesky下三角的对角元取正，不要把单位下三角$L$直接当作平方根因子。}
+\worked{正交列的QR}{基础例题}{\star\star}{8-14}
+{求$A=\begin{pmatrix}1&1\\1&-1\end{pmatrix}$的QR分解。}
+{两列已正交，只需单位化。}
+{\textbf{方法一（正交列单位化）：}两列$a_1=(1,1)\T,a_2=(1,-1)\T$满足$a_1\T a_2=0$、长度均为$\sqrt2$。故
+\[Q=\dfrac1{\sqrt2}\begin{pmatrix}1&1\\1&-1\end{pmatrix},\qquad R=\sqrt2 I_2.\]
+计算$Q\T Q=\frac{A\T A}{2}=I$，又$QR=A$，所以是QR分解。
+\textbf{方法二（Schmidt系数）：}$r_{11}=\sqrt2,q_1=\frac{a_1}{\sqrt2}$；$r_{12}=q_1\T a_2=\frac{1-1}{\sqrt2}=0$，故$u_2=a_2$，$r_{22}=\sqrt2,q_2=\frac{a_2}{\sqrt2}$。按$r_{ij}$拼出的上三角$R$与前法相同。$\det Q=-1$仅说明含反射，不影响正交性。}
+{已正交时无需重复完整消元。}
+{$Q$的行列式为$-1$仍是正交矩阵，不必强求为$1$。}
+\worked{矩形SVD与伪逆}{竞赛风格}{\star\star}{8-15}
+{求$A=\begin{pmatrix}3&0\\0&1\\0&0\end{pmatrix}$的SVD、2范数、Frobenius范数与最小二乘系数。}
+{矩形对角形式已是SVD。}
+{取$U=I_3,V=I_2,\Sigma=A$，则$U\Sigma V\T=A$，两侧均正交，矩形对角非负且降序，所以已经是SVD。$A\T A=\diag(9,1)$，奇异值为3、1。因此$\norm A_2=3$，$\norm A_F=\sqrt{3^2+1^2}=\sqrt{10}$。
+对任意$\vb=(b_1,b_2,b_3)\T$，误差平方为
+\[\norm{A\vx-\vb}^2=(3x_1-b_1)^2+(x_2-b_2)^2+b_3^2.\]
+前两项同时为零给唯一最小二乘系数$(\frac{b_1}{3},b_2)\T$，残差为$(0,0,b_3)\T$，最小误差$|b_3|$。把该系数写成$A^+\vb$即得
+\[A^+=\begin{pmatrix}\dfrac{1}{3}&0&0\\0&1&0\end{pmatrix}.\]
+可检验$A^+A=I_2,AA^+=\diag(1,1,0)$，后者恰是到列空间的正交投影。}
+{SVD把最佳逼近拆成各个独立缩放方向。}
+{矩形$\Sigma$不是方阵，不能写普通逆$\Sigma\inv$。}
+\worked{谱半径、范数与条件数}{竞赛风格}{\star\star\star}{8-16}
+{设$M>0$，比较$N=\begin{pmatrix}0&M\\0&0\end{pmatrix}$的谱半径与2范数；另求$D_\varepsilon=\diag(1,\varepsilon)$的条件数，$0<\varepsilon\le1$。}
+{特征值与奇异值度量不同现象。}
+{\textbf{方法一（特征值与奇异值）：}$N$上三角且对角为0，故全部特征值为0，$\rho(N)=0$。而$N\T N=\diag(0,M^2)$的最大特征值为$M^2$，因此$\norm N_2=M$。$D_\varepsilon\T D_\varepsilon=\diag(1,\varepsilon^2)$，因$0<\varepsilon\le1$，最大、最小奇异值为$1,\varepsilon$，得$\kappa_2(D_\varepsilon)=\frac{1}{\varepsilon}$。
+\textbf{方法二（直接长度比）：}对非零$(x,y)$，$\frac{\norm{N(x,y)\T}_2}{\sqrt{x^2+y^2}}=\frac{M|y|}{\sqrt{x^2+y^2}}\le M$，在$x=0$时取等。$D_\varepsilon$沿两坐标轴的缩放率为1、$\varepsilon$，所有单位向量的长度平方$x^2+\varepsilon^2y^2$夹在$\varepsilon^2$与1之间，故最大最小缩放率的比为$\frac{1}{\varepsilon}$。例如右端沿第一轴而扰动沿第二轴时，这种缩放差会放大相对解误差。}
+{谱半径描述特征方向，诱导范数描述所有方向的最大瞬时缩放。}
+{小特征值或行列式不能脱离其他尺度单独衡量病态；$\varepsilon I$条件数恒为1。}
+\input{enrichment/ch08_b}
+
+\begin{warning}
+CH可用于不可对角化矩阵。最小多项式必须首一且次数最小。Jordan存在需特征多项式分裂，实数域可能需要转到复数域。QR的$R$可逆依赖满列秩，Cholesky依赖正定。奇异值不是一般矩阵特征值的绝对值，只有正规矩阵等特殊情形才有这种关系。
+\end{warning}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\exercise{8-1}{基础}{五阶$A,B$秩为4、3，求$\rank AB$的上下界。}
+\exercise{8-2}{基础}{若$N^2=0$，计算$(I+2N)^5$。}
+\exercise{8-3}{基础}{求$\diag(1,1,2)$的最小多项式。}
+\exercise{8-4}{考研风格}{用CH求$\begin{pmatrix}2&1\\1&1\end{pmatrix}$的逆。}
+\exercise{8-5}{考研风格}{四阶幂零矩阵$\rank N=2,\rank N^2=1,\rank N^3=0$，求Jordan形。}
+\exercise{8-6}{考研风格}{求$\begin{pmatrix}1&-2\\3&4\end{pmatrix}$的1范数、无穷范数与Frobenius范数。}
+\exercise{8-7}{竞赛拓展}{证明$A$的最小多项式整除任意零化多项式，并据此说明唯一性。}
+\exercise{8-8}{竞赛拓展}{设$A$可逆，证明$\kappa_2(A)\ge1$，并刻画等号。}
+\exercise{8-9}{竞赛拓展}{若$\norm E<1$（诱导范数），证明$I-E$可逆且$\norm{(I-E)\inv}\le\frac{1}{1-\norm E}$。}
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\begin{quicktable}
+核像夹逼&乘积与零乘积&秩的上下界&中间维数准确\\
+Frobenius&三个相容矩阵&左右乘积同时出现&注意不等号方向\\
+CH降次&已知特征多项式&矩阵幂与逆&标量常数写成$I$\\
+最小多项式&需最低次数关系&重复谱、幂零&零化不等于最小\\
+核差分&分裂数域&Jordan块大小&差分应非增\\
+分解与范数&数值或几何目标&解方程、投影、误差&核对条件和尺度\\
+\end{quicktable}

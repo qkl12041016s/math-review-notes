@@ -1,0 +1,11 @@
+\label{der:5-3}
+先证明实对称$A$的根是实数。取复特征对$Az=\lambda z,z\ne0$，记$z^*$为共轭转置。$z^*z=\sum|z_i|^2>0$，且
+\[\overline{z^*Az}=z^*A^*z=z^*Az\quad(A^*=A),\]
+所以$z^*Az$为实数，$\lambda=\frac{z^*Az}{z^*z}$也实。若复向量$z=u+iv$对应这个实根，则$Au=\lambda u,Av=\lambda v$，$u,v$至少一个非零，所以可选实特征向量。
+
+若$Au=\lambda u,Av=\mu v$，对称性给$\lambda u\T v=(Au)\T v=u\T Av=\mu u\T v$；当$\lambda\ne\mu$时得到正交。取一单位实特征向量$q_1$。对$x\perp q_1$，$q_1\T Ax=(Aq_1)\T x=\lambda_1q_1\T x=0$，所以$q_1^\perp$在$A$下不变。取其单位正交基，限制矩阵仍实对称，因为$B\T AB$的转置等于它本身。在$n-1$维限制上归纳得到单位正交特征基，补$q_1$即得全空间正交矩阵$Q$与$Q\T AQ=\Lambda$。$n=1$为归纳起点。
+
+由$QQ\T=I$，$A=Q\Lambda Q\T=\sum_i\lambda_iq_iq_i\T$。令$x=Qy$，则
+\[\dfrac{x\T Ax}{x\T x}=\dfrac{\sum_i\lambda_i y_i^2}{\sum_i y_i^2}.
+\]
+分母正，权重$\frac{y_i^2}{\sum_jy_j^2}$非负且和为1，因此商位于最小、最大特征值之间；取相应单位特征向量即可达到两端。等号向量恰落在对应极值特征子空间中。

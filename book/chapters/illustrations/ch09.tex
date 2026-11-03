@@ -1,0 +1,9 @@
+\section{图解：部分和与平均部分和}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.84\textwidth,height=6cm,axis lines=middle,xmin=-3.1416,xmax=3.1416,ymin=-3.6,ymax=3.6,xlabel=$x$,ylabel=$y$,samples=180,legend pos=north west]
+\addplot[Ink,dashed,domain=-3.1415:3.1415]{x};\addlegendentry{周期锯齿的一个周期}
+\addplot[Rust,domain=-3.1415:3.1415]{2*(sin(deg(x))-sin(deg(2*x))/2+sin(deg(3*x))/3-sin(deg(4*x))/4+sin(deg(5*x))/5-sin(deg(6*x))/6)};\addlegendentry{$S_6$}
+\addplot[Teal,thick,domain=-3.1415:3.1415]{2*(6/7*sin(deg(x))-5/7*sin(deg(2*x))/2+4/7*sin(deg(3*x))/3-3/7*sin(deg(4*x))/4+2/7*sin(deg(5*x))/5-1/7*sin(deg(6*x))/6)};\addlegendentry{$\sigma_6$}
+\end{axis}\end{tikzpicture}
+\caption{$f(x)=x$在$(-\pi,\pi)$的周期延拓，普通部分和与Fejér平均的对照。端点跳跃处两侧平均为0；普通部分和在跳跃附近振荡，平均权重$1-\frac{|k|}{7}$抑制高频。图展示有限阶效果，不能代替点收敛定理。}\label{fig:review:fourier}
+\end{figure}

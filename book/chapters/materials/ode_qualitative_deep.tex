@@ -1,0 +1,39 @@
+\section{方程组、稳定性、差分与一阶偏微分}\label{deep:ode_qualitative_deep}
+
+\begin{examtip}本节讨论方程组的结构和定性结论，并拓展差分与特征线内容。\end{examtip}
+
+\subsection{基本矩阵、Jordan块与常数变易}\label{deep:ode_qualitative_deep:systems}
+
+\begin{method}{基本矩阵、Jordan块与常数变易}\textbf{适用条件} $X'=A(t)X+b(t)$，$A,b$连续。\par\textbf{步骤与依据} 基本矩阵$\Phi$可逆；设$X=\Phi C$，得到$C'=\Phi^{-1}b$。常系数时计算$\e^{At}$。\par\textbf{易错点} 重复特征值未必有足够特征向量，要检查Jordan链。\end{method}
+
+\begin{theorem}{矩阵Liouville公式}若$\Phi'=A\Phi,\Phi(t_0)$可逆，则$\det\Phi(t)=\det\Phi(t_0)\exp(\int_{t_0}^t\operatorname{tr}A(s)\dd s)$。\end{theorem}\begin{proof}在行列式非零的局部区间，由Jacobi公式$(\det\Phi)'=\det\Phi\,\operatorname{tr}(\Phi^{-1}\Phi')=\operatorname{tr}A\det\Phi$。解一阶方程得到非零表达，故不能在有限端点首次变零，从而延伸到整个存在区间。\end{proof}
+
+\begin{example}{考研风格｜Jordan与逐次消元双解}{难度：$\star\star\star$}\label{deep:ex:ode_qualitative_deep:jordan}\textbf{题目} 解$x'=x+y,y'=y$。\par\textbf{思路} 系数矩阵为$I+N,N^2=0$。\par\textbf{详细解答} 矩阵指数$\e^{At}=\e^t(I+tN)$，所以$(x,y)^T=\e^t(C_1+tC_2,C_2)^T$。第二法先得$y=C_2\e^t$，再解$x'-x=C_2\e^t$，积分得$x=\e^t(C_1+C_2t)$。\par\textbf{方法点评} 多项式$t$是缺少特征向量时Jordan结构的信号。\par\textbf{变式与易错点} 只有一个特征值不代表解只有一个自由常数。\end{example}
+
+\begin{example}{竞赛风格｜复特征值与极坐标}{难度：$\star\star\star$}\label{deep:ex:ode_qualitative_deep:rotation}\textbf{题目} 解$x'=-x-y,y'=x-y$并判断原点稳定性。\par\textbf{思路} 复变量$z=x+iy$，或直接求$r,\theta$。\par\textbf{详细解答} $z'=(-1+i)z$，故$z=z_0\e^{-t}\e^{it}$，轨道为旋转向内的螺线。极坐标法$r'=\frac{xx'+yy'}{r}=-r$，$\theta'=\frac{xy'-yx'}{r^2}=1$，同得$r=r_0\e^{-t},\theta=t+\theta_0$。原点全局渐近稳定。\par\textbf{方法点评} 复数法给显式解，极坐标法解释相图。\par\textbf{变式与易错点} $\theta$在原点无定义，原点平衡解需单列。\end{example}
+
+\subsection{Lyapunov函数、线性化与极限环}\label{deep:ode_qualitative_deep:stability}
+
+\begin{method}{Lyapunov函数、线性化与极限环}\textbf{适用条件} 自治系统的平衡点附近，向量场至少连续可微。\par\textbf{步骤与依据} 构造正定$V$并计算沿轨道导数；严格负定给渐近稳定。非双曲点须看高阶项。\par\textbf{易错点} 线性化有零实部特征值时结论通常不定。\end{method}
+
+\begin{example}{竞赛拓展｜线性化失效的两例}{难度：$\star\star\star$}\label{deep:ex:ode_qualitative_deep:nonhyperbolic}\textbf{题目} 比较$x'=-x^3$与$x'=x^3$在0的稳定性。\par\textbf{思路} 两者线性化都为$x'=0$，用$V=\frac{x^2}{2}$区分。\par\textbf{详细解答} 第一式$\dot V=-x^4<0$（$x\ne0$），显式解$x(t)=\frac{x_0}{\sqrt{1+2x_0^2t}}$，趋0，故渐近稳定。第二式$\dot V=x^4>0$，解$x=\frac{x_0}{\sqrt{1-2x_0^2t}}$，非零初值远离0且有限时爆破，所以不稳定。\par\textbf{方法点评} 同一零特征值可以对应相反的非线性行为。\par\textbf{变式与易错点} 不能把“线性化不渐近稳定”当作原系统不稳定。\end{example}
+
+\begin{example}{竞赛拓展｜可计算的稳定极限环}{难度：$\star\star\star$}\label{deep:ex:ode_qualitative_deep:limitcycle}\textbf{题目} 研究$x'=x(1-x^2-y^2)-y,\ y'=y(1-x^2-y^2)+x$。\par\textbf{思路} 极坐标把径向与角向分离。\par\textbf{详细解答} $r'=r(1-r^2),\theta'=1$。$r=0$是平衡，$r=1$给周期$2\pi$的闭轨道。若$0<r_0<1$，$r$递增；若$r_0>1$，$r$递减，均趋1。闭轨道附近不存在其他闭轨道，因为任何$r\ne1$沿轨道严格单调，所以$r=1$是吸引极限环。原点因$r'>0$不稳定。\par\textbf{方法点评} 极限环需要孤立性；一般中心的一族圆周不是极限环。\par\textbf{变式与易错点} 不能仅看$\theta'=1$就断言每条轨道周期。\end{example}
+
+\begin{theorem}{Bendixson排除闭轨道的一个版本}在平面单连通区域$D$，$C^1$场$F=(P,Q)$的散度$\partial_xP+\partial_yQ$处处严格同号，则$D$内没有简单闭轨道。\end{theorem}\begin{proof}若存在闭轨道$\Gamma$围成$\Omega\subset D$，沿轨道场为切向，外法向通量为0。由Green通量公式$0=\int_\Gamma F\cdot n\dd s=\iint_\Omega\operatorname{div}F\dd A$，与严格同号矛盾。单连通性保证内部不穿出$D$。\end{proof}
+
+\subsection{线性差分、共振与离散稳定性}\label{deep:ode_qualitative_deep:difference}
+
+\begin{method}{线性差分、共振与离散稳定性}\textbf{适用条件} 递推的系数为常数或能用变量替换线性化。\par\textbf{步骤与依据} 齐次根判增长；外力与特征根重合时乘$n$；稳定性比较特征根模是否小于1。\par\textbf{易错点} 连续时间看实部，离散时间看模长。\end{method}
+
+\begin{example}{竞赛拓展｜离散共振与生成函数}{难度：$\star\star\star$}\label{deep:ex:ode_qualitative_deep:diffresonance}\textbf{题目} 解$a_{n+1}-2a_n=2^n,a_0=0$。\par\textbf{思路} 除以$2^{n+1}$化为等差增量。\par\textbf{详细解答} 令$b_n=\frac{a_n}{2^n}$，则$b_{n+1}-b_n=\frac{1}{2}$，所以$a_n=n2^{n-1}$。生成函数法$A(z)=\sum a_nz^n$满足$\frac{A}{z}-2A=\frac{1}{1-2z}$，故$A=\frac{z}{(1-2z)^2}$，展开系数也为$n2^{n-1}$。\par\textbf{方法点评} $n$因子是离散共振，与ODE乘$x$完全对应。\par\textbf{变式与易错点} 生成函数等式先在$|z|<\frac{1}{2}$理解，也可在形式幂级数中操作。\end{example}
+
+\begin{example}{考研风格｜二阶差分与稳定性}{难度：$\star\star\star$}\label{deep:ex:ode_qualitative_deep:secondrec}\textbf{题目} 解$a_{n+2}-\frac{a_{n+1}}{2}-\frac{a_n}{2}=0,a_0=0,a_1=1$。\par\textbf{思路} 特征根为1与$-\frac{1}{2}$。\par\textbf{详细解答} $a_n=C+D(-\frac{1}{2})^n$，初值得$C=\frac{2}{3},D=-\frac{2}{3}$，故$a_n=\frac23[1-(-\frac{1}{2})^n]\to\frac{2}{3}$。若改变初值，单位根1保留一维不衰减分量，因此零解稳定但不渐近稳定；$|-\frac{1}{2}|<1$的分量交替衰减。\par\textbf{方法点评} 有界性与趋零不同，由单位圆上的根决定。\par\textbf{变式与易错点} 若单位根带非平凡Jordan块，会出现$n$增长，稳定性又不同。\end{example}
+
+\subsection{一阶偏微分方程的特征线}\label{deep:ode_qualitative_deep:pde}
+
+\begin{method}{一阶偏微分方程的特征线}\textbf{适用条件} 一阶线性或拟线性方程，初始曲线不与特征方向相切。\par\textbf{步骤与依据} 写$\dot x=a,\dot y=b,\dot u=c$；找第一积分，再用初始条件确定任意函数。\par\textbf{易错点} 初始曲线特征时可能无解或不唯一，不能照常解参数。\end{method}
+
+\begin{example}{竞赛拓展｜输运方程的两解}{难度：$\star\star\star$}\label{deep:ex:ode_qualitative_deep:transport}\textbf{题目} 解$u_t+cu_x=0,u(x,0)=g(x)$。\par\textbf{思路} 沿$x-ct$不变的直线传播。\par\textbf{详细解答} 特征式$\dot t=1,\dot x=c,\dot u=0$，所以$u(x,t)=g(x-ct)$。第二法换坐标$\xi=x-ct,\tau=t$，链式法则给$u_t+cu_x=v_\tau$，故$v$与$\tau$无关，由初值得$v=g(\xi)$。\par\textbf{方法点评} 特征线法描述传播，坐标法直接解释算子的简化。\par\textbf{变式与易错点} 若$g$不光滑，公式仍可给弱解，但不能无条件称为经典解。\end{example}
+
+\begin{example}{竞赛拓展｜非线性特征与破裂时间}{难度：$\star\star\star$}\label{deep:ex:ode_qualitative_deep:quasilinear}\textbf{题目} 求$u_t+uu_x=0,u(x,0)=g(x)$的局部隐式解。\par\textbf{思路} 沿特征$u$为常数，但速度由初值决定。\par\textbf{详细解答} 以初始点$\xi$参数化，$u=g(\xi),x=\xi+t g(\xi)$。当$1+tg'(\xi)\ne0$时可局部反解$\xi$，得$u(x,t)=g(x-tu(x,t))$。进一步$u_x=\frac{g'(\xi)}{1+tg'(\xi)}$。若$\inf g'<0$，正向最早梯度爆破候选为$T=-\frac{1}{\inf g'}$（下确界达到且适当正则时），特征相交后需要弱解与熵条件。\par\textbf{方法点评} 同样的特征方法展示经典解为何只能局部存在。\par\textbf{变式与易错点} 在特征相交后不能保留多值函数作经典解。\end{example}

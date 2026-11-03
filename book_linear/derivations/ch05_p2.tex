@@ -1,0 +1,8 @@
+\label{der:5-2}
+先证明不同特征值的向量无关。对$k$个互异根$\lambda_i$及非零向量$v_i$，以$k$归纳。$k=1$成立；若$\sum_i c_iv_i=0$，作用$A-\lambda_kI$得到
+\[\sum_{i<k}c_i(\lambda_i-\lambda_k)v_i=0.\]
+由归纳假设及非零差值，$c_1=\cdots=c_{k-1}=0$，原式再给$c_k=0$。同样的作用可应用于来自各特征子空间的向量，因此不同特征子空间之和为直和。
+
+若有$n$个独立特征向量，拼成可逆$P$，按对应根排列$\Lambda$，则逐列$AP=P\Lambda$，左乘$P\inv$得对角化。反向若$P\inv AP=\Lambda$，$AP=P\Lambda$说明$P$的$n$列就是独立特征向量。分裂数域中$\sum a_\lambda=n$且$g_\lambda\le a_\lambda$，各特征空间直和维数为$\sum g_\lambda$，等于$n$恰当于每个$g_\lambda=a_\lambda$，得到所有等价判据。
+
+若$B=P\inv AP$，则$\det(tI-B)=\det(P\inv(tI-A)P)=\det(tI-A)$，秩由可逆左右乘保持。迹满足$\tr(XY)=\sum_{ij}x_{ij}y_{ji}=\tr(YX)$，故$\tr B=\tr(APP\inv)=\tr A$；行列式取$t=0$或直接用乘积公式得到不变。相同的不变量不足以反推相似，例\ref{ex:5-8}给出具体反例。

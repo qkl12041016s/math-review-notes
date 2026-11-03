@@ -1,0 +1,193 @@
+\chapter{向量代数与空间解析几何}\label{ch:5}
+\begin{tcolorbox}[title=章首知识地图,colframe=Ink]
+坐标与向量 $\to$ 点积、叉积、混合积 $\to$ 平面与直线 $\to$ 距离和夹角 $\to$ 二次曲面及参数化。
+\end{tcolorbox}
+\begin{examtip}考研主线：向量三种积、直线平面、夹角距离与二次曲面。常见题型：由点和方向建方程，求垂足、公垂线和切平面。竞赛拓展：用投影、不等式和线性代数统一几何优化。上述为学习任务分层，具体范围以所报考科目的当年大纲为准。\end{examtip}
+\section{向量、点积与投影}\label{sec:5:1}
+
+\begin{center}\begin{tikzpicture}[scale=.8,>=stealth]
+\draw[->,Ink] (0,0)--(5,0) node[right]{$\bm b$方向};
+\draw[->,Teal,very thick] (0,0)--(3,2) node[above]{$\bm a$};
+\draw[dashed,Gold] (3,2)--(3,0);\draw[->,Gold,thick] (0,-.12)--(3,-.12);
+\draw (2.8,0)--(2.8,.2)--(3,.2);\node[below]at(1.5,-.2){$\operatorname{proj}_{\bm b}\bm a$};
+\end{tikzpicture}\end{center}
+
+\subsection{概念、定理与推导}
+
+\begin{definition}{向量与内积}向量$\bm a=(a_1,a_2,a_3)$具有模长$|\bm a|=\sqrt{\bm a\cdot\bm a}$，点积$\bm a\cdot\bm b=\sum_{i=1}^3a_ib_i$；当$\bm a,\bm b$均非零时，夹角$\theta\in[0,\pi]$满足$\bm a\cdot\bm b=|\bm a||\bm b|\cos\theta$。零向量的夹角未定义。非零向量方向余弦为各分量除以模长，其平方和为1。\end{definition}
+\begin{theorem}{投影与Cauchy不等式}在$\bm b\ne0$时，$\operatorname{proj}_{\bm b}\bm a=\frac{(\bm a\cdot\bm b)\bm b}{|\bm b|^2}$，且$|\bm a\cdot\bm b|\le|\bm a||\bm b|$。\end{theorem}
+\begin{proof}把$\bm a=t\bm b+\bm r$，要求$\bm r\cdot\bm b=0$得到$t$。由$|\bm r|^2\ge0$推得不等式，等号当且仅当两向量线性相关。\end{proof}
+
+\begin{method}{向量、点积与投影}条件：投影方向非零。步骤：用内积求分量，用减去投影求垂直部分。易错点：标量投影与投影向量相差一个方向单位向量。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜投影}{难度：$\star$}
+\label{ex:5:1}\textbf{题目} 求$\bm a=(1,2,2)$在$\bm b=(1,1,0)$上的投影向量。\par
+\textbf{思路} 求系数$\frac{\bm a\cdot\bm b}{|\bm b|^2}$。\par
+\textbf{解答} 方法一：内积3、平方模2，投影$(\frac{3}{2},\frac{3}{2},0)$。方法二：最小化$|\bm a-t\bm b|^2=9-6t+2t^2$，得$t=\frac{3}{2}$。\par
+\textbf{方法点评} 正交分解与最小二乘是同一几何问题的两种解法。\par
+\textbf{易错点或变式} 标量投影为$\frac{3}{\sqrt2}$。
+\end{example}
+\begin{example}{基础例题｜夹角}{难度：$\star$}
+\label{ex:5:2}\textbf{题目} 求$(1,0,1)$与$(0,1,1)$的夹角。\par
+\textbf{思路} 点积除以模长乘积。\par
+\textbf{解答} 方法一：$\cos\theta=\frac{1}{2}$，故$\theta=\frac{\pi}{3}$。方法二：两向量长度均为$\sqrt2$，差向量也长$\sqrt2$，所成三角形等边，夹角60度。\par
+\textbf{方法点评} 代数公式通用，几何识别节省计算。\par
+\textbf{易错点或变式} 夹角取$[0,\pi]$。
+\end{example}
+\begin{example}{考研风格例题｜垂直参数}{难度：$\star\star$}
+\label{ex:5:3}\textbf{题目} 求$t$使$(1,t,2)$垂直于$(t,1,-1)$。\par
+\textbf{思路} 垂直等价于内积为零。\par
+\textbf{解答} 内积为$t+t-2$，得$t=1$。另一法：利用$|\bm a+\bm b|^2=|\bm a|^2+|\bm b|^2$，展开同样给$2t-2=0$。\par
+\textbf{方法点评} 勾股判据适合只有长度信息的题。\par
+\textbf{易错点或变式} 必须保证向量的几何夹角有意义；本题两向量始终非零。
+\end{example}
+\section{叉积、面积与混合积}\label{sec:5:2}
+\subsection{概念、定理与推导}
+
+\begin{definition}{叉积与混合积}叉积$\bm a\times\bm b$垂直于两向量，在两向量不平行时方向服从右手规则，长度为$|\bm a||\bm b|\sin\theta$。若任一向量为零或两向量平行，叉积为零向量，没有指定方向。混合积$[\bm a,\bm b,\bm c]=\bm a\cdot(\bm b\times\bm c)$等于三向量分量组成的行列式。\end{definition}
+\begin{theorem}{面积与体积}平行四边形面积$|\bm a\times\bm b|$，三角形面积为其一半；平行六面体体积$|[\bm a,\bm b,\bm c]|$，四面体体积为其六分之一。非零混合积等价于三向量线性无关。\end{theorem}
+\begin{proof}叉积模长等于底乘高；混合积的绝对值再乘第三向量在法向的投影，等于底面积乘高。\end{proof}
+恒等式$|\bm a\times\bm b|^2=|\bm a|^2|\bm b|^2-(\bm a\cdot\bm b)^2$可由夹角公式得到。
+
+\begin{method}{叉积、面积与混合积}条件：三维右手坐标系。步骤：先写有序向量，再计算行列式，面积体积最后取绝对值。易错点：叉积交换次序会反号。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜三角形面积}{难度：$\star\star$}
+\label{ex:5:4}\textbf{题目} 求$O,(1,0,1),(0,2,0)$组成的三角形面积。\par
+\textbf{思路} 叉积或底高。\par
+\textbf{解答} 方法一：叉积$(-2,0,2)$，模$2\sqrt2$，面积$\sqrt2$。方法二：两边点积0，面积$\frac12\sqrt2\cdot2=\sqrt2$。\par
+\textbf{方法点评} 正交时底高法最简，叉积适合一般情形。\par
+\textbf{易错点或变式} 三角形必须除以2。
+\end{example}
+\begin{example}{考研风格例题｜体积}{难度：$\star\star$}
+\label{ex:5:5}\textbf{题目} 求顶点$O,(1,0,0),(0,2,0),(0,0,3)$的四面体体积。\par
+\textbf{思路} 混合积或锥体公式。\par
+\textbf{解答} 方法一：行列式为6，体积$\frac{6}{6}=1$。方法二：底面直角三角形面积1，高3，锥体积$\frac{1\cdot3}{3}=1$。\par
+\textbf{方法点评} 两方法核对系数$\frac{1}{6}$。\par
+\textbf{易错点或变式} 不能把四面体当成平行六面体。
+\end{example}
+\begin{example}{基础例题｜共面}{难度：$\star$}
+\label{ex:5:6}\textbf{题目} 判定$(1,0,1),(0,1,1),(1,1,2)$是否共面。\par
+\textbf{思路} 找线性关系。\par
+\textbf{解答} 第三向量等于前两者之和，因此混合积为零，三向量共面。所张平面满足$z=x+y$。\par
+\textbf{方法点评} 线性结构可代替繁琐行列式。\par
+\textbf{易错点或变式} 三个自由向量共面指从同一起点放置后张成维数不超过2。
+\end{example}
+\section{平面与直线方程}\label{sec:5:3}
+\subsection{概念、定理与推导}
+
+\begin{definition}{法向与方向}过点$\bm r_0$、法向量$\bm n\ne0$的平面为$\bm n\cdot(\bm r-\bm r_0)=0$。过点$\bm r_0$、方向$\bm v\ne0$的直线为$\bm r=\bm r_0+t\bm v$。\end{definition}
+\begin{theorem}{相交与平行}两非平行平面交线方向为$\bm n_1\times\bm n_2$。直线与平面平行要求$\bm n\cdot\bm v=0$；还需代入一个点区分平行不交与包含。两直线方向平行并不保证重合。\end{theorem}
+\begin{proof}交线上的位移同时垂直于两个法向量，故平行于叉积。其余关系均由方程中$t$的系数是否为零得到。\end{proof}
+
+\begin{method}{平面与直线方程}条件：方向向量与法向量非零。步骤：几何约束转成内积或叉积；给方向再求过点。易错点：对称式分母为0时改写为坐标恒定式。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜三点定平面}{难度：$\star$}
+\label{ex:5:7}\textbf{题目} 求过$(1,0,0),(0,1,0),(0,0,1)$的平面。\par
+\textbf{思路} 截距式或法向。\par
+\textbf{解答} 截距式为$x+y+z=1$。另取两条边$(-1,1,0),(-1,0,1)$，叉积$(1,1,1)$，过第一点得同式。\par
+\textbf{方法点评} 三点不共线才能唯一确定平面。\par
+\textbf{易错点或变式} 不要把三点坐标直接当法向量。
+\end{example}
+\begin{example}{考研风格例题｜两面交线}{难度：$\star\star$}
+\label{ex:5:8}\textbf{题目} 求$x+y+z=1$与$x-y=0$的交线参数式。\par
+\textbf{思路} 消元取自由变量。\par
+\textbf{解答} 令$x=y=t$，$z=1-2t$，即$(x,y,z)=(0,0,1)+t(1,1,-2)$。法向叉积$(1,1,1)\times(1,-1,0)=(1,1,-2)$核验方向。\par
+\textbf{方法点评} 消元给过点，叉积给方向，相互检查。\par
+\textbf{易错点或变式} 不能只给方向而不给位置。
+\end{example}
+\begin{example}{考研风格例题｜线面交点}{难度：$\star\star$}
+\label{ex:5:9}\textbf{题目} 直线$(x,y,z)=(1,0,0)+t(1,2,1)$与平面$x+y+z=5$交于何处？\par
+\textbf{思路} 代参数式解$t$。\par
+\textbf{解答} $1+4t=5$得$t=1$，交点$(2,2,1)$。内积$\bm n\cdot\bm v=4\ne0$，保证唯一相交。\par
+\textbf{方法点评} 线面题先求方向与法向内积可快速分类。\par
+\textbf{易错点或变式} 参数$t$不是空间距离。
+\end{example}
+\section{距离、夹角与最短线段}\label{sec:5:4}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{距离公式}点$P$到平面$Ax+By+Cz+D=0$的距离为$\frac{|Ax_P+By_P+Cz_P+D|}{\sqrt{A^2+B^2+C^2}}$。到直线$\bm r_0+t\bm v$的距离为$\frac{|(\bm P-\bm r_0)\times\bm v|}{|\bm v|}$。异面直线方向不平行时距离为$\frac{|(\bm r_2-\bm r_1)\cdot(\bm v_1\times\bm v_2)|}{|\bm v_1\times\bm v_2|}$。\end{theorem}
+\begin{proof}点面距离是位移在单位法向的投影；点线距离是平行四边形面积除以底长；异面距离是两基点位移在公垂线方向的投影。\end{proof}
+两平面的锐夹角满足$\cos\theta=\frac{|\bm n_1\cdot\bm n_2|}{|\bm n_1||\bm n_2|}$。线面锐夹角满足$\sin\alpha=\frac{|\bm v\cdot\bm n|}{|\bm v||\bm n|}$。
+
+\begin{method}{距离、夹角与最短线段}条件：异面线距离公式分母非零。步骤：先判位置关系，再求垂直投影。易错点：线面角用正弦，法向量之间用余弦。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜点面距离}{难度：$\star$}
+\label{ex:5:10}\textbf{题目} 求原点到$x+2y+2z=3$的距离。\par
+\textbf{思路} 法向长度为3。\par
+\textbf{解答} 距离$\frac{3}{3}=1$。垂足为沿法向的点$t(1,2,2)$，由$9t=3$得$(\frac{1}{3},\frac{2}{3},\frac{2}{3})$，长度也是1。\par
+\textbf{方法点评} 距离公式与垂足构造互证。\par
+\textbf{易错点或变式} 右端常数要移项后取绝对值。
+\end{example}
+\begin{example}{考研风格例题｜点线距离}{难度：$\star\star$}
+\label{ex:5:11}\textbf{题目} 求$P=(1,1,0)$到$z$轴的距离。\par
+\textbf{思路} 垂足直接落在原点。\par
+\textbf{解答} 投影点为$(0,0,0)$，距离$\sqrt2$。叉积法以方向$(0,0,1)$计算，模同样为$\sqrt2$。\par
+\textbf{方法点评} 坐标轴问题可以直接几何读取。\par
+\textbf{易错点或变式} 到轴的距离不是沿轴的坐标差。
+\end{example}
+\begin{example}{考研风格例题｜异面线}{难度：$\star\star$}
+\label{ex:5:12}\textbf{题目} 求$x$轴与直线$(0,t,1)$之间距离。\par
+\textbf{思路} 共同垂直方向是$z$轴。\par
+\textbf{解答} 方向分别$(1,0,0),(0,1,0)$，叉积$(0,0,1)$，基点差$(0,0,1)$，距离1。取两线点$(s,0,0),(0,t,1)$，距离平方$s^2+t^2+1$最小也为1。\par
+\textbf{方法点评} 最小化法同时给出最近点。\par
+\textbf{易错点或变式} 两线不相交且不平行，属于异面。
+\end{example}
+\section{二次曲面、参数化与综合几何}\label{sec:5:5}
+
+\begin{method}{柱面、锥面与交线的识别}
+方程缺一个坐标表示沿该坐标轴方向平移不变，例如$x^2+y^2=R^2$（$R>0$）为圆柱面。齐次二次方程$x^2+y^2=z^2$为双锥面。平移配方后才能判断中心或顶点；球面$(x-a)^2+(y-b)^2+(z-c)^2=R^2$（$R>0$）中心为$(a,b,c)$。空间曲线可用两个曲面方程联立描述，也可参数化；投影曲线通过消元得到，但消元后应回查是否引入额外分支。
+\end{method}
+
+\subsection{概念、定理与推导}
+
+\begin{definition}{典型二次曲面}以下均设$a,b,c>0$：椭球$\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}=1$；单叶双曲面$\frac{x^2}{a^2}+\frac{y^2}{b^2}-\frac{z^2}{c^2}=1$；双叶双曲面$\frac{z^2}{c^2}-\frac{x^2}{a^2}-\frac{y^2}{b^2}=1$；椭圆抛物面$z=\frac{x^2}{a^2}+\frac{y^2}{b^2}$；双曲抛物面$z=\frac{x^2}{a^2}-\frac{y^2}{b^2}$。参数退化为0时上述除法无意义，须另写方程讨论。\end{definition}
+\begin{theorem}{曲面切平面}若$F\in C^1$且$\nabla F(P)\ne0$，则等值面$F=F(P)$在$P$处的切平面为$\nabla F(P)\cdot(\bm r-P)=0$。\end{theorem}
+\begin{proof}面内任意光滑曲线$\bm r(t)$满足$F(\bm r(t))$常数，链式法则给$\nabla F\cdot\bm r\prime=0$，故梯度垂直于所有切向。\end{proof}
+\begin{extension}参数化将几何约束转成自动满足的表达式。球面可写$\bm r=R(\sin\phi\cos\theta,\sin\phi\sin\theta,\cos\phi)$，注意极点处坐标退化。\end{extension}
+
+\begin{method}{二次曲面、参数化与综合几何}条件：先平移配方，再辨认正负号。步骤：固定一个坐标看截痕；利用对称判断轴向。易错点：只看一个截面不足以识别整个曲面。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{竞赛风格例题｜椭球切面}{难度：$\star\star\star$}
+\label{ex:5:13}\textbf{题目} 求椭球$x^2+2y^2+3z^2=6$在$(1,1,1)$处切平面。\par
+\textbf{思路} 梯度给法向。\par
+\textbf{解答} $\nabla F=(2x,4y,6z)$，在点处为$(2,4,6)$。切面$2(x-1)+4(y-1)+6(z-1)=0$，即$x+2y+3z=6$。\par
+\textbf{方法点评} 无需解出$z$也能求切平面。\par
+\textbf{易错点或变式} 先检查给定点确在椭球上。
+\end{example}
+\begin{example}{竞赛风格例题｜球面截圆}{难度：$\star\star\star$}
+\label{ex:5:14}\textbf{题目} 球$x^2+y^2+z^2=9$被平面$z=1$截得圆的半径与圆心。\par
+\textbf{思路} 用直角三角形或代入。\par
+\textbf{解答} 截面方程$x^2+y^2=8,z=1$，圆心$(0,0,1)$、半径$2\sqrt2$。几何上球心到平面距离1，截圆半径满足$r^2+1=9$。\par
+\textbf{方法点评} 截面代数与空间投影统一。\par
+\textbf{易错点或变式} 截圆圆心一般不是球心。
+\end{example}
+\begin{example}{竞赛风格例题｜约束线性极值}{难度：$\star\star\star$}
+\label{ex:5:15}\textbf{题目} 球面$x^2+y^2+z^2=1$上求$x+2y+2z$最大值。\par
+\textbf{思路} 线性函数就是投影。\par
+\textbf{解答} Cauchy不等式给$x+2y+2z\le\sqrt{1+4+4}\sqrt{x^2+y^2+z^2}=3$，在$(\frac{1}{3},\frac{2}{3},\frac{2}{3})$取等。另法：拉格朗日条件$(1,2,2)=2\lambda(x,y,z)$，归一化后选择同向点。\par
+\textbf{方法点评} 几何投影比乘子计算短，多元方法适合更复杂约束。\par
+\textbf{易错点或变式} 反向点给最小值$-3$。
+\end{example}
+\begin{warning}直线方向向量与平面法向量角色不同；距离非负；叉积有方向而面积没有方向；两面平行时不能用零叉积作为交线方向。\end{warning}
+
+
+\input{chapters/materials/geometry}
+
+
+
+\input{chapters/materials/geometry_source_deep}
+\input{chapters/illustrations/ch05}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\refstepcounter{exercise}\label{q:5:1}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$(1,2,3)$的模。\quad\hyperref[a:5:1]{[答案]}\par
+\refstepcounter{exercise}\label{q:5:2}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$(1,0,0)\times(0,1,0)$。\quad\hyperref[a:5:2]{[答案]}\par
+\refstepcounter{exercise}\label{q:5:3}\par\noindent\textbf{习题\theexercise\quad 基础题} 写过原点、法向$(1,2,3)$的平面。\quad\hyperref[a:5:3]{[答案]}\par
+\refstepcounter{exercise}\label{q:5:4}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$(1,2,3)$到平面$z=0$的距离。\quad\hyperref[a:5:4]{[答案]}\par
+\refstepcounter{exercise}\label{q:5:5}\par\noindent\textbf{习题\theexercise\quad 考研风格} 写过$(1,1,1)$、方向$(1,0,-1)$的直线。\quad\hyperref[a:5:5]{[答案]}\par
+\refstepcounter{exercise}\label{q:5:6}\par\noindent\textbf{习题\theexercise\quad 考研风格} 判定$x^2+y^2-z^2=1$的类型。\quad\hyperref[a:5:6]{[答案]}\par
+\refstepcounter{exercise}\label{q:5:7}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 求单位球上$x+y+z$的范围。\quad\hyperref[a:5:7]{[答案]}\par
+\refstepcounter{exercise}\label{q:5:8}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 求$(1,1,1)$到直线$(t,t,0)$的垂足。\quad\hyperref[a:5:8]{[答案]}\par
+\refstepcounter{exercise}\label{q:5:9}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 证明三角形面积不超过两给定边长乘积的一半。\quad\hyperref[a:5:9]{[答案]}\par
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\par\noindent\begin{tabularx}{\textwidth}{p{23mm}XXX}\toprule 方法&适用条件&典型信号&易错点\\\midrule
+点积&角与投影&垂直&零向量无角\\叉积&三维面积法向&两方向&交换反号\\混合积&体积与共面&三个向量&忘取绝对值\\配方截痕&二次曲面&平方项&轴向看错\\
+\bottomrule\end{tabularx}

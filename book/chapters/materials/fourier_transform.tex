@@ -1,0 +1,32 @@
+\section{Fourier变换、反演、卷积与应用}\label{mat:fourier_transform}
+\begin{examtip}统一周期级数与实轴积分，固定$\widehat f(\xi)=\int f(x)\e^{-2\pi i x\xi}\dd x$的归一化。\end{examtip}
+\subsection{Gaussian变换}\label{mat:fourier_transform:gaussian}
+\begin{method}{Gaussian变换}\textbf{适用条件} $a>0$，积分绝对收敛。\par\textbf{实施与依据} 对频率求导、分部积分得到一阶ODE，再用零频Gaussian积分定常数。\end{method}
+\begin{example}{专题例题｜Gaussian变换}{难度：$\star\star$}
+\textbf{题目} 求$f(x)=\e^{-\pi a x^2}$的变换。\par\textbf{思路与解答} $\widehat f\prime(\xi)=-\frac{2\pi\xi\widehat f(\xi)}{a}$，且$\widehat f(0)=a^{-\frac{1}{2}}$，故$\widehat f(\xi)=a^{-\frac{1}{2}}\e^{-\frac{\pi\xi^2}{a}}$。\par\textbf{方法点评与边界} 归一化不同会改变$2\pi$与平方指数系数。
+\end{example}
+\subsection{卷积、平移与微分}\label{mat:fourier_transform:convolution}
+\begin{method}{卷积、平移与微分}\textbf{适用条件} 先在Schwartz函数或足够可积光滑类上。\par\textbf{实施与依据} $\widehat{f*g}=\widehat f\,\widehat g$；$\widehat{f\prime}=2\pi i\xi\widehat f$；平移产生相位，调制产生频移。\end{method}
+\begin{example}{专题例题｜卷积、平移与微分}{难度：$\star\star$}
+\textbf{题目} 证明卷积变换公式。\par\textbf{思路与解答} 由绝对可积换序，令$u=x-y$，$\int\int f(x-y)g(y)\e^{-2\pi ix\xi}\dd y\dd x$分离为两个变换之积。\par\textbf{方法点评与边界} 交换积分须可积；对一般分布应先说明所在空间。
+\end{example}
+\subsection{反演与Plancherel}\label{mat:fourier_transform:plancherel}
+\begin{method}{反演与Plancherel}\textbf{适用条件} 先对Schwartz函数，随后按$L^2$密度延拓。\par\textbf{实施与依据} 反演$f(x)=\int\widehat f(\xi)\e^{2\pi ix\xi}\dd\xi$；$\|f\|_2=\|\widehat f\|_2$。\end{method}
+\begin{example}{专题例题｜反演与Plancherel}{难度：$\star\star$}
+\textbf{题目} 解释为何一般$L^2$变换不一定由绝对收敛积分定义。\par\textbf{思路与解答} $L^2$不蕴含$L^1$，所以积分定义可能不绝对收敛。选Schwartz函数列在$L^2$逼近，由等距性使其变换为Cauchy列，极限定义$L^2$Fourier变换，与原积分定义在交集上相容。\par\textbf{方法点评与边界} 范数意义的反演与每点绝对积分反演不是同一结论。
+\end{example}
+\subsection{热方程与Gaussian核}\label{mat:fourier_transform:heat}
+\begin{method}{热方程与Gaussian核}\textbf{适用条件} 初值足够可积，$t>0$。\par\textbf{实施与依据} 空间变换把$u_t=u_{xx}$化为$\partial_t\widehat u=-4\pi^2\xi^2\widehat u$。\end{method}
+\begin{example}{专题例题｜热方程与Gaussian核}{难度：$\star\star$}
+\textbf{题目} 写出全轴热方程解。\par\textbf{思路与解答} $\widehat u(\xi,t)=\e^{-4\pi^2t\xi^2}\widehat u_0(\xi)$，逆变换为$u(x,t)=(4\pi t)^{-\frac{1}{2}}\int\e^{-\frac{(x-y)^2}{4t}}u_0(y)\dd y$。核质量1，$t\downarrow0$构成近似恒等。\par\textbf{方法点评与边界} 初值的恢复按连续点、$L^p$或几乎处处等适当意义陈述。
+\end{example}
+\subsection{半轴正弦、余弦变换}\label{mat:fourier_transform:sinecosine}
+\begin{method}{半轴正弦、余弦变换}\textbf{适用条件} 边界$x=0$问题。\par\textbf{实施与依据} 奇延拓对应正弦变换，偶延拓对应余弦变换；系数按固定归一化记录。\end{method}
+\begin{example}{专题例题｜半轴正弦、余弦变换}{难度：$\star\star$}
+\textbf{题目} 计算$\int_0^\infty\e^{-ax}\cos bx\dd x$及正弦版，$a>0$。\par\textbf{思路与解答} 取$\int_0^\infty\e^{-(a-ib)x}\dd x=\frac{1}{a-ib}$的实虚部，分别得到$\frac{a}{a^2+b^2}$与$\frac{b}{a^2+b^2}$。\par\textbf{方法点评与边界} 指数衰减保证边界项消失及绝对可积。
+\end{example}
+\subsection{实轴Fourier积分的极大截断}\label{mat:fourier_transform:realmax}
+\begin{method}{实轴Fourier积分的极大截断}\textbf{适用条件} $1<p<\infty$，实轴上的对称频率截断。\par\textbf{实施与依据} 对对称频率截断的反演积分取上确界，由调制奇异积分控制，并用极大估计与稠密逼近得到收敛。\end{method}
+\begin{example}{专题例题｜实轴Fourier积分的极大截断}{难度：$\star\star$}
+\textbf{题目} 为何有限频带积分的收敛也需要极大截断估计？\par\textbf{思路与解答} 逐个截断的范数控制不足以保证频带趋无穷时逐点Cauchy。对光滑函数先有反演，再用统一极大截断控制坏集，才能推广到较大$L^p$类。该逻辑与Fourier级数相同。\par\textbf{方法点评与边界} 实轴频率连续，圆周频率离散；转移时不能直接把求和号换成积分号而省去归一化。
+\end{example}

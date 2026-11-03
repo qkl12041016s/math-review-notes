@@ -1,0 +1,119 @@
+\chapter{公式速查与推导导航}\label{app:formula}
+\section{常用离散分布}
+Bernoulli与二项取$0\le p\le1$，几何与负二项取$0<p\le1$，$n$为非负整数、$r$为正整数；端点质量按相应退化分布理解。
+Poisson取$\lambda\ge0$。超几何支持与参数见第\ref{sec:22}节；表中方差式要求$N>1$，$N=1$时抽样计数退化、方差为0。
+\small
+\begin{longtable}{@{}p{.17\textwidth}p{.40\textwidth}p{.16\textwidth}p{.17\textwidth}@{}}\toprule
+分布&质量函数与支持&均值&方差\\\midrule\endhead
+Bernoulli$(p)$&$p^k(1-p)^{1-k}$，$k=0,1$&$p$&$p(1-p)$\\
+$\Bin(n,p)$&$\binom nkp^k(1-p)^{n-k}$，$0\le k\le n$&$np$&$np(1-p)$\\
+$\Pois(\lambda)$&$\frac{e^{-\lambda}\lambda^k}{k!}$，$k\ge0$&$\lambda$&$\lambda$\\
+几何$(p)$&$p(1-p)^{k-1}$，$k\ge1$&$\frac{1}{p}$&$\frac{1-p}{p^2}$\\
+负二项等待&$\binom{k-1}{r-1}p^r(1-p)^{k-r}$，$k\ge r$&$\frac{r}{p}$&$\frac{r(1-p)}{p^2}$\\
+超几何&$\frac{\binom Mk\binom{N-M}{n-k}}{\binom Nn}$&$\frac{nM}{N}$&$np(1-p)\frac{N-n}{N-1}$\\\bottomrule
+\end{longtable}\normalsize
+\begin{proof}
+超几何一行约定$p=\frac{M}{N}$。Bernoulli因$X^2=X$，均值$p$、方差$p-p^2$。二项是独立Bernoulli和，均值与方差相加。
+Poisson归一化与矩的移项详见例\ref{ex:4-13}。
+几何分布令$q=1-p$，概率生成函数
+$G(z)=\sum_{k\ge1}pq^{k-1}z^k=\frac{pz}{1-qz}$。
+求导得$G'(1)=\frac{1}{p}$、$G''(1)=\frac{2q}{p^2}$，所以方差$G''(1)+G'(1)-G'(1)^2=\frac{q}{p^2}$。
+负二项等待可拆成$r$段独立几何等待；或直接要求第$k$次是第$r$个成功，前$k-1$次恰有$r-1$成功，得到质量函数，均值方差相加。
+超几何按成功对象与失败对象计数得质量，均值见例\ref{ex:4-1}，方差完整推导见例\ref{ex:4-7}。
+\end{proof}
+
+\section{常用连续分布与矩}
+均匀要求$a<b$；Gamma形状与率、Beta两形状、卡方与$t\text{与}F$自由度均为正；正态$\sigma>0$。Gamma的第二参数始终为率。
+$t_\nu$在$\nu\le1$时无有限均值；$1<\nu\le2$时均值0而方差无限。$F_{a,b}$的均值需$b>2$，有限方差需$b>4$。
+\small
+\begin{longtable}{@{}p{.19\textwidth}p{.40\textwidth}p{.12\textwidth}p{.19\textwidth}@{}}\toprule
+分布&密度与支持&均值&方差\\\midrule\endhead
+$U(a,b)$&$\frac{1}{b-a}$，$a<x<b$&$\frac{a+b}{2}$&$\frac{(b-a)^2}{12}$\\
+$\Exp(\lambda)$&$\lambda e^{-\lambda x}$，$x>0$&$\frac{1}{\lambda}$&$\frac{1}{\lambda^2}$\\
+$\Ga(a,\lambda)$&$\frac{\lambda^ax^{a-1}e^{-\lambda x}}{\Gamma(a)}$，$x>0$&$\frac{a}{\lambda}$&$\frac{a}{\lambda^2}$\\
+$\Normal(\mu,\sigma^2)$&$\frac{e^{-\frac{(x-\mu)^2}{2\sigma^2}}}{\sqrt{2\pi}\sigma}$&$\mu$&$\sigma^2$\\
+$\Beta(a,b)$&$\frac{x^{a-1}(1-x)^{b-1}}{B(a,b)}$，$0<x<1$&$\frac{a}{a+b}$&$\frac{ab}{(a+b)^2(a+b+1)}$\\
+$\chi_\nu^2$&Gamma$(\frac{\nu}{2},\frac{1}{2})$&$\nu$&$2\nu$\\
+$t_\nu$&见第\ref{sec:62}节&0，$\nu>1$&$\frac{\nu}{\nu-2}$，$\nu>2$\\
+$F_{a,b}$&见第\ref{sec:62}节&$\frac{b}{b-2}$\newline $b>2$&$\frac{2b^2(a+b-2)}{a(b-2)^2(b-4)}$\newline $b>4$\\\bottomrule
+\end{longtable}\normalsize
+\subsection{归一化与矩公式的完整重建}
+\begin{proof}
+\textbf{Gamma。}换元$u=\lambda x$给积分1；分部积分得$\Gamma(a+1)=a\Gamma(a)$。
+因此对$r>-a$，$\E X^r=\frac{\Gamma(a+r)}{\lambda^r\Gamma(a)}$。取$r=1,2$得到均值$\frac{a}{\lambda}$与二阶矩$\frac{a(a+1)}{\lambda^2}$，相减得方差$\frac{a}{\lambda^2}$；$a=1$即指数。
+
+\textbf{Beta。}定义$B(a,b)=\int_0^1x^{a-1}(1-x)^{b-1}\dd x$。
+计算$\Gamma(a)\Gamma(b)$的二重积分，用$s=u+v,r=\frac{u}{u+v}$和雅可比$s$，得到$\Gamma(a)\Gamma(b)=\Gamma(a+b)B(a,b)$。
+对$r>-a$，有$\E X^r=\frac{B(a+r,b)}{B(a,b)}$；$r\le-a$时该非负矩积分发散。取$r=1,2$，分别为$\frac{a}{a+b}$与$\frac{a(a+1)}{(a+b)(a+b+1)}$，相减得表中方差。
+
+\textbf{正态。}记$I=\int_\R e^{-\frac{x^2}{2}}\dd x$，平方后极坐标积分给$I^2=\int_0^{2\pi}\int_0^\infty re^{-\frac{r^2}{2}}\dd r\dd\theta=2\pi$。
+标准正态奇对称性给均值0；分部积分$\int x^2\varphi(x)\dd x=-\int x\varphi'(x)\dd x=\int\varphi(x)\dd x=1$，边界$x\varphi(x)\to0$。
+再经$X=\mu+\sigma Z$得到均值方差。
+
+\textbf{t的矩。}表示$T=Z\sqrt{\frac{\nu}{U}}$，独立$Z$标准正态、$U\sim\Ga(\frac{\nu}{2},\frac{1}{2})$。
+当$\nu>1$时$\E|T|<\infty$，对称性给均值0；当$\nu>2$时$\E T^2=\nu\E Z^2\E U^{-1}=\frac{\nu}{\nu-2}$。
+绝对一阶矩与二阶矩的门槛分别由Gamma负矩要求$\frac{\nu}{2}>\frac{1}{2}$和$\frac{\nu}{2}>1$确定；门槛以下不得把对称主值当均值。
+
+\textbf{F的矩。}由$W=\frac{\frac{U}{a}}{\frac{V}{b}}$，独立卡方有$\E U=a$、$\E U^2=a(a+2)$、$\E V^{-1}=\frac{1}{b-2}$、$\E V^{-2}=\frac{1}{(b-2)(b-4)}$。
+所以$\E W=\frac{b}{b-2}$，$\E W^2=\frac{b^2(a+2)}{a(b-2)(b-4)}$；减均值平方并通分，分子为$2b^2(a+b-2)$，得到表中方差及其存在条件。
+\end{proof}
+\subsection{变换表及推导}
+\begin{align*}
+M_{\Bin(n,p)}(t)&=(1-p+pe^t)^n,&
+M_{\Pois(\lambda)}(t)&=e^{\lambda(e^t-1)},\\
+M_{\Ga(a,\lambda)}(t)&=(1-\dfrac{t}{\lambda})^{-a},\ t<\lambda,&
+M_{\Normal(\mu,\sigma^2)}(t)&=e^{\mu t+\frac{\sigma^2t^2}{2}}.
+\end{align*}
+\begin{proof}
+二项由独立Bernoulli的母函数相乘；Poisson由指数级数见例\ref{ex:4-13}。
+Gamma积分中将率$\lambda$改为$\lambda-t>0$，归一化常数比即$(\frac{\lambda}{\lambda-t})^a$。
+正态配方$tx-\frac{(x-\mu)^2}{2\sigma^2}=-\frac{(x-\mu-\sigma^2t)^2}{2\sigma^2}+\mu t+\frac{\sigma^2t^2}{2}$，第一部分积分为1，剩余指数给母函数。
+对数母函数$K=\log M$有$K'(0)=M'(0)=\E X$、$K''(0)=M''(0)-M'(0)^2=\Var X$，其中用$M(0)=1$。
+\end{proof}
+
+\section{概率、矩与极限的速查}
+Bayes式要求$B_i$为可数可测划分、$\Pp(B_i)>0$且$\Pp(A)>0$；方差与全方差式要求所涉变量二阶矩有限。样本均值的Chebyshev界采用iid有限方差样本。
+\begin{align*}
+\Pp(A\mid B)&=\dfrac{\Pp(A\cap B)}{\Pp(B)},\quad\Pp(B)>0,\\
+\Pp(B_j\mid A)&=\dfrac{\Pp(B_j)\Pp(A\mid B_j)}{\sum_i\Pp(B_i)\Pp(A\mid B_i)},\\
+\Var(X+Y)&=\Var X+\Var Y+2\Cov(X,Y),\\
+\Var X&=\E\Var(X\mid Y)+\Var\E(X\mid Y),\\
+\Pp(|\bar X-\mu|\ge\varepsilon)&\le\dfrac{\sigma^2}{n\varepsilon^2},\\
+\dfrac{\sqrt n(\bar X-\mu)}\sigma&\dto\Normal(0,1),\quad\text{iid，有限非零方差}.
+\end{align*}
+条件概率和Bayes的推导见第\ref{sec:13}—\ref{sec:14}节；方差展开与全方差见第\ref{sec:43}—\ref{sec:44}节；极限的条件与证明见第\ref{sec:51}—\ref{sec:55}节。
+\begin{insight}{记公式也记改变条件后的行为}
+独立消去协方差，正态带来线性组合的精确分布；iid且有限一阶绝对矩支持辛钦弱大数定律，iid且方差有限、严格为正支持本册的CLT；对充分统计量条件化可降低平方可积无偏估计的方差。
+每个关键词都应能在推导中找到使用位置；删去条件后要么重证，要么寻找反例。
+\end{insight}
+
+\section{区间与检验对照}
+各行均要求对应的iid样本及非退化尺度；两个样本还须相互独立。回归行采用固定满秩设计、独立正态同方差误差且$n>2$，比例行取$p_0\in(0,1)$且只作渐近校准。
+\small
+\begin{longtable}{@{}p{.25\textwidth}p{.40\textwidth}p{.25\textwidth}@{}}\toprule
+目标与模型&枢轴或零假设统计量&参考分布\\\midrule\endhead
+正态均值，方差已知&$\frac{\sqrt n(\bar X-\mu)}{\sigma}$&$\Normal(0,1)$\\
+正态均值，方差未知&$\frac{\sqrt n(\bar X-\mu)}{S}$&$t_{n-1}$\\
+正态方差，均值未知&$\frac{(n-1)S^2}{\sigma^2}$&$\chi_{n-1}^2$\\
+两正态均值差，等方差&$\frac{(\bar X-\bar Y)-\Delta}{S_p\sqrt{\frac{1}{m}+\frac{1}{n}}}$&$t_{m+n-2}$\\
+两独立正态方差比&$\frac{\frac{S_X^2}{S_Y^2}}{\frac{\sigma_X^2}{\sigma_Y^2}}$&$F_{m-1,n-1}$\\
+指数率&$2\lambda\sum X_i$&$\chi_{2n}^2$\\
+Bernoulli比例&$\frac{\hat p-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}$&渐近标准正态\\
+回归斜率&$\frac{\hat b-b_0}{\frac{s}{\sqrt{S_{xx}}}}$&$t_{n-2}$\\\bottomrule
+\end{longtable}\normalsize
+正态抽样分布的独立构造见第\ref{sec:63}—\ref{sec:64}节；区间逐步反演见第\ref{sec:75}节；拒绝域、功效和$p$值见第\ref{ch:08}章；回归见第\ref{sec:94}—\ref{sec:95}节。
+
+\section{理论与解题方法导航}
+\begin{longtable}{@{}p{.42\textwidth}p{.45\textwidth}@{}}\toprule
+重要内容&完整推导或例题入口\\\midrule\endhead
+补事件、容斥、递推&例\ref{ex:1-3}、\ref{ex:1-13}、\ref{ex:1-15}\\
+混合分布、分支与卷积&例\ref{ex:2-1}、\ref{ex:2-10}、\ref{ex:2-13}\\
+支撑截面、和比、极坐标&例\ref{ex:3-1}、\ref{ex:3-7}、\ref{ex:3-9}\\
+指示变量与随机和&例\ref{ex:4-1}、\ref{ex:4-7}、\ref{ex:4-11}\\
+LLN截断、CLT特征函数&第\ref{sec:52}—\ref{sec:53}节\\
+卡方、t、F密度与正交独立&第\ref{sec:62}—\ref{sec:63}节\\
+矩/MLE/Bayes、CR、UMVU&第\ref{sec:71}—\ref{sec:74}节\\
+NP引理与LR精确校准&第\ref{sec:85}节\\
+平方和、投影、预测区间&第\ref{sec:91}—\ref{sec:95}节\\
+MCT、Fatou、DCT、RN与条件期望&第\ref{sec:103}—\ref{sec:105}节\\\bottomrule
+\end{longtable}

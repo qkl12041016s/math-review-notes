@@ -1,0 +1,81 @@
+\chapter{公式与条件速查}\label{app:formulas}
+本附录用于回忆，定理的证明及例题见对应章节。公式旁的条件是使用规则的一部分。
+\section{极限、微分与展开}
+\begin{align}
+\sin x&=x-\dfrac{x^3}{6}+O(x^5),&\cos x&=1-\dfrac{x^2}{2}+\dfrac{x^4}{24}+O(x^6),\\
+\e^x&=1+x+\dfrac{x^2}{2}+\dfrac{x^3}{6}+O(x^4),&\ln(1+x)&=x-\dfrac{x^2}{2}+\dfrac{x^3}{3}+O(x^4),\\
+(1+x)^\alpha&=1+\alpha x+\dfrac{\alpha(\alpha-1)}2x^2+O(x^3).
+\end{align}
+以上均为$x\to0$的局部展开，$\alpha$固定。相消后要保留足够阶数。
+\begin{align}
+(uv)^{(n)}&=\sum_{k=0}^n\binom nk u^{(k)}v^{(n-k)},\\
+\dfrac{\dd y}{\dd x}&=\dfrac{y\prime(t)}{x\prime(t)},&
+\dfrac{\dd^2y}{\dd x^2}&=\dfrac{x\prime y\prime\prime-y\prime x\prime\prime}{(x\prime)^3},\\
+\kappa&=\dfrac{|y\prime\prime|}{(1+(y\prime)^2)^{\frac{3}{2}}}.
+\end{align}
+参数公式要求$x\prime(t)\ne0$。曲率半径仅在$\kappa>0$时为$\frac{1}{\kappa}$。
+\section{积分与几何应用}
+\begin{align}
+\int\dfrac{\dd x}{x^2+a^2}&=\dfrac1a\arctan\dfrac xa+C\quad(a>0),\\
+\int\dfrac{\dd x}{\sqrt{a^2-x^2}}&=\arcsin\dfrac xa+C\quad(a>0,|x|<a),\\
+\int\dfrac{\dd x}{\sqrt{x^2+a^2}}&=\ln\left(x+\sqrt{x^2+a^2}\right)+C\quad(a>0),\\
+\int u\dd v&=uv-\int v\dd u,\\
+\int_a^bf(x)\dd x&=\int_a^bf(a+b-x)\dd x,\\
+\dfrac{\dd}{\dd t}\int_{a(t)}^{b(t)}f(x,t)\dd x
+&=f(b(t),t)b\prime(t)-f(a(t),t)a\prime(t)+\int_{a(t)}^{b(t)}f_t(x,t)\dd x.
+\end{align}
+最后一式的常用充分条件是$a(t),b(t)$可导，且$f,f_t$在包含相应积分区间的紧矩形上连续；反常积分须另验证可积控制。对$f\in C^1[a,b]$的图像，弧长$L=\int_a^b\sqrt{1+(f\prime)^2}\dd x$。由连续曲线$y=f(x)$与$x$轴、$x=a,b$围成的区域绕$x$轴旋转时，圆盘体积$V=\pi\int_a^bf(x)^2\dd x$。
+\begin{equation}
+I_n=\int_0^{\frac{\pi}{2}}\sin^nx\dd x=\dfrac{n-1}{n}I_{n-2},\quad n\ge2,\quad I_0=\dfrac\pi2,\ I_1=1.
+\end{equation}
+
+\section{基本积分补表}
+以下在对应表达式连续的开区间内成立；所有不定积分均加常数$C$。
+\begin{align*}
+\int\sin x\dd x&=-\cos x+C,&\int\cos x\dd x&=\sin x+C,\\
+\int\tan x\dd x&=-\ln|\cos x|+C,&\int\cot x\dd x&=\ln|\sin x|+C,\\
+\int\sec^2x\dd x&=\tan x+C,&\int\csc^2x\dd x&=-\cot x+C,\\
+\int\sec x\tan x\dd x&=\sec x+C,&\int\csc x\cot x\dd x&=-\csc x+C,\\
+\int\sec x\dd x&=\ln|\sec x+\tan x|+C,&\int\csc x\dd x&=\ln|\csc x-\cot x|+C,\\
+\int\dfrac{\dd x}{x^2-a^2}&=\dfrac1{2a}\ln\left|\dfrac{x-a}{x+a}\right|+C\quad(a>0).
+\end{align*}
+每个公式均可通过求导核验；三角公式跨越极点时须分区间使用。
+\section{微分方程}
+\begin{align}
+y\prime+py=q&\quad\Longrightarrow\quad y=\e^{-\int p\dd x}\left(C+\int q\e^{\int p\dd x}\dd x\right),\\
+y\prime+py=qy^\alpha&\quad\Longrightarrow\quad z=y^{1-\alpha},\quad z\prime+(1-\alpha)pz=(1-\alpha)q,\\
+P(D)(\e^{\lambda x}v)&=\e^{\lambda x}P(D+\lambda)v.
+\end{align}
+伯努利变换要求$\alpha\ne1$，并在$y\ne0$的实值区间进行，并补查平衡解。常系数特征重根$r$对应$x^k\e^{rx}$，$k=0,1,\ldots,s-1$。非齐次试解共振时乘$x^s$。
+\section{多元微分与重积分}
+\begin{align}
+\dd f&=\sum_i f_{x_i}\dd x_i,&D_{\bm l}f&=\nabla f\cdot\bm l\quad(|\bm l|=1),\\
+z_x&=-\dfrac{F_x}{F_z},&z_y&=-\dfrac{F_y}{F_z}\quad(F_z\ne0),\\
+\dd A&=r\dd r\dd\theta,&\dd V&=r\dd r\dd\theta\dd z,\\
+\dd V&=\rho^2\sin\phi\dd\rho\dd\phi\dd\theta,&\dd A&=|J|\dd u\dd v.
+\end{align}
+方向导数的梯度公式要求$f$可微；隐函数公式要求$F\in C^1$、$F(P)=0$且$F_z(P)\ne0$，并在所得局部分支使用。坐标换元须检查覆盖次数并取Jacobian绝对值。对$f\in C^2$，令$A=f_{xx}(P),B=f_{xy}(P),C=f_{yy}(P)$；在$\nabla f(P)=0$的内点，二元判别为：$AC-B^2>0,A>0$严格极小；$AC-B^2>0,A<0$严格极大；$AC-B^2<0$鞍点；等于0须继续分析。约束极值候选满足$\nabla f=\sum\lambda_i\nabla g_i$，需正则性并补边界。
+\section{曲线、曲面与场}
+\begin{align}
+\dd s&=|\bm r\prime(t)|\dd t,&\dd S&=|\bm r_u\times\bm r_v|\dd u\dd v,\\
+\bm n\dd S&=(-g_x,-g_y,1)\dd x\dd y&&\text{（图形上侧）},\\
+\oint_{\partial D}P\dd x+Q\dd y&=\iint_D(Q_x-P_y)\dd A,\\
+\iint_{\partial\Omega}\bm F\cdot\bm n\dd S&=\iiint_\Omega\diver\bm F\dd V,\\
+\oint_{\partial S}\bm F\cdot\dd\bm r&=\iint_S\rot\bm F\cdot\bm n\dd S.
+\end{align}
+Green采用区域在左的边界方向；Gauss采用外法向；Stokes采用右手对应。公式区域内须满足场的光滑性，不能忽视奇点。
+\section{级数与收敛检查}
+\begin{align}
+\sum_{n=0}^\infty x^n&=\dfrac1{1-x},&
+\sum_{n=1}^\infty nx^n&=\dfrac{x}{(1-x)^2},\\
+\sum_{n=1}^\infty n^2x^n&=\dfrac{x(1+x)}{(1-x)^3},&
+\sum_{n=1}^\infty\dfrac{x^n}{n}&=-\ln(1-x).
+\end{align}
+以上统一先在$|x|<1$使用，端点另判。幂级数$R^{-1}=\limsup\sqrt[n]{|a_n|}$；交错余项$|R_N|\le b_{N+1}$需$b_n\downarrow0$；M判别需与变量无关的可求和上界。
+\par\noindent\begin{tabularx}{\textwidth}{lXX}\toprule
+对象&收敛结论&关键边界\\\midrule
+$\sum n^{-p}$&$p>1$收敛&$p=1$发散\\
+$\int_0^1x^{-p}\dd x$&$p<1$收敛&奇点在0\\
+$\sum_{n\ge2}[n(\ln n)^p]^{-1}$&$p>1$收敛&比值法极限为1\\
+Fourier分段$C^1$&收敛到左右极限平均&周期端点也取平均\\\bottomrule
+\end{tabularx}

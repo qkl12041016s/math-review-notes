@@ -1,0 +1,28 @@
+\begin{insight}{正交变换是在更换单位正交坐标轴}
+二次型$2x^2+2xy+2y^2$的等值线为倾斜椭圆。令$u=\frac{x+y}{\sqrt2},v=\frac{x-y}{\sqrt2}$，只改变观察坐标，椭圆的几何形状与距离都不变，交叉项却消失，变成$3u^2+v^2=1$。特征值3对应短半轴$\frac{1}{\sqrt3}$，特征值1对应长半轴1。本例坐标变换矩阵行列式为$-1$，含方向反转；一般正交变换包括旋转与反射，不都属于纯旋转。
+\end{insight}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.6]
+\begin{scope}
+\draw[laaxis](-1.35,0)--(1.4,0)node[right]{$x$};\draw[laaxis](0,-1.35)--(0,1.4)node[above]{$y$};
+\draw[Teal,thick,rotate=45](0,0)ellipse({1/sqrt(3)} and 1);
+\draw[dashed,Gold](-.85,-.85)--(.85,.85);\draw[dashed,Gold](-.85,.85)--(.85,-.85);
+\node[lanote]at(0,-1.75){$2x^2+2xy+2y^2=1$};
+\end{scope}
+\draw[-{Stealth},Ink,thick](1.65,.15)--(2.65,.15)node[midway,above]{$Q\T$};
+\begin{scope}[xshift=4.4cm]
+\draw[laaxis](-1.35,0)--(1.4,0)node[right]{$u$};\draw[laaxis](0,-1.35)--(0,1.4)node[above]{$v$};
+\draw[Teal,thick](0,0)ellipse({1/sqrt(3)} and 1);
+\draw[Gold,thick](0,0)--({1/sqrt(3)},0)node[below right]{$\frac{1}{\sqrt3}$};
+\draw[Gold,thick](0,0)--(0,1)node[above left]{$1$};
+\node[lanote]at(0,-1.75){$3u^2+v^2=1$};
+\end{scope}
+\end{tikzpicture}
+\caption{沿主轴观察，交叉项消失；正交变换保留半轴长度。}\label{fig:quadratic-ellipse}
+\end{figure}
+\begin{clevertrick}{二阶正定有时只需“迹与行列式”}
+对实对称二阶矩阵，谱定理保证两个特征值$\lambda_1,\lambda_2$都实。若$\det A=\lambda_1\lambda_2>0$，两根同号且均非零；再由$\tr A=\lambda_1+\lambda_2>0$排除都负，只能全正，故$A\succ0$。反过来正定使两根都正，其和、积自然正，因此
+\[A\succ0\quad\Longleftrightarrow\quad\det A>0\ \text{且}\ \tr A>0.\]
+例如$A=\begin{pmatrix}t&1\\1&t\end{pmatrix}$，行列式$t^2-1$、迹$2t$。前一不等式给$t<-1$或$t>1$，后一给$t>0$；取交集得$t>1$，端点$t=1$因出现零根必须剔除。
+\textbf{易错提示：}这条捷径依赖二阶和实对称；三阶矩阵$\diag(-1,-1,3)$迹、行列式都正，却不正定。
+\end{clevertrick}

@@ -1,0 +1,47 @@
+\section{级数的判别、求和与反例体系}\label{mat:series_methods}
+\begin{examtip}把数项级数、函数项级数和求和技巧之间的依赖关系补入正文。\end{examtip}
+\subsection{Cauchy凝聚与Raabe判别}\label{mat:series_methods:condense}
+\begin{method}{Cauchy凝聚与Raabe判别}\textbf{适用条件} 凝聚要求非负递减；Raabe要求正项。\par\textbf{实施与依据} 凝聚比较$\sum a_n$与$\sum2^na_{2^n}$。若$\lim n(\frac{a_n}{a_{n+1}}-1)=r$，则$r>1$收敛、$r<1$发散，$r=1$不定。\end{method}
+\begin{example}{专题例题｜Cauchy凝聚与Raabe判别}{难度：$\star\star$}
+\textbf{题目} 用凝聚判断$\sum\frac{1}{n\ln n}$，$n\ge2$。\par\textbf{思路与解答} 凝聚项$\frac{2^k}{2^k\ln2^k}=\frac{1}{k\ln2}$，为调和型，故发散。积分判别也给$\ln\ln x$发散。\par\textbf{方法点评与边界} 临界判别无结论时继续比较下一层对数。
+\end{example}
+\subsection{绝对收敛、重排与Cauchy积}\label{mat:series_methods:rearrange}
+\begin{method}{绝对收敛、重排与Cauchy积}\textbf{适用条件} 无穷和次序变化。\par\textbf{实施与依据} 绝对收敛允许任意重排；两绝对收敛级数的Cauchy积绝对收敛且和为乘积。\end{method}
+\begin{example}{专题例题｜绝对收敛、重排与Cauchy积}{难度：$\star\star$}
+\textbf{题目} 用Cauchy积解释$\e^x\e^y=\e^{x+y}$。\par\textbf{思路与解答} 系数卷积为$\sum_{k=0}^n\frac{x^ky^{n-k}}{k!(n-k)!}=\frac{(x+y)^n}{n!}$，绝对收敛允许重排，得到指数加法公式。\par\textbf{方法点评与边界} 条件收敛时任意重排或乘积可能改变结果甚至发散。
+\end{example}
+\subsection{加括号与原级数}\label{mat:series_methods:group}
+\begin{method}{加括号与原级数}\textbf{适用条件} 从分组和判断原级数。\par\textbf{实施与依据} 原级数收敛可任意保持顺序分组；反向需组内余项统一趋零。\end{method}
+\begin{example}{专题例题｜加括号与原级数}{难度：$\star\star$}
+\textbf{题目} 为何$1-1+1-1+\cdots$按$(1-1)$分组不能证明原级数和0？\par\textbf{思路与解答} 偶部分和0，奇部分和1，两子列不同。组端点收敛只控制部分子列，组内跳动并未趋零。\par\textbf{方法点评与边界} 判断级数敛散性应考察原部分和，而不能只作形式运算。
+\end{example}
+\subsection{八种求和入口}\label{mat:series_methods:eight}
+\begin{method}{八种求和入口}\textbf{适用条件} 收敛性已确认。\par\textbf{实施与依据} 按裂项、已知和变形、幂级数、逐项求导、逐项积分、微分方程、Fourier与复指数恒等式选择求和入口；每次运算核验条件。\end{method}
+\begin{example}{专题例题｜八种求和入口}{难度：$\star\star$}
+\textbf{题目} 求$\sum_{n=1}^\infty\frac{1}{n2^n}$。\par\textbf{思路与解答} 方法一：$-\ln(1-x)$在$x=\frac{1}{2}$给$\ln2$。方法二：$\sum x^{n-1}$在$[0,\frac{1}{2}]$一致收敛，逐项积分得$\int_0^{\frac{1}{2}}\frac{\dd t}{1-t}=\ln2$。\par\textbf{方法点评与边界} 不同方法之间会重叠，必须说明核心依据而非仅换名称。
+\end{example}
+\subsection{系数递推与生成函数ODE}\label{mat:series_methods:odegen}
+\begin{method}{系数递推与生成函数ODE}\textbf{适用条件} 系数满足多项式递推。\par\textbf{实施与依据} 把$n a_n$对应$xF\prime$，平移下标时补齐初项。\end{method}
+\begin{example}{专题例题｜系数递推与生成函数ODE}{难度：$\star\star$}
+\textbf{题目} 由$a_0=1,(n+1)a_{n+1}=a_n$求$F(x)=\sum a_nx^n$。\par\textbf{思路与解答} 递推给$F\prime=F,F(0)=1$，所以$F=\e^x$。也可直接得到$a_n=\frac{1}{n!}$。\par\textbf{方法点评与边界} 形式推导后应核对收敛半径，使生成函数确为解析函数。
+\end{example}
+\subsection{Abel端点定理}\label{mat:series_methods:abel}
+\begin{method}{Abel端点定理}\textbf{适用条件} 幂级数在端点1收敛。\par\textbf{实施与依据} 利用部分和有界及分部求和控制端点尾部。\end{method}
+\begin{example}{专题例题｜Abel端点定理}{难度：$\star\star$}
+\textbf{题目} 说明$\lim_{r\uparrow1}\sum_{n\ge1}\frac{(-1)^{n-1}r^n}{n}=\ln2$。\par\textbf{思路与解答} 端点交错调和收敛，Abel定理给从内部的极限等于端点和；内部和为$\ln(1+r)$，极限$\ln2$。直接用有限和积分可提供独立证明。\par\textbf{方法点评与边界} 内部函数的有限极限并不自动保证端点级数普通收敛。
+\end{example}
+\subsection{一致Dirichlet与逐项求导}\label{mat:series_methods:diruniform}
+\begin{method}{一致Dirichlet与逐项求导}\textbf{适用条件} 参数化部分和一致有界，衰减因子一致趋零并单调。\par\textbf{实施与依据} 对尾和统一使用分部求和；求导则另需导数级数一致收敛及一点收敛。\end{method}
+\begin{example}{专题例题｜一致Dirichlet与逐项求导}{难度：$\star\star$}
+\textbf{题目} 证明$\sum\frac{\sin(nx)}{n}$在$[\delta,2\pi-\delta]$一致收敛，$0<\delta<\pi$。\par\textbf{思路与解答} 三角部分和的模被$\frac{2}{|1-\e^{ix}|}$控制，该区间分母有正下界。乘$\frac{1}{n}\downarrow0$，一致Dirichlet成立。\par\textbf{方法点评与边界} 当$\delta\to0$时统一界失效，因此不能直接扩大到含0的整个区间。
+\end{example}
+\subsection{Weierstrass多项式逼近}\label{mat:series_methods:weierstrass}
+\begin{method}{Weierstrass多项式逼近}\textbf{适用条件} 紧区间上的连续函数。\par\textbf{实施与依据} 缩放到$[0,1]$，用Bernstein多项式及模连续性统一控制。\end{method}
+\begin{example}{专题例题｜Weierstrass多项式逼近}{难度：$\star\star$}
+\textbf{题目} 对$f(x)=x^2$求$B_nf(x)$。\par\textbf{思路与解答} 若$X\sim\operatorname{Bin}(n,x)$，则$B_nf=\mathbb E(\frac{X}{n})^2=x^2+\frac{x(1-x)}{n}$，上确界误差$\frac{1}{4n}$，直接验证一致逼近。\par\textbf{方法点评与边界} 逼近存在性与Taylor级数是否收敛到函数不同；光滑函数未必等于其Taylor级数。
+\end{example}
+\subsection{调和级数的多种发散机制}\label{mat:series_methods:harmonic}
+\begin{method}{调和级数的多种发散机制}\textbf{适用条件} 正项且尺度稳定。\par\textbf{实施与依据} 比较积分、二进分组、尾和Cauchy反例和反证结构。\end{method}
+\begin{example}{专题例题｜调和级数的多种发散机制}{难度：$\star\star$}
+\textbf{题目} 若假设$H_n\to L$，构造矛盾。\par\textbf{思路与解答} 按偶数项与奇数项拆分，$H_{2n}-H_n=\sum_{k=n+1}^{2n}\frac{1}{k}\ge\frac{1}{2}$；但若$H_n$收敛，该差应趋0，矛盾。这也说明$H_n$不是Cauchy列。\par\textbf{方法点评与边界} 多种证明均说明固定比例区间的尾和无法趋于零。
+\end{example}

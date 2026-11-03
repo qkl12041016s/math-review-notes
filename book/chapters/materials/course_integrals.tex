@@ -1,0 +1,314 @@
+\section{变限积分、临界判敛与几何建模}\label{ci:integrals}
+\begin{examtip}
+将被积函数的局部性质、积分区间的移动规律和微元的几何意义分别处理。变限积分的可导性须回到差商；含参数的反常积分先求定义域；不等式先寻找可积的点态控制；应用题先确定质量、距离和方向。
+\end{examtip}
+
+\subsection{振荡被积函数与平均差商}\label{ci:oscillatory}
+\begin{method}{连续性充分条件之外的变限求导}
+\textbf{适用条件} 被积函数可积，但在求导点不连续。\par
+\textbf{步骤} 写成$\frac{F(x+h)-F(x)}{h}$，考察小区间上的平均值；对快速振荡项，用分部积分取得比区间长度更高阶的估计。\par
+\textbf{疑难点} $F'(c)=f(c)$的基本定理以$f$在$c$连续为充分条件，不能仅因该条件不满足就判定$F$不可导。
+\end{method}
+\begin{example}{考研风格｜不连续被积函数仍给出可导积分}{难度：$\star\star\star$}\label{ci:ex:oscillatory}
+\textbf{题目} 定义$f(0)=0$，$x\ne0$时$f(x)=\sin(\frac{1}{x})$，并令$F(x)=\int_0^x f(t)\dd t$。证明$F$在实轴上处处可导，求$F'(0)$。\par
+\textbf{思路} 在非零点使用连续性，在零点直接估计积分差商。\par
+\textbf{详细解答} $f$有界，任意有界区间上仅在0处可能不连续，因此Riemann可积。对$x\ne0$，连续性给$F'(x)=\sin(\frac{1}{x})$。先设$x>0$。在$[\varepsilon,x]$上用
+\[
+ \dd\!\left(\cos\dfrac1t\right)=\dfrac{\sin(\frac{1}{t})}{t^2}\dd t
+\]
+分部积分，再令$\varepsilon\downarrow0$。因$\varepsilon^2\cos(\frac{1}{\varepsilon})\to0$，得到
+\[
+ F(x)=x^2\cos\dfrac1x-2\int_0^x t\cos\dfrac1t\dd t,
+ \qquad |F(x)|\le x^2+2\int_0^x t\dd t=2x^2.
+\]
+由于$f$为奇函数，$F(-x)=F(x)$，负半轴也满足$|F(x)|\le2x^2$。故
+\[
+ F'(0)=\lim_{x\to0}\dfrac{F(x)-F(0)}x=0=f(0).
+\]
+\textbf{方法点评} 振荡积分本身比$f$平滑；关键是$F(x)=O(x^2)$，而非错误地令$\sin(\frac{1}{x})$取极限。\par
+\textbf{疑难点} 不能在0处直接套用要求被积函数连续的求导公式。改变$f(0)$不会改变$F$，因而也不会改变$F'(0)$。
+\end{example}
+
+\subsection{反常积分参数：先排极点，再谈数值}\label{ci:parameterdomain}
+\begin{method}{参数积分的定义域先行}
+\textbf{适用条件} 分母零点随参数移动，或端点包含幂、对数等临界因子。\par
+\textbf{步骤} 求每个端点的等价式，同时列出区间内部的零点；各处分别判敛，取参数条件的交集；最后才使用原函数和代数方程。\par
+\textbf{疑难点} 对数绝对值能写成实数，不代表跨越简单极点的反常积分存在。
+\end{method}
+\begin{example}{考研风格｜积分方程中的伪参数根}{难度：$\star\star$}\label{ci:ex:parameterpole}
+\textbf{题目} 求实数$a$，使通常意义的反常积分
+\[
+ I(a)=\int_1^\infty\dfrac{a}{x(2x+a)}\dd x=\ln2.
+\]
+\textbf{思路} 先确定积分存在的参数范围，再计算。\par
+\textbf{详细解答} 若$a<-2$，则$x=-\frac{a}{2}>1$为简单极点，积分发散；$a=-2$在左端点出现不可积的一阶极点。$a>-2$时分母在$[1,\infty)$上无零点，且被积式在无穷远为$O(x^{-2})$，积分收敛。此时
+\begin{align*}
+ I(a)&=\lim_{R\to\infty}
+ \left[\ln x-\ln(2x+a)\right]_1^R\\
+ &=\ln(2+a)-\ln2=\ln\left(1+\dfrac a2\right).
+\end{align*}
+于是$I(a)=\ln2$等价于$1+\frac{a}{2}=2$，唯一解为$a=2$。\par
+\textbf{方法点评} 若未限制参数而先使用$\ln|2+a|$，会误得$a=-6$；该值在$x=3$处产生极点。\par
+\textbf{疑难点} 简单极点两侧的对数发散不能靠相减抵消。通常反常积分要求两侧分别收敛。
+\end{example}
+\begin{example}{竞赛风格｜两个端点的对数条件相互排斥}{难度：$\star\star\star$}\label{ci:ex:logphase}
+\textbf{题目} 对$m,n>0$，完整判定
+\[
+ J(m,n)=\int_1^\infty\dfrac{\dd x}{(\ln x)^m(1+x^n)}
+\]
+的收敛范围。\par
+\textbf{思路} 左端点用$\ln x\sim x-1$，右端点用幂与对数的分层判别。\par
+\textbf{详细解答} 在$x\downarrow1$时，
+\[
+ \dfrac1{(\ln x)^m(1+x^n)}\sim\dfrac1{2(x-1)^m},
+\]
+所以左端收敛当且仅当$m<1$。在无穷远，被积式等价于$x^{-n}(\ln x)^{-m}$。若$n>1$，充分大时$(\ln x)^{-m}\le1$，可直接比较$x^{-n}$得收敛。若$0<n<1$，由$(\ln x)^m\le x^{\frac{1-n}{2}}$最终成立，得到
+\[
+ x^{-n}(\ln x)^{-m}\ge x^{-\frac{n+1}{2}},
+\]
+而$\frac{n+1}{2}<1$，故发散。若$n=1$，令$t=\ln x$，尾部等价积分为$\int^\infty t^{-m}\dd t$，当且仅当$m>1$收敛。此条件与左端要求$m<1$不相容。综上
+\[
+ J(m,n)\text{收敛}\quad\Longleftrightarrow\quad 0<m<1,\quad n>1.
+\]
+\textbf{方法点评} 临界线$n=1$无法通过调大$m$挽救全积分，因为它同时破坏左端的可积性。\par
+\textbf{疑难点} 必须对同一个参数同时施加两个端点的条件，不能把它们写成“或”。
+\end{example}
+
+\subsection{含绝对值核与移动窗口}\label{ci:kernelwindow}
+\begin{method}{先找分界点，再对积分求导}
+\textbf{适用条件} 核含$|t-x|$，或积分上下限同步移动。\par
+\textbf{步骤} 绝对值题按$x$相对固定区间的位置分类；移动窗口题先用变限公式求导，把积分关系化成差分关系。\par
+\textbf{疑难点} 随参数移动的分界点会带来端点项，须完整使用Leibniz公式后检查是否抵消。
+\end{method}
+\begin{example}{考研风格｜绝对值积分的最优中心}{难度：$\star\star\star$}\label{ci:ex:absolutekernel}
+\textbf{题目} 求$\Phi(x)=\int_0^1t|t-x|\dd t$，并求其在$\R$上的最小值点。\par
+\textbf{思路} $x$在$[0,1]$内时，于$t=x$处分开；区间外直接去绝对值。\par
+\textbf{详细解答} 若$x\le0$，$|t-x|=t-x$，故$\Phi(x)=\frac{1}{3}-\frac{x}{2}$；若$x\ge1$，则$\Phi(x)=\frac{x}{2}-\frac{1}{3}$。对$0<x<1$，
+\begin{align*}
+ \Phi(x)
+ &=\int_0^xt(x-t)\dd t+\int_x^1t(t-x)\dd t\\
+ &=\dfrac{x^3}6+\left[\dfrac{t^3}3-\dfrac{xt^2}2\right]_x^1
+ =\dfrac{x^3}3-\dfrac x2+\dfrac13.
+\end{align*}
+三段表达在0、1处函数值与一阶导数均相接。因此
+\[
+ \Phi'(x)=
+ \begin{cases}
+ -\dfrac{1}{2},&x<0,\\
+ x^2-\dfrac{1}{2},&0\le x\le1,\\
+ \dfrac{1}{2},&x>1.
+ \end{cases}
+\]
+唯一极小点为$x_*=\frac{1}{\sqrt2}$，并为全局最小点，其值是$\frac{1}{3}-\frac{1}{3\sqrt2}$。第二种解释：$\Phi'=0$等价于$\int_0^{x_*}t\dd t=\frac12\int_0^1t\dd t$，最优中心是权密度$t$的中位点。\par
+\textbf{方法点评} 绝对偏差最小对应中位点，平方偏差最小才对应加权平均点。\par
+\textbf{疑难点} $\Phi$在1处没有二阶导数，不能因一阶导数连续就误判为处处二阶可导。
+\end{example}
+\begin{example}{考研风格｜差分关系决定滑动积分}{难度：$\star\star$}\label{ci:ex:window}
+\textbf{题目} 连续函数$f$满足$f(x+2)-f(x)=x$且$\int_0^2f(x)\dd x=0$。求任意实数$a$时$I(a)=\int_a^{a+2}f(x)\dd x$。\par
+\textbf{思路} 对窗口位置求导，无需求出$f$的全部表达式。\par
+\textbf{详细解答} 由变限求导，
+\[
+ I'(a)=f(a+2)-f(a)=a,\qquad I(0)=0,
+\]
+所以$I(a)=\frac{a^2}{2}$。另一法先将区间拆成
+\[
+ I(a)-I(0)=\int_2^{a+2}f(x)\dd x-\int_0^af(x)\dd x
+ =\int_0^a[f(t+2)-f(t)]\dd t=\dfrac{a^2}2.
+\]
+定向积分的可加性使第二法对$a<0$也成立。\par
+\textbf{方法点评} 更一般地，若$f(x+T)-f(x)=q(x)$，则$I(a)-I(0)=\int_0^aq(t)\dd t$。\par
+\textbf{疑难点} “积分窗口长度相同”不推出积分相等；需要周期性，或像本题这样掌握精确漂移。
+\end{example}
+
+\subsection{积分比较：权函数、累计量和导数包络}\label{ci:inequality}
+\begin{method}{把积分差变成同号乘积}
+\textbf{适用条件} 区间反射交换两个被积因子，或目标不等式含累计积分的幂。\par
+\textbf{步骤} 对称比较先配$x$与$b-x$；累计量设$A(x)=\int_0^xf$，逐次求导寻找非负因子。\par
+\textbf{疑难点} 严格不等式须确认乘积在正长度区间上严格为正；只有单点严格通常还需连续性。
+\end{method}
+\begin{example}{竞赛风格｜单调权下正弦与余弦的比较}{难度：$\star\star\star$}\label{ci:ex:trigweight}
+\textbf{题目} 若$w$在$[0,\frac{\pi}{2}]$上连续且严格递减，证明
+\[
+ \int_0^{\frac{\pi}{2}}w(x)\cos x\dd x>
+ \int_0^{\frac{\pi}{2}}w(x)\sin x\dd x.
+\]
+另比较$\int_0^1\frac{x}{1+x}\sin(\frac{\pi x}{2})\dd x$与$\int_0^1\frac{x}{1+x}\cos(\frac{\pi x}{2})\dd x$。\par
+\textbf{思路} 前者用区间反射配对，后者识别权的单调方向相反。\par
+\textbf{详细解答} 记第一式左右之差为$D$。将后半区间令$x=\frac{\pi}{2}-t$，得到
+\[
+ D=\int_0^{\frac{\pi}{4}}
+ \left[w(t)-w\!\left(\dfrac\pi2-t\right)\right](\cos t-\sin t)\dd t>0.
+\]
+两因子在$(0,\frac{\pi}{4})$均严格为正。第二法用Chebyshev比较：$w,\cos$同向，$w,\sin$反向，且$\int_0^{\frac{\pi}{2}}\cos x\dd x=\int_0^{\frac{\pi}{2}}\sin x\dd x=1$，故前者大于共同平均基准，后者小于它。\par
+对第二问，令$u=\frac{\pi x}{2}$，权函数变为$\widetilde w(u)=\frac{\frac{2u}{\pi}}{1+\frac{2u}{\pi}}$，它严格递增，因此比较方向反转：
+\[
+ \int_0^1\dfrac{x\sin(\frac{\pi x}{2})}{1+x}\dd x>
+ \int_0^1\dfrac{x\cos(\frac{\pi x}{2})}{1+x}\dd x.
+\]
+\textbf{方法点评} 配对法直接显示差的符号；平均不等式能同时比较两个量与同一基准。\par
+\textbf{疑难点} 不能逐点比较$\sin$与$\cos$后直接积分，它们在区间中点交换大小。
+\end{example}
+\begin{example}{竞赛风格｜非线性累计积分的两次单调化}{难度：$\star\star\star$}\label{ci:ex:cumulative}
+\textbf{题目} 设$f\in C^1[0,1]$，$f(0)=0$且$0\le f'(x)\le1$。证明
+\[
+ \left(\int_0^1f(x)\dd x\right)^2\ge\int_0^1f(x)^3\dd x.
+\]
+\textbf{思路} 先证明累计面积控制$f^2$，再把这一控制作为另一个差函数的导数。\par
+\textbf{详细解答} 由$f'\ge0$可知$f\ge0$。令$A(x)=\int_0^xf(t)\dd t$及$G(x)=2A(x)-f(x)^2$，则
+\[
+ G(0)=0,\qquad G'(x)=2f(x)[1-f'(x)]\ge0.
+\]
+故$2A(x)\ge f(x)^2$。再设$H(x)=A(x)^2-\int_0^xf(t)^3\dd t$，有
+\[
+ H(0)=0,\qquad H'(x)=2A(x)f(x)-f(x)^3=f(x)G(x)\ge0.
+\]
+于是$H(1)\ge0$，即所求。作为第二种观察，由$f'\le1$与$f(0)=0$可得$f(x)\le x$；对固定$x$，又有$f(t)\ge\max\{0,f(x)-(x-t)\}$，积分此三角形下界同样得到$A(x)\ge \frac{f(x)^2}{2}$。\par
+\textbf{方法点评} 目标中的平方提示先对累计积分求导，三次幂则提示配成$f[2A-f^2]$。$f(x)=x$时两边均为$\frac{1}{4}$，常数不能加强。\par
+\textbf{疑难点} $0\le f'\le1$不是$0\le f\le1$的替代写法；只给后者无法得到本题的三角形下界。
+\end{example}
+\begin{method}{双端点约束产生尖顶包络}
+\textbf{适用条件} 两端点函数值已知，且有一致导数界。\par
+\textbf{步骤} 从左端点和右端点分别应用中值定理，取较强的上界；积分分界点通常是区间中点。\par
+\textbf{疑难点} 最优包络可能不可导，因此最优常数可以是上确界而没有光滑函数达到。
+\end{method}
+\begin{example}{竞赛风格｜导数约束下的最优面积常数}{难度：$\star\star\star$}\label{ci:ex:tent}
+\textbf{题目} 设$f\in C^1[a,b]$，$a<b$，$M\ge0$，$f(a)=f(b)=0$且$|f'|\le M$。证明
+\[
+ \int_a^b|f(x)|\dd x\le\dfrac{M(b-a)^2}4,
+\]
+并说明常数$\frac{1}{4}$不可减小。\par
+\textbf{思路} 用两端点给出的线性界夹住函数，得到尖顶形的上包络。\par
+\textbf{详细解答} 由中值定理或积分估计，
+\[
+ |f(x)|\le M(x-a),\qquad |f(x)|\le M(b-x).
+\]
+取较小者，在中点$m=\frac{a+b}{2}$处分开积分：
+\[
+ \int_a^b|f|\le
+ M\int_a^m(x-a)\dd x+M\int_m^b(b-x)\dd x
+ =\dfrac{M(b-a)^2}4.
+\]
+为证明最优，令$h=\frac{b-a}{2}$，对$\varepsilon>0$取
+\[
+ f_\varepsilon(x)=M\!\left[
+ \sqrt{h^2+\varepsilon^2}-\sqrt{(x-m)^2+\varepsilon^2}\right].
+\]
+其端点为0，且$|f_\varepsilon'|=\frac{M|x-m|}{\sqrt{(x-m)^2+\varepsilon^2}}\le M$。当$\varepsilon\downarrow0$时一致趋于$M[h-|x-m|]$，故积分趋$\frac{M(b-a)^2}{4}$。\par
+\textbf{方法点评} 导数界是几何斜率约束；从两端同时估计，比只从一个端点估计所得的$\frac{1}{2}$常数更精确。图\ref{ci:fig:tent}给出另一条数形结合的计算：上包络是底为$b-a$、高为$\frac{M(b-a)}{2}$的三角形，面积正是$\frac{M(b-a)^2}{4}$。\par
+\textbf{疑难点} 若$M>0$，达到上界须与尖顶包络处处相同，但其在中点不可导，故非零的$C^1$函数不能达到该上界。
+\end{example}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[x=8cm,y=4.4cm]
+\fill[Teal!8] (0,0)--(.5,.5)--(1,0)--cycle;
+\draw[->] (-.04,0)--(1.09,0) node[right]{$x$};
+\draw[->] (0,-.03)--(0,.63) node[above]{$y$};
+\draw[Teal,thick] (0,0)--(.5,.5)--(1,0);
+\draw[Ink,thick,domain=0:1,samples=81]
+ plot(\x,{sqrt(.25+.0064)-sqrt((\x-.5)*(\x-.5)+.0064)});
+\draw[dashed,Gold] (.5,0)--(.5,.5);
+\node[below] at (0,0){$0$};\node[below] at (.5,0){$\frac{1}{2}$};
+\node[below] at (1,0){$1$};\node[left] at (0,.5){$\frac{1}{2}$};
+\node[Teal,anchor=west] at (.6,.48){尖顶上包络};
+\node[Ink,anchor=west] at (.62,.26){光滑逼近};
+\end{tikzpicture}
+\caption{在$[0,1]$、$M=1$时，双端点斜率界给出$\min(x,1-x)$。阴影三角形面积为$\frac{1}{4}$；光滑曲线取$\varepsilon=0.08$，逼近该面积但不达到。}\label{ci:fig:tent}
+\end{figure}
+\begin{example}{竞赛拓展｜零边界与二阶导数的积分代价}{难度：$\star\star\star$}\label{ci:ex:lyapunov}
+\textbf{题目} 设$f\in C^2[a,b]$，$f(a)=f(b)=0$且$f(x)\ne0$对$a<x<b$成立。证明
+\[
+ \int_a^b\left|\dfrac{f''(x)}{f(x)}\right|\dd x\ge\dfrac4{b-a}.
+\]
+若左端为无穷，按扩展值理解。\par
+\textbf{思路} 取$|f|$最大点，左右分别用中值定理，再把两处斜率差写成$f''$的积分。\par
+\textbf{详细解答} 设$|f(c)|=K>0$，$a<c<b$。在$[a,c]$和$[c,b]$应用中值定理，存在$\xi\in(a,c)$、$\eta\in(c,b)$使
+\[
+ f'(\xi)=\dfrac{f(c)}{c-a},\qquad f'(\eta)=-\dfrac{f(c)}{b-c}.
+\]
+由于$|f(x)|\le K$，在内部非零点有$|\frac{f''}{f}|\ge\frac{|f''|}{K}$。非负积分的截断极限及基本定理给
+\begin{align*}
+ \int_a^b\left|\dfrac{f''}{f}\right|\dd x
+ &\ge\dfrac1K\int_\xi^\eta|f''(x)|\dd x
+ \ge\dfrac{|f'(\eta)-f'(\xi)|}K\\
+ &=\dfrac1{c-a}+\dfrac1{b-c}
+ \ge\dfrac4{b-a}.
+\end{align*}
+最后一步由$(c-a)(b-c)\le\frac{(b-a)^2}{4}$得到。\par
+\textbf{方法点评} 若$q$连续，非平凡解满足$y''+q(x)y=0$且相邻零点为$a,b$，则上式给$\int_a^b|q|\ge\frac{4}{b-a}$，可用于排除过近的零点。\par
+\textbf{疑难点} $f$在端点为0，商式积分须按反常积分理解；不能把端点的$\frac{0}{0}$当成普通函数值。
+\end{example}
+
+\subsection{分层微元与斜轴旋转}\label{ci:geometry}
+\begin{method}{重量、提升距离和截面面积同时入式}
+\textbf{适用条件} 准静态抽水、竖直液体压力等连续介质模型，密度与重力加速度取常数。\par
+\textbf{步骤} 先固定深度坐标；切片质量为$\rho A(y)\dd y$；抽水乘每片的提升距离，压力乘深度后对受压面积积分。\par
+\textbf{疑难点} 抽水的距离和压力的深度是不同物理量，坐标原点改变后两者表达必须同步改变。
+\end{method}
+\begin{example}{考研风格｜圆锥抽水与半椭圆水压}{难度：$\star\star\star$}\label{ci:ex:water}
+\textbf{题目} 各长度参数、密度$\rho$及重力加速度$g$均为正。（1）倒圆锥容器高$H$、口半径$R$，装满水，求抽到容器口所需的功。（2）半椭圆竖直挡板的直径在水面，其水平半轴为$b$、向下的竖直半轴为$a$，求一侧水压力。\par
+\textbf{思路} 前者用水平水层，后者用水平窄条。\par
+\textbf{详细解答} （1）以锥顶为$y=0$、容器口为$y=H$，截面半径$\frac{Ry}{H}$，每片水须提升$H-y$，所以
+\begin{align*}
+ W&=\dfrac{\rho g\pi R^2}{H^2}\int_0^Hy^2(H-y)\dd y\\
+ &=\dfrac{\rho g\pi R^2}{H^2}
+ \left(\dfrac{H^4}3-\dfrac{H^4}4\right)
+ =\dfrac{\rho g\pi R^2H^2}{12}.
+\end{align*}
+也可用锥体水的总重$\frac{\rho g\pi R^2H}{3}$乘质心到口的距离$\frac{H}{4}$核对。\par
+（2）以水面为深度$z=0$，宽度为$2b\sqrt{1-\frac{z^2}{a^2}}$，压力$p=\rho gz$。故
+\[
+ F=2\rho gb\int_0^az\sqrt{1-\frac{z^2}{a^2}}\dd z
+ =\rho gba^2\int_0^1u^{\frac{1}{2}}\dd u
+ =\dfrac23\rho gba^2,
+\]
+其中$u=1-\frac{z^2}{a^2}$，换元时上下限随负微分反转。\par
+\textbf{方法点评} 同为水平分层，功需“重量乘位移”，压力需“压强乘面积”；两式的量纲分别是能量与力。\par
+\textbf{疑难点} 若出口高出容器口$d$，第一问应另加总重乘$d$；忽略这一项相当于改变了题设的终点。
+\end{example}
+\begin{method}{先转正坐标，再绕斜轴旋转}
+\textbf{适用条件} 平面曲线或区域绕平面内直线旋转，区域内部不跨越旋转轴；曲面参数化应避免重复覆盖。\par
+\textbf{步骤} 取沿轴坐标$u$与带符号的垂直坐标$v$。半径为$|v|$，面积微元为$2\pi|v|\dd s$；区域的一次矩给旋转体积。\par
+\textbf{疑难点} “到轴距离”不能用竖直距离代替。曲线多次生成同一曲面时，直接积分会计重。
+\end{method}
+\begin{example}{竞赛风格｜斜轴旋转曲面的参数面积}{难度：$\star\star\star$}\label{ci:ex:obliquearea}
+\textbf{题目} 求曲线$y=\frac{x^3}{3}+2x$，$0\le x\le1$，绕直线$4x-3y=0$旋转一周生成曲面的面积。\par
+\textbf{思路} 到斜轴的垂距配弧长，不能使用$2\pi y\dd s$。\par
+\textbf{详细解答} 取正交坐标
+\[
+ u=\dfrac{3x+4y}5,\qquad v=\dfrac{-4x+3y}5.
+\]
+轴为$v=0$；曲线上$v=\frac{x(x^2+2)}{5}\ge0$，且$u'=\frac{11+4x^2}{5}>0$，故无回折重复覆盖。由$y'=x^2+2$，
+\begin{align*}
+ S&=2\pi\int_0^1v\sqrt{1+(y')^2}\dd x\\
+ &=\dfrac{2\pi}5\int_0^1x(x^2+2)\sqrt{1+(x^2+2)^2}\dd x\\
+ &\overset{t=x^2+2}{=}\dfrac\pi5\int_2^3t\sqrt{1+t^2}\dd t\\
+ &=\dfrac\pi{15}\left(10\sqrt{10}-5\sqrt5\right).
+\end{align*}
+面积公式可独立推导：转正后曲面参数为$(u(x),v(x)\cos\theta,v(x)\sin\theta)$，两个切向量的叉积模为$v(x)\sqrt{u'(x)^2+v'(x)^2}$；正交变换保持弧长，积分$\theta\in[0,2\pi]$即得。\par
+\textbf{方法点评} 正交变换同时解释旋转半径和面积元；最终的换元由$x(x^2+2)$与根式内层配合决定。\par
+\textbf{疑难点} 这里只求曲线生成的侧面；若题目要求封闭旋转体的总表面积，还应判断是否有端面。
+\end{example}
+\begin{example}{竞赛风格｜一次矩化解斜轴旋转体积}{难度：$\star\star\star$}\label{ci:ex:pappus}
+\textbf{题目} 区域$D$位于第一象限，由直线$x+y=1$与曲线$\sqrt x+\sqrt y=1$围成。求$D$绕$x+y=1$旋转一周生成的体积。\par
+\textbf{思路} 旋转轴是边界，区域全部在同一侧，可将体积写成到轴距离的一次矩。\par
+\textbf{详细解答} 区域可写为$0\le x\le1$、$(1-\sqrt x)^2\le y\le1-x$。其面积为
+\[
+ A=\int_0^1[1-x-(1-\sqrt x)^2]\dd x
+ =\int_0^1(2\sqrt x-2x)\dd x=\dfrac13.
+\]
+关于$x,y$交换的对称性给$\bar x=\bar y$，并且
+\[
+ \int_Dx\dd A
+ =\int_0^1x(2\sqrt x-2x)\dd x
+ =\dfrac45-\dfrac23=\dfrac2{15},
+ \qquad \bar x=\bar y=\dfrac25.
+\]
+正交转正后，区域上的微元在绕轴旋转时给体积$2\pi v\dd A$，其中$v=\frac{1-x-y}{\sqrt2}\ge0$。因此
+\begin{align*}
+ V&=\dfrac{2\pi}{\sqrt2}\int_D(1-x-y)\dd A\\
+ &=\dfrac{2\pi}{\sqrt2}\,A(1-\bar x-\bar y)
+ =\dfrac{\sqrt2\pi}{15}.
+\end{align*}
+这也证明了本题使用的质心旋转公式$V=2\pi dA$，其中$d$为形心到轴距离。\par
+\textbf{方法点评} 先算平面区域的一次矩，避免为斜轴逐段求圆盘半径；区域对称使两个一次矩相同。\par
+\textbf{疑难点} 若轴穿过区域内部，两侧旋转可能重叠，不能把带符号的一次矩或两侧绝对距离积分直接当成并集体积。
+\end{example}

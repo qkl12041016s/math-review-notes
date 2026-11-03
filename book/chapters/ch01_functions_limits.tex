@@ -1,0 +1,209 @@
+\chapter{函数、极限与连续}\label{ch:1}
+\begin{tcolorbox}[title=章首知识地图,colframe=Ink]
+函数与定义域 $\to$ 极限语言 $\to$ 运算法则与无穷小 $\to$ 数列收敛 $\to$ 连续性及存在性。计算前先分清数列、函数、单侧与双侧极限。
+\end{tcolorbox}
+\begin{examtip}考研主线：极限计算、分段连续、递推数列和参数抵消。常见题型：先判断存在性，再确定参数或计算极限。竞赛拓展：Stolz、积分型极限和渐近误差；先证明收敛再求值。上述为学习任务分层，具体范围以所报考科目的当年大纲为准。\end{examtip}
+\section{函数与极限的语言}\label{sec:1:1}
+
+\begin{center}
+\begin{tikzpicture}[scale=.65]
+\draw[->,Ink] (-3.6,0)--(3.7,0) node[right]{$x$};\draw[->,Ink] (0,-.4)--(0,2.1) node[above]{$y$};
+\draw[Teal,thick,domain=-3.2:3.2,samples=80] plot (\x,{1+0.12*\x*\x});
+\fill[Teal!10] (-1.2,.8) rectangle (1.2,1.2);\draw[Teal,dashed](-1.2,.8)--(1.2,.8);\draw[Teal,dashed](-1.2,1.2)--(1.2,1.2);
+\draw[Teal,thick,domain=-1.2:1.2,samples=40] plot (\x,{1+0.12*\x*\x});
+\node[left] at (0,1.5){$L$附近};\node[below]at(1.2,0){$\delta$};\node[below]at(-1.2,0){$-\delta$};
+\end{tikzpicture}\par\small 极限的误差控制：缩小水平邻域，使函数值进入指定误差带。
+\end{center}
+
+\subsection{概念、定理与推导}
+
+单侧极限只允许从定义点的一边趋近；双侧极限存在当且仅当两侧有限极限存在且相等。$x\to\infty$时以$x>M$代替邻域条件；$f(x)\to+\infty$要求对任意$K>0$最终有$f(x)>K$。无穷大是变化状态，不是可参与普通四则运算的实数。单调性、奇偶性、周期性及反函数定义域应先于计算检查。
+
+
+\begin{definition}{函数、数列与函数极限}函数由定义域、对应关系和陪域给定；复合$f\circ g$要求$g(x)$落在$f$的定义域。单射区分不同输入，双射才在整个陪域上有反函数。$a_n\to A$指任意$\varepsilon>0$，存在$N$使$n>N$时$|a_n-A|<\varepsilon$。设$a$是$f$的定义域$D$的聚点，即任意去心邻域均与$D$相交；$\lim_{x\to a}f(x)=L$指任意$\varepsilon>0$存在$\delta>0$，使$x\in D$且$0<|x-a|<\delta$蕴含$|f(x)-L|<\varepsilon$。聚点前提保证此定义不是对空邻域作判断，并保证极限的唯一性。\end{definition}
+\begin{theorem}{极限性质与四则运算}有限极限唯一，收敛数列有界，函数有有限极限则在充分小的去心邻域内有界。若$f\to A,g\to B$，则$f\pm g\to A\pm B,fg\to AB$；当$B\ne0$时$\frac{f}{g}\to \frac{A}{B}$。若$f\le h\le g$且$f,g\to L$，则$h\to L$。\end{theorem}
+\begin{proof}唯一性由$|L_1-L_2|\le|L_1-f|+|f-L_2|$与任意小的误差矛盾得到。乘法将$fg-AB$拆为$f(g-B)+B(f-A)$并使用局部有界性；夹逼直接比较$h-L$的上下界。\end{proof}
+奇偶性要求定义域关于原点对称；周期$T$必须满足平移后仍在定义域且$f(x+T)=f(x)$。这些结构可在求极限前简化表达式。
+
+\begin{method}{函数与极限的语言}条件：先确认定义域和趋近方向。步骤：检查直接代入；出现未定式再变形；用两个趋近序列可否定极限。易错点：函数在点上无定义不妨碍该点极限存在。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜定义证明}{难度：$\star$}
+\label{ex:1:1}\textbf{题目} 用定义证明$\lim_{x\to2}(3x-1)=5$。\par
+\textbf{思路} 把函数误差换成自变量误差。\par
+\textbf{解答} $|(3x-1)-5|=3|x-2|$。给定$\varepsilon>0$，取$\delta=\frac{\varepsilon}{3}$，即可使误差小于$\varepsilon$。另一方法：连续函数的四则法则给出$3\cdot2-1=5$。\par
+\textbf{方法点评} 定义法提供误差控制；四则法适于计算。\par
+\textbf{易错点或变式} 定义中的$\delta$可依赖$\varepsilon$，不能依赖正在变化的$x$。
+\end{example}
+\begin{example}{基础例题｜有理化}{难度：$\star$}
+\label{ex:1:2}\textbf{题目} 求$\lim_{x\to0}\frac{\sqrt{1+x}-1}{x}$。\par
+\textbf{思路} 消除相消或识别导数。\par
+\textbf{解答} 方法一：乘共轭后变为$\frac{1}{\sqrt{1+x}+1}\to\frac{1}{2}$。方法二：这是$f(x)=\sqrt{1+x}$在0处的导数，$f\prime(0)=\frac{1}{2}$。\par
+\textbf{方法点评} 有理化不需要预先掌握求导，导数定义便于识别结构。\par
+\textbf{易错点或变式} 只在$x\ne0$时约去$x$，这与去心极限一致。
+\end{example}
+\begin{example}{考研风格例题｜不存在}{难度：$\star\star$}
+\label{ex:1:3}\textbf{题目} 判断$\lim_{x\to0}\sin(\frac{1}{x})$。\par
+\textbf{思路} 找两个极限值不同的趋近序列。\par
+\textbf{解答} 取$x_n=(2n\pi+\frac{\pi}{2})^{-1}$和$y_n=(2n\pi+\frac{3\pi}{2})^{-1}$，两者趋零但函数值分别为1与$-1$，故极限不存在。另一思路：任意去心邻域的函数振幅均为2，不满足极限的Cauchy条件。\par
+\textbf{方法点评} 序列判别给出可检验反例，振幅语言揭示振荡原因。\par
+\textbf{易错点或变式} 有界不等于收敛。
+\end{example}
+\section{无穷小比较与重要极限}\label{sec:1:2}
+
+\begin{theorem}{Heine序列判别，标准结论}设$a$是定义域的聚点。$\lim_{x\to a}f(x)=L$等价于：对任意定义域内的数列$x_n\ne a$且$x_n\to a$，均有$f(x_n)\to L$。\end{theorem}
+\begin{proof}必要性把极限定义的$\delta$作用于收敛数列即可。若函数极限不是$L$，存在$\varepsilon_0>0$，使每个$\frac{1}{n}$邻域都能选出$x_n\ne a$且$|f(x_n)-L|\ge\varepsilon_0$，这与序列条件矛盾。\end{proof}
+\begin{method}{先审查定义域，再用初等函数结构}
+对数要求真数正，分母要求非零，偶次根要求根下非负。复合函数的定义域是所有同时满足内外层条件的点。反函数交换定义域与值域，例如$\arcsin$的定义域为$[-1,1]$，值域为$[-\frac{\pi}{2},\frac{\pi}{2}]$；反正切取值$(-\frac{\pi}{2},\frac{\pi}{2})$。偶函数双侧极限可由一侧推知；奇函数在0有有限极限时该极限只能为0，但奇性本身不保证极限存在。
+\end{method}
+
+\subsection{概念、定理与推导}
+
+\begin{definition}{无穷小阶}在同一极限过程中，$f=o(g)$表示$\frac{f}{g}\to0$；$f=O(g)$表示比值有界；$f\sim g$表示$\frac{f}{g}\to1$，要求分母在充分小去心邻域不为零。\end{definition}
+\begin{theorem}{两个重要极限}以弧度计，$\frac{\sin x}{x}\to1$；$\lim_{x\to0}(1+x)^{\frac{1}{x}}=\e$。因此$\sin x\sim x$、$\tan x\sim x$、$1-\cos x\sim \frac{x^2}{2}$、$\ln(1+x)\sim x$、$\e^x-1\sim x$。\end{theorem}
+\begin{proof}在$0<x<\frac{\pi}{2}$，几何比较给$\sin x<x<\tan x$，夹逼后用偶性扩展到左侧。定义$\ln t=\int_1^t\frac{\dd u}{u}$，积分估计给$\frac{\ln(1+x)}{x}\to1$，取指数即得第二极限。\end{proof}
+\begin{corollary}{等价替换的边界}乘积或商中可逐因子替换等价无穷小。和差中必须比较总误差：若$u-U=o(h),v-V=o(h)$，才有$u-v=(U-V)+o(h)$。\end{corollary}
+
+\begin{method}{无穷小比较与重要极限}条件：各无穷小沿同一过程趋零。步骤：先提取主因子，再判定相消阶；指数型先取对数。易错点：$\sin x-x$不能用$x-x$代替。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜等价替换}{难度：$\star\star$}
+\label{ex:1:4}\textbf{题目} 求$\lim_{x\to0}\frac{\ln(1+2x)}{\sin3x}$。\par
+\textbf{思路} 分子分母各有一阶主项。\par
+\textbf{解答} 方法一：等价替换得$\frac{2x}{3x}\to\frac{2}{3}$。方法二：洛必达给$\frac{\frac{2}{1+2x}}{3\cos3x}\to\frac{2}{3}$。\par
+\textbf{方法点评} 等价法短；洛必达需确认$\frac{0}{0}$与分母导数非零。\par
+\textbf{易错点或变式} 定义域要求$1+2x>0$，零点附近满足。
+\end{example}
+\begin{example}{考研风格例题｜指数未定式}{难度：$\star\star$}
+\label{ex:1:5}\textbf{题目} 求$\lim_{x\to0}(1+2x)^{\frac{3}{x}}$。\par
+\textbf{思路} 先研究对数。\par
+\textbf{解答} 方法一：对数为$\frac{3\ln(1+2x)}{x}\to6$，结果为$\e^6$。方法二：令$t=2x$，原式等于$[(1+t)^{\frac{1}{t}}]^6\to\e^6$。\par
+\textbf{方法点评} 取对数处理变化指数，标准极限适合线性内层。\par
+\textbf{易错点或变式} 实数幂要求底数在邻域内为正。
+\end{example}
+\begin{example}{基础例题｜夹逼}{难度：$\star$}
+\label{ex:1:6}\textbf{题目} 求$\lim_{x\to0}x^2\sin(\frac{1}{x})$。\par
+\textbf{思路} 把振荡因子视为有界量。\par
+\textbf{解答} $|x^2\sin(\frac{1}{x})|\le x^2\to0$，故极限为0。它在0补值0后连续，但商$\sin(\frac{1}{x})$仍没有极限。\par
+\textbf{方法点评} 有界量乘无穷小比机械求导更直接。\par
+\textbf{易错点或变式} 不得将乘积极限拆成两个极限，因为第二个因子的极限不存在。
+\end{example}
+\section{洛必达与泰勒的选择}\label{sec:1:3}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{洛必达法则，标准结论}在趋近端点的去心单侧邻域，$f,g$可导且$g\prime\ne0$；若$f,g\to0$，或$|g|\to\infty$，且$\frac{f\prime}{g\prime}\to L$（可为无穷），则$\frac{f}{g}\to L$。双侧结论须两侧一致。\end{theorem}
+\begin{theorem}{Taylor展开}若$f$在$a$附近具有$n+1$阶连续导数，则
+\begin{equation}f(a+h)=\sum_{k=0}^{n}\dfrac{f^{(k)}(a)}{k!}h^k+\dfrac{f^{(n+1)}(a+\theta h)}{(n+1)!}h^{n+1},\quad0<\theta<1.\end{equation}
+特别地，$\e^x=1+x+\frac{x^2}{2}+\frac{x^3}{6}+O(x^4)$，$\sin x=x-\frac{x^3}{6}+O(x^5)$，$\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+O(x^4)$。\end{theorem}
+\begin{proof}减去Taylor多项式，再减去常数倍$(t-a)^{n+1}$使函数在$a,x$处为零。多次应用Rolle定理得到余项。洛必达的$\frac{0}{0}$情形来自Cauchy中值定理；一般端点情形需先在截断区间应用，再取极限。\end{proof}
+
+\begin{method}{洛必达与泰勒的选择}条件：洛必达检查可导与未定式，Taylor检查展开阶数。步骤：相消至哪一阶就展开至哪一阶；把余项一并除以分母。易错点：导数比值无极限不能推出原比值无极限。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜三阶相消}{难度：$\star\star$}
+\label{ex:1:7}\textbf{题目} 求$\lim_{x\to0}\frac{\sin x-x}{x^3}$。\par
+\textbf{思路} 一阶项相消，保留三阶。\par
+\textbf{解答} Taylor给$\frac{-\frac{x^3}{6}+O(x^5)}{x^3}\to-\frac{1}{6}$。洛必达连续用三次，依次得到$\frac{\cos x-1}{3x^2}$、$-\frac{\sin x}{6x}$、$-\frac{\cos x}{6}\to-\frac{1}{6}$。\par
+\textbf{方法点评} Taylor揭示阶；洛必达可核验符号。\par
+\textbf{易错点或变式} 每次求导前仍需确认当前式子是未定式。
+\end{example}
+\begin{example}{考研风格例题｜参数抵消}{难度：$\star\star$}
+\label{ex:1:8}\textbf{题目} 确定$a,b$使$\lim_{x\to0}\frac{\e^x-a-bx}{x^2}$有限，并求极限。\par
+\textbf{思路} 常数项、一阶项必须依次为零。\par
+\textbf{解答} 展开分子为$(1-a)+(1-b)x+\frac{x^2}{2}+O(x^3)$。有限极限迫使$a=b=1$，此时极限$\frac{1}{2}$。若$a\ne1$则二阶分母不能平衡常数；若$a=1,b\ne1$则仍有$\frac{1}{x}$项。\par
+\textbf{方法点评} 先分类再计算，比含参连续求导可靠。\par
+\textbf{易错点或变式} 有限双侧极限比单侧无穷极限要求更强。
+\end{example}
+\begin{example}{考研风格例题｜差式}{难度：$\star\star$}
+\label{ex:1:9}\textbf{题目} 求$\lim_{x\to0}(\frac{1}{x}-\frac{1}{\e^x-1})$。\par
+\textbf{思路} 先合并成一个商。\par
+\textbf{解答} 合并得$\frac{\e^x-1-x}{x(\e^x-1)}$。分子$\sim \frac{x^2}{2}$，分母$\sim x^2$，极限为$\frac{1}{2}$。\par
+\textbf{方法点评} 合并把两个无穷量之差转成可比较的无穷小。\par
+\textbf{易错点或变式} 分别求两个无穷量的极限再相减没有意义。
+\end{example}
+\section{数列、单调有界与Stolz}\label{sec:1:4}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{单调有界与Cauchy准则}实数单调递增且有上界的数列收敛于其上确界。实数列收敛当且仅当任意$\varepsilon>0$存在$N$使$m,n>N$时$|a_m-a_n|<\varepsilon$。\end{theorem}
+\begin{proof}设$A=\sup\{a_n\}$。存在$a_N>A-\varepsilon$，单调性给$A-\varepsilon<a_n\le A$。Cauchy准则的充分性依赖实数完备性，可由有界子列收敛再控制全列证明。\end{proof}
+\begin{theorem}{Stolz定理的无穷分母型}若$b_n$严格递增且$b_n\to+\infty$，并且$\frac{a_{n+1}-a_n}{b_{n+1}-b_n}\to L$，则$\frac{a_n}{b_n}\to L$。\end{theorem}
+\begin{proof}对充分大的$n$，把差分比夹在$L\pm\varepsilon$之间；乘以正差分后从固定$N$累加到$n-1$。除以$b_n$，固定初始项消失。无穷$L$同理。\end{proof}
+
+\begin{method}{数列、单调有界与Stolz}条件：递推列先找不变区间，求和比先查分母严格单调无界。步骤：证明存在，再令极限满足递推方程。易错点：只解不动点方程并不能证明收敛。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜递推}{难度：$\star$}
+\label{ex:1:10}\textbf{题目} $a_1=1,a_{n+1}=\sqrt{2+a_n}$，求极限。\par
+\textbf{思路} 证明$[1,2]$不变且递增。\par
+\textbf{解答} 若$1\le a_n<2$，则$1<a_{n+1}<2$；又$2+a_n-a_n^2=(2-a_n)(a_n+1)>0$，故$a_{n+1}>a_n$。收敛极限满足$L^2=2+L$且$L\ge1$，故$L=2$。\par
+\textbf{方法点评} 完整链条是有界、单调、连续传极限、筛根。\par
+\textbf{易错点或变式} 舍去负根$-1$依据原数列非负。
+\end{example}
+\begin{example}{考研风格例题｜求和比}{难度：$\star\star$}
+\label{ex:1:11}\textbf{题目} 求$\lim_{n\to\infty}\sum_{k=1}^n \frac{k^2}{n^3}$。\par
+\textbf{思路} 可用差分、求和公式或Riemann和。\par
+\textbf{解答} 方法一：差分比$\frac{(n+1)^2}{(n+1)^3-n^3}\to\frac{1}{3}$。方法二：平方和$\frac{n(n+1)(2n+1)}{6}$除以$n^3$。方法三：写成$\frac1n\sum(\frac{k}{n})^2\to\int_0^1t^2\dd t=\frac{1}{3}$。\par
+\textbf{方法点评} 求和公式最快；Stolz不需闭式；积分法可推广连续函数。\par
+\textbf{易错点或变式} 差分分母是$3n^2+3n+1$，不是$3n^2$的精确等式。
+\end{example}
+\begin{example}{考研风格例题｜根式平均}{难度：$\star\star$}
+\label{ex:1:12}\textbf{题目} 求$\lim_{n\to\infty}\frac{(n!)^{\frac{1}{n}}}{n}$。\par
+\textbf{思路} 对数化为Riemann和，但零点有对数奇性。\par
+\textbf{解答} 令$L_n=\frac1n\sum_{k=1}^n\ln(\frac{k}{n})$。由$\ln t$递增，用区间积分上下夹逼得$\int_0^1\ln t\dd t\le L_n\le\int_{\frac{1}{n}}^1\ln t\dd t$；两边趋于$-1$。故所求为$\e^{-1}$。\par
+\textbf{方法点评} 有奇点的Riemann和用单调积分估计补严谨性。\par
+\textbf{易错点或变式} 不能直接援用闭区间连续函数的Riemann和定理。
+\end{example}
+\section{连续性与综合极限}\label{sec:1:5}
+\subsection{概念、定理与推导}
+
+\begin{definition}{连续、间断与一致连续}设$a\in D$。$f$在$a$连续指：任意$\varepsilon>0$都存在$\delta>0$，使$x\in D$且$|x-a|<\delta$时$|f(x)-f(a)|<\varepsilon$。当$a$为$D$的聚点时，这等价于相对定义域的$\lim_{x\to a}f(x)=f(a)$；区间端点只检查可趋近的一侧，孤立点自动连续。对区间内点的间断，左右极限有限但不等为跳跃间断；相等但点值缺失或与之不符为可去间断；至少一侧无有限极限为第二类间断。$f$在$D$上一致连续指：任意$\varepsilon>0$存在同一$\delta>0$，使任意$x,y\in D$只要$|x-y|<\delta$就有$|f(x)-f(y)|<\varepsilon$。\end{definition}
+\begin{theorem}{闭区间连续函数}连续函数在$[a,b]$上有界，取得最大最小值，具有介值性且一致连续。若$f(a)f(b)<0$，则$(a,b)$内有零点。\end{theorem}
+\begin{proof}最值与一致连续性可由反证构造点列，利用闭有界区间的子列收敛性及连续性导出矛盾。介值性由二分区间和完备性得到。\end{proof}
+\begin{extension}积分型极限先把求和写成“步长乘函数值”；递推型极限先寻找不变区间。存在性证明与数值计算应分开完成。\end{extension}
+
+\begin{method}{连续性与综合极限}条件：闭区间与连续缺一不可。步骤：判间断先左右极限，证明存在先建连续函数并找端点异号。易错点：开区间连续不保证最值。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{竞赛风格例题｜积分极限}{难度：$\star\star\star$}
+\label{ex:1:13}\textbf{题目} 求$\lim_{n\to\infty}\sum_{k=1}^n \frac{n}{n^2+k^2}$。\par
+\textbf{思路} 抽出步长$\frac{1}{n}$。\par
+\textbf{解答} 原和$=\frac1n\sum_{k=1}^n[1+(\frac{k}{n})^2]^{-1}\to\int_0^1\frac{\dd t}{1+t^2}=\frac{\pi}{4}$。用递减函数的左右矩形估计，误差不超过$\frac{1}{n}$。\par
+\textbf{方法点评} 积分不仅求极限，还提供误差量级。\par
+\textbf{易错点或变式} 不能把单项趋零当成总和趋零。
+\end{example}
+\begin{example}{竞赛风格例题｜不动点}{难度：$\star\star\star$}
+\label{ex:1:14}\textbf{题目} 连续函数$f:[0,1]\to[0,1]$，证明存在$c$满足$f(c)=c$。\par
+\textbf{思路} 将不动点改写为零点。\par
+\textbf{解答} 令$g(x)=f(x)-x$，有$g(0)\ge0,g(1)\le0$。端点为零则完成；否则由介值定理得内部零点。\par
+\textbf{方法点评} 构造差函数把映射条件转成符号条件。\par
+\textbf{易错点或变式} 结论不保证唯一；$f(x)=x$的每点都是不动点。
+\end{example}
+\begin{example}{竞赛风格例题｜细化极限}{难度：$\star\star\star$}
+\label{ex:1:15}\textbf{题目} 求$\lim_{n\to\infty}n[(1+\frac{1}{n})^n-\e]$。\par
+\textbf{思路} 先展开对数，再回到指数。\par
+\textbf{解答} $n\ln(1+\frac{1}{n})=1-\frac{1}{2n}+O(n^{-2})$，故$(1+\frac{1}{n})^n=\e[1-\frac{1}{2n}+O(n^{-2})]$。极限为$-\frac{\e}{2}$。\par
+\textbf{方法点评} 先对数后指数能控制指数型误差。\par
+\textbf{易错点或变式} 只知道底层极限为$\e$不足以确定一阶误差。
+\end{example}
+\begin{warning}四则法只在相应有限极限存在时使用；等价替换在差式中要控制误差；对递推式直接“令$n\to\infty$”必须先证明收敛。\end{warning}
+
+
+\input{chapters/materials/real_foundations}
+\input{chapters/materials/limits_35}
+
+
+
+\input{chapters/materials/limits_source_deep}
+\input{chapters/materials/delta_limits}
+\input{chapters/illustrations/ch01}
+\input{chapters/materials/course_limits_sign}
+\input{chapters/materials/course_sequences}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\refstepcounter{exercise}\label{q:1:1}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$\lim_{x\to0}\frac{\sin5x}{x}$。\quad\hyperref[a:1:1]{[答案]}\par
+\refstepcounter{exercise}\label{q:1:2}\par\noindent\textbf{习题\theexercise\quad 基础题} 判断$\frac{|x|}{x}$在0的极限。\quad\hyperref[a:1:2]{[答案]}\par
+\refstepcounter{exercise}\label{q:1:3}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$\lim_{n\to\infty}\frac{3n+1}{2n-1}$。\quad\hyperref[a:1:3]{[答案]}\par
+\refstepcounter{exercise}\label{q:1:4}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$\lim_{x\to0}\frac{\cos x-1+\frac{x^2}{2}}{x^4}$。\quad\hyperref[a:1:4]{[答案]}\par
+\refstepcounter{exercise}\label{q:1:5}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$\lim_{n\to\infty}\sum_{k=1}^n \frac{k}{n^2}$。\quad\hyperref[a:1:5]{[答案]}\par
+\refstepcounter{exercise}\label{q:1:6}\par\noindent\textbf{习题\theexercise\quad 考研风格} 给$\frac{\sin x}{x}$在0补值使其连续。\quad\hyperref[a:1:6]{[答案]}\par
+\refstepcounter{exercise}\label{q:1:7}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 求$\lim_{n\to\infty}n\ln(1+\frac{1}{n})$。\quad\hyperref[a:1:7]{[答案]}\par
+\refstepcounter{exercise}\label{q:1:8}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 设$a_1=1,a_{n+1}=\frac{a_n+\frac{2}{a_n}}{2}$，证明收敛并求极限。\quad\hyperref[a:1:8]{[答案]}\par
+\refstepcounter{exercise}\label{q:1:9}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 求$\lim_{n\to\infty}\frac1n\sum_{k=1}^n\sqrt{\frac{k}{n}}$。\quad\hyperref[a:1:9]{[答案]}\par
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\par\noindent\begin{tabularx}{\textwidth}{p{23mm}XXX}\toprule 方法&适用条件&典型信号&易错点\\\midrule
+等价替换&乘积与商&一阶主项&相消丢阶\\Taylor&局部光滑&多项相消&余项未除分母\\Stolz&分母递增无界&求和比&遗漏假设\\积分和&连续或另有估计&步长与采样点&奇点未经处理\\
+\bottomrule\end{tabularx}

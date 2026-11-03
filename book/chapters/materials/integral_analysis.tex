@@ -1,0 +1,52 @@
+\section{积分理论、不等式与近似计算}\label{mat:integral_analysis}
+\begin{examtip}把可积性、广义积分、含参极限及数值近似写成正文内容，连接计算技巧与严格条件。\end{examtip}
+\subsection{上下和与可积准则}\label{mat:integral_analysis:riemann}
+\begin{method}{上下和与可积准则}\textbf{适用条件} 闭区间上的有界函数。\par\textbf{实施与依据} 上和$U(P)$与下和$L(P)$之差可任意小等价于Riemann可积。\end{method}
+\begin{example}{专题例题｜上下和与可积准则}{难度：$\star\star$}
+\textbf{题目} 证明有界单调函数Riemann可积。\par\textbf{思路与解答} 等分网格宽$h$时，$U-L=h[f(b)-f(a)]$（递增情形），随$h\to0$趋0。递减同理。有限间断点也可用小总长度区间包围再控制误差。\par\textbf{方法点评与边界} 无界函数不能直接使用普通Riemann可积定义。
+\end{example}
+\subsection{原函数与可积性不是同一条件}\label{mat:integral_analysis:primitive}
+\begin{method}{原函数与可积性不是同一条件}\textbf{适用条件} 区分连续、可积与存在原函数。\par\textbf{实施与依据} 用导数介值性排除跳跃函数的原函数。\end{method}
+\begin{example}{专题例题｜原函数与可积性不是同一条件}{难度：$\star\star$}
+\textbf{题目} 阶跃函数$f(x)=0\ (x<0),1\ (x\ge0)$在$[-1,1]$可积，是否有处处原函数？\par\textbf{思路与解答} 函数只有一个跳跃点，因此Riemann可积。但若存在$F\prime=f$，导数Darboux性质要求导数取得0与1之间的值，与阶跃取值矛盾。因此无处处原函数。\par\textbf{方法点评与边界} Newton--Leibniz不能只凭“可积”就随意指定原函数。
+\end{example}
+\subsection{Hölder与Minkowski}\label{mat:integral_analysis:holder}
+\begin{method}{Hölder与Minkowski}\textbf{适用条件} $p,q>1,\frac{1}{p}+\frac{1}{q}=1$，相关幂可积。\par\textbf{实施与依据} Young不等式$ab\le \frac{a^p}{p}+\frac{b^q}{q}$经归一化积分给Hölder；再用Hölder证明三角不等式。\end{method}
+\begin{example}{专题例题｜Hölder与Minkowski}{难度：$\star\star$}
+\textbf{题目} 证明$\int_0^1|f|\le(\int_0^1|f|^p)^{\frac{1}{p}}$。\par\textbf{思路与解答} 令另一因子为1，Hölder右端第二个因子为$1$，结论成立。一般区间长度为$\ell$时额外乘$\ell^{\frac{1}{q}}$。\par\textbf{方法点评与边界} 把积分区间归一化后才能省去长度因子。
+\end{example}
+\subsection{Jensen、Chebyshev与单调权}\label{mat:integral_analysis:jensen}
+\begin{method}{Jensen、Chebyshev与单调权}\textbf{适用条件} 凸函数或同向单调的函数对。\par\textbf{实施与依据} 凸函数用切线下界积分；同向单调用双重差乘积非负。\end{method}
+\begin{example}{专题例题｜Jensen、Chebyshev与单调权}{难度：$\star\star$}
+\textbf{题目} 若$f,g$在$[0,1]$同为递增，证明$\int fg\ge\int f\int g$。\par\textbf{思路与解答} $\int_0^1\int_0^1[f(x)-f(y)][g(x)-g(y)]\dd x\dd y\ge0$，展开为$2\int fg-2\int f\int g$，得到结论。\par\textbf{方法点评与边界} 反向单调时不等式反向。
+\end{example}
+\subsection{Gronwall积分不等式}\label{mat:integral_analysis:gronwall}
+\begin{method}{Gronwall积分不等式}\textbf{适用条件} $u\ge0$连续，$u(t)\le A+B\int_0^tu(s)\dd s$，$A,B\ge0$。\par\textbf{实施与依据} 设$v=A+B\int_0^tu$，用$v\prime\le Bv$及积分因子。\end{method}
+\begin{example}{专题例题｜Gronwall积分不等式}{难度：$\star\star$}
+\textbf{题目} 证明$u(t)\le A\e^{Bt}$，$t\ge0$。\par\textbf{思路与解答} $v\prime=Bu\le Bv$，所以$(\e^{-Bt}v)\prime\le0$，得$v\le A\e^{Bt}$，再用$u\le v$。$A=0$时可用$A+\varepsilon$逼近，得$u\equiv0$。\par\textbf{方法点评与边界} 这是ODE唯一性与连续依赖的关键估计。
+\end{example}
+\subsection{反常积分的Dirichlet判别}\label{mat:integral_analysis:dirichlet}
+\begin{method}{反常积分的Dirichlet判别}\textbf{适用条件} 原函数$F(x)=\int_a^xf$有界，$g$单调趋0。\par\textbf{实施与依据} 分部积分并利用$\int|g\prime|$的尾部控制；一般单调情形可用Stieltjes版本。\end{method}
+\begin{example}{专题例题｜反常积分的Dirichlet判别}{难度：$\star\star$}
+\textbf{题目} 证明$\int_1^\infty\frac{\sin x}{x}\dd x$收敛。\par\textbf{思路与解答} $\int_1^R\sin x\dd x$一致有界，$\frac{1}{x}\downarrow0$，Dirichlet判别成立；也可分部得到边界$-\frac{\cos R}{R}$加绝对收敛积分$-\int_1^R\frac{\cos x}{x^2}\dd x$。\par\textbf{方法点评与边界} 它不是绝对收敛：每个正弦半周期的绝对值积分与调和项同阶。
+\end{example}
+\subsection{Frullani积分}\label{mat:integral_analysis:frullani}
+\begin{method}{Frullani积分}\textbf{适用条件} $a,b>0$且所用积分收敛，可由参数或截断控制。\par\textbf{实施与依据} 差分指数可写成参数积分，先证绝对或非负换序条件。\end{method}
+\begin{example}{专题例题｜Frullani积分}{难度：$\star\star$}
+\textbf{题目} 求$\int_0^\infty\frac{(\e^{-ax}-\e^{-bx})\dd x}{x}$。\par\textbf{思路与解答} 若$b>a$，分子$=\int_a^b x\e^{-tx}\dd t$，原积分为$\int_a^b\dd t\int_0^\infty\e^{-tx}\dd x=\int_a^b\frac{\dd t}{t}=\ln(\frac{b}{a})$。其余情形交换$a,b$。\par\textbf{方法点评与边界} 将两个各自发散的积分分开是不合法的，必须保留差。
+\end{example}
+\subsection{梯形与Simpson误差}\label{mat:integral_analysis:numerical}
+\begin{method}{梯形与Simpson误差}\textbf{适用条件} 函数具有相应阶数连续导数。\par\textbf{实施与依据} 每小区间用低阶插值积分，累加余项。\end{method}
+\begin{example}{专题例题｜梯形与Simpson误差}{难度：$\star\star$}
+\textbf{题目} 写出等距复合梯形公式及误差阶。\par\textbf{思路与解答} $h=\frac{b-a}{n}$，$T_n=h[\frac{f(a)+f(b)}{2}+\sum_{k=1}^{n-1}f(a+kh)]$。若$|f\prime\prime|\le M$，线性插值余项积分后给$|I-T_n|\le\frac{(b-a)Mh^2}{12}$。复合Simpson在偶数分段且四阶导有界时误差为$O(h^4)$。\par\textbf{方法点评与边界} 更高阶规则需要更高阶正则性；奇点处不可盲用误差公式。
+\end{example}
+\subsection{含参积分的连续与求导}\label{mat:integral_analysis:parameter}
+\begin{method}{含参积分的连续与求导}\textbf{适用条件} 参数位于紧区间，函数或偏导有可积支配。\par\textbf{实施与依据} 将连续、极限、求导分别匹配其支配条件。\end{method}
+\begin{example}{专题例题｜含参积分的连续与求导}{难度：$\star\star$}
+\textbf{题目} 证明$F(a)=\int_0^\infty\e^{-ax}\dd x=\frac{1}{a}$且$F\prime(a)=-\frac{1}{a^2}$，$a>0$。\par\textbf{思路与解答} 固定$a\in[\alpha,\beta]$，$\alpha>0$，被积式受$\e^{-\alpha x}$控制，参数导数受$x\e^{-\alpha x}$控制，两者可积。故可求导，得到$-\int_0^\infty x\e^{-ax}\dd x=-\frac{1}{a^2}$。\par\textbf{方法点评与边界} 当参数逼近0，统一支配失效，不能声称在含0区间一致。
+\end{example}
+\subsection{功、流体压力与消费者剩余}\label{mat:integral_analysis:applications}
+\begin{method}{功、流体压力与消费者剩余}\textbf{适用条件} 连续力、密度或需求函数。\par\textbf{实施与依据} 先找微元物理量，再积分，记录单位与边界。\end{method}
+\begin{example}{专题例题｜功、流体压力与消费者剩余}{难度：$\star\star$}
+\textbf{题目} 弹簧力$F(x)=kx$，拉伸从0到$a$所作功。\par\textbf{思路与解答} 位移微元的功$\dd W=kx\dd x$，故$W=\frac{ka^2}{2}$。类似地静水压力为深度乘重度后对面积积分；需求曲线$p(q)$的消费者剩余为$\int_0^{q_0}[p(q)-p_0]\dd q$。\par\textbf{方法点评与边界} 经济和物理模型的假设与单位不能由纯积分公式代替。
+\end{example}

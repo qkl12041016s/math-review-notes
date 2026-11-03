@@ -1,0 +1,11 @@
+\section{一元积分的组合构型}\label{ic:delta_integral}
+
+\begin{examtip}本节结合部分分式、三角换元、区间再现和指数待定，分析综合积分中的结构选择。\end{examtip}
+
+\subsection{倒数幂分母的通式与双解}\label{ic:delta_integral:reciprocalpower}\begin{method}{倒数幂分母的通式与双解}\textbf{识别信号} $\int\frac{\dd x}{x(x^n+a)}$，$a\ne0,n\ne0$，固定实幂定义区间。\par \textbf{操作步骤} 先取$t=x^n$，得到$\frac{\dd t}{nt(t+a)}$；或先拆成$a^{-1}[\frac{1}{x}-\frac{x^{n-1}}{x^n+a}]$。\par \textbf{疑难点与条件} 对数用绝对值，且$x\ne0,x^n+a\ne0$；实幂支路须可微。\end{method}
+
+\begin{example}{考研风格｜一个通式的两种推导}{难度：$\star\star\star$}\label{ic:ex:delta_integral:reciprocalformula}\textbf{题目} 求$\int\frac{\dd x}{x(x^n+a)}$。\par \textbf{思路} 按上述两条路线推导。\par \textbf{详细解答} 令$t=x^n$，得到$\frac1{an}[\ln|t|-\ln|t+a|]+C=\frac1{an}\ln|\frac{x^n}{x^n+a}|+C$。直接拆分法给$\frac{\ln|x|}{a}-\frac{\ln|x^n+a|}{an}+C$，在$x>0$或相应实支上等价。\par \textbf{验算与条件复核} 对最后两项求导为$\frac{1}{ax}-\frac{x^{n-1}}{a(x^n+a)}=\frac{1}{x(x^n+a)}$。\par \textbf{疑难点与方法比较} $a=0$需另积$x^{-n-1}$，不能把0代进通式。\end{example}
+
+\begin{example}{竞赛风格｜四次分母的对称组合}{难度：$\star\star\star$}\label{ic:ex:delta_integral:quarticcombination}\textbf{题目} 求$\int\frac{(1+x^2)\dd x}{1+x^4}$。\par \textbf{思路} 分母除以$x^2$后与$t=x-\frac{1}{x}$配微分。\par \textbf{详细解答} 在$x\ne0$时，原式$\frac{\dd(x-\frac{1}{x})}{(x-\frac{1}{x})^2+2}$，所以原函数$\frac1{\sqrt2}\arctan(\frac{x-\frac{1}{x}}{\sqrt2})+C$。因为原被积函数在0光滑，这个局部表达需在相邻半轴调整常数后连续连接；二次因子分解还给出全实轴连续的表达$\frac{\arctan(\sqrt2x+1)+\arctan(\sqrt2x-1)}{\sqrt2}+C$。因为令$A=x^2+\sqrt2x+1,B=x^2-\sqrt2x+1$，原式$=\frac12(A^{-1}+B^{-1})$，两项分别配方即可得到该结果。\par \textbf{验算与条件复核} $t'=1+x^{-2}$，分母$t^2+2=x^2+x^{-2}$，比值恢复原式。\par \textbf{疑难点与方法比较} 换元在0的极点不是原被积函数的奇点；写全实原函数需处理反正切分支。\end{example}
+
+\begin{example}{竞赛风格｜指数复合的待定多项式}{难度：$\star\star\star$}\label{ic:ex:delta_integral:exponentialrecurrence}\textbf{题目} 求$\int(1+x-x^{-1})\e^{x+\frac{1}{x}}\dd x$，$x\ne0$。\par \textbf{思路} 设原函数$P(x)\e^{x+\frac{1}{x}}$并比较最高、最低幂。\par \textbf{详细解答} 取$P=x$，则$P'+(1-x^{-2})P=1+x-x^{-1}$，恰好匹配。故原函数$x\e^{x+\frac{1}{x}}+C$。这也可直接看作乘积求导的逆运算。\par \textbf{验算与条件复核} 求导为$\e^{x+\frac{1}{x}}+x\e^{x+\frac{1}{x}}(1-x^{-2})$。\par \textbf{疑难点与方法比较} 不是所有指数复合都无初等原函数，先检查线性微分组合。\end{example}

@@ -1,0 +1,200 @@
+\chapter{重积分}\label{ch:7}
+\begin{tcolorbox}[title=章首知识地图,colframe=Ink]
+区域与体积元 $\to$ 累次积分 $\to$ 换序 $\to$ 极、柱、球坐标 $\to$ 一般换元、对称与应用。
+\end{tcolorbox}
+\begin{examtip}考研主线：二重三重积分、换序、极柱球坐标及应用。常见题型：读图定界、换元化简、对称消项。竞赛拓展：Gaussian积分、一般Jacobian和积分不等式；换序前确认收敛条件。上述为学习任务分层，具体范围以所报考科目的当年大纲为准。\end{examtip}
+\section{重积分定义与累次积分}\label{sec:7:1}
+\subsection{概念、定理与推导}
+
+\begin{definition}{二重、三重Riemann积分}
+设$D$为有界Jordan可测集，即其边界的面积为零，且$f:D\to\R$有界。将$D$分成有限个Jordan可测小块$D_i$，各块任取$\xi_i$，作和$\sum_i f(\xi_i)|D_i|$。若当最大块直径趋零时，这些和不论如何分割和取点都趋于同一有限值，就称$f$在$D$上Riemann可积，极限记为$\iint_Df\dd A$。等价地，可在包含$D$的矩形上将$f$零延拓后定义积分。
+三维用有界Jordan可测集、体积及$\sum_i f(\xi_i)|\Omega_i|$同样定义$\iiint_\Omega f\dd V$。常函数1给面积或体积；无界区域、无界函数的积分需另取反常极限。本书涉及Tonelli、几乎处处和$L^p$时采用Lebesgue积分，不能将其可积条件与本定义混同。
+\end{definition}
+\begin{theorem}{Fubini的常用版本，标准结论}若$f$在由分段光滑边界围成的有界闭区域上连续，则可按区域投影写成累次积分；例如$D=\{a\le x\le b,\varphi_1(x)\le y\le\varphi_2(x)\}$时，$\iint_Df=\int_a^b\dd x\int_{\varphi_1(x)}^{\varphi_2(x)}f\dd y$。\end{theorem}
+\begin{proof}先沿条带分割，条带内的Riemann和趋于内层积分，再对条带宽度求和。连续性和紧致性保证误差统一趋零。反常积分换序需绝对可积或非负等额外条件。\end{proof}
+重积分具有线性、区域可加性、保序性；若$m\le f\le M$，则$m|D|\le\iint_Df\le M|D|$。
+
+\begin{method}{重积分定义与累次积分}条件：先描绘区域。步骤：投影决定外限，穿过区域的切线段决定内限；必要时分块。易错点：内限可依赖外变量，外限不得依赖内变量。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜矩形}{难度：$\star$}
+\label{ex:7:1}\textbf{题目} 求$\int_0^1\dd x\int_0^2(x+y)\dd y$。\par
+\textbf{思路} 直接积分或分离。\par
+\textbf{解答} 方法一：内层为$2x+2$，外层得3。方法二：$\iint x=2\int_0^1x\dd x=1$，$\iint y=\int_0^2y\dd y=2$，相加3。\par
+\textbf{方法点评} 可分离项利用矩形区域简化。\par
+\textbf{易错点或变式} 积分区域与被积式一起决定能否拆积。
+\end{example}
+\begin{example}{考研风格例题｜三角区域}{难度：$\star\star$}
+\label{ex:7:2}\textbf{题目} $D=\{x,y\ge0,x+y\le1\}$，求$\iint_D(x+y)\dd A$。\par
+\textbf{思路} 累次积分或利用对称与重心。\par
+\textbf{解答} 方法一：$\int_0^1\dd x\int_0^{1-x}(x+y)\dd y=\frac{1}{3}$。方法二：对称给两项相等，$\iint_Dx=\int_0^1x(1-x)\dd x=\frac{1}{6}$，总和$\frac{1}{3}$。\par
+\textbf{方法点评} 交换$x,y$的对称性可将计算减半。\par
+\textbf{易错点或变式} 三角区域不允许简单拆成两个独立的一维积分乘积。
+\end{example}
+\begin{example}{考研风格例题｜面积}{难度：$\star\star$}
+\label{ex:7:3}\textbf{题目} 求抛物线$y=x^2$与直线$y=x$之间面积。\par
+\textbf{思路} 按$x$或按$y$切片。\par
+\textbf{解答} 方法一：$0\le x\le1$，面积$\int_0^1(x-x^2)\dd x=\frac{1}{6}$。方法二：$0\le y\le1$，$y\le x\le\sqrt y$，面积$\int_0^1(\sqrt y-y)\dd y=\frac{1}{6}$。\par
+\textbf{方法点评} 换序能从另一方向检验边界。\par
+\textbf{易错点或变式} 解$x^2\le y$时本题位于第一象限。
+\end{example}
+\section{换序与极坐标}\label{sec:7:2}
+
+\begin{center}\begin{tikzpicture}[scale=2.4,>=stealth]
+\fill[Teal!12](0,0)--(0,1)--(1,1)--cycle;
+\draw[->,Ink](0,0)--(1.25,0)node[right]{$x$};\draw[->,Ink](0,0)--(0,1.2)node[above]{$y$};
+\draw[Teal,thick](0,0)--(1,1)--(0,1);\draw[Gold,thick](.4,.4)--(.4,1);\draw[Ink,thick](0,.7)--(.7,.7);
+\node[right] at(.85,.5){$x=y$};\node[left]at(0,1){$1$};\node[below]at(1,0){$1$};
+\end{tikzpicture}\par\small 同一区域：竖切为$x\le y\le1$，横切为$0\le x\le y$。
+\end{center}
+
+\subsection{概念、定理与推导}
+
+\begin{theorem}{极坐标换元}令$x=r\cos\theta,y=r\sin\theta$，则$\dd A=r\dd r\dd\theta$，$r\ge0$。对有界可积函数及适当分块区域，重积分可按此换元。\end{theorem}
+\begin{proof}雅可比$\det\left(\frac{\partial(x,y)}{\partial(r,\theta)}\right)=r$，也可由小扇形面积近似$r\Delta r\Delta\theta$得到。原点退化是面积为零的集合，不影响通常积分。\end{proof}
+换序不改变区域，只改变描述。若原顺序出现$\e^{y^2}$等无初等原函数，尝试先对另一变量积分。圆、扇形、圆环与$x^2+y^2$结构通常适合极坐标。
+
+\begin{method}{换序与极坐标}条件：角域须覆盖区域且内部不重复。步骤：先定角，再由射线交点定半径。易错点：漏掉雅可比$r$或把偏心圆误写成常半径。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜换序消障碍}{难度：$\star\star$}
+\label{ex:7:4}\textbf{题目} 求$\int_0^1\dd x\int_x^1\e^{y^2}\dd y$。\par
+\textbf{思路} 区域为$0\le x\le y\le1$。\par
+\textbf{解答} 方法一：换序得$\int_0^1\dd y\int_0^y\e^{y^2}\dd x=\int_0^1y\e^{y^2}\dd y=\frac{\e-1}{2}$。方法二：令$F(x)=\int_x^1\e^{y^2}\dd y$，分部积分$\int_0^1F\dd x=[xF]_0^1-\int_0^1xF\prime\dd x$也得同式。\par
+\textbf{方法点评} 换序最直观，分部法从变限积分得到同一权重。\par
+\textbf{易错点或变式} “无初等原函数”不代表定积分不可计算。
+\end{example}
+\begin{example}{考研风格例题｜圆盘二次矩}{难度：$\star\star$}
+\label{ex:7:5}\textbf{题目} 单位圆盘$D$上求$\iint_D(x^2+y^2)\dd A$。\par
+\textbf{思路} 径向函数与圆域匹配。\par
+\textbf{解答} 方法一：极坐标$2\pi\int_0^1r^3\dd r=\frac{\pi}{2}$。方法二：薄圆环面积$2\pi r\dd r$，乘$r^2$积分也得$\frac{\pi}{2}$；直接直角坐标可写$\int_{-1}^1\int_{-\sqrt{1-x^2}}^{\sqrt{1-x^2}}(x^2+y^2)\dd y\dd x$验证。\par
+\textbf{方法点评} 极坐标是圆环分层的坐标表达。\par
+\textbf{易错点或变式} $r^2$来自被积式，另一个$r$来自面积元。
+\end{example}
+\begin{example}{考研风格例题｜偏心圆}{难度：$\star\star$}
+\label{ex:7:6}\textbf{题目} 求区域$x^2+y^2\le2x$的面积。\par
+\textbf{思路} 用平移圆或极坐标。\par
+\textbf{解答} 配方$(x-1)^2+y^2\le1$，面积$\pi$。极坐标为$-\frac{\pi}{2}\le\theta\le\frac{\pi}{2},0\le r\le2\cos\theta$，面积$\frac12\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}4\cos^2\theta\dd\theta=\pi$。\par
+\textbf{方法点评} 配方快速识图，极坐标适合附加径向权函数。\par
+\textbf{易错点或变式} 半径上界不能取负，故角度有约束。
+\end{example}
+\section{三重积分与柱、球坐标}\label{sec:7:3}
+\subsection{概念、定理与推导}
+
+\begin{definition}{柱面与球面坐标}柱坐标$x=r\cos\theta,y=r\sin\theta,z=z$，体积元$r\dd r\dd\theta\dd z$。球坐标$x=\rho\sin\phi\cos\theta,y=\rho\sin\phi\sin\theta,z=\rho\cos\phi$，体积元$\rho^2\sin\phi\dd\rho\dd\phi\dd\theta$，$0\le\phi\le\pi$。\end{definition}
+\begin{theorem}{分层与投影}若区域在每个$(x,y)$上有$z_1\le z\le z_2$，则先对$z$积分再投影到$xy$平面；若固定$z$截面更简单，则先对截面作二重积分再对$z$积分。\end{theorem}
+\begin{proof}两种分层方式均可由积分和重新分组得到。球坐标下三个相互垂直方向的小边长分别为\[\dd\rho,\qquad\rho\dd\phi,\qquad\rho\sin\phi\dd\theta.\]三者相乘得到体积元。\end{proof}
+
+\begin{method}{三重积分与柱、球坐标}条件：坐标约定明确。步骤：圆柱对称用柱坐标，球或锥与球相交用球坐标；画经线剖面定范围。易错点：将极角与纬度混用导致正弦余弦错误。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜球体积}{难度：$\star$}
+\label{ex:7:7}\textbf{题目} 求半径$R$的球体积。\par
+\textbf{思路} 球坐标或截面。\par
+\textbf{解答} 球坐标积分$\int_0^{2\pi}\dd\theta\int_0^\pi\sin\phi\dd\phi\int_0^R\rho^2\dd\rho=\frac{4\pi R^3}{3}$。截面法$\int_{-R}^R\pi(R^2-z^2)\dd z$给同值。\par
+\textbf{方法点评} 两种分层方向检验体积元。\par
+\textbf{易错点或变式} 球面面积与球体积的幂次不同。
+\end{example}
+\begin{example}{考研风格例题｜锥体}{难度：$\star\star$}
+\label{ex:7:8}\textbf{题目} $0\le z\le1,x^2+y^2\le z^2$，求体积。\par
+\textbf{思路} 固定$z$为半径$z$的圆盘。\par
+\textbf{解答} $V=\int_0^1\pi z^2\dd z=\frac{\pi}{3}$。柱坐标也可取$0\le r\le1,r\le z\le1$，得$2\pi\int_0^1r(1-r)\dd r=\frac{\pi}{3}$。\par
+\textbf{方法点评} 换序对应从截圆改为竖条柱。\par
+\textbf{易错点或变式} 锥面是$r=z$，不是$r=z^2$。
+\end{example}
+\begin{example}{考研风格例题｜球内二次矩}{难度：$\star\star$}
+\label{ex:7:9}\textbf{题目} 求单位球内$\iiint z^2\dd V$。\par
+\textbf{思路} 旋转对称或球坐标。\par
+\textbf{解答} 对称使三坐标平方积分相等，总和为$\iiint\rho^2\dd V=\frac{4\pi}{5}$，故每项$\frac{4\pi}{15}$。直接球坐标的角积分为$\int_0^{2\pi}\dd\theta\int_0^\pi\cos^2\phi\sin\phi\dd\phi=\frac{4\pi}{3}$，乘径向积分$\frac{1}{5}$同得。\par
+\textbf{方法点评} 对称先降复杂度。\par
+\textbf{易错点或变式} 被积函数偶对称意味着相等，不意味着积分为零。
+\end{example}
+\section{一般换元、Jacobian与应用}\label{sec:7:4}
+
+\begin{method}{从区域、密度到物理量}
+以常密度求质心时先用对称性确定为零或相等的坐标，再算一个必要的一阶矩。平面薄片的质量为$\iint_D\sigma\dd A$，绕原点的极惯量为$\iint_D(x^2+y^2)\sigma\dd A$。空间体绕$x,y,z$轴分别用到$y^2+z^2,x^2+z^2,x^2+y^2$。总质量必须非零，惯量使用到轴的距离平方，不能使用沿轴坐标平方。
+\end{method}
+
+\subsection{概念、定理与推导}
+
+\begin{theorem}{多元换元，标准结论}若$T$在区域内部一一对应、连续可微且Jacobian非零，边界可忽略，则
+\begin{equation}\iint_Df(x,y)\dd x\dd y=\iint_G f(T(u,v))\left|\dfrac{\partial(x,y)}{\partial(u,v)}\right|\dd u\dd v.\end{equation}
+三维公式同理。线性变换的面积或体积倍率为行列式绝对值。\end{theorem}
+\begin{proof}在小块上以导数矩阵线性近似，行列式给局部体积倍率；累加并控制误差得到换元公式。\end{proof}
+质量$M=\iiint\rho\dd V$，质心$\bar x=M^{-1}\iiint x\rho\dd V$，绕$z$轴转动惯量$I_z=\iiint(x^2+y^2)\rho\dd V$。密度与球坐标径向变量应按上下文区分。
+
+\begin{method}{一般换元、Jacobian与应用}条件：须确认变换可逆且覆盖原区域。步骤：由边界线性组合选$u,v$，反解$x,y$，计算反向Jacobian。易错点：使用正向行列式却没有取倒数。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜椭圆}{难度：$\star\star$}
+\label{ex:7:10}\textbf{题目} 求椭圆$\frac{x^2}{a^2}+\frac{y^2}{b^2}\le1$面积，$a,b>0$。\par
+\textbf{思路} 伸缩到单位圆。\par
+\textbf{解答} $x=au,y=bv$，Jacobian为$ab$，面积$ab\pi$。也可令$x=ar\cos\theta,y=br\sin\theta$，面积元$abr\dd r\dd\theta$，积分同得。\par
+\textbf{方法点评} 线性伸缩与极坐标可分两步或合并。\par
+\textbf{易错点或变式} 不能把椭圆周长公式误当成面积公式。
+\end{example}
+\begin{example}{考研风格例题｜斜域换元}{难度：$\star\star$}
+\label{ex:7:11}\textbf{题目} $D$由$0\le x+y\le1,0\le x-y\le1$定义，求面积。\par
+\textbf{思路} 两个线性组合把平行四边形变成正方形。\par
+\textbf{解答} 令$u=x+y,v=x-y$，则$x=\frac{u+v}{2},y=\frac{u-v}{2}$，反向Jacobian绝对值$\frac{1}{2}$。因此面积$\int_0^1\int_0^1\frac12\dd u\dd v=\frac{1}{2}$。\par
+\textbf{方法点评} 区域边界常比被积式更能提示换元。\par
+\textbf{易错点或变式} 正向Jacobian为$-2$，不能直接乘2。
+\end{example}
+\begin{example}{考研风格例题｜质心}{难度：$\star\star$}
+\label{ex:7:12}\textbf{题目} 均匀三角形$D=\{x,y\ge0,x+y\le1\}$的质心。\par
+\textbf{思路} 用一阶矩或顶点平均。\par
+\textbf{解答} 面积$\frac{1}{2}$，$\iint_Dx\dd A=\frac{1}{6}$，故$\bar x=\frac{1}{3}$；对称给$\bar y=\frac{1}{3}$。三顶点平均也得$(\frac{1}{3},\frac{1}{3})$。\par
+\textbf{方法点评} 积分法可推广非均匀密度，几何公式限均匀三角形。\par
+\textbf{易错点或变式} 质心坐标需除以总质量。
+\end{example}
+\section{对称、Gaussian积分与综合}\label{sec:7:5}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{重积分对称性}若区域关于$x\mapsto-x$对称，被积式关于$x$为奇，则积分为零；若为偶，可在半区域积分乘2。置换$x,y$保持区域和体积元时，两置换后的积分相等。\end{theorem}
+\begin{proof}在换元公式中使用反射或坐标置换，Jacobian绝对值为1，奇函数积分等于其相反数。\end{proof}
+\begin{extension}非负积分允许在适当极限下交换积分次序；绝对可积也允许换序。Gaussian积分通过平方转为二维径向积分，是把一维困难问题提升维数后简化的典型。\end{extension}
+
+\begin{method}{对称、Gaussian积分与综合}条件：区域和被积式都检查对称性；无穷区域先判非负或绝对可积。步骤：先消奇项，再统一同类项，最后选坐标。易错点：仅函数奇而区域不对称不能消去。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{竞赛风格例题｜Gaussian积分}{难度：$\star\star\star$}
+\label{ex:7:13}\textbf{题目} 求$I=\int_{-\infty}^{\infty}\e^{-x^2}\dd x$。\par
+\textbf{思路} 平方后极坐标。\par
+\textbf{解答} 积分正且有限（尾部可与$\e^{-|x|}$比较）。由非负积分换序，$I^2=\iint_{\R^2}\e^{-x^2-y^2}\dd A=2\pi\int_0^\infty r\e^{-r^2}\dd r=\pi$，故$I=\sqrt\pi$。\par
+\textbf{方法点评} 升维使指数之和成为半径平方。\par
+\textbf{易错点或变式} 最后取正根，因为$I>0$。
+\end{example}
+\begin{example}{竞赛风格例题｜奇偶消项}{难度：$\star\star\star$}
+\label{ex:7:14}\textbf{题目} 单位球内求$\iiint(x^3+xy+z^2)\dd V$。\par
+\textbf{思路} 先用反射对称。\par
+\textbf{解答} $x^3$对$x$奇，$xy$也对$x$奇，积分均零；剩$z^2$积分为$\frac{4\pi}{15}$。无需处理三项的完整球坐标表达式。\par
+\textbf{方法点评} 先对称再坐标可避免大量角积分。\par
+\textbf{易错点或变式} 球必须以原点为中心才有这里使用的反射对称。
+\end{example}
+\begin{example}{竞赛风格例题｜球锥交域}{难度：$\star\star\star$}
+\label{ex:7:15}\textbf{题目} 求单位球内且$z\ge\sqrt{x^2+y^2}$的体积。\par
+\textbf{思路} 球坐标中锥条件为$0\le\phi\le\frac{\pi}{4}$。\par
+\textbf{解答} $V=\int_0^{2\pi}\dd\theta\int_0^{\frac{\pi}{4}}\sin\phi\dd\phi\int_0^1\rho^2\dd\rho=\frac{2\pi}{3}(1-\frac{1}{\sqrt2})$。\par
+\textbf{方法点评} 球面与锥面的交域在球坐标中边界全为常数。\par
+\textbf{易错点或变式} 锥条件同时要求$z\ge0$，不能再加下半球。
+\end{example}
+\begin{warning}重积分换元中的Jacobian取绝对值；坐标覆盖次数必须正确；有符号函数在无穷区域换序前需要额外收敛条件。\end{warning}
+
+
+\input{chapters/materials/multiple}
+
+
+
+\input{chapters/materials/multiple_source_deep}
+\input{chapters/materials/delta_multiple}
+\input{chapters/illustrations/ch07}
+\input{chapters/materials/course_multiple}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\refstepcounter{exercise}\label{q:7:1}\par\noindent\textbf{习题\theexercise\quad 基础题} 求单位正方形上$\iint xy\dd A$。\quad\hyperref[a:7:1]{[答案]}\par
+\refstepcounter{exercise}\label{q:7:2}\par\noindent\textbf{习题\theexercise\quad 基础题} 求半径2圆盘面积。\quad\hyperref[a:7:2]{[答案]}\par
+\refstepcounter{exercise}\label{q:7:3}\par\noindent\textbf{习题\theexercise\quad 基础题} 写出球坐标的体积元。\quad\hyperref[a:7:3]{[答案]}\par
+\refstepcounter{exercise}\label{q:7:4}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求单位圆盘上$\iint x\dd A$。\quad\hyperref[a:7:4]{[答案]}\par
+\refstepcounter{exercise}\label{q:7:5}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求单位球内$\iiint(x^2+y^2+z^2)\dd V$。\quad\hyperref[a:7:5]{[答案]}\par
+\refstepcounter{exercise}\label{q:7:6}\par\noindent\textbf{习题\theexercise\quad 考研风格} 设$f$在闭区域$D=\{0\le x\le1,\ x^2\le y\le1\}$上连续，将$\int_0^1\dd x\int_{x^2}^1 f(x,y)\dd y$换序。\quad\hyperref[a:7:6]{[答案]}\par
+\refstepcounter{exercise}\label{q:7:7}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 求$\iint_{\R^2}\e^{-2(x^2+y^2)}\dd A$。\quad\hyperref[a:7:7]{[答案]}\par
+\refstepcounter{exercise}\label{q:7:8}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 设$a,b,c>0$，求椭球$\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}\le1$的体积。\quad\hyperref[a:7:8]{[答案]}\par
+\refstepcounter{exercise}\label{q:7:9}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 设$f$为闭单位圆盘$D$上的实连续函数，证明$\iint_D f^2\dd A\ge\frac{(\iint_D f\dd A)^2}{\pi}$。\quad\hyperref[a:7:9]{[答案]}\par
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\par\noindent\begin{tabularx}{\textwidth}{p{23mm}XXX}\toprule 方法&适用条件&典型信号&易错点\\\midrule
+换序&区域可重述&内积分困难&边界漏分块\\极坐标&圆与径向&$x^2+y^2$&漏$r$\\球坐标&球锥区域&半径与角&漏$\sin\phi$\\一般换元&一一对应&线性边界&Jacobian倒置\\
+\bottomrule\end{tabularx}

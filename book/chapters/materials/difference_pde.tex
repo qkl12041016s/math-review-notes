@@ -1,0 +1,32 @@
+\section{差分方程、首次积分与一阶偏微分方程}\label{mat:difference_pde}
+\begin{examtip}本节通过递推、守恒量和特征线法，建立离散系统与一阶PDE的计算入口。\end{examtip}
+\subsection{一阶线性差分}\label{mat:difference_pde:difference1}
+\begin{method}{一阶线性差分}\textbf{适用条件} $x_{n+1}=ax_n+b_n$。\par\textbf{实施与依据} 逐步迭代得$x_n=a^nx_0+\sum_{k=0}^{n-1}a^{n-1-k}b_k$；常数激励找不动点。\end{method}
+\begin{example}{专题例题｜一阶线性差分}{难度：$\star\star$}
+\textbf{题目} 解$x_{n+1}=\frac{x_n}{2}+1,x_0=0$。\par\textbf{思路与解答} 不动点为2，令$z_n=x_n-2$，则$z_{n+1}=\frac{z_n}{2}$，所以$x_n=2-2^{1-n}\to2$。\par\textbf{方法点评与边界} 当$|a|\ge1$时不动点存在不代表迭代收敛。
+\end{example}
+\subsection{二阶常系数差分}\label{mat:difference_pde:difference2}
+\begin{method}{二阶常系数差分}\textbf{适用条件} $x_{n+2}+px_{n+1}+qx_n=f_n$。\par\textbf{实施与依据} 齐次用特征方程，重根乘$n$；非齐次用待定系数与共振修正。\end{method}
+\begin{example}{专题例题｜二阶常系数差分}{难度：$\star\star$}
+\textbf{题目} 解Fibonacci递推$F_{n+2}=F_{n+1}+F_n,F_0=0,F_1=1$。\par\textbf{思路与解答} 特征根$\phi=\frac{1+\sqrt5}{2},\psi=\frac{1-\sqrt5}{2}$，解$F_n=\frac{\phi^n-\psi^n}{\sqrt5}$，因$|\psi|<1$得$\frac{F_{n+1}}{F_n}\to\phi$。\par\textbf{方法点评与边界} 离散指数$r^n$与连续指数$\e^{rx}$形式相似，但特征多项式的形成机制不同。
+\end{example}
+\subsection{非线性迭代与局部稳定}\label{mat:difference_pde:nonlinear}
+\begin{method}{非线性迭代与局部稳定}\textbf{适用条件} $x_{n+1}=T(x_n)$，$T(L)=L$。\par\textbf{实施与依据} $|T\prime(L)|<1$给邻域吸引；大于1给局部排斥，等于1时需高阶分析。\end{method}
+\begin{example}{专题例题｜非线性迭代与局部稳定}{难度：$\star\star$}
+\textbf{题目} 分析$T(x)=rx(1-x)$的非零不动点。\par\textbf{思路与解答} $L=1-\frac{1}{r}$，$T\prime(L)=2-r$。当$1<r<3$时模小于1，非零不动点局部吸引；临界$r=3$不能只凭此判定后续动力行为。\par\textbf{方法点评与边界} 局部稳定不表示所有初值都收敛到该点。
+\end{example}
+\subsection{首次积分与降维}\label{mat:difference_pde:firstintegral}
+\begin{method}{首次积分与降维}\textbf{适用条件} 自治向量场$\bm x\prime=\bm f(\bm x)$。\par\textbf{实施与依据} $I$是首次积分当且仅当沿轨道$\nabla I\cdot\bm f=0$。\end{method}
+\begin{example}{专题例题｜首次积分与降维}{难度：$\star\star$}
+\textbf{题目} 系统$x\prime=y,y\prime=-x$的首次积分。\par\textbf{思路与解答} $I=x^2+y^2$，$\dot I=2xy-2xy=0$，轨道位于圆上；结合$\theta\prime=-1$恢复运动方向。\par\textbf{方法点评与边界} 一个首次积分只给轨道约束，不一定给完整时间参数解。
+\end{example}
+\subsection{线性齐次PDE与特征线}\label{mat:difference_pde:transport}
+\begin{method}{线性齐次PDE与特征线}\textbf{适用条件} $a(x,y)u_x+b(x,y)u_y=0$且特征方向非零。\par\textbf{实施与依据} 解$\frac{\dd x}{\dd s}=a,\frac{\dd y}{\dd s}=b,\frac{\dd u}{\dd s}=0$，以特征不变量表达任意函数。\end{method}
+\begin{example}{专题例题｜线性齐次PDE与特征线}{难度：$\star\star$}
+\textbf{题目} 解$u_x+2u_y=0$。\par\textbf{思路与解答} 特征线$y-2x=C$，沿线$u$不变，通解$u=\Phi(y-2x)$；直接求偏导代入为0。\par\textbf{方法点评与边界} 初始曲线须非特征才能一般地给局部唯一解。
+\end{example}
+\subsection{拟线性PDE与特征相交}\label{mat:difference_pde:quasilinear}
+\begin{method}{拟线性PDE与特征相交}\textbf{适用条件} $a(x,y,u)u_x+b(x,y,u)u_y=c(x,y,u)$。\par\textbf{实施与依据} 同步求解三维特征系统$x\prime=a,y\prime=b,u\prime=c$。\end{method}
+\begin{example}{专题例题｜拟线性PDE与特征相交}{难度：$\star\star$}
+\textbf{题目} 解$u_t+u u_x=0,u(x,0)=g(x)$的局部隐式形式。\par\textbf{思路与解答} 从初始点$\xi$出发，$u=g(\xi)$保持不变，$x=\xi+t g(\xi)$。若$1+t g\prime(\xi)\ne0$可反解$\xi$，从而$u(x,t)=g(\xi(x,t))$。特征相交时经典单值光滑解可能失效。\par\textbf{方法点评与边界} 不能把越过特征交叉后的隐式多值表达当作经典解。
+\end{example}

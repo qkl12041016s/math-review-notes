@@ -1,0 +1,22 @@
+\section{重积分的换元证明、广义积分与推广}\label{mat:multiple}
+\begin{examtip}进一步处理Jacobian、积分范围、反常积分与高维球。\end{examtip}
+\subsection{Jacobian与局部面积倍率}\label{mat:multiple:jacproof}
+\begin{method}{Jacobian与局部面积倍率}\textbf{适用条件} $C^1$局部可逆变换。\par\textbf{实施与依据} 小矩形的两条边由导数矩阵线性映射，行列式给有向面积倍率。\end{method}
+\begin{example}{专题例题｜Jacobian与局部面积倍率}{难度：$\star\star$}
+\textbf{题目} 用$x=au\cos v,y=bu\sin v$计算椭圆二次矩$\iint x^2\dd A$。\par\textbf{思路与解答} Jacobian为$abu$，$0\le u\le1,0\le v\le2\pi$；积分为$a^3b\int_0^1u^3\dd u\int_0^{2\pi}\cos^2v\dd v=\frac{\pi a^3b}{4}$。\par\textbf{方法点评与边界} 并非把圆盘结果中的半径简单替换为一个半轴。
+\end{example}
+\subsection{Fubini与Tonelli的区别}\label{mat:multiple:tonelli}
+\begin{method}{Fubini与Tonelli的区别}\textbf{适用条件} 无穷区域或有符号函数。\par\textbf{实施与依据} 非负函数可用Tonelli，有限绝对积分可用Fubini；否则不能保证换序。\end{method}
+\begin{example}{专题例题｜Fubini与Tonelli的区别}{难度：$\star\star$}
+\textbf{题目} 在第一象限计算$\iint\e^{-x-y}\dd x\dd y$。\par\textbf{思路与解答} 函数非负，两种顺序均可；积分分离成$\int_0^\infty\e^{-x}\dd x\int_0^\infty\e^{-y}\dd y=1$。此处也绝对可积。\par\textbf{方法点评与边界} 局部可积不等于全域绝对可积。
+\end{example}
+\subsection{高维球与Gamma}\label{mat:multiple:nball}
+\begin{method}{高维球与Gamma}\textbf{适用条件} $d$维Euclid体积。\par\textbf{实施与依据} Gaussian积分的乘积与径向积分比较。\end{method}
+\begin{example}{专题例题｜高维球与Gamma}{难度：$\star\star$}
+\textbf{题目} 推导单位$d$维球体积$V_d$。\par\textbf{思路与解答} $\int_{\R^d}\e^{-|x|^2}\dd x=\pi^{\frac{d}{2}}$；径向积分为$dV_d\int_0^\infty r^{d-1}\e^{-r^2}\dd r=V_d\Gamma(\frac{d}{2}+1)$，故$V_d=\frac{\pi^{\frac{d}{2}}}{\Gamma(\frac{d}{2}+1)}$。\par\textbf{方法点评与边界} 球面面积为$dV_d$，体积与面积不能混淆。
+\end{example}
+\subsection{重积分的奇点判别}\label{mat:multiple:singular}
+\begin{method}{重积分的奇点判别}\textbf{适用条件} 孤立径向奇性$|x|^{-p}$。\par\textbf{实施与依据} 把体积元幂次合并后比较一维反常幂积分。\end{method}
+\begin{example}{专题例题｜重积分的奇点判别}{难度：$\star\star$}
+\textbf{题目} 判断三维单位球内$\iiint|\bm x|^{-p}\dd V$。\par\textbf{思路与解答} 化成$4\pi\int_0^1r^{2-p}\dd r$，当且仅当$p<3$收敛，值$\frac{4\pi}{3-p}$。\par\textbf{方法点评与边界} 临界指数由维数决定，不是统一的$p<1$。
+\end{example}

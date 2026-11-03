@@ -1,0 +1,16 @@
+\section{图解：换序先读区域}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}[scale=4,>=stealth]
+\fill[Teal!12](0,0) parabola(1,1)--(0,1)--cycle;
+\draw[->](-.08,0)--(1.2,0)node[right]{$x$};
+\draw[->](0,-.08)--(0,1.2)node[above]{$y$};
+\draw[thick,Teal](0,0)parabola(1,1);
+\draw[thick,Ink](0,1)--(1,1);
+\draw[Gold,thick](.5,.25)--(.5,1);
+\draw[Rust,thick](0,.5)--(.7071,.5);
+\node[right]at(.8,.64){$y=x^2$};
+\node[above]at(.55,1){$y=1$};
+\node[below]at(1,0){$1$};
+\end{tikzpicture}
+\caption{同一区域$0\le x\le1,\ x^2\le y\le1$：竖切片给原积分限；横切片给$0\le y\le1,\ 0\le x\le\sqrt y$。颜色线段只展示一条典型切片，换序须覆盖所有切片。}\label{fig:review:order}
+\end{figure}

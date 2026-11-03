@@ -1,0 +1,276 @@
+\chapter{大数定律与中心极限定理}\label{ch:05}
+\chaptermap{Markov\\Chebyshev}{样本平均\\弱大数定律}{中心化尺度\\正态极限}{离散近似\\连续映射与Delta}
+\begin{examtip}
+\textbf{考研核心：}Chebyshev不等式、Bernoulli与辛钦大数定律、Lindeberg--Lévy CLT、棣莫弗--拉普拉斯定理。
+\textbf{竞赛视角：}指数界、三角阵条件、非线性统计量。
+\textbf{测度关联：}大数定律讲依概率或几乎必然收敛，CLT讲依分布收敛，两者尺度不同。
+\end{examtip}
+\section{概率不等式与样本量保证}\label{sec:51}
+\src{李东风, §5.2；吴昊, §1.3}
+\begin{theorem}{Markov与Chebyshev}
+若$X\ge0$且$a>0$，$\Pp(X\ge a)\le\frac{\E X}{a}$。
+若$\Var X<\infty$，则$\Pp(|X-\E X|\ge\varepsilon)\le\frac{\Var X}{\varepsilon^2}$。
+\end{theorem}
+\begin{proof}
+逐点$X\ge a\ind_{\{X\ge a\}}$，取期望得Markov。
+对非负变量$(X-\E X)^2$以阈值$\varepsilon^2$应用前式，得到Chebyshev。
+\end{proof}
+\begin{method}{保证值与近似值分开写}
+适用：给定误差和置信要求的样本量题。先算样本均值方差，代入不等式得到足够条件；若另用CLT，应明确只是近似样本量。
+界超过1时可与1取较小值，但通常说明该界很粗。
+\end{method}
+\worked{用界控制样本均值}{基础例题}{\star\star}{5-1}
+{iid样本均值$\mu$、方差4，求使$\Pp(|\bar X-\mu|\ge0.2)\le0.05$的充分样本量，并给正态近似值。}
+{先得到$\Var\bar X=\frac{4}{n}$。}
+{方法一：Chebyshev给$\frac{4}{0.04n}\le0.05$，即$n\ge2000$，是严格充分条件。
+方法二：若CLT近似可靠，以$\frac{1.96\cdot2}{\sqrt n}\le0.2$得$n\ge385$。
+如果总体本身正态，后一正态计算是精确概率条件；仅有方差信息时不能保证它达到目标。}
+{不等式提供分布无关保证，正态近似通常更紧但需额外依据。}
+{不能把近似样本量写成对所有有限方差总体的严格保证。}
+\worked{非负量的单侧界}{考研风格}{\star}{5-2}
+{非负$X$满足$\E X=3$，估计$\Pp(X\ge12)$。若另知$\Var X=1$，给更强的双侧界。}
+{分别用一阶矩与中心二阶矩。}
+{Markov给$\Pp(X\ge12)\le\frac{1}{4}$。
+若方差为1，$\{X\ge12\}\subset\{|X-3|\ge9\}$，Chebyshev给上界$\frac{1}{81}$。
+后者使用了新增方差信息，不能只凭非负与均值获得。}
+{先将单侧事件嵌入中心偏差事件，常能直接使用Chebyshev。}
+{该上界不等于实际概率，也不必能同时取到。}
+\worked{Bernoulli的指数偏差界}{竞赛风格}{\star\star\star}{5-3}
+{iid Bernoulli$(p)$的和$S_n$，证明对$t>0$有$\Pp(S_n\ge na)\le e^{-tna}(1-p+pe^t)^n$，并在$0<p<a<1$时优化。}
+{对指数应用Markov，再选择$t$。}
+{独立性给$\E e^{tS_n}=(1-p+pe^t)^n$，由Markov得所述界。
+最小化对数界$n[-ta+\log(1-p+pe^t)]$，导数为0得$e^t=\frac{a(1-p)}{p(1-a)}>1$。
+代回得$\Pp(S_n\ge na)\le e^{-nD(a\|p)}$，其中
+$D(a\|p)=a\log(\frac{a}{p})+(1-a)\log(\frac{1-a}{1-p})$。}
+{选择指数函数将独立性转为乘积，再通过优化获得随$n$指数衰减的界。}
+{只在$0<p<a<1$时上式给出有限的最优$t>0$；$p=0$时$S_n=0$几乎必然，直接处理。左尾需取$t<0$。}
+
+\section{弱大数定律与频率稳定}\label{sec:52}
+\src{李东风, §5.2；吴昊, §3.1}
+\begin{definition}{依概率收敛}
+$X_n\pto X$指对每个$\varepsilon>0$，$\Pp(|X_n-X|>\varepsilon)\to0$。
+它控制偏差事件的概率，不要求每条样本路径最终单调或处处收敛。
+\end{definition}
+\begin{theorem}{Chebyshev与辛钦弱大数定律}
+独立变量均值为$\mu_i$，若$n^{-2}\sum_{i=1}^n\Var X_i\to0$，则$n^{-1}\sum(X_i-\mu_i)\pto0$。
+特别地，iid有限方差样本$\bar X_n\pto\mu$。
+更一般地，iid且$\E|X_1|<\infty$即可有$\bar X_n\pto\E X_1$，称辛钦大数定律。
+\end{theorem}
+\begin{proof}
+第一式将独立和方差代入Chebyshev。
+为证有限一阶矩情形，固定$K$，令$X_i^{(K)}=X_i\ind_{\{|X_i|\le K\}}$。
+截断变量有界，均值的波动依概率趋于0；而
+\[\Pp\!\left(\dfrac1n\sum_i|X_i-X_i^{(K)}|>\varepsilon\right)
+\le\dfrac{\E[|X_1|\ind_{\{|X_1|>K\}}]}{\varepsilon}.
+\]
+截断均值与真均值之差也由同一尾期望控制。先令$n\to\infty$，再令$K\to\infty$，尾期望趋于0，得到结论。
+\end{proof}
+\begin{corollary}{Bernoulli大数定律}
+独立同成功率$p$的试验，成功频率$\frac{S_n}{n}\pto p$，因为均值$p$、方差$p(1-p)$有限。
+\end{corollary}
+\begin{method}{把平均识别为已知函数的样本均值}
+适用：频率、样本矩、Monte Carlo积分。先检查$\E|g(X)|<\infty$，再对$g(X_i)$应用大数定律。
+独立非同分布时改检查总方差条件，不能仅凭样本数增加就断言稳定。
+\end{method}
+\worked{频率的一致性}{基础例题}{\star}{5-4}
+{iid Bernoulli$(p)$样本，证明$\hat p=\bar X$依概率收敛于$p$。}
+{用精确方差与一般LLN两条路线。}
+{方法一：$\Pp(|\hat p-p|>\varepsilon)\le \frac{p(1-p)}{n\varepsilon^2}\le\frac{1}{4n\varepsilon^2}\to0$。
+方法二：$\E|X_i|=p<\infty$，直接用辛钦大数定律。
+第一法还给有限$n$的误差控制，第二法只给极限但所需矩条件更弱。}
+{证明一致性时，“方差趋0且均值正确”是常见捷径。}
+{频率不是每一次都靠近$p$，结论是偏差概率趋0。}
+\worked{Monte Carlo积分}{考研风格}{\star\star}{5-5}
+{iid $U_i\sim U(0,1)$，用$T_n=n^{-1}\sum e^{-U_i^2}$估计$\int_0^1e^{-x^2}\dd x$，证明一致。}
+{被积函数值构成iid有界样本。}
+{记$I=\int_0^1e^{-x^2}\dd x$，有$\E e^{-U_i^2}=I$且函数值在$[e^{-1},1]$内。
+由辛钦定律$T_n\pto I$；或用有界变量方差上界得$\Var T_n\le\frac{(1-e^{-1})^2}{4n}$，再用Chebyshev。
+这同时给出样本平均的数值积分解释。}
+{积分转期望之后，概率理论直接提供误差分析。}
+{若$U_i$非独立或非均匀，估计目标与误差公式均可能改变。}
+\worked{非同分布平均}{考研风格}{\star\star}{5-6}
+{独立$X_i$均值0、方差$i$，能否直接用上述总方差条件推出平均趋0？若方差改为$\frac{1}{i}$呢？}
+{分别计算$n^{-2}$倍的方差和。}
+{方差为$i$时，$n^{-2}\sum_{i=1}^ni=\frac{n+1}{2n}\to\frac{1}{2}$，该充分条件不满足，不能由此推出收敛。
+若取独立正态$X_i\sim\Normal(0,i)$，平均方差趋$\frac{1}{2}$，事实上不趋0。
+方差为$\frac{1}{i}$时，总和至多$1+\log n$，除$n^2$趋0，因此平均依概率趋0。}
+{充分条件失败不等于结论必失败，需要反例或其他分析。}
+{“独立”本身不能保证平均方差按$\frac{1}{n}$下降。}
+
+\section{Lindeberg--Lévy中心极限定理}\label{sec:53}
+\src{李东风, §5.3；吴昊, §4.1—4.4}
+\begin{theorem}{iid有限方差CLT}
+若$X_i$ iid，$\E X_i=\mu$、$0<\Var X_i=\sigma^2<\infty$，则
+\begin{equation}\dfrac{\sum_{i=1}^nX_i-n\mu}{\sigma\sqrt n}\dto\Normal(0,1).\label{eq:clt}\end{equation}
+\end{theorem}
+\begin{proof}
+令$Y=\frac{X-\mu}{\sigma}$。二阶展开给$\phi_Y(t)=1-\frac{t^2}{2}+o(t^2)$：余项除$t^2$后可由常数倍$Y^2$控制，二阶矩有限允许控制收敛。
+独立性于是给
+\[\phi_{n^{-\frac{1}{2}}\sum Y_i}(t)=\left(1-\dfrac{t^2}{2n}+o(n^{-1})\right)^n\to e^{-\frac{t^2}{2}}.
+\]
+特征函数连续性定理把此极限转换为分布收敛；其条件是极限为在0连续的特征函数，这里是标准正态。该变换定理的证明思路是加独立小正态噪声后用Fourier反演与控制收敛，再令噪声尺度趋0。
+\end{proof}
+\begin{method}{先中心化，再除以标准差}
+适用：大量独立小影响的和。分子减总均值，分母用总方差的平方根。
+样本均值的标准差是$\frac{\sigma}{\sqrt n}$；求和的标准差是$\sigma\sqrt n$。近似事件端点必须同尺度。
+\end{method}
+\worked{正态总量与CLT}{基础例题}{\star\star}{5-7}
+{iid $X_i\sim\Normal(10,4)$，$n=100$，求$\Pp(\sum X_i>1040)$。}
+{总均值1000，总标准差20。}
+{方法一：正态可加性给$\sum X_i\sim\Normal(1000,400)$，故概率为$1-\Phi(2)$，精确成立。
+方法二：按CLT的标准化模板得到同一个标准量$Z=\frac{\sum X_i-1000}{20}$。
+由于原总体正态，本题不需要极限近似；若只知均值方差，该表达式只能作近似。}
+{同一个公式的“精确”或“近似”取决于分布假设。}
+{若误除以$\sigma\sqrt n=200$，通常是把方差4误当标准差。}
+\worked{指数总寿命}{考研风格}{\star\star}{5-8}
+{100个独立$\Exp(2)$寿命之和$S$，近似求$\Pp(45<S<55)$。}
+{每个均值$\frac{1}{2}$、方差$\frac{1}{4}$。}
+{$\E S=50$、标准差5，所以CLT给$\Pp(45<S<55)\approx\Phi(1)-\Phi(-1)=2\Phi(1)-1$。
+精确分布是$\Ga(100,2)$，因此精确概率为$\int_{45}^{55}\frac{2^{100}s^{99}e^{-2s}}{\Gamma(100)}\dd s$。
+该积分表达式可用于数值核对正态近似。}
+{先给可核验的精确对象，再使用近似，能看清误差来自哪里。}
+{CLT不是声称指数变量本身变为正态，而是标准化总和的分布趋正态。}
+\worked{非同分布CLT的检查}{竞赛风格}{\star\star\star}{5-9}
+{独立中心化$X_i$满足$|X_i|\le C$且$s_n^2=\sum\Var X_i\to\infty$，说明何以$\sum \frac{X_i}{s_n}\dto\Normal(0,1)$。}
+{用Lindeberg条件判断每项相对总尺度是否可忽略。}
+{对任意$\varepsilon>0$，当$\varepsilon s_n>C$时，所有指标$\ind_{\{|X_i|>\varepsilon s_n\}}$均为0。
+所以$s_n^{-2}\sum_i\E[X_i^2\ind_{\{|X_i|>\varepsilon s_n\}}]=0$，满足Lindeberg条件。
+Lindeberg--Feller定理因此给正态极限；这里采用其充分性形式。条件确保没有单个大跳跃支配总波动。}
+{用有界性验证三角阵条件，比直接逐项展开特征函数简洁。}
+{若$s_n$不发散，统一有界并不足够。}
+
+\section{棣莫弗--拉普拉斯与离散近似}\label{sec:54}
+\src{李东风, §5.3；Papoulis--Pillai, §4.5}
+\begin{corollary}{二项正态近似与Poisson极限}
+固定$0<p<1$，$S_n\sim\Bin(n,p)$时$\frac{S_n-np}{\sqrt{np(1-p)}}\dto\Normal(0,1)$，这是CLT应用于Bernoulli和。
+若$p_n\to0,np_n\to\lambda$，则$\Bin(n,p_n)\dto\Pois(\lambda)$。
+\end{corollary}
+\begin{proof}
+第二式对固定$k$，将质量写成
+$\frac{n(n-1)\cdots(n-k+1)}{n^k k!}(np_n)^k(1-p_n)^n(1-p_n)^{-k}$，逐项极限得到$\frac{e^{-\lambda}\lambda^k}{k!}$，目标质量总和为1，故得到分布收敛。
+\end{proof}
+\begin{method}{离散端点加半格}
+适用：二项用连续正态近似整数区间。$a\le S\le b$可用$a-\frac{1}{2}<S<b+\frac{1}{2}$连续性修正；修正是改善近似的技术，不是极限定理的必要前提。
+稀有成功且平均数有限时，Poisson往往比正态更自然。
+\end{method}
+\worked{二项区间的两种表达}{考研风格}{\star\star}{5-10}
+{$S\sim\Bin(100,\frac{1}{2})$，求$\Pp(45\le S\le55)$的精确式与正态近似。}
+{总均值50、标准差5，整数区间扩展半格。}
+{方法一：精确概率$2^{-100}\sum_{k=45}^{55}\binom{100}k$。
+方法二：连续性修正给$\Phi(\frac{55.5-50}{5})-\Phi(\frac{44.5-50}{5})=2\Phi(1.1)-1$。
+不修正得到$2\Phi(1)-1$；修正通常改善这一对称区间的近似，但不是等式。}
+{精确求和适合计算机核验，修正近似适合手算。}
+{若事件为$S>55$，连续阈值应为55.5。}
+\worked{稀有计数的近似选择}{考研风格}{\star\star}{5-11}
+{$S\sim\Bin(1000,0.002)$，估计$\Pp(S=0)$。}
+{平均数为2，分布仍靠近非负边界。}
+{精确值为$(0.998)^{1000}$；Poisson近似为$e^{-2}$。
+由$\log(1-u)=-u-\frac{u^2}{2}+O(u^3)$，对数精确值为$-2-0.002+O(10^{-6})$，可解释近似误差较小。
+正态近似对0附近的原子与非负边界描述较差。}
+{样本量大不等于所有正态近似都好，稀有参数需一起考虑。}
+{单点事件不能直接写成连续正态单点概率，那会得到0。}
+\worked{CLT与大数定律不冲突}{测度论选学}{\star\star}{5-12}
+{为何$\bar X_n\pto\mu$时，$\sqrt n(\bar X_n-\mu)$仍可趋于非退化正态？}
+{比较未放大与放大后的波动尺度。}
+{有限方差下$\Var\bar X_n=\frac{\sigma^2}{n}\to0$，故均值集中于$\mu$。
+乘$\sqrt n$后方差恢复为$\sigma^2$，CLT描述这一微小波动的形状。
+若$X_i$本身正态，则对所有$n$，$\sqrt n(\bar X_n-\mu)\sim\Normal(0,\sigma^2)$，是最直观的精确实例。}
+{LLN给位置稳定，CLT给误差分布，两者是同一收缩现象的不同尺度。}
+{依分布收敛一般不推出二阶矩收敛，不能反向只凭极限分布断言方差。}
+
+\section{Slutsky、Delta与非线性统计量}\label{sec:55}
+\src{吴昊, §2.3—2.4；统计笔记, §3}
+\begin{theorem}{Slutsky与一阶Delta}
+若$Z_n\dto Z,T_n\pto c$，则$Z_n+T_n\dto Z+c$、$Z_nT_n\dto cZ$；$c\ne0$时商也收敛。
+若$\sqrt n(T_n-\theta)\dto\Normal(0,v)$且$g$在$\theta$可微，则
+$\sqrt n(g(T_n)-g(\theta))\dto\Normal(0,[g'(\theta)]^2v)$。
+这里$0\le v<\infty$；若所得方差为0，记号$\Normal(0,0)$仅表示0点退化分布，不使用正态密度公式。
+\end{theorem}
+\begin{proof}
+Slutsky中，联合特征函数与$e^{itc}\E e^{isZ_n}$的差由$\E\min(2,|t||T_n-c|)$控制并趋0，因此联合收敛到$(Z,c)$；再用连续映射。
+Delta由$g(T_n)-g(\theta)=g'(\theta)(T_n-\theta)+o(|T_n-\theta|)$；正态极限保证$\sqrt n(T_n-\theta)$概率有界，故乘$\sqrt n$后的余项依概率趋0，再用Slutsky。
+\end{proof}
+\begin{method}{先查导数是否为零}
+适用：比值、倒数、对数及方差稳定化。先由LLN找极限点，再求导传播误差。
+若$g'(\theta)=0$，一阶Delta只给退化极限，需要提高展开阶数和尺度。
+\end{method}
+\worked{平方均值的极限}{考研风格}{\star\star}{5-13}
+{iid样本总体均值$\mu\ne0$、方差$0<\sigma^2<\infty$，求$\sqrt n(\bar X^2-\mu^2)$极限。}
+{比较Delta与因式分解。}
+{方法一：$g(x)=x^2,g'(\mu)=2\mu$，极限为$\Normal(0,4\mu^2\sigma^2)$。
+方法二：$\sqrt n(\bar X^2-\mu^2)=\sqrt n(\bar X-\mu)(\bar X+\mu)$；第一因子CLT，第二因子依概率趋$2\mu$，Slutsky给同式。}
+{因式分解法无需显式写余项，适合多项式变换。}
+{$\mu=0$时结论在$\sqrt n$尺度退化，不可保留非零方差。}
+\worked{学生化均值}{考研风格}{\star\star}{5-14}
+{iid样本二阶矩有限且$\sigma^2>0$，说明$\frac{\sqrt n(\bar X-\mu)}{S}\dto\Normal(0,1)$。}
+{证明$S$一致，再替换未知尺度。}
+{辛钦对$X_i^2$适用，因为$\E|X_i^2|<\infty$，所以$n^{-1}\sum X_i^2\pto\E X^2$。
+因此$S^2=\frac n{n-1}(n^{-1}\sum X_i^2-\bar X^2)\pto\sigma^2$，连续映射给$S\pto\sigma>0$。
+一般离散总体在有限样本下可能有$S=0$；约定此时学生化统计量取0。由于$\Pp(S=0)\le\Pp(|S-\sigma|>\frac{\sigma}{2})\to0$，该约定不影响极限。
+在$S>0$处用CLT与Slutsky即得所述极限；这里不要求四阶矩。}
+{估计尺度不会改变一阶正态极限，但有限样本不一定是$t$。}
+{精确$t$分布需要正态总体，不能仅凭“大样本”称其精确。}
+\worked{导数为零的二阶极限}{竞赛风格}{\star\star\star}{5-15}
+{iid样本均值0、方差$\sigma^2>0$，求$\frac{n\bar X^2}{\sigma^2}$极限。}
+{平方CLT中的标准化变量。}
+{CLT给$Z_n=\frac{\sqrt n\bar X}{\sigma}\dto Z\sim\Normal(0,1)$，连续映射给$Z_n^2\dto Z^2\sim\chi_1^2$。
+另一法作二阶Taylor：$g'(0)=0,g''(0)=2$，故$n g(\bar X)=n\bar X^2$保留二阶项。
+一阶$\sqrt n\bar X^2\pto0$，与非退化的$n$尺度结论相容。}
+{极限点附近导数为零是更换尺度的明确信号。}
+{不能把所有光滑变换都机械写成非退化正态极限。}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.84\textwidth,height=5cm,axis lines=left,xlabel={$x-\mu$},ylabel={密度},xmin=-3,xmax=3,ymin=0,ytick=\empty,legend style={draw=none,font=\small}]
+\addplot[Ink,thick,domain=-3:3,samples=100]{exp(-x*x/2)/sqrt(2*pi)};\addlegendentry{$n=1$}
+\addplot[Teal,thick,domain=-3:3,samples=100]{2*exp(-2*x*x)/sqrt(2*pi)};\addlegendentry{$n=4$}
+\addplot[Gold,thick,domain=-3:3,samples=100]{4*exp(-8*x*x)/sqrt(2*pi)};\addlegendentry{$n=16$}
+\end{axis}\end{tikzpicture}\caption{正态样本均值的密度随$n$收缩；标准化后形状相同}\label{fig:lln}\end{figure}
+\begin{warning}
+LLN不是“误差恰为零”，CLT不是有限样本等式。使用CLT先核对有限非零方差和独立同分布；Cauchy样本平均仍为Cauchy，不能套用本章有限均值LLN。
+连续性修正的半格随事件不等号变化。
+\end{warning}
+
+\section*{图解、理解与巧解复盘}
+\begin{extension}
+\textbf{Lindeberg条件为何给正态极限。}
+把每行独立中心化变量标准化为$Y_{ni}$，使$\sum_i\E Y_{ni}^2=1$。假设对每个$\eta>0$，$\sum_i\E[Y_{ni}^2\ind_{\{|Y_{ni}|>\eta\}}]\to0$。
+由截断分解，$\max_i\E Y_{ni}^2\le\eta^2+\sum_i\E[Y_{ni}^2\ind_{\{|Y_{ni}|>\eta\}}]$，先$n\to\infty$再$\eta\downarrow0$，得到最大方差趋0。
+对固定$t$，展开
+\[\E e^{itY_{ni}}=1-\dfrac{t^2}{2}\E Y_{ni}^2+r_{ni}.\]
+指数二阶余项在$|Y|\le\eta$时被$C_t\eta Y^2$控制，在外侧被$C_tY^2$控制，因此$\sum_i|r_{ni}|\le C_t\eta+C_t\sum_i\E[Y_{ni}^2\ind_{\{|Y_{ni}|>\eta\}}]\to0$，再令$\eta\downarrow0$。
+令$a_{ni}=\E e^{itY_{ni}}-1$，则$\max_i|a_{ni}|\to0$、$\sum_i a_{ni}\to-\frac{t^2}{2}$且$\sum_i|a_{ni}|$有界。
+故$\sum_i|a_{ni}|^2\le\max_i|a_{ni}|\sum_i|a_{ni}|\to0$，从而
+\[\log\prod_i(1+a_{ni})=\sum_i a_{ni}+O\!\left(\sum_i|a_{ni}|^2\right)\to-\dfrac{t^2}{2}.\]
+独立和的特征函数趋$e^{-\frac{t^2}{2}}$，连续性定理给CLT。这个推导也说明“大跳跃的二阶质量消失”正是控制Taylor余项的条件。
+\end{extension}
+\begin{insight}{用“平均”与“总量”两套尺度自查}
+总量$S_n$的均值和方差均与$n$成正比；平均$\bar X_n$的均值不变、方差按$\frac{1}{n}$缩小。
+CLT中分子与分母应同时处于同一尺度。若对总量使用$\frac{\sigma}{\sqrt n}$，标准化误差会夸大$n$倍，是最常见的尺度错误之一。
+\end{insight}
+\begin{clevertrick}{零导数先看最早非零Taylor项}
+若$\sqrt n(T_n-\theta)\dto Z$，且$g$在$\theta$邻域二阶连续可微、$g'(\theta)=0,g''(\theta)\ne0$，则Taylor余项为$o((T_n-\theta)^2)$，由概率有界性，二阶展开给
+$n(g(T_n)-g(\theta))\dto\frac12g''(\theta)Z^2$。
+例如公平Bernoulli下$g(p)=p(1-p)$在$\frac{1}{2}$处导数0，有
+$n[\hat p(1-\hat p)-\frac{1}{4}]=-n(\hat p-\frac{1}{2})^2\dto-\frac{\chi_1^2}{4}$，极限不是正态。
+\end{clevertrick}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.8\textwidth,height=4.7cm,axis lines=left,xlabel={$k$},ylabel={概率或近似密度},xmin=0,xmax=10,ymin=0,ytick=\empty]
+\addplot[ycomb,Ink,thick,mark=*]coordinates{(0,.135335)(1,.270671)(2,.270671)(3,.180447)(4,.090224)(5,.036089)(6,.012030)(7,.003437)(8,.000859)(9,.000191)};
+\addplot[Teal,domain=0:10,samples=100]{exp(-(x-2)^2/4)/sqrt(4*pi)};
+\end{axis}\end{tikzpicture}\caption{Poisson均值2时的离散质量与同均值方差正态曲线：小均值边界效应明显}\label{fig:poisson-normal}\end{figure}
+
+\section*{章末分层习题}
+\exercise{5-a}{基础}{均值2、方差9的iid样本，求$\Pp(|\bar X-2|\ge0.5)$的Chebyshev界。}
+\exercise{5-b}{基础}{用Bernoulli频率估计$p$，要求误差至少0.1的概率不超过0.01，给分布无关充分样本量。}
+\exercise{5-c}{考研风格}{iid $U(0,1)$样本120个，近似求总和在55到65之间的概率。}
+\exercise{5-d}{考研风格}{$S\sim\Bin(200,0.4)$，写$\Pp(S\ge90)$的连续性修正正态近似。}
+\exercise{5-e}{竞赛拓展}{iid样本总体均值$\mu>0$、方差$0<\sigma^2<\infty$，求$\sqrt n(\frac{1}{\bar X}-\frac{1}{\mu})$极限；在$\bar X=0$时约定整个表达式取0。}
+\exercise{5-f}{竞赛拓展}{iid $\Exp(\lambda)$样本，求$\sqrt n(\frac{1}{\bar X}-\lambda)$极限。}
+\exercise{5-g}{测度论选学}{举依概率收敛而期望不收敛的非负变量序列。}
+\exercise{5-h}{测度论选学}{若$\E|X|<\infty$，说明截断尾期望$\E[|X|\ind_{\{|X|>K\}}]$为何趋0。}
+\section*{章末方法速查}
+\begin{quicktable}
+Chebyshev&有限方差&严格保证、样本量&把上界当近似值\\
+辛钦LLN&iid有限一阶绝对矩&平均、样本矩&未检查变换后可积\\
+CLT&iid有限非零方差&总量、平均误差&总和与均值尺度混淆\\
+Delta与Slutsky&可微、尺度一致&倒数、学生化&零导数时仍套一阶\\
+\end{quicktable}

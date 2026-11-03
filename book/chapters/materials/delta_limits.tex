@@ -1,0 +1,15 @@
+\section{极限计算的误差与增长构型}\label{ic:delta_limits}
+
+\begin{examtip}本节讨论一阶Riemann和误差、非收敛递推的增长尺度及参数几何平均。\end{examtip}
+
+\subsection{Riemann和的一阶误差}\label{ic:delta_limits:riemannerror}\begin{method}{Riemann和的一阶误差}\textbf{识别信号} $f\in C^1[0,1]$。\par \textbf{操作步骤} 把每个小区间内端点值与积分的差写成$f'$的积分；用$f'$一致连续性控制余项，再求和。\par \textbf{疑难点与条件} 左、右端点和的首项误差符号相反；普通Riemann和极限不能单独给误差系数。\end{method}
+
+\begin{theorem}{右端点误差公式}设$f\in C^1[0,1]$，则$\lim_{n\to\infty}n[\frac1n\sum_{k=1}^nf(\frac{k}{n})-\int_0^1f]=\frac{f(1)-f(0)}{2}$。\end{theorem}\begin{proof}对$I_k=[\frac{k-1}{n},\frac{k}{n}]$，$f(\frac{k}{n})-f(t)=f'(\frac{k}{n})(\frac{k}{n}-t)+r_k(t)$，其中$|r_k(t)|\le\omega_{f'}(\frac{1}{n})(\frac{k}{n}-t)$。积分后乘$n$，主项为$\frac{f'(\frac{k}{n})}{2n}$，各余项累加绝对值$\le\frac{\omega_{f'}(\frac{1}{n})}{2}\to0$。主项的Riemann和趋$\frac12\int_0^1f'=\frac{f(1)-f(0)}{2}$。\end{proof}
+
+\begin{example}{竞赛风格｜指数函数端点误差}{难度：$\star\star\star$}\label{ic:ex:delta_limits:riemannerrorcase}\textbf{题目} 求$\lim_{n\to\infty}n[\frac1n\sum_{k=1}^n\e^{\frac{k}{n}}-(\e-1)]$。\par \textbf{思路} 用误差公式或有限等比和。\par \textbf{详细解答} 公式直接得$\frac{\e-1}{2}$。独立地，$\frac1n\sum\e^{\frac{k}{n}}=\frac{(\e-1)\e^{\frac{1}{n}}}{n(\e^{\frac{1}{n}}-1)}$，Taylor给右边$(\e-1)[1+\frac{1}{2n}+O(n^{-2})]$，同值。\par \textbf{验算与条件复核} 两个独立计算核对误差系数及正号。\par \textbf{疑难点与方法比较} 若用左端点$k=0,\ldots,n-1$，答案变为$-\frac{\e-1}{2}$。\end{example}
+
+\begin{example}{竞赛风格｜发散递推的精确增长阶}{难度：$\star\star\star$}\label{ic:ex:delta_limits:growthrecurrence}\textbf{题目} $a_1>0,a_{n+1}=a_n+\frac{1}{a_n}$，证明$\frac{a_n}{\sqrt{2n}}\to1$。\par \textbf{思路} 先证无界，再对平方量用Stolz。\par \textbf{详细解答} 数列正且严格递增。若有有限极限$L>0$，递推给$L=L+\frac{1}{L}$，矛盾，所以$a_n\to\infty$。又$a_{n+1}^2-a_n^2=2+\frac{1}{a_n^2}\to2$。Stolz给$\frac{a_n^2}{2n}\to1$，正平方根连续，故结论。\par \textbf{验算与条件复核} 平方增量是精确恒等式；取根时正性已证明。\par \textbf{疑难点与方法比较} 本题数列本身发散，但归一化后收敛，不能套不动点存在论。\end{example}
+
+\begin{example}{竞赛风格｜两指数相消的二阶项}{难度：$\star\star\star$}\label{ic:ex:delta_limits:powercollision}\textbf{题目} 求$\lim_{x\to\e}\frac{x^\e-\e^x}{(x-\e)^2}$。\par \textbf{思路} 提$\e^x$再对剩余比值取对数。\par \textbf{详细解答} 令$h(x)=\e\ln x-x$，有$h(\e)=h'(\e)=0,h''(\e)=-\frac{1}{\e}$，所以$h(x)=-\frac{(x-\e)^2}{2\e}+o((x-\e)^2)$。原分子$\e^x(\e^{h(x)}-1)\sim-\frac{\e^{\e-1}(x-\e)^2}{2}$，答案$-\frac{\e^{\e-1}}{2}$。\par \textbf{验算与条件复核} 直接对$x^\e-\e^x$求二阶导在$\e$取值也为$-\e^{\e-1}$，除以$2!$相同。\par \textbf{疑难点与方法比较} 两项分别等价后直接相减会丢掉真正二阶项。\end{example}
+
+\begin{example}{竞赛风格｜广义平均的根式极限}{难度：$\star\star\star$}\label{ic:ex:delta_limits:geometricmean}\textbf{题目} $a_1,\ldots,a_m>0$，求$\lim_{n\to\infty}[\frac{a_1^{\frac{1}{n}}+\cdots+a_m^{\frac{1}{n}}}{m}]^n$。\par \textbf{思路} 先对数，再对小参数$\frac{1}{n}$展开。\par \textbf{详细解答} 记$\ell_j=\ln a_j$，则平均底数$=1+\frac1{mn}\sum\ell_j+O(n^{-2})$。对数乘$n$趋$m^{-1}\sum\ell_j$，所以原极限$\exp(m^{-1}\sum\ell_j)=(\prod a_j)^{\frac{1}{m}}$。\par \textbf{验算与条件复核} 有限$m$使所有Taylor余项可统一控制；指数连续性完成回代。\par \textbf{疑难点与方法比较} 底数中的$m$不能省略，否则$n$次幂将改变尺度。\end{example}

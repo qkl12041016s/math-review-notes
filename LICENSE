@@ -1,0 +1,73 @@
+数学三部曲许可说明
+==================
+
+Copyright (c) 2026 雪落长安无声
+
+第一部分：讲义、LaTeX 内容与 PDF
+--------------------------------
+
+除本文件另有说明外，本项目中的数学讲义、文字内容、LaTeX
+排版内容、原创插图以及编译生成的 PDF，均采用“知识共享
+署名—非商业性使用 4.0 国际许可协议”（CC BY-NC 4.0）许可。
+
+在遵守许可协议的前提下，你可以：
+
+1. 复制并以任何媒介或格式分享本项目内容；
+2. 修改、转换或基于本项目内容进行创作。
+
+你必须遵守以下条件：
+
+1. 署名：保留作者署名、项目地址和许可协议链接；
+2. 修改说明：若修改了原始内容，须明确说明所作修改；
+3. 非商业使用：不得将本项目内容主要用于商业优势或金钱报酬；
+4. 不得施加额外的法律条款或技术措施，限制他人行使本协议
+   已允许的权利。
+
+建议署名格式：
+
+作品：数学三部曲——高等数学、线性代数、概率论与数理统计
+作者：雪落长安无声
+来源：https://github.com/YOUR_GITHUB_USERNAME/math-review-notes
+许可：CC BY-NC 4.0
+修改：请注明是否修改及主要修改内容
+
+完整许可协议：
+
+https://creativecommons.org/licenses/by-nc/4.0/legalcode.zh-hans
+
+以下内容不自动适用本许可：
+
+1. 已明确标注来源或单独许可的第三方图片、字体和素材；
+2. 第三方商标、名称及其他由相应权利人持有的内容；
+3. 法律规定不得由本项目作者再次许可的内容。
+
+本项目按“现状”提供，不作任何形式的担保。使用者应自行确认
+其具体使用方式是否符合许可协议及适用法律。
+
+商业使用、出版发行、付费课程收录或其他授权需求，请联系作者。
+
+
+第二部分：独立程序与自动化脚本
+------------------------------
+
+MIT License
+
+Copyright (c) 2026 雪落长安无声
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of the software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

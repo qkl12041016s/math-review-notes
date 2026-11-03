@@ -1,0 +1,11 @@
+\section{图解：割线趋向切线}
+\begin{figure}[htbp]\centering
+\begin{tikzpicture}\begin{axis}[width=.8\textwidth,height=6cm,axis lines=middle,xmin=0,xmax=2.2,ymin=-.5,ymax=4.2,xlabel=$x$,ylabel=$y$,samples=100,legend pos=north west]
+\addplot[Teal,thick,domain=0:2]{x^2};\addlegendentry{$y=x^2$}
+\addplot[Ink,dashed,domain=.4:2]{2*x-1};\addlegendentry{$y=2x-1$}
+\addplot[Rust,domain=.65:2]{2.8*x-1.8};\addlegendentry{割线}
+\fill[Ink] (axis cs:1,1) circle[radius=1.8pt];\fill[Ink] (axis cs:1.8,3.24) circle[radius=1.8pt];
+\draw[<->] (axis cs:1,.5)--node[below]{$h$}(axis cs:1.8,.5);
+\end{axis}\end{tikzpicture}
+\caption{割线斜率$\frac{(1+h)^2-1}{h}=2+h$，当$h\to0$趋向切线斜率2。切线是局部线性近似，实际误差$(1+h)^2-(1+2h)=h^2$。图取$h=0.8$以便看清两点。}\label{fig:review:derivative}
+\end{figure}

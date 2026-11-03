@@ -1,0 +1,99 @@
+\chapter{公式速查与条件清单}\label{app:formula}
+\section{行列式与低秩更新}
+本节公式见第\ref{ch:det}章。行列式只对方阵定义；换行变号，单行倍乘按一次因子变化，倍加不变。
+\begin{align*}
+\det(kA)&=k^n\det A,&\det(AB)&=\det A\det B,\\
+\det A\T&=\det A,&\det A\inv&=(\det A)^{-1}\quad(A\text{可逆}),\\
+\det A&=\sum_j a_{ij}C_{ij},&\sum_j a_{ij}C_{kj}&=\delta_{ik}\det A.
+\end{align*}
+\begin{align*}
+\det(x_j^{i-1})&=\prod_{i<j}(x_j-x_i),\\
+\det(D+\vu\vv\T)&=\prod_i d_i+\sum_i u_iv_i\prod_{j\ne i}d_j\quad(D=\diag(d_i)),\\
+\det(A+\vu\vv\T)&=\det A+\vv\T\adj(A)\vu,\\
+\det\begin{pmatrix}A&B\\C&D\end{pmatrix}&=\det A\det(D-CA\inv B)\quad(A\text{可逆}),\\
+\left.\dfrac{\mathrm d}{\mathrm dt}\det(A+tH)\right|_{0}&=\tr(\adj(A)H).
+\end{align*}
+三对角常系数：$D_0=1,D_1=a,D_n=aD_{n-1}-bcD_{n-2}$。若特征根$r_1\ne r_2$，$D_n=\frac{r_1^{n+1}-r_2^{n+1}}{r_1-r_2}$；重根$r$时$D_n=(n+1)r^n$，$r=0$时回到初值与递推解释。
+\section{矩阵、逆与秩}
+参见第\ref{ch:matrix}章。所有逆公式均要求相关分母与逆存在。
+\begin{align*}
+(AB)\T&=B\T A\T,&(AB)\inv&=B\inv A\inv,\\
+A\adj A&=(\det A)I,&A\inv&=\dfrac{\adj A}{\det A},\\
+(I-N)\inv&=I+N+\cdots+N^{k-1}\quad(N^k=0),\\
+(I+\vu\vv\T)\inv&=I-\dfrac{\vu\vv\T}{1+\vv\T\vu}\quad(1+\vv\T\vu\ne0),\\
+(A+\vu\vv\T)\inv&=A\inv-\dfrac{A\inv\vu\vv\T A\inv}{1+\vv\T A\inv\vu}.
+\end{align*}
+最后一式要求$A$可逆且分母非零。$AX=C$可分列解；$AXB=C$在两侧可逆时有$X=A\inv CB\inv$。秩不变操作是可逆左、右乘；$\rank(A\T A)=\rank A$在实数域成立。
+\begin{align*}
+\rank(A+B)&\le\rank A+\rank B,\\
+\rank A+\rank B-n&\le\rank AB\le\min(\rank A,\rank B),\\
+\rank AB+\rank BC&\le\rank B+\rank ABC,\\
+AB=0&\Longrightarrow\im B\subseteq\ker A\Longrightarrow\rank A+\rank B\le n.
+\end{align*}
+其中$n$为$A$列数、$B$行数。对$n\ge2$，伴随秩按原秩$n,n-1,\le n-2$依次为$n,1,0$。
+\section{向量组、坐标与正交化}
+参见第\ref{ch:vectors}章。本节正交公式在$\R^n$标准内积下使用，$W$须为其线性子空间；Schmidt输入须无关。列组无关等价于$\ker A=\{0\}$，等价于满列秩。方形时才可用非零行列式。线性表示$\vb\in\im A$等价于$\rank[A\mid\vb]=\rank A$。
+\begin{align*}
+C=BP&\Longrightarrow[\vx]_B=P[\vx]_C,\quad[\vx]_C=P\inv[\vx]_B,\\
+\vu_k&=\va_k-\sum_{j<k}\dfrac{\va_k\T\vu_j}{\vu_j\T\vu_j}\vu_j,
+\qquad\vq_k=\dfrac{\vu_k}{\norm{\vu_k}_2},\\
+\abs{\vx\T\vy}&\le\norm\vx_2\norm\vy_2,\\
+\dim W+\dim W^\perp&=n\quad(W\subseteq\R^n).
+\end{align*}
+正交组必须全部非零才能推出无关。原矩阵的极大无关列取自原矩阵，列编号由行阶梯形的主元列给出。
+\section{方程组与解空间}
+参见第\ref{ch:systems}章。$A\in\F^{m\times n}$，$r=\rank A$。
+\begin{align*}
+A\vx=\vb\text{相容}&\Longleftrightarrow\rank A=\rank[A\mid\vb],\\
+\dim\ker A&=n-r,&\dim\ker A\T&=m-r\quad(\text{实数域}),\\
+\vx&=\vx_p+\sum_{j=1}^{n-r}c_j\eta_j,\\
+A\vx=\vb\text{相容}&\Longleftrightarrow\vy\T\vb=0\ \text{对全部}\ \vy\in\ker A\T.
+\end{align*}
+通解式的前提是存在特解$\vx_p$，且$\eta_j$构成齐次核的一组基。左零空间正交判据在实数域使用，复数域须对应改成共轭转置。相容且$r=n$唯一，$r<n$有自由变量；不相容无解。方阵可逆时克拉默法则为$x_j=\frac{\det A_j(\vb)}{\det A}$。非齐次解集为仿射平移，两个解之差在核中，系数和为1的组合仍为同右端的解。
+\section{特征值、相似与Jordan}
+参见第\ref{ch:eigen}、\ref{ch:advanced}章。$A$为$n$阶方阵，全部特征值在复数域中按代数重数列出；$g_\lambda$的界只对特征值$\lambda$使用。幂指数$m,k$为非负整数；负幂还需矩阵可逆。实对称谱式、Rayleigh界使用实矩阵和实向量。
+\begin{align*}
+\chi_A(t)&=\det(tI-A),&\sum_i\lambda_i&=\tr A,&\prod_i\lambda_i&=\det A,\\
+g_\lambda&=n-\rank(A-\lambda I),&1\le g_\lambda&\le a_\lambda,\\
+A=P\Lambda P\inv&\Longrightarrow A^m=P\Lambda^mP\inv,\\
+A=A\T&\Longrightarrow A=Q\Lambda Q\T=\sum_i\lambda_i\vq_i\vq_i\T,\\
+\lambda_{\min}\norm\vx_2^2&\le\vx\T A\vx\le\lambda_{\max}\norm\vx_2^2\quad(A=A\T).
+\end{align*}
+可对角化要求特征多项式在数域分裂且每根$g_\lambda=a_\lambda$。最小多项式无重根并分裂是等价判据。相似保$\rank((A-\lambda I)^k)$；核维数$d_k$的增量为大小至少$k$的Jordan块数，二阶差分$2d_k-d_{k-1}-d_{k+1}$为大小恰$k$的块数。
+\section{二次型与正定}
+参见第\ref{ch:quadratic}章，默认$A$为实对称矩阵；合同代换$P$须可逆，$\Delta_k$为前$k$行列的顺序主子式。
+\begin{align*}
+f(\vx)&=\vx\T A\vx,&\vx=P\vy&\Longrightarrow B=P\T AP,\\
+A&\cong\diag(I_p,-I_q,0),&\rank A&=p+q,\\
+A\succ0&\Longleftrightarrow\lambda_i>0\ (\forall i)
+\Longleftrightarrow\Delta_k>0\ (\forall k),\\
+A\succ0&\Longleftrightarrow A=R\T R\ (R\text{可逆})\Longleftrightarrow A\cong I,\\
+A\succeq0&\Longleftrightarrow\lambda_i\ge0\ (\forall i)
+\Longleftrightarrow\text{全部主子式非负}.
+\end{align*}
+分块对称矩阵在$A\succ0$时满足
+\[\begin{pmatrix}A&B\\B\T&D\end{pmatrix}\succ0
+\Longleftrightarrow D-B\T A\inv B\succ0.\]
+负定判据为$(-1)^k\Delta_k>0$；不定等价于$p,q$都正。合同保惯性；正交合同另保谱、长度与迹。
+\section{空间与最小二乘}
+参见第\ref{ch:spaces}章。维数公式中$V$有限维、$U,W$为其子空间，$T$为线性映射；矩阵正交关系和最小二乘采用实标准内积。
+\begin{align*}
+\dim V&=\dim\ker T+\dim\im T,\\
+\dim(U+W)&=\dim U+\dim W-\dim(U\cap W),\\
+\dim(V\mathbin{\slash}U)&=\dim V-\dim U,&\dim V^*&=\dim V,\\
+\im A&=(\ker A\T)^\perp,&\im A\T&=(\ker A)^\perp,\\
+A\T A\widehat\vx&=A\T\vb,&P&=A(A\T A)\inv A\T=QQ\T.
+\end{align*}
+投影公式要求$A$满列秩，或取其列空间的一组基组成新$A$；$Q$为该空间单位正交基矩阵。正规方程本身不要求满列秩。正交投影矩阵等价于$P\T=P=P^2$。
+\section{分解与范数}
+参见第\ref{ch:advanced}章。$PA=LU$在非奇异方阵下保证存在，$P$是置换矩阵；QR输入为实满列秩矩阵，Cholesky输入为实对称正定矩阵，SVD对任意实矩阵成立。谱半径限于方阵，范数乘积界采用兼容诱导范数；Frobenius范数另满足次乘性。
+\begin{align*}
+PA&=LU,&A&=QR\quad(\text{满列秩}),\\
+A&=LL\T\quad(A\succ0),&A&=U\Sigma V\T,\\
+\norm A_2&=\sigma_{\max},&\norm A_F&=\sqrt{\sum_i\sigma_i^2},\\
+\norm A_1&=\max_j\sum_i|a_{ij}|,&\norm A_\infty&=\max_i\sum_j|a_{ij}|,\\
+\rho(A)&\le\norm A,&\norm{AB}&\le\norm A\norm B,\\
+\kappa_2(A)&=\dfrac{\sigma_{\max}}{\sigma_{\min}}\ge1\quad(A\text{为非奇异方阵}).
+\end{align*}
+SVD伪逆将非零奇异值取倒数，再交换矩形方向：$A^+=V\Sigma^+U\T$。条件数为1当且仅当非奇异方阵的全部奇异值相等，即$A$为非零标量倍的正交矩阵（实数域）。
+\input{derivations/formula_supplement}

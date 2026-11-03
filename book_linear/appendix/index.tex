@@ -1,0 +1,51 @@
+\chapter{概念索引与方法导航}\label{app:index}
+本索引采用人工核对的主题入口，无需外部\texttt{makeindex}程序。章号和例号均为自动交叉引用；适合先按问题信号找方法，再回读定义与证明。
+\section{考研核心入口}
+\begin{longtable}{@{}p{.26\textwidth}p{.24\textwidth}p{.42\textwidth}@{}}
+\toprule 概念或信号&位置&推荐训练\\\midrule\endhead
+代数余子式、异行展开&第\ref{ch:det}章&例\ref{ex:1-3}；习题\ref{q:1-1}\\
+三对角与递推&第\ref{ch:det}章&例\ref{ex:1-6}、\ref{ex:1-8}\\
+范德蒙德、多项式基&第\ref{ch:det}章&例\ref{ex:1-9}、\ref{ex:1-10}\\
+加边、拆项、秩一更新&第\ref{ch:det}章&例\ref{ex:1-11}、\ref{ex:1-12}\\
+伴随、初等变换求逆&第\ref{ch:matrix}章&例\ref{ex:2-3}、\ref{ex:2-5}\\
+参数秩、伴随的秩&第\ref{ch:matrix}章&例\ref{ex:2-9}、\ref{ex:2-10}\\
+矩阵方程、双侧乘法&第\ref{ch:matrix}章&例\ref{ex:2-13}、\ref{ex:2-14}\\
+定义法、秩法判相关&第\ref{ch:vectors}章&例\ref{ex:3-1}、\ref{ex:3-2}\\
+极大无关组与等价&第\ref{ch:vectors}章&例\ref{ex:3-5}、\ref{ex:3-7}\\
+坐标与过渡矩阵&第\ref{ch:vectors}章&例\ref{ex:3-9}--\ref{ex:3-12}\\
+Schmidt正交化&第\ref{ch:vectors}章&例\ref{ex:3-13}；式\eqref{eq:gs}\\
+高斯、克拉默、逆矩阵法&第\ref{ch:systems}章&例\ref{ex:4-1}；式\eqref{eq:cramer}\\
+基础解系与特解&第\ref{ch:systems}章&例\ref{ex:4-5}、\ref{ex:4-6}\\
+参数方程组&第\ref{ch:systems}章&例\ref{ex:4-9}、\ref{ex:4-10}\\
+特征值、迹与行列式&第\ref{ch:eigen}章&例\ref{ex:5-1}--\ref{ex:5-3}\\
+重根、几何重数与秩&第\ref{ch:eigen}章&例\ref{ex:5-6}--\ref{ex:5-8}\\
+正交对角化&第\ref{ch:eigen}章&例\ref{ex:5-9}、\ref{ex:5-10}\\
+配方法、合同消元&第\ref{ch:quadratic}章&例\ref{ex:6-5}--\ref{ex:6-7}\\
+正定四判据&第\ref{ch:quadratic}章&例\ref{ex:6-9}、\ref{ex:6-12}\\
+惯性定理、标准形&第\ref{ch:quadratic}章&例\ref{ex:6-2}、\ref{ex:6-13}\\
+\bottomrule
+\end{longtable}
+\section{竞赛与提高入口}
+\begin{longtable}{@{}p{.26\textwidth}p{.24\textwidth}p{.42\textwidth}@{}}
+\toprule 目标&位置&关键入口\\\midrule\endhead
+Schur补、分块逆&第\ref{ch:matrix}章&式\eqref{eq:schurdet}、\eqref{eq:blockinverse}\\
+摄动与行列式导数&第\ref{ch:det}章&例\ref{ex:1-15}；式\eqref{eq:detderiv}\\
+正负子空间、平方根&第\ref{ch:quadratic}章&例\ref{ex:6-14}--\ref{ex:6-16}\\
+核、像、维数定理&第\ref{ch:spaces}章&例\ref{ex:7-5}、\ref{ex:7-8}\\
+商空间与对偶&第\ref{ch:spaces}章&例\ref{ex:7-11}、\ref{ex:7-12}\\
+投影、正规方程&第\ref{ch:spaces}章&例\ref{ex:7-13}--\ref{ex:7-16}\\
+Sylvester秩不等式&第\ref{ch:advanced}章&式\eqref{eq:sylvester}；例\ref{ex:8-1}\\
+Frobenius秩不等式&第\ref{ch:advanced}章&式\eqref{eq:frobenius}；例\ref{ex:8-3}\\
+CH、矩阵幂&第\ref{ch:advanced}章&式\eqref{eq:CH}；例\ref{ex:8-5}--\ref{ex:8-7}\\
+最小多项式与Jordan&第\ref{ch:advanced}章&例\ref{ex:8-9}--\ref{ex:8-12}\\
+LU、QR、Cholesky、SVD&第\ref{ch:advanced}章&例\ref{ex:8-13}--\ref{ex:8-15}\\
+范数与条件数&第\ref{ch:advanced}章&例\ref{ex:8-16}；习题\ref{q:8-8}\\
+\bottomrule
+\end{longtable}
+\section{解题前的四项检查}
+\begin{enumerate}
+\item \textbf{对象：}方阵还是长方阵，向量属于哪个空间，映射的定义域和值域维数是多少？
+\item \textbf{条件：}可逆、对称、正定、满列秩、数域分裂等条件是否实际成立？
+\item \textbf{目标：}只求行列式或秩，还是必须给出全部解、特征基、可逆代换或等号情形？
+\item \textbf{核验：}代回原式，检查维数与自由度，或用迹、行列式、范数及符号交叉验证。
+\end{enumerate}

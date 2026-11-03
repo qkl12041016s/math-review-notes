@@ -1,0 +1,27 @@
+\section{微分中的存在性、插值与误差控制}\label{mat:differentiation}
+\begin{examtip}补足Darboux性质、高阶中值构造、导数估计、渐近线与近似计算。\end{examtip}
+\subsection{导数的Darboux性质}\label{mat:differentiation:darboux}
+\begin{method}{导数的Darboux性质}\textbf{适用条件} 函数在区间上可导，导数不必连续。\par\textbf{实施与依据} 对$f(x)-\lambda x$取内点极值，证明导数具有介值性。\end{method}
+\begin{example}{专题例题｜导数的Darboux性质}{难度：$\star\star$}
+\textbf{题目} 设$f$在包含$[a,b]$的开区间上可导，$a<b$。若$f\prime(a)<\lambda<f\prime(b)$，证明某$c\in(a,b)$满足$f\prime(c)=\lambda$。\par\textbf{思路与解答} 令$g=f-\lambda x$，有$g\prime(a)<0,g\prime(b)>0$，故$g$在两端都不能取得最小值。连续性保证在闭区间取最小，最小点必在内部，Fermat给$g\prime(c)=0$。\par\textbf{方法点评与边界} 导数可振荡不连续，但不能发生跳跃间断。
+\end{example}
+\subsection{反复Rolle与零点重数}\label{mat:differentiation:rolle}
+\begin{method}{反复Rolle与零点重数}\textbf{适用条件} 多个零点或多阶导数关系。\par\textbf{实施与依据} 相邻零点间产生导数零点，反复次数与所需阶数对应。\end{method}
+\begin{example}{专题例题｜反复Rolle与零点重数}{难度：$\star\star$}
+\textbf{题目} 证明非零$n$次多项式至多有$n$个互异实根。\par\textbf{思路与解答} 若有$n+1$个根，反复Rolle推出$n$阶导数至少有一零点；但$n$阶导数是非零常数，矛盾。\par\textbf{方法点评与边界} 重根问题要将重数与导数消失一并计算。
+\end{example}
+\subsection{Lagrange插值误差}\label{mat:differentiation:interpolate}
+\begin{method}{Lagrange插值误差}\textbf{适用条件} $n+1$个互异节点，函数有$n+1$阶连续导数。\par\textbf{实施与依据} 减去插值多项式及$K\prod(x-x_j)$，制造$n+2$个零点。\end{method}
+\begin{example}{专题例题｜Lagrange插值误差}{难度：$\star\star$}
+\textbf{题目} 写出插值余项。\par\textbf{思路与解答} 设$p_n(x_j)=f(x_j)$，对非节点$x$令$K=\frac{f(x)-p_n(x)}{\prod_j(x-x_j)}$。反复Rolle得到$K=\frac{f^{(n+1)}(\xi)}{(n+1)!}$，故误差等于该系数乘节点乘积。\par\textbf{方法点评与边界} 节点误差为0；估计最大误差还需控制导数和节点乘积。
+\end{example}
+\subsection{渐近线与完整函数分析}\label{mat:differentiation:asymptote}
+\begin{method}{渐近线与完整函数分析}\textbf{适用条件} 端点、无穷远与奇点。\par\textbf{实施与依据} 先定义域，再查竖、水平和斜渐近线，再列单调与凹凸表。\end{method}
+\begin{example}{专题例题｜渐近线与完整函数分析}{难度：$\star\star$}
+\textbf{题目} 求$f(x)=x+\frac{1}{x}$的渐近线。\par\textbf{思路与解答} $x\to0^\pm$时$\frac{1}{x}$无穷，故$x=0$为竖渐近线。$x\to\pm\infty$时$f(x)-x\to0$，斜渐近线$y=x$。\par\textbf{方法点评与边界} 渐近线允许曲线在有限位置穿过，并不要求始终位于同侧。
+\end{example}
+\subsection{Newton法与局部收敛}\label{mat:differentiation:newton}
+\begin{method}{Newton法与局部收敛}\textbf{适用条件} $f$在根$r$附近属于$C^2$，$f(r)=0,f\prime(r)\ne0$，且初值充分接近$r$。\par\textbf{实施与依据} 由连续性缩小邻域，使$|f\prime|$有正下界且$|f\prime\prime|$有上界。迭代$x_{n+1}=x_n-\frac{f(x_n)}{f\prime(x_n)}$；Taylor给$|x_{n+1}-r|\le C|x_n-r|^2$。将初始误差取到$C|x_1-r|<1$且迭代留在该邻域内，即得局部二次收敛。\end{method}
+\begin{example}{专题例题｜Newton法与局部收敛}{难度：$\star\star$}
+\textbf{题目} 求$\sqrt a$的Newton迭代，$a>0$。\par\textbf{思路与解答} 对$x^2-a$迭代得$x_{n+1}=\frac{x_n+\frac{a}{x_n}}{2}$。若$x_n>0$，下一项不小于$\sqrt a$；并有$x_{n+1}-\sqrt a=\frac{(x_n-\sqrt a)^2}{2x_n}$，说明接近根后二次收敛。\par\textbf{方法点评与边界} 导数接近0或初值远离根时不能保证全局收敛。
+\end{example}

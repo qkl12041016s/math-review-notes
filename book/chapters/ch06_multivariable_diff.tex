@@ -1,0 +1,192 @@
+\chapter{多元函数微分学}\label{ch:6}
+\begin{tcolorbox}[title=章首知识地图,colframe=Ink]
+多元极限 $\to$ 偏导与可微 $\to$ 链式与隐函数 $\to$ 梯度和方向导数 $\to$ Hessian与约束极值。
+\end{tcolorbox}
+\begin{examtip}考研主线：多元极限、偏导全微分、链式隐函数、方向导数和极值。常见题型：关系辨析、二阶求导、Hessian和乘子法。竞赛拓展：退化驻点、路径反例、紧区域上的全局优化。上述为学习任务分层，具体范围以所报考科目的当年大纲为准。\end{examtip}
+\section{多元极限、偏导与全微分}\label{sec:6:1}
+\subsection{概念、定理与推导}
+
+\begin{definition}{多元极限、偏导与可微}
+设$P=(a,b)$是定义域$D$的聚点。$\lim_{(x,y)\to P}f(x,y)=L$指：任意$\varepsilon>0$存在$\delta>0$，使$(x,y)\in D$且$0<\sqrt{(x-a)^2+(y-b)^2}<\delta$时有$|f(x,y)-L|<\varepsilon$；同一$\delta$控制全部方向。
+在$P$为定义域内点时，偏导$f_x(P)=\lim_{h\to0}\frac{f(a+h,b)-f(a,b)}{h}$，$f_y$类似，极限均须为有限实数。
+令$\rho=\sqrt{h^2+k^2}$。若存在常数$A,B$使
+$f(a+h,b+k)-f(a,b)=Ah+Bk+o(\rho)$，称$f$在$P$可微；此时$A=f_x(P),B=f_y(P)$，全微分为$\dd f=f_x(P)\dd x+f_y(P)\dd y$。偏导只检查轴向，不能代替对全体增量的余项估计。
+\end{definition}
+\begin{theorem}{关系与充分条件}可微蕴含连续和偏导存在；偏导存在不保证连续。若偏导在一点邻域存在并在该点连续，则该点可微。\end{theorem}
+\begin{proof}把总增量拆成先横向再纵向两段，分别用一元中值定理；偏导连续使系数误差为$o(1)$，乘以$h,k$后为$o(\rho)$。\end{proof}
+极限否定只需两条路径；极限肯定则需统一估计，例如用$|xy|\le\frac{x^2+y^2}{2}$。混合偏导相等的常用充分条件是相邻二阶偏导连续。
+
+\begin{method}{多元极限、偏导与全微分}条件：检查点处定义与邻域。步骤：否定用路径，证明用距离估计；可微直接查线性余项。易错点：所有直线路径相同仍不保证极限存在。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜路径反例}{难度：$\star$}
+\label{ex:6:1}\textbf{题目} 判断$\frac{xy}{x^2+y^2}$在原点极限。\par
+\textbf{思路} 选轴线和对角线。\par
+\textbf{解答} 方法一：沿$y=0$值0，沿$y=x$值$\frac{1}{2}$，故不存在。方法二：极坐标表达为$\cos\theta\sin\theta$，不随$r$衰减且依赖角度，不能有统一极限。\par
+\textbf{方法点评} 路径法给最短否定，极坐标解释方向依赖。\par
+\textbf{易错点或变式} 不能将$r\to0$与固定某个角度混同。
+\end{example}
+\begin{example}{考研风格例题｜统一估计}{难度：$\star\star$}
+\label{ex:6:2}\textbf{题目} 把$f=\frac{x^2y}{x^2+y^2}$在原点补0，判断连续与可微。\par
+\textbf{思路} 先估函数值，再估相对距离的余项。\par
+\textbf{解答} $|f|\le|y|\to0$，故连续。轴上偏导均0。沿$y=x>0$，$f=\frac{x}{2}$，$\frac{f}{\rho}=\frac{1}{2\sqrt2}$，故不可微。另一验证：方向$\frac{1}{\sqrt2}(1,1)$的方向导数为$\frac{1}{2\sqrt2}$，与零梯度内积不符。\par
+\textbf{方法点评} 连续与可微分别对应绝对误差和相对距离误差。\par
+\textbf{易错点或变式} 偏导均为零不能推出可微。
+\end{example}
+\begin{example}{基础例题｜全微分}{难度：$\star$}
+\label{ex:6:3}\textbf{题目} 求$f=x^2y+\sin y$在$(1,0)$的全微分。\par
+\textbf{思路} 多项式与三角函数光滑。\par
+\textbf{解答} 方法一：$f_x=2xy,f_y=x^2+\cos y$，故$\dd f=2\dd y$。方法二：增量$(1+h)^2k+\sin k=2k+2hk+h^2k+O(k^3)=2k+o(\rho)$。\par
+\textbf{方法点评} 公式计算快，增量展开证明可微。\par
+\textbf{易错点或变式} 线性主项中不含$h$不表示函数全局与$x$无关。
+\end{example}
+\section{复合函数与隐函数}\label{sec:6:2}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{多元链式与隐函数，标准结论}可微复合映射的导数矩阵相乘。若$z=f(u,v)$且$u,v$依赖$x,y$，则$z_x=f_uu_x+f_vv_x$。若$F\in C^1$、$F(P)=0$且$F_z(P)\ne0$，在点附近唯一解出$z=z(x,y)$，$z_x=-\frac{F_x}{F_z},z_y=-\frac{F_y}{F_z}$。\end{theorem}
+\begin{proof}将内层线性增量代入外层线性增量，余项仍为距离的小量。隐函数关系为\[F(x,y,z(x,y))=0.\]对该关系使用链式法则得到偏导公式；局部可解性来自隐函数定理。\end{proof}
+方程组$F_1=F_2=0$解出$u,v$的充分条件为$\det\left(\frac{\partial(F_1,F_2)}{\partial(u,v)}\right)\ne0$；求导后解线性方程组。
+
+\begin{method}{复合函数与隐函数}条件：区分自变量与中间变量。步骤：画依赖关系，每条路径导数相乘再相加；隐函数先整体求导。易错点：二阶求导时忘记系数也随变量变化。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{考研风格例题｜链式}{难度：$\star\star$}
+\label{ex:6:4}\textbf{题目} $z=u^2+v^2,u=x+y,v=x-y$，求$z_x$。\par
+\textbf{思路} 链式或先展开。\par
+\textbf{解答} 方法一：$z_x=2u+2v=4x$。方法二：$z=(x+y)^2+(x-y)^2=2x^2+2y^2$，直接得$4x$。\par
+\textbf{方法点评} 先化简可消去中间变量，链式适合无显式表达的函数。\par
+\textbf{易错点或变式} 偏导$x$时$y$固定。
+\end{example}
+\begin{example}{考研风格例题｜隐式二阶}{难度：$\star\star$}
+\label{ex:6:5}\textbf{题目} 球面$x^2+y^2+z^2=1$上$z\ne0$，求$z_x,z_{xx}$。\par
+\textbf{思路} 一阶关系再对$x$求导。\par
+\textbf{解答} 方法一：$z_x=-\frac{x}{z}$，$z_{xx}=-\frac{1}{z}-\frac{x^2}{z^3}$。方法二：对$1+z_x^2+zz_{xx}=0$直接解出，得$z_{xx}=-\frac{1+z_x^2}{z}$，代回同式。\par
+\textbf{方法点评} 隐式二次求导避免分式展开错误。\par
+\textbf{易错点或变式} 不能把$z$当作常数求第二次导数。
+\end{example}
+\begin{example}{考研风格例题｜隐式方程组}{难度：$\star\star$}
+\label{ex:6:6}\textbf{题目} $u+v=x,u-v=y$，求$u_x,v_y$。\par
+\textbf{思路} 系数矩阵可逆。\par
+\textbf{解答} 雅可比为$-2\ne0$。显式解$u=\frac{x+y}{2},v=\frac{x-y}{2}$，所以$u_x=\frac{1}{2},v_y=-\frac{1}{2}$。对两关系分别求偏导并解线性方程可得同样结果。\par
+\textbf{方法点评} 线性例子显示一般隐函数组计算的结构。\par
+\textbf{易错点或变式} 偏导变量变换时保持另一自变量不变。
+\end{example}
+\section{方向导数、梯度与切空间}\label{sec:6:3}
+
+\begin{theorem}{空间曲线与曲面的切向}若曲线为$\bm r(t)$且$\bm r\prime(t_0)\ne0$，切线为$\bm r=\bm r(t_0)+s\bm r\prime(t_0)$，法平面为$\bm r\prime(t_0)\cdot[\bm r-\bm r(t_0)]=0$。若曲线由$F=G=0$给出且两梯度独立，其切向平行$\nabla F\times\nabla G$。\end{theorem}
+\begin{proof}曲线的各分量满足微分关系。对$F(\bm r(t))=G(\bm r(t))=0$求导可知切向同时垂直于两梯度；独立性保证叉积非零。\end{proof}
+
+\subsection{概念、定理与推导}
+
+\begin{definition}{方向导数}沿单位向量$\bm l$的方向导数为$D_{\bm l}f(P)=\lim_{t\to0}\frac{f(P+t\bm l)-f(P)}{t}$。本册采用双侧定义。梯度为$\nabla f=(f_x,f_y,f_z)$。\end{definition}
+\begin{theorem}{可微函数的方向导数}可微时$D_{\bm l}f=\nabla f\cdot\bm l$，若梯度非零，最大值$|\nabla f|$沿梯度方向达到，最小值$-|\nabla f|$沿反方向达到，梯度垂直于等值面；若梯度为零，所有单位方向的方向导数均为0。\end{theorem}
+\begin{proof}沿$\bm l$代入线性增量；极值由Cauchy不等式，等值面的结论由沿曲线求导得到。\end{proof}
+所有方向导数存在仍不保证可微；方向导数对方向线性是可微的必要特征之一。
+
+\begin{method}{方向导数、梯度与切空间}条件：梯度公式要求可微且方向归一化。步骤：求梯度、单位化、内积；最快增长看梯度模。易错点：直接将非单位方向代入会多乘长度。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜方向导数}{难度：$\star$}
+\label{ex:6:7}\textbf{题目} $f=x^2+y^2$在$(1,2)$沿$(3,4)$方向的方向导数。\par
+\textbf{思路} 先归一化。\par
+\textbf{解答} $\nabla f=(2,4)$，单位方向$(\frac{3}{5},\frac{4}{5})$，方向导数$\frac{22}{5}$。直接代路径$(1+\frac{3t}{5},2+\frac{4t}{5})$，一阶$t$系数同样为$\frac{22}{5}$。\par
+\textbf{方法点评} 定义计算可以检验归一化。\par
+\textbf{易错点或变式} 直接内积得22是参数速度下的变化率。
+\end{example}
+\begin{example}{考研风格例题｜最快增长}{难度：$\star\star$}
+\label{ex:6:8}\textbf{题目} $f=xyz$在$(1,1,2)$的最大方向导数。\par
+\textbf{思路} 求梯度模。\par
+\textbf{解答} 梯度$(2,2,1)$，模为3，最大方向为$\frac{1}{3}(2,2,1)$，最大方向导数3。\par
+\textbf{方法点评} 线性优化转化为向量投影。\par
+\textbf{易错点或变式} 梯度为零时所有方向一阶变化均为零，不能据此判极值。
+\end{example}
+\begin{example}{考研风格例题｜切平面}{难度：$\star\star$}
+\label{ex:6:9}\textbf{题目} 求$z=x^2+y^2$在$(1,1,2)$处切平面。\par
+\textbf{思路} 全微分或等值面梯度。\par
+\textbf{解答} $z-2=2(x-1)+2(y-1)$，即$z=2x+2y-2$。令$F=x^2+y^2-z$，法向$(2,2,-1)$也给同式。\par
+\textbf{方法点评} 图像形式与隐式形式一致。\par
+\textbf{易错点或变式} 切平面只在接触点附近提供一阶近似。
+\end{example}
+\section{无条件极值与Taylor二次型}\label{sec:6:4}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{多元Taylor与Hessian判别}若$f\in C^2$，则
+\begin{equation}f(P+\bm h)=f(P)+\nabla f(P)\cdot\bm h+\dfrac12\bm h^TH(P)\bm h+o(|\bm h|^2).\end{equation}
+驻点处Hessian正定给严格极小，负定给严格极大，不定给鞍点；半正定或半负定时不能仅凭二阶项决定。二元时$A=f_{xx},B=f_{xy},C=f_{yy}$，$AC-B^2>0$时按$A$符号判极值，$AC-B^2<0$时为鞍点。\end{theorem}
+\begin{proof}沿线段设$g(t)=f(P+t\bm h)$，对$g$用一元Taylor。正定二次型在单位圆上有正的最小值，从而控制余项；不定二次型沿两方向异号。\end{proof}
+紧区域上连续函数取得全局最值，候选点包括内部驻点、边界驻点、边界角点与不可微点。
+
+\begin{method}{无条件极值与Taylor二次型}条件：内部驻点可用Hessian，边界须另算。步骤：解梯度零，分类二次型，比较所有候选值。易错点：判别式为0必须继续分析。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{基础例题｜正定二次型}{难度：$\star$}
+\label{ex:6:10}\textbf{题目} 求$f=x^2+xy+y^2-2x$的极小值。\par
+\textbf{思路} 解线性驻点方程。\par
+\textbf{解答} $2x+y=2,x+2y=0$给$(\frac{4}{3},-\frac{2}{3})$，$H=\begin{pmatrix}2&1\\1&2\end{pmatrix}$正定，最小值$-\frac{4}{3}$。平移后$f+\frac{4}{3}=u^2+uv+v^2=(u+\frac{v}{2})^2+\frac{3v^2}{4}\ge0$，也证明是全局最小。\par
+\textbf{方法点评} Hessian判局部，配方直接给全局。\par
+\textbf{易错点或变式} 驻点坐标代回需准确。
+\end{example}
+\begin{example}{考研风格例题｜鞍点}{难度：$\star\star$}
+\label{ex:6:11}\textbf{题目} 判断$f=x^2-y^2$在原点的性质。\par
+\textbf{思路} 两轴方向异号。\par
+\textbf{解答} 沿$x$轴$f>0$，沿$y$轴$f<0$，故原点为鞍点。Hessian为$\operatorname{diag}(2,-2)$，行列式$-4<0$验证。\par
+\textbf{方法点评} 路径比较比矩阵判别更直观。\par
+\textbf{易错点或变式} 梯度零仅是驻点条件。
+\end{example}
+\begin{example}{考研风格例题｜退化判别}{难度：$\star\star$}
+\label{ex:6:12}\textbf{题目} 判断$f=x^4+y^4$在原点的性质。\par
+\textbf{思路} 二阶项全零，直接看高阶正性。\par
+\textbf{解答} $f\ge0$，且仅原点取0，故严格全局极小。Hessian在原点为零矩阵，二阶判别失效却不影响直接结论。\par
+\textbf{方法点评} 退化时回到定义或最低非零齐次项。\par
+\textbf{易错点或变式} “判别法失效”不等于“无极值”。
+\end{example}
+\section{条件极值与竞赛优化}\label{sec:6:5}
+\subsection{概念、定理与推导}
+
+\begin{theorem}{Lagrange乘子，标准结论}设$f,g$在开集$U$上属于$C^1$，$P\in U$、$g(P)=0$，且$f$在约束集$\{g=0\}$上于$P$取得局部极值。若$\nabla g(P)\ne0$，则存在$\lambda$使$\nabla f(P)=\lambda\nabla g(P)$。对$m$个$C^1$等式约束$g_j=0$，要求$\nabla g_j(P)$线性无关，结论为$\nabla f(P)=\sum_{j=1}^m\lambda_j\nabla g_j(P)$。梯度退化、额外边界和不等式约束须另行检查。\end{theorem}
+\begin{proof}可行曲线切向与$\nabla g$垂直，极值处$f$沿每个可行切向的变化率为零。因此$\nabla f$属于法空间，即约束梯度的张成空间。\end{proof}
+\begin{extension}乘子给候选点而不自动判最值。紧约束可比较全部候选值；不紧约束要研究无穷远；约束梯度为零的奇异点需单独检查。不等式约束必须检查边界。\end{extension}
+
+\begin{method}{条件极值与竞赛优化}条件：光滑正则约束。步骤：联立梯度比例与约束，补奇异点和边界，再比较函数值。易错点：把乘子条件当作充分条件。\end{method}
+\subsection{例题与方法比较}
+\begin{example}{竞赛风格例题｜圆上乘积}{难度：$\star\star\star$}
+\label{ex:6:13}\textbf{题目} $x^2+y^2=1$，求$xy$最大最小值。\par
+\textbf{思路} 乘子、平方恒等式或参数化。\par
+\textbf{解答} 方法一：$(y,x)=2\lambda(x,y)$给$x=\pm y$，值为$\pm\frac{1}{2}$。方法二：$(x\mp y)^2\ge0$给$-\frac{1}{2}\le xy\le\frac{1}{2}$。方法三：$x=\cos t,y=\sin t$，$xy=\frac{\sin2t}{2}$。\par
+\textbf{方法点评} 代数不等式最快，乘子法可推广，参数化降维。\par
+\textbf{易错点或变式} 两种等号方向对应不同符号。
+\end{example}
+\begin{example}{竞赛风格例题｜固定和乘积}{难度：$\star\star\star$}
+\label{ex:6:14}\textbf{题目} 正数$x+y+z=3$，证明$xyz\le1$。\par
+\textbf{思路} 可用对数凹性或乘子。\par
+\textbf{解答} 对数严格凹，$\frac13(\ln x+\ln y+\ln z)\le\ln(\frac{x+y+z}{3})=0$，得结论。另法：在闭单纯形考虑乘积，边界为0，内部乘子方程$yz=xz=xy$给$x=y=z=1$，最大值1。\par
+\textbf{方法点评} 闭区域方法同时处理存在性与边界。\par
+\textbf{易错点或变式} 使用对数必须先有正性。
+\end{example}
+\begin{example}{竞赛风格例题｜圆盘最值}{难度：$\star\star\star$}
+\label{ex:6:15}\textbf{题目} 在$x^2+y^2\le1$上求$f=x+y$的最值。\par
+\textbf{思路} 内部无驻点，边界是圆。\par
+\textbf{解答} $\nabla f=(1,1)\ne0$，内部无极值。由Cauchy，$|x+y|\le\sqrt2$，在$\pm(\frac{1}{\sqrt2},\frac{1}{\sqrt2})$分别取最大最小。也可边界参数化为$\sqrt2\sin(t+\frac{\pi}{4})$。\par
+\textbf{方法点评} 边界检查不可省略，简单线性目标用投影最有效。\par
+\textbf{易错点或变式} 只解内部驻点会错误地得到“无最值”。
+\end{example}
+\begin{warning}偏导存在、所有方向导数存在、连续、可微是不同概念；使用梯度方向公式前确认可微；条件极值还须检查约束是否正则以及可行域边界。\end{warning}
+
+
+\input{chapters/materials/multivariable}
+
+
+
+\input{chapters/materials/multivariable_source_deep}
+\input{chapters/illustrations/ch06}
+\input{chapters/materials/course_multivariable}
+\section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
+\refstepcounter{exercise}\label{q:6:1}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$f=x^2y$的$f_x,f_y$。\quad\hyperref[a:6:1]{[答案]}\par
+\refstepcounter{exercise}\label{q:6:2}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$f=x^2+y^2$在$(0,0)$的全微分。\quad\hyperref[a:6:2]{[答案]}\par
+\refstepcounter{exercise}\label{q:6:3}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$xyz$的梯度。\quad\hyperref[a:6:3]{[答案]}\par
+\refstepcounter{exercise}\label{q:6:4}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$z=\e^{x+y}$的$z_{xy}$。\quad\hyperref[a:6:4]{[答案]}\par
+\refstepcounter{exercise}\label{q:6:5}\par\noindent\textbf{习题\theexercise\quad 考研风格} 判定$x^2+4y^2$在原点的极值。\quad\hyperref[a:6:5]{[答案]}\par
+\refstepcounter{exercise}\label{q:6:6}\par\noindent\textbf{习题\theexercise\quad 考研风格} 求$f=x+y$沿$(1,1)$的单位方向导数。\quad\hyperref[a:6:6]{[答案]}\par
+\refstepcounter{exercise}\label{q:6:7}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} $x^2+y^2=4$，求$x+2y$最大值。\quad\hyperref[a:6:7]{[答案]}\par
+\refstepcounter{exercise}\label{q:6:8}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 判断$x^2y^2$在原点是否严格极小。\quad\hyperref[a:6:8]{[答案]}\par
+\refstepcounter{exercise}\label{q:6:9}\par\noindent\textbf{习题\theexercise\quad 竞赛拓展} 证明可微函数在内部局部极值处梯度为零。\quad\hyperref[a:6:9]{[答案]}\par
+\section*{章末方法速查}\addcontentsline{toc}{section}{章末方法速查}
+\par\noindent\begin{tabularx}{\textwidth}{p{23mm}XXX}\toprule 方法&适用条件&典型信号&易错点\\\midrule
+距离估计&多元极限&$x^2+y^2$&只检查直线\\全微分&线性逼近&余项除距离&偏导代替可微\\Hessian&内部驻点&二次主项&退化误判\\乘子&正则约束&梯度平行&漏边界奇点\\
+\bottomrule\end{tabularx}

@@ -1,0 +1,13 @@
+\section{曲线方向与未知函数积分}\label{ic:delta_fields}
+
+\begin{examtip}本节用有向空间曲线与测试函数训练方向辨识，并通过分部公式消去未知边值。\end{examtip}
+
+\subsection{空间交线参数与补线核对}\label{ic:delta_fields:spaceorientation}\begin{method}{空间交线参数与补线核对}\textbf{识别信号} 曲线由两个曲面相交且指定起终点及象限。\par \textbf{操作步骤} 先用平面消一个变量，参数化剩余椭圆；由象限选参数区间；补线时其方向必须使边界闭合。\par \textbf{疑难点与条件} 同一对端点可能对应两条弧，象限条件决定正确弧。\end{method}
+
+\begin{example}{竞赛风格｜交线弧的方向与两个算法}{难度：$\star\star\star$}\label{ic:ex:delta_fields:spacearc}\textbf{题目} $L$为球$x^2+y^2+z^2=1$与平面$x+z=1$在第一卦限的弧，从$(1,0,0)$到$(0,0,1)$。求$\int_L(y\dd x+z\dd y+x\dd z)$。\par \textbf{思路} 椭圆参数后直接积分，并与补线Stokes核对。\par \textbf{详细解答} 取$x=\frac{1+\cos t}{2},z=\frac{1-\cos t}{2},y=\frac{\sin t}{\sqrt2}$，$0\le t\le\pi$。代入得到三项积分：$\int y\dd x=-\frac{\pi}{4\sqrt2}$，$\int z\dd y=-\frac{\pi}{4\sqrt2}$，$\int x\dd z=\frac{1}{2}$。总值$\frac{1}{2}-\frac{\pi}{2\sqrt2}$。补从终点到起点的线段$y=0,z=1-x$，其积分$-\int_0^1x\dd x=-\frac{1}{2}$；闭路的平面半椭圆实际是半径$\frac{1}{\sqrt2}$的半圆，面积$\frac{\pi}{4}$；相容法向为$\frac{1}{\sqrt2}(1,0,1)$，旋度$(-1,-1,-1)$与法向点乘为$-\sqrt2$，故闭路积分由Stokes为$-\frac{\pi}{2\sqrt2}$，减去补线同得结果。\par \textbf{验算与条件复核} 直接法使用$\int_0^\pi\sin^2t=\int_0^\pi\cos^2t=\frac{\pi}{2}$与$\int_0^\pi\sin t=2$，逐项验证符号。\par \textbf{疑难点与方法比较} 补线的方向是从终点回起点；取另一半椭圆会违反$y\ge0$。\end{example}
+
+\subsection{由积分分部构造零边界测试函数}\label{ic:delta_fields:testfunction}\begin{method}{由积分分部构造零边界测试函数}\textbf{识别信号} 只知道$\Delta f$而不知道边界上的$f$或法向导数。\par \textbf{操作步骤} 找$g$使$\nabla g$等于目标积分中的向量权重，且$g$在边界为0；用$\int\nabla g\cdot\nabla f=-\int g\Delta f$消去未知边值。\par \textbf{疑难点与条件} 零边界的是测试函数$g$，不需要误加$f=0$的条件。\end{method}
+
+\begin{theorem}{Green第一恒等式的推导}对有光滑边界的$\Omega$和足够光滑$f,g$，$\int_\Omega\nabla g\cdot\nabla f=\int_{\partial\Omega}g\,\partial_nf-\int_\Omega g\Delta f$。\end{theorem}\begin{proof}乘积法则$\operatorname{div}(g\nabla f)=\nabla g\cdot\nabla f+g\Delta f$，在$\Omega$积分再用Gauss即可。\end{proof}
+
+\begin{example}{竞赛拓展｜不用解PDE也能求积分}{难度：$\star\star\star$}\label{ic:ex:delta_fields:laplacianmoment}\textbf{题目} $f\in C^2(\overline B)$，$B$是单位球，满足$\Delta f=\sqrt{x^2+y^2+z^2}$。求$\iiint_B(xf_x+yf_y+zf_z)\dd V$。\par \textbf{思路} 取$g=\frac{r^2-1}{2}$，它在球面为0且$\nabla g=(x,y,z)$。\par \textbf{详细解答} Green第一恒等式使边界项为0，目标$=-\frac12\iiint_B(r^2-1)r\dd V=2\pi\int_0^1(1-r^2)r^3\dd r=2\pi(\frac{1}{4}-\frac{1}{6})=\frac{\pi}{6}$。\par \textbf{验算与条件复核} 测试函数的梯度、边界值和球坐标体元$r^2$分别核对后，所有未知$f$消失。\par \textbf{疑难点与方法比较} 不能擅自假设$f$为径向函数；这里只用到给出的Laplacian。\end{example}
