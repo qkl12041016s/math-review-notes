@@ -6,12 +6,15 @@
 \include{frontmatter/preface}
 \include{frontmatter/acknowledgements}
 \include{frontmatter/howto}
+\include{frontmatter/exam_route}
 \include{frontmatter/symbols}
 \booktableofcontents
 \clearpage
 \phantomsection
 \addcontentsline{toc}{chapter}{图解目录}
 \listoffigures
+% Ship all front-matter pages before resetting the page-numbering scheme.
+\clearpage
 \mainmatter
 \include{chapters/ch01_determinants}
 \include{chapters/ch02_matrices}

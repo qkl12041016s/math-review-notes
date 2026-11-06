@@ -14,6 +14,34 @@
 \kappa&=\dfrac{|y\prime\prime|}{(1+(y\prime)^2)^{\frac{3}{2}}}.
 \end{align}
 参数公式要求$x\prime(t)\ne0$。曲率半径仅在$\kappa>0$时为$\frac{1}{\kappa}$。
+\subsection{乘法求导速查}
+两因子和三因子分别有
+\begin{align*}
+(uv)'&=u'v+uv',\\
+(uvw)'&=u'vw+uv'w+uvw',\\
+(u_1\cdots u_m)'&=\sum_{k=1}^m u_k'\prod_{j\ne k}u_j,\\
+(uv)''&=u''v+2u'v'+uv'',\\
+(uv)'''&=u'''v+3u''v'+3u'v''+uv''',\\
+(uv)^{(n)}&=\sum_{k=0}^n\binom nk u^{(k)}v^{(n-k)}.
+\end{align*}
+一般多因子高阶公式为
+\[
+ (u_1\cdots u_m)^{(n)}=
+ \sum_{\substack{k_1+\cdots+k_m=n\\k_j\ge0}}
+ \frac{n!}{k_1!\cdots k_m!}u_1^{(k_1)}\cdots u_m^{(k_m)}.
+\]
+零阶导数等于函数本身。各因子需有相应阶数的导数，但不要求因子非零；完整例题与漏项检查见第\ref{r2:product}节。
+\subsection{复合函数求导速查}
+令 $u=u(x),v=v(x)$。各层在对应取值处须可导；一阶、二阶与三阶链式法则为
+\begin{align*}
+ [f(u)]'&=f'(u)u',\\
+ [f(g(u))]'&=f'(g(u))g'(u)u',\\
+ [f(u)]''&=f''(u)(u')^2+f'(u)u'',\\
+ [f(u)]'''&=f'''(u)(u')^3+3f''(u)u'u''+f'(u)u'''.
+\end{align*}
+以下表格与正文共用一份公式源文件，避免两个入口的记号、负号或条件不同。常数 $a,\alpha$ 的约定见表中条件；特殊端点应回到函数定义判断。
+\input{revision/chain_table}
+多层例题、变底变指数、反函数与隐函数的相关公式见第\ref{r2:chain}节。
 \section{积分与几何应用}
 \begin{align}
 \int\dfrac{\dd x}{x^2+a^2}&=\dfrac1a\arctan\dfrac xa+C\quad(a>0),\\

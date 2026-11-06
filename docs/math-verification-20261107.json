@@ -1,0 +1,355 @@
+{
+  "checks": 87,
+  "passed": 87,
+  "scope": "本轮新增乘法及复合求导、积分、经济与差分、Fourier、线代与MLE关键算例；不声称重算了全部原书习题",
+  "items": [
+    {
+      "name": "two-factor first derivative",
+      "result": "passed"
+    },
+    {
+      "name": "three-factor first derivative",
+      "result": "passed"
+    },
+    {
+      "name": "chain rule order 1",
+      "result": "passed"
+    },
+    {
+      "name": "chain rule order 2",
+      "result": "passed"
+    },
+    {
+      "name": "chain rule order 3",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 1",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 2",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 3",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 4",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 5",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 6",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 7",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 8",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 9",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 10",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 11",
+      "result": "passed"
+    },
+    {
+      "name": "composite table example 12",
+      "result": "passed"
+    },
+    {
+      "name": "arcsin composite",
+      "result": "passed"
+    },
+    {
+      "name": "arccos composite",
+      "result": "passed"
+    },
+    {
+      "name": "chain example log sine squared",
+      "result": "passed"
+    },
+    {
+      "name": "chain second derivative example",
+      "result": "passed"
+    },
+    {
+      "name": "Leibniz n=1",
+      "result": "passed"
+    },
+    {
+      "name": "Leibniz n=2",
+      "result": "passed"
+    },
+    {
+      "name": "Leibniz n=3",
+      "result": "passed"
+    },
+    {
+      "name": "Leibniz n=4",
+      "result": "passed"
+    },
+    {
+      "name": "Leibniz n=5",
+      "result": "passed"
+    },
+    {
+      "name": "Leibniz n=6",
+      "result": "passed"
+    },
+    {
+      "name": "three factors second derivative",
+      "result": "passed"
+    },
+    {
+      "name": "x^3 times f order 3",
+      "result": "passed"
+    },
+    {
+      "name": "x^3 times f order 4",
+      "result": "passed"
+    },
+    {
+      "name": "x^3 times f order 5",
+      "result": "passed"
+    },
+    {
+      "name": "x^3 times f order 6",
+      "result": "passed"
+    },
+    {
+      "name": "product example 1",
+      "result": "passed"
+    },
+    {
+      "name": "product example 2",
+      "result": "passed"
+    },
+    {
+      "name": "product example 3",
+      "result": "passed"
+    },
+    {
+      "name": "product example 4",
+      "result": "passed"
+    },
+    {
+      "name": "product example 5",
+      "result": "passed"
+    },
+    {
+      "name": "product example 6",
+      "result": "passed"
+    },
+    {
+      "name": "moving integral t**2",
+      "result": "passed"
+    },
+    {
+      "name": "xt kernel t**2",
+      "result": "passed"
+    },
+    {
+      "name": "moving integral exp(t)",
+      "result": "passed"
+    },
+    {
+      "name": "xt kernel exp(t)",
+      "result": "passed"
+    },
+    {
+      "name": "moving integral t + 1",
+      "result": "passed"
+    },
+    {
+      "name": "xt kernel t + 1",
+      "result": "passed"
+    },
+    {
+      "name": "moving upper and lower limits",
+      "result": "passed"
+    },
+    {
+      "name": "minimum average cost derivative",
+      "result": "passed"
+    },
+    {
+      "name": "average equals marginal at minimum",
+      "result": "passed"
+    },
+    {
+      "name": "profit maximum",
+      "result": "passed"
+    },
+    {
+      "name": "unit demand elasticity at revenue maximum",
+      "result": "passed"
+    },
+    {
+      "name": "difference recurrence a=4/5",
+      "result": "passed"
+    },
+    {
+      "name": "difference initial a=4/5",
+      "result": "passed"
+    },
+    {
+      "name": "difference recurrence a=-1/2",
+      "result": "passed"
+    },
+    {
+      "name": "difference initial a=-1/2",
+      "result": "passed"
+    },
+    {
+      "name": "difference recurrence a=2",
+      "result": "passed"
+    },
+    {
+      "name": "difference initial a=2",
+      "result": "passed"
+    },
+    {
+      "name": "resonant difference recurrence",
+      "result": "passed"
+    },
+    {
+      "name": "cobweb first period",
+      "result": "passed"
+    },
+    {
+      "name": "cone lateral area",
+      "result": "passed"
+    },
+    {
+      "name": "pumping work",
+      "result": "passed"
+    },
+    {
+      "name": "pressure center depth",
+      "result": "passed"
+    },
+    {
+      "name": "rod force integral",
+      "result": "passed"
+    },
+    {
+      "name": "disk moment factor",
+      "result": "passed"
+    },
+    {
+      "name": "paraboloid solid volume",
+      "result": "passed"
+    },
+    {
+      "name": "zero curl away from origin",
+      "result": "passed"
+    },
+    {
+      "name": "small circle integral",
+      "result": "passed"
+    },
+    {
+      "name": "x squared Fourier coefficient 1",
+      "result": "passed"
+    },
+    {
+      "name": "x squared Fourier coefficient 2",
+      "result": "passed"
+    },
+    {
+      "name": "x squared Fourier coefficient 3",
+      "result": "passed"
+    },
+    {
+      "name": "x squared Fourier coefficient 4",
+      "result": "passed"
+    },
+    {
+      "name": "x squared Fourier coefficient 5",
+      "result": "passed"
+    },
+    {
+      "name": "x squared Fourier coefficient 6",
+      "result": "passed"
+    },
+    {
+      "name": "sum 1/n^2",
+      "result": "passed"
+    },
+    {
+      "name": "alternating square reciprocal sum",
+      "result": "passed"
+    },
+    {
+      "name": "non-symmetric principal minors positive",
+      "result": "passed"
+    },
+    {
+      "name": "non-symmetric quadratic zero direction",
+      "result": "passed"
+    },
+    {
+      "name": "symmetric part semidefinite",
+      "result": "passed"
+    },
+    {
+      "name": "adjugate trace [[1, 0, 0], [0, 2, 0], [0, 0, 3]]",
+      "result": "passed"
+    },
+    {
+      "name": "adjugate trace [[0, 0, 0], [0, 2, 0], [0, 0, 3]]",
+      "result": "passed"
+    },
+    {
+      "name": "adjugate trace [[2, 1], [0, 2]]",
+      "result": "passed"
+    },
+    {
+      "name": "adjugate trace [[0, 1], [0, 0]]",
+      "result": "passed"
+    },
+    {
+      "name": "adjugate trace [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 2, 0], [0, 0, 0, 4]]",
+      "result": "passed"
+    },
+    {
+      "name": "location-uniform lower feasible bound",
+      "result": "passed"
+    },
+    {
+      "name": "location-uniform upper feasible bound",
+      "result": "passed"
+    },
+    {
+      "name": "location-uniform MLE not unique",
+      "result": "passed"
+    },
+    {
+      "name": "sample maximum invalid location parameter",
+      "result": "passed"
+    },
+    {
+      "name": "normal sign-mixture variance",
+      "result": "passed"
+    },
+    {
+      "name": "normal sign mixture has nonzero atom",
+      "result": "passed"
+    }
+  ]
+}

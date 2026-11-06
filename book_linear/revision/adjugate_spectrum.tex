@@ -1,0 +1,26 @@
+\section{速算卡：伴随矩阵的特征值与迹}\label{r2:adjugate}
+本书 $A^*$ 表示古典伴随矩阵（adjugate），不是共轭转置。设 $A\in\mathbb C^{n\times n}$，特征值 $\lambda_1,\ldots,\lambda_n$ 均按代数重数计。
+
+\begin{theorem}{可逆时的倒数谱与任意方阵的乘积谱}
+若 $A$ 可逆，则 $A^*=(\det A)A^{-1}$，因此 $A^*$ 的特征值为
+\[
+ \frac{\det A}{\lambda_i}=\prod_{j\ne i}\lambda_j\quad(i=1,\ldots,n).
+\]
+并且对任意 $A$，包括奇异矩阵，均有
+\[
+ \operatorname{tr}(A^*)=\sum_{i=1}^n\prod_{j\ne i}\lambda_j.
+\]
+奇异时只使用右侧不含除法的表达，不能把零特征值代入 $\det A/\lambda_i$。事实上伴随矩阵的谱仍是这 $n$ 个乘积，按重数计；这一结论不要求 $A$ 可对角化。
+\end{theorem}
+\begin{proof}
+可逆情形由 $AA^*=(\det A)I$ 直接得到。任意 $A$ 可在复数域相似上三角化；伴随变换与相似相容，可先对 $A+tI$ 的可逆取值证明，再利用伴随各元素是原元素的多项式延伸到 $t=0$。上三角矩阵的伴随仍上三角，其第 $i$ 个对角元就是其余对角元之积。因此得到谱与迹公式。也可从特征多项式的 $t$ 一次项看出迹公式。
+\end{proof}
+
+\begin{example}{可逆与奇异两种速算}{考研训练}{r2-adjugate}
+若三阶 $A$ 的特征值为 $1,2,3$，则 $\det A=6$，伴随特征值为 $6,3,2$，迹为 $11$。若改为 $0,2,3$，伴随谱为 $6,0,0$，迹为 $6$；虽 $\det A=0$，伴随未必为零。
+另一例 $A=\begin{pmatrix}2&1\\0&2\end{pmatrix}$ 不可对角化，但 $A^*=\begin{pmatrix}2&-1\\0&2\end{pmatrix}$ 的谱仍为 $2,2$，迹为四。
+\end{example}
+
+\paragraph{与秩判据一起使用}
+当 $n\ge2$ 时，$\operatorname{rank}A=n,n-1,\le n-2$ 分别对应 $\operatorname{rank}A^*=n,1,0$。但秩为一的伴随也可能所有特征值为零，不能把“秩一”当作“有一个非零特征值”。例如非零二阶幂零阵 $A=\begin{pmatrix}0&1\\0&0\end{pmatrix}$ 的伴随为 $-A$，秩一而谱全零。
+自测：四阶 $A$ 的谱为 $1,1,2,4$。答：$\det A=8$，伴随谱为 $8,8,4,2$，迹 $22$。$n=1$ 时按空乘积为一的约定，$A^*=[1]$，不要把 $n\ge2$ 的秩分类直接搬用。

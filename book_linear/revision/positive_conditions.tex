@@ -1,0 +1,22 @@
+\subsection{应试反例：非对称矩阵不能直接查顺序主子式}\label{r2:positive}
+本章的 Sylvester 正定判据明确以\textbf{实对称矩阵}为对象。对任意实方阵 $A$，令 $S=(A+A^{\mathsf T})/2$、$K=(A-A^{\mathsf T})/2$，则 $K^{\mathsf T}=-K$，且
+\[
+ x^{\mathsf T}Kx=0,\qquad x^{\mathsf T}Ax=x^{\mathsf T}Sx.
+\]
+故对非对称系数阵，二次式的正负应检查 $S$。按本书约定，“半正定矩阵”本身也要求对称；若不对称，应说“它定义的二次式非负”或“它的对称部分半正定”。
+
+\begin{example}{顺序主子式全正却不产生正定二次式}{考研辨析}{r2-positive}
+取 $A=\begin{pmatrix}1&2\\0&1\end{pmatrix}$，两阶顺序主子式均为一，两个特征值也都是一。但
+\[
+ S=\frac{A+A^{\mathsf T}}2=\begin{pmatrix}1&1\\1&1\end{pmatrix},\qquad
+ x^{\mathsf T}Ax=(x_1+x_2)^2.
+\]
+非零向量 $(1,-1)^{\mathsf T}$ 使二次式为零，因此它不严格为正。$S$ 的特征值为 $0,2$，是半正定的实对称矩阵，而 $A$ 本身不在本书正定/半正定矩阵定义的对象类中。
+\end{example}
+
+\begin{warning}
+先查实对称，再选谱、主子式、配方或合同法。对于实对称矩阵，严格正定看全部顺序主子式正；半正定看所有主子式非负。不能同时省掉“对称”和“所有”两个条件。
+\end{warning}
+
+\paragraph{自测与答案}
+$B=\begin{pmatrix}1&3\\0&1\end{pmatrix}$ 的顺序主子式也都为一，但 $x=(1,-1)^{\mathsf T}$ 给 $x^{\mathsf T}Bx=-1$，而 $x=(1,0)^{\mathsf T}$ 给一，所以其二次式不定。正特征值对一般非对称矩阵也不是二次式正定的充分条件。

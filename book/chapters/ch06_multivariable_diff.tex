@@ -44,9 +44,9 @@ $f(a+h,b+k)-f(a,b)=Ah+Bk+o(\rho)$，称$f$在$P$可微；此时$A=f_x(P),B=f_y(P
 
 \begin{theorem}{多元链式与隐函数，标准结论}可微复合映射的导数矩阵相乘。若$z=f(u,v)$且$u,v$依赖$x,y$，则$z_x=f_uu_x+f_vv_x$。若$F\in C^1$、$F(P)=0$且$F_z(P)\ne0$，在点附近唯一解出$z=z(x,y)$，$z_x=-\frac{F_x}{F_z},z_y=-\frac{F_y}{F_z}$。\end{theorem}
 \begin{proof}将内层线性增量代入外层线性增量，余项仍为距离的小量。隐函数关系为\[F(x,y,z(x,y))=0.\]对该关系使用链式法则得到偏导公式；局部可解性来自隐函数定理。\end{proof}
-方程组$F_1=F_2=0$解出$u,v$的充分条件为$\det\left(\frac{\partial(F_1,F_2)}{\partial(u,v)}\right)\ne0$；求导后解线性方程组。
+对在基点邻域为 $C^1$ 且基点满足 $F_1=F_2=0$ 的方程组，局部解出 $u,v$ 的一个充分条件为$\det\left(\frac{\partial(F_1,F_2)}{\partial(u,v)}\right)\ne0$；求导后解线性方程组。
 
-\begin{method}{复合函数与隐函数}条件：区分自变量与中间变量。步骤：画依赖关系，每条路径导数相乘再相加；隐函数先整体求导。易错点：二阶求导时忘记系数也随变量变化。\end{method}
+\begin{method}{复合函数与隐函数}条件：区分自变量与中间变量。隐函数先核对基点满足方程、$F$ 在邻域内为 $C^1$，再验证待解变量的偏导非零；例如解出 $y=y(x)$ 需 $F_y(P)\ne0$，解出 $z=z(x,y)$ 需 $F_z(P)\ne0$，方程组则检查对应 Jacobian 行列式非零。步骤：画依赖关系，每条路径导数相乘再相加；条件满足后再整体求导。易错点：二阶求导时忘记系数也随变量变化。\end{method}
 \subsection{例题与方法比较}
 \begin{example}{考研风格例题｜链式}{难度：$\star\star$}
 \label{ex:6:4}\textbf{题目} $z=u^2+v^2,u=x+y,v=x-y$，求$z_x$。\par
@@ -57,7 +57,7 @@ $f(a+h,b+k)-f(a,b)=Ah+Bk+o(\rho)$，称$f$在$P$可微；此时$A=f_x(P),B=f_y(P
 \end{example}
 \begin{example}{考研风格例题｜隐式二阶}{难度：$\star\star$}
 \label{ex:6:5}\textbf{题目} 球面$x^2+y^2+z^2=1$上$z\ne0$，求$z_x,z_{xx}$。\par
-\textbf{思路} 一阶关系再对$x$求导。\par
+\textbf{思路} 令 $F=x^2+y^2+z^2-1$。基点在球面上，$F\in C^\infty$，且 $F_z=2z\ne0$，故基点附近唯一解出光滑的 $z=z(x,y)$；再将一阶关系对 $x$ 求导。\par
 \textbf{解答} 方法一：$z_x=-\frac{x}{z}$，$z_{xx}=-\frac{1}{z}-\frac{x^2}{z^3}$。方法二：对$1+z_x^2+zz_{xx}=0$直接解出，得$z_{xx}=-\frac{1+z_x^2}{z}$，代回同式。\par
 \textbf{方法点评} 隐式二次求导避免分式展开错误。\par
 \textbf{易错点或变式} 不能把$z$当作常数求第二次导数。
@@ -65,7 +65,7 @@ $f(a+h,b+k)-f(a,b)=Ah+Bk+o(\rho)$，称$f$在$P$可微；此时$A=f_x(P),B=f_y(P
 \begin{example}{考研风格例题｜隐式方程组}{难度：$\star\star$}
 \label{ex:6:6}\textbf{题目} $u+v=x,u-v=y$，求$u_x,v_y$。\par
 \textbf{思路} 系数矩阵可逆。\par
-\textbf{解答} 雅可比为$-2\ne0$。显式解$u=\frac{x+y}{2},v=\frac{x-y}{2}$，所以$u_x=\frac{1}{2},v_y=-\frac{1}{2}$。对两关系分别求偏导并解线性方程可得同样结果。\par
+\textbf{解答} 令 $F_1=u+v-x,F_2=u-v-y$，均为 $C^\infty$。关于待解变量 $(u,v)$ 的 Jacobian 为 $\begin{pmatrix}1&1\\1&-1\end{pmatrix}$，行列式为 $-2\ne0$。显式解$u=\frac{x+y}{2},v=\frac{x-y}{2}$，所以$u_x=\frac{1}{2},v_y=-\frac{1}{2}$。对两关系分别求偏导并解线性方程可得同样结果。\par
 \textbf{方法点评} 线性例子显示一般隐函数组计算的结构。\par
 \textbf{易错点或变式} 偏导变量变换时保持另一自变量不变。
 \end{example}

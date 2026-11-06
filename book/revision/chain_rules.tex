@@ -1,0 +1,73 @@
+\subsection{复合函数求导公式全表：外导数乘内导数}\label{r2:chain}
+本节与第\ref{r2:product}节的乘法求导配合使用。“乘积”指多个因子相乘；“复合”指一个函数作为另一个函数的输入，同一个表达式可能同时含有这两种结构。
+
+\begin{theorem}{两层、多层复合的一阶及二三阶公式}
+若 $u$ 在所求点可导，$f$ 在 $u(x)$ 处可导，则
+\[
+ [f(u(x))]'=f'(u(x))u'(x).
+\]
+若 $y=f(g(h(x)))$，则
+\[
+ y'=f'(g(h(x)))g'(h(x))h'(x).
+\]
+各层均需在对应取值处可导。当所需高阶导数存在时，
+\begin{align*}
+ [f(u)]''&=f''(u)(u')^2+f'(u)u'',\\
+ [f(u)]'''&=f'''(u)(u')^3+3f''(u)u'u''+f'(u)u'''.
+\end{align*}
+若内层为 $ax+b$，则 $[f(ax+b)]^{(n)}=a^n f^{(n)}(ax+b)$（$n\ge1$）。一般非线性内层不能照搬这个简化式。
+\end{theorem}
+\begin{proof}
+设 $\Delta u=u(x+h)-u(x)$，外层可导给 $\Delta f=f'(u)\Delta u+\varepsilon(\Delta u)\Delta u$，其中 $\varepsilon(s)\to0$，并可设 $\varepsilon(0)=0$。内层可导给 $\Delta u/h\to u'$，故除以 $h$ 后余项趋零，即得链式法则。这种证明不需要除以可能为零的 $\Delta u$。二、三阶式对上一阶表达式整体使用乘积与链式法则即可推出。
+\end{proof}
+
+以下统一记 $u=u(x),v=v(x)$，$a,\alpha$ 为常数，表中公式只在实际定义域内且满足所列条件时使用。令 $u=x,u'=1$ 就恢复基本初等函数导数表。
+\input{revision/chain_table}
+对于正整数幂，幂函数公式可以在全部实值点使用；负整数幂仍排除零。表中根式或反三角函数的内部条件失效时，应回到复合函数本身或导数定义判断：$\sqrt{x^2}=|x|$ 在零不可导，$\sqrt{x^4}=x^2$ 却可导，不能仅因表格出现零分母就否定所有特殊复合的可导性。
+
+\paragraph{可选的反三角与双曲补表}
+若采用 $\operatorname{arcsec}u=\arccos(1/u)$、$\operatorname{arccsc}u=\arcsin(1/u)$ 的分支约定，则在 $|u|>1$ 上
+\[
+ (\operatorname{arcsec}u)'=\frac{u'}{|u|\sqrt{u^2-1}},\qquad
+ (\operatorname{arccsc}u)'=-\frac{u'}{|u|\sqrt{u^2-1}}.
+\]
+这两个函数的命名与分支并非所有教材统一，使用前应先核对约定。双曲函数的常见复合形式为
+\begin{align*}
+ (\sinh u)'&=\cosh u\,u',&(\cosh u)'&=\sinh u\,u',\\
+ (\tanh u)'&=\frac{u'}{\cosh^2u},&(\coth u)'&=-\frac{u'}{\sinh^2u}\quad(u\ne0).
+\end{align*}
+这张可选补表不改变各卷种的考试范围。
+
+\begin{example}{三层复合与二阶导数}{基础训练}
+设 $y=\ln(1+\sin^2(3x))$。由外向内依次求导，
+\[
+ y'=\frac{1}{1+\sin^2(3x)}\,2\sin(3x)\cos(3x)\,3
+ =\frac{6\sin(3x)\cos(3x)}{1+\sin^2(3x)}.
+\]
+分母至少为一，全实轴合法。另取 $z=\sin(x^2)$，则 $z'=2x\cos(x^2)$，二阶为 $z''=2\cos(x^2)-4x^2\sin(x^2)$；只保留外层二阶项会漏掉 $2\cos(x^2)$。
+\end{example}
+
+\begin{example}{变底变指数：乘积与复合一起使用}{综合训练}
+对 $y=(1+x^2)^{\sin x}$，底数恒正，取 $\ln y=\sin x\ln(1+x^2)$。右边先用乘积法则，左边用链式法则，得到
+\[
+ y'=(1+x^2)^{\sin x}\left[\cos x\ln(1+x^2)+\frac{2x\sin x}{1+x^2}\right].
+\]
+对 $y=x^x$（$x>0$），同理得 $y'=x^x(\ln x+1)$。当指数本身变化时，不能只套常数指数幂法则。
+\end{example}
+
+\paragraph{隐式、参数与反函数的相邻公式}
+隐函数 $F(x,y)=0$ 在 $F\in C^2$、基点满足方程且 $F_y\ne0$ 时，
+\[
+ y'=-\frac{F_x}{F_y},\qquad
+ y''=-\frac{F_{xx}+2F_{xy}y'+F_{yy}(y')^2}{F_y}.
+\]
+反函数 $g=f^{-1}$ 的一阶公式为 $g'(f(a))=1/f'(a)$，需局部可逆且 $f'(a)\ne0$；若二阶条件满足，则 $g''(f(a))=-f''(a)/[f'(a)]^3$。反函数不是倒数，不能把 $f^{-1}(x)$ 与 $1/f(x)$ 混为一谈。参数求导仍需用 $\dd/\dd x=[1/x'(t)]\dd/\dd t$，先核对 $x'(t)\ne0$。
+
+\paragraph{自测与答案}
+\begin{enumerate}
+\item $\arctan(e^{2x})$：导数为 $2e^{2x}/(1+e^{4x})$。
+\item $\sqrt{\ln x}$：在 $x>1$ 的导数为 $1/(2x\sqrt{\ln x})$，不把内部公式直接代到端点 $x=1$。
+\item $\log_2(1+x^2)$：导数为 $2x/[(1+x^2)\ln2]$。
+\item $x^{\sin x}$：在 $x>0$ 的导数为 $x^{\sin x}[\cos x\ln x+\sin x/x]$。
+\end{enumerate}
+链式结构可对照 \href{https://openstax.org/books/calculus-volume-1/pages/3-6-the-chain-rule}{OpenStax 微积分教材的链式法则章节}；本表将内函数及适用条件显式写出。

@@ -12,6 +12,9 @@
 若$F$在$(a,b)$附近属于$C^1$，$F(a,b)=0$且$F_y(a,b)\ne0$，则该点附近存在唯一经过$(a,b)$的$C^1$隐函数$y=y(x)$，并有$y\prime=-\frac{F_x}{F_y}$。参数方程$x=x(t),y=y(t)$在点附近属于$C^1$且$x\prime(t)\ne0$时，$\frac{\dd y}{\dd x}=\frac{y\prime(t)}{x\prime(t)}$。正函数幂式可先取对数。
 
 \begin{method}{导数、微分与复合求导}条件：分式分母、对数真数与反函数导数均须合法。步骤：画复合层次，逐层求导；隐式关系两边求导。易错点：将参数导数与关于$x$的导数混同。\end{method}
+\input{revision/product_rules}
+\input{revision/chain_rules}
+
 \subsection{例题与方法比较}
 \begin{example}{基础例题｜对数求导}{难度：$\star$}
 \label{ex:2:1}\textbf{题目} 求$x^x$的导数，$x>0$。\par
@@ -22,7 +25,7 @@
 \end{example}
 \begin{example}{考研风格例题｜隐函数}{难度：$\star\star$}
 \label{ex:2:2}\textbf{题目} 在单位圆上$x y\ne0$处求$y\prime,y\prime\prime$。\par
-\textbf{思路} 先求一阶，再对含$y$的表达式求导。\par
+\textbf{思路} 令 $F=x^2+y^2-1$，基点在圆上且 $F\in C^\infty$，题设 $y\ne0$ 给 $F_y=2y\ne0$，故存在局部光滑分支。先求一阶，再对含 $y$ 的表达式求导。\par
 \textbf{解答} 方法一：$x^2+y^2=1$给$y\prime=-\frac{x}{y}$，再求导得$y\prime\prime=-\frac{1}{y}-\frac{x^2}{y^3}=-\frac{1}{y^3}$。方法二：局部分支$y=\pm\sqrt{1-x^2}$，直接求两次导数得到同式。\par
 \textbf{方法点评} 隐式法统一上下分支，显式法便于核对。\par
 \textbf{易错点或变式} 在$y=0$处不能把圆写成局部可导的$y(x)$。
@@ -189,6 +192,8 @@
 \input{chapters/materials/differential_source_deep}
 \input{chapters/illustrations/ch02}
 \input{chapters/materials/course_differential}
+\input{revision/economics}
+
 \section*{章末分层习题}\addcontentsline{toc}{section}{章末分层习题}
 \refstepcounter{exercise}\label{q:2:1}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$\ln(1+x^2)$的导数。\quad\hyperref[a:2:1]{[答案]}\par
 \refstepcounter{exercise}\label{q:2:2}\par\noindent\textbf{习题\theexercise\quad 基础题} 求$x\e^{2x}$的一阶导数。\quad\hyperref[a:2:2]{[答案]}\par

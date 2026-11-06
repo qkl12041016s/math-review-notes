@@ -1,0 +1,45 @@
+\section{数三应用：一阶常系数线性差分方程}\label{r2:difference}
+离散变量以 $t=0,1,2,\ldots$ 编号。定义 $\Delta x_t=x_{t+1}-x_t$，不要把 $\Delta x_t$ 当作连续导数。方程 $\Delta x_t+\alpha x_t=b$ 等价于 $x_{t+1}=a x_t+b$，其中 $a=1-\alpha$。
+
+\begin{theorem}{通解、特解与初值}
+对常数 $a,b$ 及给定 $x_0$，递推 $x_{t+1}=a x_t+b$ 的唯一解为
+\[
+ x_t=\begin{cases}
+ \displaystyle\frac{b}{1-a}+a^t\left(x_0-\frac{b}{1-a}\right),&a\ne1,\\[4pt]
+ x_0+bt,&a=1.
+ \end{cases}
+\]
+当 $a=0$ 时，直接规定 $t=0$ 用初值、$t\ge1$ 为 $b$，无需讨论符号 $0^0$。$a\ne1$ 时常数特解 $x_*=b/(1-a)$，齐次解是 $Ca^t$；$a=1$ 时常数特解失效，改试 $bt$。
+\end{theorem}
+\begin{proof}
+当 $a\ne1$，令 $u_t=x_t-x_*$，则 $u_{t+1}=au_t$，逐次递推得到 $u_t=a^tu_0$；$a=1$ 时逐期差为 $b$，累加即可。每期由上一期唯一确定，故满足初值的解唯一。
+\end{proof}
+更一般的 $x_{t+1}=a x_t+b_t$ 可写成
+\[
+ x_t=a^t x_0+\sum_{j=0}^{t-1}a^{t-1-j}b_j\quad(t\ge1).
+\]
+对指数项 $b_t=c r^t$，若 $r\ne a$ 可试 $K r^t$ 并得 $K=c/(r-a)$；共振 $r=a\ne0$ 时改试 $Kt a^t$。零值退化情形直接用递推或有限和处理。
+
+\subsection{平衡与收敛：检查系数模长}
+当 $|a|<1$，所有初值收敛到 $x_*$。$0<a<1$ 时偏离同号衰减，$-1<a<0$ 时交替衰减。$a=-1$ 时非平衡初值一般为二周期；$|a|>1$ 时非平衡偏离的模增长，但初值恰为平衡仍是常数解。$a=1,b=0$ 时所有初值都平衡，$b\ne0$ 时没有常数平衡。
+
+\begin{example}{常量外生支出与收敛路径}{数三应用}
+$Y_{t+1}=0.8Y_t+10$，$Y_0=0$。平衡为 $50$，所以 $Y_t=50(1-0.8^t)$。核对 $Y_1=10,Y_2=18$；误差为 $50\cdot0.8^t$，与“每期增加0.8”无关。
+\end{example}
+
+\subsection{蛛网模型：滞后供给与市场出清}
+设需求 $D_t=\alpha-\beta p_t$、供给 $S_t=\gamma+\delta p_{t-1}$，$\beta,\delta>0$。每期 $D_t=S_t$，得到
+\[
+ p_t=\frac{\alpha-\gamma}{\beta}-\frac{\delta}{\beta}p_{t-1},\qquad
+ p_* =\frac{\alpha-\gamma}{\beta+\delta},\qquad
+ p_t-p_* =\left(-\frac{\delta}{\beta}\right)^t(p_0-p_*).
+\]
+因此局部偏离收敛要求 $\delta<\beta$。这是按需求和供给都写成价格函数的斜率约定得到的条件，不应脱离坐标方向背诵“哪条曲线更陡”。价格、数量非负的经济可行性须另查。
+例如 $\alpha=100,\gamma=10,\beta=2,\delta=1,p_0=20$，则 $p_*=30,p_1=35,p_2=27.5$，逐期振荡衰减。
+
+\paragraph{自测与解答}
+\begin{enumerate}
+\item $x_{t+1}=-x_t/2+3,x_0=0$。答：$x_t=2-2(-1/2)^t$，前两期为 $3,3/2$，极限为 $2$。
+\item $x_{t+1}=2x_t+3\cdot2^t,x_0=1$。答：共振特解为 $(3/2)t2^t$，所以 $x_t=2^t(1+3t/2)$；代 $t=0,1$ 核对为 $1,5$。
+\item $x_{t+1}=x_t+2,x_0=1$。答：$x_t=1+2t$，本题不能使用 $b/(1-a)$。
+\end{enumerate}

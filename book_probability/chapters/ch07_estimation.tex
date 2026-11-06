@@ -1,8 +1,8 @@
 \chapter{参数估计}\label{ch:07}
 \chaptermap{矩与似然\\构造估计}{偏差、风险\\信息下界}{充分与完备\\条件降方差}{Bayes更新\\枢轴区间}
 \begin{examtip}
-\textbf{考研核心：}矩估计、极大似然、无偏性、有效性、一致性、正态总体区间。
-\textbf{竞赛拓展：}非正则端点、充分统计量、Cramér--Rao下界与UMVU。
+\textbf{统考入口：}数学一、三均按各自大纲训练矩估计与极大似然；数学一另按要求学习估计量评价及正态总体区间。数三不把本章的评价、区间和提高内容整章纳入主线。
+\textbf{求解提醒：}端点模型的MLE先检查支持约束；\textbf{提高选读：}充分统计量、Cramér--Rao下界与UMVU。
 \textbf{选学关联：}条件期望将估计误差作正交分解；Bayes均值在后验平方损失下最优。
 \end{examtip}
 \section{矩估计与极大似然估计}\label{sec:71}
@@ -33,7 +33,7 @@
 目标$g(\lambda)=e^{-\lambda t}$。$t>0$时它为一一变换，MLE为$e^{-\frac{t}{\bar X}}$；$t=0$时目标恒为1，其MLE也为1。矩估计由$\E X=\frac{1}{\lambda}$得到$\frac{1}{\bar X}$。}
 {一一变换不改变最大化所对应的模型点，产生MLE不变性。}
 {率的倒数估计均值，不要把$\bar X$本身写成率估计。}
-\worked{均匀端点的非正则估计}{竞赛风格}{\star\star}{7-3}
+\worked{均匀端点的非正则估计}{MLE边界训练}{\star\star}{7-3}
 {iid $U(0,\theta)$，比较矩估计与MLE。}
 {可行参数由最大样本$M$控制。}
 {矩法：$\E X=\frac{\theta}{2}$，故$\hat\theta_{\rm MM}=2\bar X$。
@@ -245,6 +245,8 @@ UMVU只在无偏类中最优，不保证全体估计量中MSE最小。
 \addplot[Teal,thick,domain=0:1,samples=100]{6435*x^8*(1-x)^4};\addlegendentry{后验Beta$(9,5)$}
 \draw[Ink,dashed](axis cs:.7,0)--(axis cs:.7,3.2);
 \end{axis}\end{tikzpicture}\caption{10次成功7次后的Beta更新；竖线为MLE $0.7$，后验均值为$\frac{9}{14}$}\label{fig:beta-update}\end{figure}
+
+\input{revision/boundary_mle}
 
 \section*{章末分层习题}
 \exercise{7-a}{基础}{Bernoulli样本$n=20$、成功12次，求$p$矩估计和MLE。}

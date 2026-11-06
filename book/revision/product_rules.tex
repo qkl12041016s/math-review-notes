@@ -1,0 +1,101 @@
+\subsection{乘法求导公式全表：每次只对一个因子求导}\label{r2:product}
+以下 $u,v,w$ 均为 $x$ 的函数，$c$ 为常数。使用一阶公式只需各因子在所求点可导；高阶公式则要求相应高阶导数存在。乘积公式本身不要求各因子非零。
+
+\begin{theorem}{两因子与多因子的一阶乘法求导}
+\begin{align*}
+ (cu)'&=cu',\\
+ (uv)'&=u'v+uv',\\
+ (uvw)'&=u'vw+uv'w+uvw',\\
+ \left(\prod_{j=1}^m u_j\right)'&=
+ \sum_{k=1}^m\left(u_k'\prod_{\substack{j=1\\j\ne k}}^m u_j\right).
+\end{align*}
+多因子每一项只对一个因子求导，其余因子保持原样；共 $m$ 个因子就有 $m$ 个加项，不能把全部因子的导数相乘。
+\end{theorem}
+\begin{proof}
+两因子的增量可写为 $\Delta(uv)=v\Delta u+u\Delta v+\Delta u\Delta v$。除以 $h=\Delta x$ 后，前两项趋于 $u'v+uv'$；最后一项为 $(\Delta u/h)\Delta v$，由于可导蕴含连续，极限为零。多因子公式从两因子公式归纳得到。
+\end{proof}
+
+\begin{warning}
+一般 $(uv)'\ne u'v'$，也不是只求 $u'v$ 或只求 $uv'$。例如 $u=v=x$，正确导数为 $2x$，而 $u'v'=1$。在 $x=0$ 时两个因子均为零，乘积公式仍成立；需要非零条件的是后面的对数写法，而不是乘积法则。
+\end{warning}
+
+\begin{example}{两因子乘积：先分组，再保留两项}{基础训练}
+对 $y=(x^2+1)\sin x$，取 $u=x^2+1,v=\sin x$，有
+\[
+ y'=2x\sin x+(x^2+1)\cos x.
+\]
+再求一次导数时，两项都需使用乘积法则：
+\[
+ y''=2\sin x+4x\cos x-(x^2+1)\sin x.
+\]
+两份 $2x\cos x$ 要合并成 $4x\cos x$。对 $z=x\ln x$（$x>0$），$z'=\ln x+1$，而不是 $1/x$。
+\end{example}
+
+\begin{example}{三个因子：逐项求导而不遗漏}{基础训练}
+令 $y=xe^x\sin x$，则
+\begin{align*}
+ y'&=e^x\sin x+xe^x\sin x+xe^x\cos x\\
+   &=e^x\bigl[(x+1)\sin x+x\cos x\bigr].
+\end{align*}
+第一行对应三个因子分别求导。也可把 $e^x\sin x$ 作为整体，先用两因子法则，再在整体内部用一次乘积法则；两种分组结果相同。
+\end{example}
+
+\paragraph{乘积内部还可能有复合关系}
+若 $y=u(x)v(x)$，乘积法则中的 $u',v'$ 仍须各自正确计算。例如
+\[
+ \bigl[e^{x^2}\sin(3x)\bigr]'
+ =2xe^{x^2}\sin(3x)+3e^{x^2}\cos(3x).
+\]
+先分清“两个因子的乘积”，再处理各因子内部的复合关系，不能漏掉内层的 $2x$ 或 $3$。若是 $[u(x)]^m$，可用 $m u^{m-1}u'$；它不是 $m$ 个不同函数的导数相乘。
+
+\subsection{高阶乘法求导：二项式系数从哪里来}\label{r2:product:higher}
+\begin{align*}
+ (uv)''&=u''v+2u'v'+uv'',\\
+ (uv)'''&=u'''v+3u''v'+3u'v''+uv''',\\
+ (uv)^{(n)}&=\sum_{k=0}^{n}\binom nk u^{(k)}v^{(n-k)}\quad(n\ge0).
+\end{align*}
+这里约定 $u^{(0)}=u$，$\binom nk=n!/[k!(n-k)!]$。每个加项的总求导阶数都是 $n$；两端项系数都是一。二阶的中间系数二、三阶的中间系数三，都是再次求导时相同项合并的结果。最后一式即 Leibniz 公式，证明见第\ref{sec:2:2}节。
+
+三个或更多因子的高阶推广为
+\[
+ \left(\prod_{j=1}^m u_j\right)^{(n)}
+ =\sum_{k_1+\cdots+k_m=n}
+   \frac{n!}{k_1!\cdots k_m!}\prod_{j=1}^m u_j^{(k_j)},
+ \qquad k_j\ge0.
+\]
+求和遍历所有非负整数阶数组合。例如三因子二阶展开有三项“一个因子求二阶”和三项系数为二的“两个因子各求一阶”：
+\begin{align*}
+ (uvw)''={}&u''vw+uv''w+uvw''\\
+ &+2u'v'w+2u'vw'+2uv'w'.
+\end{align*}
+
+\begin{method}{高阶乘积求导的省算顺序}
+若其中一个因子是低次多项式，优先让它在 Leibniz 和式中承受 $k$ 阶导数，超过次数的项自动为零。另一个因子若为指数或三角函数，先写其通项。最后用 $n=1,2$ 的直接求导核对系数，不用“把两边各求 $n$ 阶再相乘”的错误规则。
+\end{method}
+
+\begin{example}{多项式乘一般函数}{综合训练}
+当 $f$ 有所需导数时，
+\[
+ (xf)^{(n)}=xf^{(n)}+nf^{(n-1)}\quad(n\ge1),
+\]
+\[
+ (x^2f)^{(n)}=x^2f^{(n)}+2nxf^{(n-1)}+n(n-1)f^{(n-2)}\quad(n\ge2).
+\]
+第二式来自 $k=0,1,2$ 三项，因 $\binom n2(x^2)''=n(n-1)$。例如 $f=e^{ax}$ 时，各阶导数可保留为 $(e^{ax})^{(j)}$ 再代入，避免在 $a=0$ 时机械写出负幂。前文的 $x^2e^x$ 是 $a=1$ 的特例。
+\end{example}
+
+\paragraph{多因子对数写法：只在非零区间使用}
+若所有因子非零，$y=\prod u_j$ 可写
+\[
+ \frac{y'}y=\sum_j\frac{u_j'}{u_j},\qquad
+ y'=y\sum_j\frac{u_j'}{u_j}.
+\]
+这是对 $\ln|y|=\sum_j\ln|u_j|$ 求导，不允许在任一因子为零的点直接除法。零点处应回到原来的逐项求导式；若通过化简得到连续延拓，也须说明其来源。
+
+\paragraph{自测与完整答案}
+\begin{enumerate}
+\item 求 $x^2\cos x$ 的导数。答：$2x\cos x-x^2\sin x$。
+\item 求 $(1+x)e^{2x}$ 的二阶导数。答：$4(x+2)e^{2x}$；一阶为 $(2x+3)e^{2x}$，再求导可核对。
+\item 求 $x\sin x\cos x$ 的导数。答：$\sin x\cos x+x(\cos^2x-\sin^2x)$；也可先化为 $\tfrac{x}{2}\sin2x$。
+\item 写出 $(x^3f)^{(n)}$，$n\ge3$。答：$x^3f^{(n)}+3nx^2f^{(n-1)}+3n(n-1)xf^{(n-2)}+n(n-1)(n-2)f^{(n-3)}$。
+\end{enumerate}

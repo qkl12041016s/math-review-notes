@@ -1,0 +1,60 @@
+{
+  "version": "v1.1.0",
+  "date": "2026-11-07",
+  "pages": {
+    "calculus": 303,
+    "linear": 140,
+    "probability": 110
+  },
+  "validation_scope": "Targeted new formulas and examples; not a new proof audit of every original exercise.",
+  "pdf_checks": {
+    "calculus": {
+      "pages": 303,
+      "overfull_hbox": 0,
+      "overfull_vbox": 0,
+      "missing_glyph": 0,
+      "undefined_references": false,
+      "placeholder_double_question_marks": 0
+    },
+    "linear": {
+      "pages": 140,
+      "overfull_hbox": 0,
+      "overfull_vbox": 0,
+      "missing_glyph": 0,
+      "undefined_references": false,
+      "placeholder_double_question_marks": 0
+    },
+    "probability": {
+      "pages": 110,
+      "overfull_hbox": 0,
+      "overfull_vbox": 0,
+      "missing_glyph": 0,
+      "undefined_references": false,
+      "placeholder_double_question_marks": 0
+    }
+  },
+  "new_math_checks": {
+    "passed": 87,
+    "command": "python tools/verify_revision_math.py"
+  },
+  "independent_checkout_builds": {
+    "probability": {
+      "pages": 110,
+      "clean_log": true,
+      "all_page_text_matches_reviewed_pdf": true
+    },
+    "calculus": {
+      "pages": 303,
+      "clean_log": true,
+      "all_page_text_matches_reviewed_pdf": true
+    },
+    "linear": {
+      "pages": 140,
+      "clean_log": true,
+      "all_page_text_matches_reviewed_pdf": true
+    }
+  },
+  "readme_and_revision_local_links_ok": true,
+  "python_source_syntax_passed": 1,
+  "repository_and_book_names_unchanged": true
+}

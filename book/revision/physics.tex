@@ -1,0 +1,60 @@
+\section{积分应用训练：从微元到总量}\label{r2:physics}
+应用题先画图、定义坐标和单位，再写“微元量=密度或作用强度$\times$几何微元”。物理场景用于训练积分建模，具体哪些类别属于所考卷种，依卷首分流和当年大纲选择，不把本节全部题型标成每卷共同必考。
+
+\subsection{旋转曲面侧面积：半径乘弧长微元}
+若 $y=f(x)\ge0$、$f\in C^1[a,b]$，其图像绕 $x$ 轴旋转得到的侧面积为
+\[
+ S=2\pi\int_a^b f(x)\sqrt{1+[f'(x)]^2}\dd x.
+\]
+它不包含两端盖面。绕 $y$ 轴且 $x\ge0$ 时，半径改为 $x$。若曲线跨过旋转轴，半径应取绝对值，还要检查不同曲线段是否覆盖同一片曲面，避免重计。
+例如 $y=x,0\le x\le1$ 绕 $x$ 轴旋转，$S=2\pi\sqrt2\int_0^1x\dd x=\pi\sqrt2$，与圆锥的 $\pi r l$（$r=1,l=\sqrt2$）一致。
+
+\subsection{变力做功与抽水：距离不能选错}
+沿 $x$ 方向的力分量为 $F(x)$，从 $a$ 到 $b$ 的功为 $W=\int_a^bF(x)\dd x$。力与位移反向时功为负。弹簧拉伸 $x\ge0$ 时外力 $kx$，从 $0$ 拉到 $L$ 需做功 $kL^2/2$；弹力本身做负功。
+
+\begin{example}{直立圆柱容器抽水}{应用训练}
+圆柱底面积为 $A$、高度 $H$，水深 $h\le H$，水的质量密度为 $\rho$，将水抽到顶部，忽略损耗。以底面为 $y=0$，厚度 $\dd y$ 的水片重量为 $\rho gA\dd y$，提升距离为 $H-y$。所以
+\[
+ W=\rho gA\int_0^h(H-y)\dd y
+   =\rho gA(Hh-h^2/2).
+\]
+满水时为 $\rho gAH^2/2$，也等于总重乘质心提升距离 $H/2$。若容器变截面，应把常量 $A$ 换成 $A(y)$，不能沿用圆柱结果。
+\end{example}
+
+\subsection{液体静压力：压强乘竖直面面积微元}
+以自由液面向下的深度 $y$ 为坐标，表压为 $\rho gy$；竖直闸门水平宽度为 $w(y)$，合力大小
+\[
+ F=\rho g\int_{y_1}^{y_2}y\,w(y)\dd y.
+\]
+这是竖直平面上各处平行压力的合力，不是液体的重量。宽度 $b$、从液面延伸到深度 $h$ 的矩形闸门，$F=\rho gbh^2/2$，作用深度为
+\[
+ y_{\mathrm{cp}}=\frac{\int_0^hy^2b\dd y}{\int_0^hyb\dd y}=\frac{2h}{3}.
+\]
+若两面都有同样大气压，求净力时可用表压；若题目要求单面绝对压力，应另加 $p_0$ 的贡献。
+
+\subsection{细杆引力、薄板质心与转动惯量}
+均匀细杆位于 $[0,L]$，线密度 $\lambda$，质量为 $m$ 的质点位于 $x=-a$（$a>0$）。杆上微元质量为 $\lambda\dd x$、距离为 $a+x$，引力沿同一方向，大小为
+\[
+ F=Gm\lambda\int_0^L\frac{\dd x}{(a+x)^2}
+  =Gm\lambda\left(\frac1a-\frac1{a+L}\right).
+\]
+若 $a=0$，此理想线密度模型的积分发散，不能把有限公式直接延伸到接触点。
+
+薄板在区域 $D$ 上有面密度 $\sigma(x,y)\ge0$、总质量 $M>0$，则
+\[
+ M=\iint_D\sigma\dd A,\quad
+ \bar x=\frac{\iint_Dx\sigma\dd A}{M},\quad
+ \bar y=\frac{\iint_Dy\sigma\dd A}{M}.
+\]
+绕 $x$ 轴、$y$ 轴及垂直板面过原点的轴，转动惯量分别为
+\[
+ I_x=\iint_Dy^2\sigma\dd A,\quad
+ I_y=\iint_Dx^2\sigma\dd A,\quad I_O=I_x+I_y.
+\]
+惯量中的平方距离与质心的一次矩不能混淆。若 $D=[0,a]\times[0,b]$ 且密度常量 $\sigma$，则 $M=\sigma ab$，质心 $(a/2,b/2)$，$I_x=Mb^2/3,I_y=Ma^2/3$。
+
+\paragraph{自测与解答}
+\begin{enumerate}
+\item 均匀圆盘半径 $R$，质量 $M$，求中心垂直轴惯量。答：极坐标给 $I=\sigma\int_0^{2\pi}\int_0^Rr^3\dd r\dd\theta=\sigma\pi R^4/2=MR^2/2$。
+\item 闸门宽度 $b$、高度 $h$、上缘位于深度 $d$。答：$F=\rho gb\int_d^{d+h}y\dd y=\rho gbh(d+h/2)$，可用形心深度乘面积核对。
+\end{enumerate}

@@ -1,0 +1,36 @@
+\section{双重自变量的变限积分：端点项与内部参数项}\label{r2:leibniz}
+遇到 $G(x)=\int_{a(x)}^{b(x)}\varphi(x,t)\dd t$，先区分外部变量 $x$ 与积分哑变量 $t$。常用充分条件是 $a,b\in C^1$，且 $\varphi,\varphi_x$ 在包含相关积分区间的紧矩形上连续。此时
+\[
+ G'(x)=\varphi(x,b(x))b'(x)-\varphi(x,a(x))a'(x)
+       +\int_{a(x)}^{b(x)}\varphi_x(x,t)\dd t.
+\]
+可以合法地对内部参数求偏导再积分，但必须同时保留移动端点项；“绝不能对被积函数求偏导”是错误的。拆项或换元常能降低条件要求或简化计算，并不是唯一合法方法。反常积分的换序、求导须另核查一致可积控制。
+
+\begin{example}{核函数含 $x-t$：拆项避开额外光滑要求}{基础训练}
+若 $f$ 连续，$G(x)=\int_0^x(x-t)f(t)\dd t$。拆为
+\[
+ G(x)=x\int_0^xf(t)\dd t-\int_0^xtf(t)\dd t,
+\]
+于是 $G'(x)=\int_0^xf(t)\dd t+xf(x)-xf(x)=\int_0^xf(t)\dd t$，再得 $G''(x)=f(x)$。直接用 Leibniz 公式也得到相同结果：上端点的核为零，内部偏导为 $f(t)$。把整个被积函数简单代入 $t=x$ 会错误地得到零。
+\end{example}
+
+\begin{example}{核函数含 $xt$：换元与参数法交叉核对}{综合训练}
+令 $H(x)=\int_0^x f(xt)\dd t$，$f$ 在涉及区间连续。对 $x\ne0$，代换 $s=xt$ 得
+\[
+ H(x)=\frac1x\int_0^{x^2}f(s)\dd s,\qquad
+ H'(x)=2f(x^2)-\frac1{x^2}\int_0^{x^2}f(s)\dd s.
+\]
+这个表达对负 $x$ 也成立，换元方向由 $1/x$ 自动反映。在 $x=0$，$H(0)=0$，连续性给
+\[
+ \lim_{h\to0}\frac{H(h)}h=\lim_{h\to0}\frac1{h^2}\int_0^{h^2}f(s)\dd s=f(0),
+\]
+故 $H'(0)=f(0)$。若另外 $f\in C^1$，也可先写 $H'=f(x^2)+\int_0^x t f'(xt)\dd t$，再分部积分恢复同式；换元法不需要先假设 $f'$ 存在。
+\end{example}
+
+\paragraph{自测与解答}
+求 $J(x)=\int_x^{x^2}(x+t^2)\dd t$ 的导数。端点法给
+\[
+ J'(x)=2x(x+x^4)-(x+x^2)+(x^2-x)
+       =2x^5+2x^2-2x.
+\]
+先积分得到 $J=x^3-x^2+x^6/3-x^3/3$ 后求导同样成立。即使 $x^2<x$，有向积分公式仍可用，不应自行取绝对值。

@@ -1,0 +1,30 @@
+\section{闭路变形与奇点：先挖洞，再核对旋度}\label{r2:green}
+设 $C$ 为正向简单闭曲线，区域内有孤立奇点 $a$。取围绕 $a$ 的小圆 $C_\varepsilon$，按逆时针方向记其积分。在去掉圆盘的区域上，若 $P,Q\in C^1$，Green 公式是
+\[
+ \oint_C P\dd x+Q\dd y-\oint_{C_\varepsilon}P\dd x+Q\dd y
+ =\iint_{D\setminus B_\varepsilon(a)}(Q_x-P_y)\dd A.
+\]
+内边界在区域正向定向下是顺时针，因此当小圆单独按逆时针计时，上式有减号。只有去孔区域中 $Q_x-P_y=0$ 时，才能立即说大闭路积分等于小圆积分；有多个奇点时，等于各小圆积分的和。若旋度不为零，必须保留面积积分项。
+
+\begin{example}{原点角度场：大圈与小圈为何同值}{数一方法训练}
+取 $P=-y/(x^2+y^2),Q=x/(x^2+y^2)$。在原点外有
+\[
+ Q_x=P_y=\frac{y^2-x^2}{(x^2+y^2)^2}.
+\]
+因此对围住原点的正向简单闭曲线，可缩到逆时针小圆。令 $x=\varepsilon\cos t,y=\varepsilon\sin t$，被积微分化为 $\dd t$，故积分为 $2\pi$，与半径无关。若曲线内部不含原点且区域满足公式条件，则积分为零；方向反转时符号改变。
+\end{example}
+
+\begin{warning}
+不能把奇点处不连续的场直接套到未挖洞的区域上，得出“旋度为零所以积分为零”。也不能认为任意奇点都可忽略：对大小为 $O(\varepsilon^{-p})$ 的场，小圆长为 $O(\varepsilon)$，只能估计圆周积分为 $O(\varepsilon^{1-p})$；$p=1$ 时并不保证极限为零。上述角度场就是非零例子。
+\end{warning}
+
+\paragraph{非零旋度例题与答案}
+把上例 $Q$ 改为 $x/(x^2+y^2)+x$，则去孔区域旋度为一。对单位圆，原积分应为 $2\pi+\pi=3\pi$，而不是只取小圆的 $2\pi$。其中新增项 $\oint x\dd y=\pi$，可由参数化直接核对。
+
+\paragraph{空间中的 Stokes 变形}
+若两条定向边界 $C_1,C_2$ 围成一片场在其邻域为 $C^1$ 的有向连接曲面 $S$，并且 $\partial S=C_1-C_2$，则
+\[
+ \oint_{C_1}\bm F\cdot\dd\bm r-\oint_{C_2}\bm F\cdot\dd\bm r
+ =\iint_S(\nabla\times\bm F)\cdot\bm n\dd S.
+\]
+要推出两闭路积分相同，须让右边为零，且变形曲面不能穿越奇点或奇异线。上面的角度场延伸为三维场 $(-y/(x^2+y^2),x/(x^2+y^2),0)$ 后，奇异集是整条 $z$ 轴，不能把绕轴圆周穿过轴缩成一点。

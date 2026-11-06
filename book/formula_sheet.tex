@@ -1,0 +1,53 @@
+% !TeX program = xelatex
+\documentclass[UTF8,11pt,fontset=fandol]{ctexart}
+\usepackage[a4paper,margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,longtable}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.3}
+\title{乘法与复合函数求导：公式速查}
+\author{雪落长安无声}
+\date{2026年11月7日增补版}
+\begin{document}
+\pagestyle{plain}
+\maketitle
+\section{乘法求导}
+各因子须在所求点有相应阶数的导数，但不要求因子本身非零。常数 $c$ 满足 $(cu)'=cu'$，和差满足 $(u\pm v)'=u'\pm v'$。
+\begin{align*}
+ (uv)'&=u'v+uv',\\
+ (uvw)'&=u'vw+uv'w+uvw',\\
+ (u_1\cdots u_m)'&=\sum_{k=1}^{m}u_k'\prod_{j\ne k}u_j,\\
+ (uv)''&=u''v+2u'v'+uv'',\\
+ (uv)'''&=u'''v+3u''v'+3u'v''+uv''',\\
+ (uv)^{(n)}&=\sum_{k=0}^{n}\binom nk u^{(k)}v^{(n-k)}.
+\end{align*}
+这里 $u^{(0)}=u$，二项式系数为 $\binom nk=n!/[k!(n-k)!]$。多因子高阶推广：
+\[
+ (u_1\cdots u_m)^{(n)}=
+ \sum_{\substack{k_1+\cdots+k_m=n\\k_j\ge0}}
+ \frac{n!}{k_1!\cdots k_m!}u_1^{(k_1)}\cdots u_m^{(k_m)}.
+\]
+例如 $(x^2\sin x)'=2x\sin x+x^2\cos x$，不是 $2x\cos x$。
+商的求导另为 $(u/v)'=(u'v-uv')/v^2$，要求 $v\ne0$。
+
+\section{复合函数求导}
+内函数在所求点可导，外函数在对应内函数值处可导，才能逐层使用链式法则。
+\begin{align*}
+ [f(u(x))]'&=f'(u(x))u'(x),\\
+ [f(g(u(x)))]'&=f'(g(u(x)))g'(u(x))u'(x),\\
+ [f(u)]''&=f''(u)(u')^2+f'(u)u'',\\
+ [f(u)]'''&=f'''(u)(u')^3+3f''(u)u'u''+f'(u)u'''.
+\end{align*}
+线性内函数还满足 $[f(ax+b)]^{(n)}=a^nf^{(n)}(ax+b)$（$n\ge1$）。一般内函数不可直接照搬。
+\input{revision/chain_table}
+表中记 $u=u(x),v=v(x)$；令 $u=x,u'=1$ 就得到基本函数导数。整数幂可按实际定义域放宽 $u>0$ 条件；根式、反三角的特殊端点应直接核查函数，而非把零分母代入公式。
+
+\section{两种规则一起用}
+\begin{align*}
+ [e^{x^2}\sin(3x)]'&=2xe^{x^2}\sin(3x)+3e^{x^2}\cos(3x),\\
+ [\ln(1+x^2)]'&=\frac{2x}{1+x^2},\\
+ [\sin(x^2)]''&=2\cos(x^2)-4x^2\sin(x^2).
+\end{align*}
+检查顺序：先识别乘积或复合结构，再求各层导数，最后检查负号、系数、定义域与分母。
+\end{document}

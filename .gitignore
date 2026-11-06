@@ -134,3 +134,10 @@ desktop.ini
 .env
 .env.*
 !.env.example
+
+# Revision source and reproducible verification
+!/book/revision/
+!/book/formula_sheet.tex
+!/book_linear/revision/
+!/book_probability/revision/
+!/tools/

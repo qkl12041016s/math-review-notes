@@ -4,7 +4,7 @@
 
 ### 高等数学 · 线性代数 · 概率论与数理统计
 
-面向大学期末复习、考研备考与数学爱好者的中文 LaTeX 数学讲义，共 529 页。
+面向大学期末复习、考研备考与数学爱好者的中文 LaTeX 数学讲义，共 553 页。
 
 [![LaTeX](https://img.shields.io/badge/LaTeX-XeLaTeX-008080?logo=latex&logoColor=white)](https://www.latex-project.org/)
 [![License](https://img.shields.io/badge/License-CC_BY--NC_4.0-EF9421?logo=creativecommons&logoColor=white)](LICENSE)
@@ -32,11 +32,23 @@
 
 全书使用 LaTeX 编写，以定义、定理、方法、例题、习题和完整解答组成知识闭环，适合大学课程复习、考研数学备考以及系统查阅。
 
+## 2026-11-07 内容修订 · v1.1.0
+
+原项目名与三册书名保持不变。本版三册共553页，高数303页、线代140页、概率统计110页。
+
+- 高数同时补全乘法与复合函数求导：一阶、多因子、二三阶与Leibniz公式，正文和附录使用一致的公式入口。
+- 增补边际与弹性、一阶差分与蛛网模型、积分物理建模、投影区域、闭路奇点及Fourier训练。
+- 线代补非对称矩阵误用正定判据的反例、伴随谱与迹；概率补支持边界MLE及非唯一情形，强化正态边缘反例。
+- 保留数一、数二、数三阅读分流，进阶选学与统考主线分开。
+- Releases另附两页 `differentiation-formulas.pdf`。高数整书中，乘法从PDF第48页、复合从第50页开始。
+
+87项新增数学符号与边界检查通过；这不是对全部原有习题重新逐题审稿的声明。范围与复现命令见[修订记录](docs/revision-20261107.md)。
+
 ## 核心特色
 
 - **完整知识体系**：三册共 27 章，覆盖大学数学的主要内容。
 - **推导过程详细**：保留关键步骤、适用条件与方法依据。
-- **数学审校完整**：公式、定理条件、例题数据和习题答案均经过系统核查。
+- **核验范围可查**：新增公式、关键例题及边界条件提供可运行核验，原有内容保留勘误入口。
 - **排版清晰美观**：统一使用 XeLaTeX 排版，支持中文、公式、图表和 PDF 书签。
 - **题型层次丰富**：包含基础题、考研题、提高题与竞赛拓展。
 - **答案可直接查阅**：章末习题配有提示、推导和完整解答。
@@ -46,18 +58,15 @@
 
 | 书册 | 主要内容 | 页数 | 源码目录 |
 |---|---|---:|---|
-| 高等数学 | 极限、微积分、微分方程、多元函数、重积分、曲线曲面积分、级数 | 286 | [`book/`](book/) |
-| 线性代数 | 行列式、矩阵、向量组、方程组、特征值、二次型、线性空间 | 136 | [`book_linear/`](book_linear/) |
-| 概率论与数理统计 | 概率、随机变量、数字特征、极限定理、参数估计、检验、回归 | 107 | [`book_probability/`](book_probability/) |
+| 高等数学 | 极限、微积分、微分方程、多元函数、重积分、曲线曲面积分、级数 | 303 | [`book/`](book/) |
+| 线性代数 | 行列式、矩阵、向量组、方程组、特征值、二次型、线性空间 | 140 | [`book_linear/`](book_linear/) |
+| 概率论与数理统计 | 概率、随机变量、数字特征、极限定理、参数估计、检验、回归 | 110 | [`book_probability/`](book_probability/) |
 
 ## 页面预览
 
-<!-- 发布截图后取消下面三行注释，并将图片放入 docs/images/。 -->
-<!-- ![高等数学页面预览](docs/images/calculus-preview.png) -->
-<!-- ![线性代数页面预览](docs/images/linear-algebra-preview.png) -->
-<!-- ![概率论页面预览](docs/images/probability-preview.png) -->
-
-> 截图展示区：建议选取章节首页、公式密集页和完整例题页各一张。
+| 乘法求导公式 | 复合函数求导公式 |
+|---|---|
+| ![乘法求导](docs/images/product-rule.png) | ![复合函数求导](docs/images/chain-rule.png) |
 
 ## 三册目录
 
@@ -146,9 +155,9 @@ math-review-notes/
 
 推荐从 [GitHub Releases](https://github.com/qkl12041016s/math-review-notes/releases/latest) 下载已经编译完成的版本：
 
-- `高等数学考研与竞赛复习册.pdf`
-- `线性代数考研与竞赛复习册.pdf`
-- `概率论与数理统计考研与竞赛复习册.pdf`
+- `calculus-review-notes.pdf`（高等数学）
+- `linear-algebra-review-notes.pdf`（线性代数）
+- `probability-statistics-review-notes.pdf`（概率统计）
 
 PDF 文件作为每个版本的 Release Assets 发布，不写入 Git 历史。
 

@@ -1,0 +1,30 @@
+\section{MLE分类训练：支持边界、单调与非唯一}\label{r2:mle}
+第\ref{sec:71}节已经讨论 $U(0,\theta)$ 的支持约束，本节把容易混淆的端点模型并列比较。求解顺序是：写完整似然（含示性函数）$\to$ 找可行参数集合 $\to$ 判断在集合内是单调还是常量 $\to$ 检查最大值是否取到。取对数后只对光滑部分求导，不能替代前三步。
+记 $m=X_{(1)}=\min_iX_i$、$M=X_{(n)}=\max_iX_i$，以下均为独立同分布样本，并使用含闭端点的密度版本表达点态似然。
+
+\begin{example}{$U(0,\theta)$：似然递减而非递增}{参数估计训练}{r2-scale-mle}
+设 $\theta>0$，观测均非负，且 $M>0$，则
+\[
+ L(\theta)=\theta^{-n}\boldsymbol1\{\theta\ge M\}.
+\]
+可行集合内 $\theta^{-n}$ 严格\textbf{递减}，故最大值在最小可行参数 $\hat\theta=M$ 处取得。令对数似然导数 $-n/\theta$ 为零没有解，不意味着不存在MLE。矩估计由 $\mathbb EX=\theta/2$ 得 $2\bar X$，与样本最大值通常不同。
+若使用密度 $\theta^{-1}\boldsymbol1\{0<x<\theta\}$ 的严格开端点版本，对给定样本的可行集合变为 $\theta>M$，上确界在 $M$ 但不取到。两种密度表示同一连续概率模型，但点态似然对随参数移动的零测集版本敏感；基础题通常约定可报告闭边界解，本书同时说明这个版本细节。全部观测为零等概率零的退化数据也需另查参数边界，不能无条件报告合法 $\theta=0$。
+\end{example}
+
+\begin{example}{$U(\theta,\theta+1)$：平移端点不等于尺度端点}{参数估计训练}{r2-location-mle}
+这里 $\theta\in\mathbb R$，密度在长度为一的支撑上恒为一。联合似然为
+\[
+ L(\theta)=\boldsymbol1\{M-1\le\theta\le m\}.
+\]
+当 $M-m\le1$ 时，区间 $[M-1,m]$ 中的\textbf{每一个参数值}都使似然达到一，因此MLE一般不唯一。可以指定 $m$、$M-1$ 或区间中点为某个MLE选择，但不能无说明地写成 $M$。
+例如样本 $(2.1,2.4,2.8)$ 给可行集合 $[1.8,2.1]$，这整段都是MLE；$M=2.8$ 甚至不可行。若 $M-m>1$，数据不可能由这个固定宽度模型产生，应检查模型或数据，不把零似然的任意参数当成有意义的估计。严格开端点版本则在开区间讨论可行性。
+\end{example}
+
+\paragraph{再练两种支持约束}
+\begin{itemize}
+\item $U(-\theta,\theta)$，$\theta>0$：$L=(2\theta)^{-n}\boldsymbol1\{\theta\ge \max_i|X_i|\}$，非退化样本的MLE为 $\max_i|X_i|$。
+\item $U(\theta,2\theta)$，$\theta>0$：$L=\theta^{-n}\boldsymbol1\{M/2\le\theta\le m\}$。若数据满足可行性 $M\le2m$ 且 $m>0$，递减似然给MLE $M/2$，不是 $M$ 或 $m$。
+\end{itemize}
+
+\paragraph{自测与完整答案}
+样本 $(0.2,0.5,0.8)$：在 $U(0,\theta)$ 下MLE为 $0.8$，矩估计为 $1$；在 $U(\theta,\theta+1)$ 下MLE集合为 $[-0.2,0.2]$。同一组样本，不同支撑模型给不同可行参数，不能仅凭“均匀分布”三个字套公式。
